@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<title>theme-probe</title>
+<style>
+  /* 프로브 전용 — 캔버스 CSS 크기를 고정한다. 색은 절대 여기서 주지 않는다(정본은 index.css). */
+  #stage { position: fixed; inset-block-start: 0; inset-inline-start: 0; }
+  #stage canvas { display: block; inline-size: 320px; block-size: 200px; }
+</style>
+</head>
+<body>
+<div id="stage"></div>
+<script type="module">
+  /* 🔴 테마 토큰의 정본. 이걸 import 하지 않으면 --viz-* 가 전부 비어 측정이 무의미해진다. */
+  import '/src/ui/styles/index.css';
+  import { loadScene, createGLContext, createFallback2D } from '/src/viz/index.ts';
+
+  const W = 320, H = 200;
+
+  /* 13종 씬이 pick() 으로 꺼내 쓰는 키를 전부 모았다(scenes/*.ts · models/*.model.ts · fallback2d.ts).
+     전부 0~1 이며 기본값(0.5)과 겹치지 않게 흩어 놓았다 — 기본값과 같으면 그림이 밋밋해진다. */
+  const KEYS = ['applied','argonFlow','aspectRatio','bias','chamberPressure','clearance','crucibleRotation',
+    'crystalRotation','cycles','defectLevel','defocus','deposited','dieAcross','dieArea','directionality',
+    'dose','energy','exposure','exposureDose','floorLife','flow','force','forceCeil','fringeAmplitude',
+    'lineWidth','margin','na','odMargin','overdrive','phase','power','pressure','pullRate','rawYield',
+    'recPower','required','resistThickness','rise','roughness','saturation','scatter','slurry','soak',
+    'solidFraction','speed','speedClass','speedLog','temperature','testPower','thermalGradient','theta',
+    'thickness','tilt','time','tint','uniformity'];
+  const SPREAD = [0.35, 0.62, 0.45, 0.70, 0.55];
+  const PARAMS = {};
+  KEYS.forEach((k, i) => { PARAMS[k] = SPREAD[i % SPREAD.length]; });
+  window.__params = PARAMS;
+
+  function b64(u8) {
+    let s = '';
+    const C = 0x8000;
+    for (let i = 0; i < u8.length; i += C) s += String.fromCharCode.apply(null, u8.subarray(i, i + C));
+    return btoa(s);
+  }
+
+  function makeCanvas() {
+    const c = document.createElement('canvas');
+    c.width = W; c.height = H;
+    document.getElementById('stage').appendChild(c);
+    return c;
+  }
+
+  /** 페이지에 실제로 먹은 테마 토큰 — 양성 대조용. */
+  window.__themeInfo = () => {
+    const c = makeCanvas();
+    const cs = getComputedStyle(c);
+    const info = {
+      prefersDark: window.matchMedia('(prefers-color-scheme: dark)').matches,
+      bodyBg: getComputedStyle(document.body).backgroundColor,
+      bodyColor: getComputedStyle(document.body).color,
+      canvasColor: cs.color,
+      vizSpec: cs.getPropertyValue('--viz-spec').trim(),
+      vizInfo: cs.getPropertyValue('--viz-info').trim(),
+      vizSeries1: cs.getPropertyValue('--viz-series-1').trim(),
+      dpr: window.devicePixelRatio,
+    };
+    c.remove();
+    return info;
+  };
+
+  /** mode: 'gl' | '2d'. RGBA 픽셀을 base64 로 돌려준다. */
+  window.__probe = async (sceneId, mode) => {
+    const canvas = makeCanvas();
+    try {
+      if (mode === '2d') {
+        const fb = createFallback2D(canvas, sceneId);
+        if (!fb) return { ok: false, error: 'createFallback2D 가 null (drawer 미등재)' };
+        fb.update(PARAMS);
+        const g = canvas.getContext('2d');
+        const img = g.getImageData(0, 0, canvas.width, canvas.height);
+        const out = { ok: true, w: canvas.width, h: canvas.height, px: b64(new Uint8Array(img.data.buffer)) };
+        fb.dispose();
+        return out;
+      }
+      const ctx = createGLContext(canvas);
+      if (!ctx) return { ok: false, error: 'createGLContext 가 null (WebGL2 획득 실패)' };
+      const gl = ctx.gl;
+      let scene = null;
+      try {
+        ctx.syncSize();
+        scene = await loadScene(sceneId);
+        scene.init(ctx);
+        scene.update(PARAMS);
+        scene.draw(0.5);
+        /* 🔴 preserveDrawingBuffer:false 이므로 draw 직후 같은 태스크에서 읽는다. */
+        const buf = new Uint8Array(ctx.size.width * ctx.size.height * 4);
+        gl.readPixels(0, 0, ctx.size.width, ctx.size.height, gl.RGBA, gl.UNSIGNED_BYTE, buf);
+        return { ok: true, w: ctx.size.width, h: ctx.size.height, px: b64(buf) };
+      } finally {
+        try { if (scene) scene.dispose(); } catch { /* 무시 */ }
+        try { ctx.dispose(); } catch { /* 무시 */ }
+        /* 컨텍스트 개수 상한(브라우저당 ~16)에 걸리지 않게 명시적으로 반납한다. */
+        try { gl.getExtension('WEBGL_lose_context')?.loseContext(); } catch { /* 무시 */ }
+      }
+    } catch (e) {
+      return { ok: false, error: String(e && e.message ? e.message : e) };
+    } finally {
+      canvas.remove();
+    }
+  };
+
+  window.__ready = true;
+</script>
+</body>
+</html>

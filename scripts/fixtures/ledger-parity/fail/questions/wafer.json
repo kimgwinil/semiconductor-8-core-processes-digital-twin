@@ -1,0 +1,12 @@
+{
+  "processId": "wafer",
+  "items": [
+    { "id": "wafer-q01", "objectiveId": "LO-P1-01", "type": "single", "difficulty": "mid", "answer": 2 },
+    { "id": "wafer-q02", "objectiveId": "LO-P1-02", "type": "numeric", "difficulty": "mid", "answer": { "value": 90.0, "unit": "nm", "tolerance": 0.01 } },
+    { "id": "wafer-q03", "objectiveId": "LO-P1-03", "type": "short", "difficulty": "high", "answer": { "accept": ["bar"] } },
+    { "id": "wafer-q06", "objectiveId": "LO-P1-06", "type": "numeric", "difficulty": "mid", "answer": { "value": 10.0, "unit": "h", "tolerance": 0.01 } },
+    { "id": "wafer-q07", "objectiveId": "LO-P1-99", "type": "numeric", "difficulty": "low", "answer": { "value": 1.0, "unit": "h", "tolerance": 0.01 } },
+    { "id": "wafer-q08", "objectiveId": "LO-P1-08", "type": "short", "difficulty": "low", "answer": { "accept": ["gamma"] } },
+    { "id": "wafer-q09", "objectiveId": "LO-P1-09", "type": "numeric", "difficulty": "low", "answer": { "value": 5.0, "unit": "min", "tolerance": 0.01 } }
+  ]
+}

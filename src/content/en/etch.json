@@ -1,0 +1,346 @@
+{
+  "processId": "etch",
+  "theory": {
+    "title": "Theory",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "Etch is the pattern-transfer process that carves the pattern photo drew in resist into the film beneath it. What arrives from the preceding process is three given values — mask critical dimension (CD), resist thickness, and resist sidewall angle — and etch receives these as fixed inputs. The goal is to dig only where the mask leaves exposed, down to the exact target depth, while leaving everything else untouched. Because these two requirements pull against each other, etch becomes a process not of “how fast can it dig” but of “how little does it remove where it shouldn't.”"
+      },
+      {
+        "type": "h",
+        "level": 3,
+        "text": "Wet and Dry — Where Does Directionality Come From"
+      },
+      {
+        "type": "p",
+        "text": "Wet etching immerses the wafer in a chemical solution. Because the reactive species dissolves the film at the same rate in every direction, it eats sideways under the mask by the same amount it digs downward, and this encroachment is undercut. With very high selectivity and cheap equipment, wet etching remains the workhorse wherever a film needs to be stripped off entirely. That said, “wet etching is always isotropic” is not accurate. Values measured by S166 at 70 ℃ show that in 30 wt% KOH the (100) plane etches at 0.797 µm/min while the (111) plane manages only 0.005 µm/min, giving an anisotropy above 0.99. This anisotropy comes not from ion directionality but from crystal-plane dependence."
+      },
+      {
+        "type": "formula",
+        "latex": "r = r_{0}\\,\\exp\\!\\left(-\\frac{E_a}{kT}\\right)",
+        "sourceId": "S164",
+        "caption": "Temperature dependence of the wet etch rate. The Si(100) coefficients printed by S164 are E_a = 0.68 eV in 50 wt% NaOH and 0.57 eV in 25 wt% TMAH, measured over 28–80 ℃. Because temperature sits inside the exponent, a rise of just a few degrees can multiply the rate several-fold."
+      },
+      {
+        "type": "p",
+        "text": "Dry etching turns gas into plasma inside a vacuum chamber. Plasma is not a uniform mist. Between the electrodes there is a uniformly glowing bulk-plasma layer, and directly above the wafer sits a separate, non-luminous dark layer — the sheath — where the voltage drop across the discharge is largest. Ions that pointed in every direction inside the bulk layer, the moment they enter the sheath, are pulled by that voltage drop into alignment perpendicular to the wafer surface and driven straight down. This is why the etch digs downward rather than sideways."
+      },
+      {
+        "type": "p",
+        "text": "The chamber holds two forces separately. Source power governs how many ions arrive, while the lower-electrode's bias power grows the wafer surface's negative self-bias and governs how hard they arrive. Raising the bias thickens the dark sheath layer and increases ion energy."
+      },
+      {
+        "type": "formula",
+        "latex": "\\frac{V_1}{V_2} = \\left(\\frac{A_2}{A_1}\\right)^{4}",
+        "sourceId": "S167",
+        "caption": "Relation between the two electrodes' voltage ratio and area ratio. The larger the grounded-electrode area A_2 is relative to the driven-electrode area A_1, the larger the voltage drop on the wafer side. The exponent of 4 is the value S167 gives as the limit under idealized conditions, and the same paper warns that real equipment yields a much smaller exponent — read this for direction only, and do not plug the value in as-is."
+      },
+      {
+        "type": "p",
+        "text": "Vertical ions alone do not etch well. What actually removes material is the reaction layer radicals build on the surface, and ion bombardment breaks that layer apart and drives it off as volatile products. That is why the etch rate with chemistry and physics acting together is larger than the sum of either acting alone. Byproduct polymer redeposits on the sidewall and blocks lateral etching, while at the bottom ions keep striking and stripping it away — this asymmetry is sidewall passivation. Splitting the two apart entirely and cycling between them is the deep-etch cycle process: S160's Bosch recipe repeated a 15-second etch step and a 10-second passivation step 30 times, digging 31.2 µm in 750 seconds."
+      },
+      {
+        "type": "h",
+        "level": 3,
+        "text": "Definitions You Calculate by Hand"
+      },
+      {
+        "type": "formula",
+        "latex": "R = \\frac{d}{t}",
+        "sourceId": "S160",
+        "caption": "Etch rate — the thickness removed per unit time. Plugging in the Bosch recipe above: 31.2 µm ÷ 12 min 30 s = 2.50 µm/min, or 1.04 µm/cycle when divided by cycle count (S160). Adding more cycles deepens the etch proportionally, but the average etch rate is fixed by the recipe and does not change. The same recipe's selectivity to oxide was 138."
+      },
+      {
+        "type": "formula",
+        "latex": "A_f = 1 - \\frac{v_l}{v_v}",
+        "sourceId": "S257",
+        "caption": "Anisotropy — dimensionless. v_v is the vertical etch rate, and v_l is the one-sided lateral rate at which the etch undercuts the mask. When the two rates are equal (fully isotropic) the value is 0, and when there is no lateral etching it is 1. Because both progress over the same time, distances measured directly from a cross-section can be substituted for the rates and give the same value."
+      },
+      {
+        "type": "formula",
+        "latex": "A_f = 1 - \\frac{B}{2h_f}, \\qquad B = 2l",
+        "sourceId": "S256",
+        "caption": "The same quantity written with different symbols. B is the etch bias — the two-sided undercut combined — and l is the one-sided distance, so B = 2l. The fact that the definition divides B by 2 is precisely what means “do not plug in the two sides added together.”"
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "The most common mistake in computing anisotropy is adding the left and right undercut together. For a cross-section with 720 nm depth and 54 nm undercut on each side, 54 ÷ 720 = 0.075 gives A = 0.925, but plugging in 108 nm yields a different, wrong answer of 0.850. Always use the one-sided value."
+      },
+      {
+        "type": "formula",
+        "latex": "S_{AB} = \\frac{v_A}{v_B}",
+        "sourceId": "S256",
+        "caption": "Selectivity — this too is dimensionless. S256 specifies that both rates are vertical-direction etch rates. Putting resist in the denominator gives resist selectivity, and putting the underlayer there gives underlayer selectivity; the former determines whether the mask survives to the end, and the latter determines how much the underlayer is damaged during the overetch step."
+      },
+      {
+        "type": "formula",
+        "latex": "\\Delta d_{u} = \\frac{OE}{100}\\cdot\\frac{d}{S_{u}}",
+        "sourceId": "S256",
+        "caption": "Underlayer loss during the overetch step. S256 sets the overetch time as a fraction of the main-etch time and writes the worst-case underlayer erosion as “underlayer etch rate × overetch time.” Combining the two cancels out the etch rate, leaving only this form — underlayer loss has nothing to do with how fast the etch ran and is set solely by the three quantities overetch ratio OE, film thickness d, and underlayer selectivity S_u. Overetching a 300 nm film by 30% with a selectivity of 25 gives a loss of 3.6 nm."
+      },
+      {
+        "type": "h",
+        "level": 3,
+        "text": "When to Stop, and the Limits Depth Creates"
+      },
+      {
+        "type": "p",
+        "text": "Miss the moment the film fully clears and the underlayer is damaged; stop too early and residual film remains. So instead of timing the etch, etch stops by observing the moment it finishes. Optical emission spectroscopy (OES) watches the intensity of a specific wavelength in the light the plasma itself emits, and takes the inflection point — where the reacting film disappears and the emission line bends — as the endpoint. For silicon etch the SiF line at 440.2 nm is watched, and for oxide etch the CO line at 483.5 nm (S172); the same CO line is reported at 482.5 nm for SiC via etching (S168)."
+      },
+      {
+        "type": "p",
+        "text": "Each detection method has a different weakness. S172 divides six techniques by whether signal intensity depends on the exposed etch area — optical emission, mass spectrometry, and chamber pressure are all sensitive to area, and laser interferometry is the only one that is area-independent. This is why the emission signal gets buried in noise on layers with very small exposed area, such as contact holes, and interferometry is the first technique to try switching to in that case. The same reference states that optical emission remains effective even on such layers, so this is not a matter of “cannot be used” but of “comparative advantage.”"
+      },
+      {
+        "type": "formula",
+        "latex": "L = \\frac{d_{w} - d_{n}}{d_{w}}",
+        "sourceId": "S161",
+        "caption": "The magnitude of aspect-ratio-dependent etching (ARDE), commonly called RIE lag — the depth difference between two trenches that differ only in width, on the same wafer with the same recipe. S161's measurements showed 38.8 µm for a 20 µm width and 34.6 µm for a 5 µm width, a 10.8% difference. The narrower the structure, the shallower it etches."
+      },
+      {
+        "type": "formula",
+        "latex": "K \\approx \\frac{\\ln \\alpha}{\\alpha}",
+        "sourceId": "S162",
+        "caption": "Approximation for the transport probability of an opening with aspect ratio α. The value drops as α grows — meaning it becomes harder for reactive species to reach the bottom and for byproducts to escape, and this is the physical root of the RIE lag above. S162 pins this approximation as accurate to within 4.4% error only for α > 10, so it should not be used outside that range."
+      },
+      {
+        "type": "p",
+        "text": "The failure shape left in the cross-section is a fingerprint of its cause. Undercut is a shape where the region directly beneath the mask is eaten away sideways, and it appears when the isotropic chemical component dominates. Bowing is a shape where only the middle bulges outward like the belly of a boat, caused by charge accumulated on the sidewall bending the ion trajectory. Notching is a hook shape that digs along the interface the instant the bottom reaches an insulating underlayer — positive charge that cannot drain away pushes trailing ions toward the corner, and it worsens with higher bias and longer overetch. Microtrenching is two lines concentrated only at the bottom's two corners, formed by ions that graze the sidewall and reflect. Location is diagnosis."
+      },
+      {
+        "type": "h",
+        "level": 3,
+        "text": "What the Following Labs Will Move"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Basic — with chamber pressure fixed at 30 mTorr and source power at 1000 W, move only bias power P_b (W) and etch time t (s) to bring trench depth D into 285–315 nm. Anisotropy A and resist selectivity S_PR are display-only, so first learn by eye the initial tradeoff where raising bias raises A while lowering S_PR.",
+          "Applied — move chamber pressure p (mTorr), source power P_s (W), bias power P_b (W), and etch time t (s) together to pass depth 380–420 nm, A ≥ 0.930, and S_PR ≥ 9.0 simultaneously. Pressure buys selectivity and sells anisotropy, while bias does the opposite, so pushing either one to an extreme is guaranteed to break the other metric.",
+          "Advanced — total etch gas flow Q (sccm), overetch ratio OE (%), passivation gas fraction f (%), endpoint detection mode, and OES timeout t_max (s) are added, and a “disturbance” slider brings on chamber drift and low-open-area situations. Five targets must be met together: A ≥ 0.940, underlayer loss Δd_UL ≤ 5.0 nm, residue index R_res ≤ 15.0, throughput TH ≥ 12.0 wafer/h, and yield Y ≥ 90.0%.",
+          "All three stages fix mask CD at 200 nm and underlayer SiO₂ thickness at 10 nm. The fact that the underlayer is only 10 nm thick is the constraint that keeps overetch ratio from being pushed up carelessly, and the underlayer-loss formula above lets you calculate that limit in advance."
+        ]
+      }
+    ]
+  },
+  "overview": {
+    "title": "Process Overview",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "Etch sits between photo and deposition in the eight major processes. Photo completes the resist pattern through coat, expose, and develop and hands it off; etch then carves the underlying film according to that pattern, and the following deposition or ion implantation lays a new film on top. If the preceding step drew the picture, etch is the step that carves it into an actual structure, and the linewidth and sidewall shape fixed here cannot be undone."
+      },
+      {
+        "type": "h",
+        "level": 3,
+        "text": "From What It Receives to What It Hands Off"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Hard mask open — for films that resist alone cannot withstand, a thin hard mask is opened first and used as the actual mask.",
+          "Main etch — digs down through the target film. Depth and sidewall angle are set during this step.",
+          "Endpoint detection — catches the change in emission intensity or interference signal to judge the moment the film fully clears.",
+          "Overetch — digs further past the endpoint by a set ratio to clean up thickness variation and residual film.",
+          "Ashing / strip — burns off the remaining resist with oxygen plasma and strips it with chemical treatment.",
+          "Cleaning — removes byproducts and polymer residue and hands the wafer off to the next process."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "The branches split by what is being etched. Gate polysilicon etch is dominated by linewidth accuracy; insulator etch for contacts and vias is a fight against aspect ratio to bore deep, narrow holes; and hard mask open is preparation for the main etch. Deep trenches use a cyclic scheme that alternates etch and protective-film deposition."
+      },
+      {
+        "type": "p",
+        "text": "What etch receives is mask linewidth, resist thickness, the film thickness to be etched, and the underlayer type; what it hands off is the final linewidth and sidewall angle, remaining underlayer film, and residue condition. After etch finishes, the wafer goes through linewidth, cross-section, and film-thickness metrology, and that result feeds back into the next lot's overetch ratio. Polymer builds up on the chamber walls and drifts the conditions, so without this feedback, a recipe that passed yesterday produces defects today."
+      },
+      {
+        "type": "note",
+        "tone": "info",
+        "text": "Overetch is both the insurance that removes residual film and the cost that eats into the underlayer. Increasing it reduces residue, but underlayer loss grows by that much in return. Etch recipe design is difficult because every knob is this kind of trade — buying one thing and selling another."
+      }
+    ]
+  },
+  "equipment": {
+    "title": "Equipment Structure",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "From the outside, the etch chamber is a single metal vessel, but inside it is built from two electrodes facing each other, top and bottom, and the space between them. The diagram is a vertical cross-section of this vessel. Here, time sequence is set aside for a moment, and the layout is traced from top to bottom and from inside to outside, noting only what sits where."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Top — Where Power Enters and Gas Is Sprayed"
+      },
+      {
+        "type": "p",
+        "text": "What corresponds to the ceiling is the upper electrode. RF source power is applied here to ionize the gas in the chamber, which determines the density of the resulting plasma — that is, the quantity of ions arriving at the wafer. A matching network sits between the power supply and the electrode to match impedance and reduce reflected power bouncing back. When matching drifts, the set output on the readout stays the same while only the power actually delivered to the plasma drops."
+      },
+      {
+        "type": "p",
+        "text": "This upper electrode also doubles as the gas showerhead. Its underside is dense with fine holes through which process gas spreads evenly across the entire wafer. If the holes are partially clogged by reaction byproducts, gas skews to one side, and the result shows up as within-wafer non-uniformity, where etch depth differs from spot to spot on a single wafer."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Middle — the Bright Layer and the Dark Layer"
+      },
+      {
+        "type": "p",
+        "text": "The bright emission layer filling the space between the two electrodes is the plasma's bulk body. The ions and radicals used for etching are generated here, so if this layer's density drops, the supply of reactive species falls short, slowing the etch and even blurring the endpoint signal."
+      },
+      {
+        "type": "p",
+        "text": "Directly above the wafer sits a separate, thin, non-luminous layer. The voltage drop between the bulk layer and the wafer is concentrated in this layer, so in the diagram the ion trajectory lines also bend into alignment perpendicular to the wafer surface starting from the point they enter this layer. If this layer thins unevenly or bows, ions arrive at an angle, and the sidewall then tilts or etches sideways."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "This dark layer is not a physical part you can touch. It is a layer that forms above the wafer only while power is applied and the plasma is on, and it disappears when the power is switched off. Do not read it as part of the assembly just because the diagram draws it alongside the physical components."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Bottom — Where the Wafer Is Held and Cooled"
+      },
+      {
+        "type": "p",
+        "text": "The bottom-side electrode is the electrostatic chuck (ESC). An electrode is embedded within a dielectric layer, drawing the wafer down and clamping it with electrostatic force, while at the same time acting as the electrode that receives bias power. If clamping weakens, the wafer lifts, and the cooling and ion-energy control discussed next collapse together."
+      },
+      {
+        "type": "p",
+        "text": "The top surface of the electrostatic chuck is cut with a grid of grooves, through which helium flows and carries heat between the wafer backside and the chuck. In vacuum, gas-mediated heat transfer is otherwise negligible, so these grooves are the actual cooling path. If helium leaks or its pressure falls short, wafer temperature drifts outside the set range and the etch becomes uneven."
+      },
+      {
+        "type": "p",
+        "text": "The electrostatic chuck separately receives its own low-frequency bias power, independent of the source. A matching network is attached on this side as well, and as the power passes through a DC-blocking capacitor, the wafer surface settles to a negative potential. This potential sets the intensity with which ions strike, so if the bias system drifts, anisotropy and selectivity move together."
+      },
+      {
+        "type": "p",
+        "text": "The wafer edge is ringed by a consumable ring (focus ring). This part extends the sheath outward beyond the wafer and keeps it flat, so that the electrical boundary does not bend sharply where the wafer ends. If it wears down and its height drops, ions arrive at an angle only at the edge, producing a defect pattern where the wafer center is fine but only the edge profile tilts."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Outside — the Viewing Window and the Exhaust Path"
+      },
+      {
+        "type": "p",
+        "text": "The chamber's side wall has a single viewport cut into it. Light the plasma emits on its own is received through this window and sent to a spectrometer to judge the moment the etch ends. If the inside of the window fogs with byproducts, signal intensity drops, and if the endpoint is missed as a result, the etch punches through into the underlayer."
+      },
+      {
+        "type": "p",
+        "text": "Beneath the chuck, the chamber floor has a large exhaust port cut into it, with a turbomolecular pump hanging below. The throttle valve's opening at the exhaust port sets chamber pressure, and the pump maintains high vacuum while carrying reaction byproducts out. If exhaust falls short, byproducts remain inside the chamber, redeposition and particles increase, and this overlaps with parts that gradually change during use — the showerhead holes, the viewport, the focus ring — causing chamber conditions to drift slowly over time."
+      }
+    ]
+  },
+  "principle": {
+    "title": "Operating Principle",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "If the previous section was a still frame, this section is the video. Using the same cross-section, we follow what each part does and at what moment, from the instant one wafer enters until it leaves. The order is not arbitrary — it is a chain in which each step must finish before the next can hold."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Ten Steps One Wafer Passes Through"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "The transfer robot sets the wafer on the electrostatic chuck, engages electrostatic clamping, and starts backside helium flow.",
+          "The throttle valve's opening at the exhaust port is adjusted to bring the chamber down to the target pressure and stabilize it.",
+          "Mass flow controllers feed in the etch gas and passivation gas at set flow rates, and the system waits for the flow to settle.",
+          "Source power is applied. The gas ionizes and the space between the electrodes turns from dark to a glowing bulk layer — ignition.",
+          "Bias power is applied. A sheath forms above the wafer and the surface potential settles negative.",
+          "Ions accelerate vertically as they cross the sheath's voltage drop, while radicals diffuse without direction and reach the surface.",
+          "Ion bombardment breaks apart the reaction layer radicals have formed and strips it away as volatile products. This is the step where the actual etching happens.",
+          "Byproducts that break loose redeposit on the sidewall and block it, while at the bottom ions keep striking and stripping it clean.",
+          "Once the target film fully clears, reactive-species consumption falls and the emission-intensity curve bends. This inflection point is taken as the endpoint.",
+          "Overetch is added by the set ratio, power is cut, the gas is purged, residual charge is discharged, and then the wafer is removed."
+        ]
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Why This Order"
+      },
+      {
+        "type": "p",
+        "text": "There is a reason power is applied only after pressure and flow are set first. Plasma's properties are determined by what gas is present, and in what amount, so igniting on top of conditions that are still changing leaves the first few seconds outside of control. Those few seconds are still time spent carving the wafer, and they cannot be undone."
+      },
+      {
+        "type": "p",
+        "text": "Splitting power into two applications is also part of the order. Source is turned on first to create ions, and bias then pulls those ions down. This is because ions that have not yet been made cannot be pulled, and because the two power supplies are separate, “how many” and “how hard” can be tuned independently."
+      },
+      {
+        "type": "p",
+        "text": "The moment bias is applied, a sheath forms above the wafer, and from that point on ions have direction. Skip this step and the chamber interior remains bright with radicals unchanged, so etching itself proceeds, but with no direction it eats evenly under the mask as well. This is the case where a dry tool nonetheless produces a cross-section close to a wet etch."
+      },
+      {
+        "type": "p",
+        "text": "Once the process enters steady state, radical adsorption, ion bombardment, and byproduct removal reach a balance and the etch rate becomes constant. This is the chemistry-physics synergy seen in the theory section, sustained throughout this stage, and byproduct keeps redepositing on the sidewall the whole time. The core of this stage is that the bottom and the sidewall compete in opposite directions over the same byproduct."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "When to Stop, and What Else to Do"
+      },
+      {
+        "type": "p",
+        "text": "The reason etch is not simply cut off by timing is that film thickness and etch rate differ slightly from lot to lot. Instead, a wavelength to monitor is chosen in advance from the light received through the chamber's side window, and the moment its intensity bends is caught. Which wavelength to watch depends on what is being etched, so endpoint setting is part of the recipe."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "The endpoint signal does not mean “fully etched” — it means “that film has begun to disappear.” Only the spot on the wafer that clears first generates the signal, while film still remains elsewhere. This is why cutting off right at the endpoint leaves residual film."
+      },
+      {
+        "type": "p",
+        "text": "So an overetch step follows the endpoint. It is insurance that finishes clearing the remaining spots, but during that time the spots that cleared first eat into the underlayer. How much overetch to allow is a trade between residue and underlayer loss, and the underlayer-loss formula established in the theory section calculates that limit in advance."
+      },
+      {
+        "type": "p",
+        "text": "The last three actions cannot be skipped either. Even after power is cut, reactive gas and byproducts remain in the chamber and must be purged out, and a wafer that was held by the electrostatic chuck must go through de-chucking, which drains residual charge, before it can be lifted without jumping or cracking."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "A Variant That Slices Time Finely"
+      },
+      {
+        "type": "p",
+        "text": "When digging a deep trench, digging and sidewall-blocking are not overlapped within one time window but are instead alternated entirely. Repeating short etch steps and short protective-coating steps makes the depth dug at once shallower, but sidewall protection becomes reliable enough to reach much greater depth. This is an example of getting a different result from the same equipment simply by rearranging the time schedule."
+      },
+      {
+        "type": "formula",
+        "latex": "d_{\\mathrm{cycle}} = \\frac{d_{\\mathrm{total}}}{N}",
+        "sourceId": "S160",
+        "caption": "The depth dug per single cycle. Working back from the measured recipe S160 prints (30 cycles, 750 seconds total, 31.2 µm depth) gives about 1.04 µm per cycle."
+      }
+    ]
+  },
+  "labels": {
+    "etch.equipment.rfSource": "Applies RF power to the upper electrode to ionize the gas, governing plasma density — that is, ion flux. If output fluctuates, the plasma becomes unstable and etch rate varies from lot to lot.",
+    "etch.equipment.showerhead": "The upper electrode facing the wafer, which sprays process gas evenly through fine holes in its underside. If the holes clog with byproducts, gas skews to one side and etch depth varies across the wafer surface.",
+    "etch.equipment.matchSource": "Matches impedance between the source power supply and the electrode to reduce reflected power and let power be delivered into the plasma. If matching drifts, actual delivered power drops, and the plasma extinguishes or etch rate falls.",
+    "etch.equipment.bulkPlasma": "The bright emission layer filling the space between the electrodes, where the ions and radicals used for etching are generated. If density drops, reactive-species supply falls short, slowing the etch and blurring the endpoint signal as well.",
+    "etch.equipment.sheath": "The non-luminous layer directly above the wafer, where the voltage across it accelerates ions perpendicular to the surface. If the sheath bows or thins unevenly, ions arrive at an angle, anisotropy collapses, and the sidewall tilts.",
+    "etch.equipment.backsideHe": "A grid of grooves cut into the top of the electrostatic chuck, through which helium flows against the wafer backside to carry heat away to the chuck. If helium leaks or its pressure falls short, wafer temperature drifts outside the set range and the etch becomes uneven.",
+    "etch.equipment.matchBias": "Matches impedance between the bias power supply and the electrostatic chuck; passing through a DC-blocking capacitor generates the self-bias. If matching drifts, self-bias fluctuates and anisotropy and selectivity shift together.",
+    "etch.equipment.rfBias": "Applies low-frequency power to the electrostatic chuck to generate self-bias and set the energy with which ions strike down. If it is raised too high, anisotropy improves but resist etches away faster, lowering selectivity.",
+    "etch.equipment.oesViewport": "A window cut into the chamber's side wall that receives light from the bulk plasma layer and sends it to a spectrometer to judge the etch endpoint. If the window fogs with byproducts and the signal weakens, the endpoint is missed and punch-through into the underlayer results.",
+    "etch.equipment.ionTrajectory": "Ions with random directions in the bulk plasma align perpendicular to the wafer surface and drive straight down once they enter the sheath. If this alignment is disturbed, etching also occurs sideways, producing undercut and lowering anisotropy.",
+    "etch.equipment.focusRing": "A consumable ring encircling the wafer edge, extending the sheath beyond the wafer and keeping it flat. If it wears down and a height difference forms, the sheath bows at the edge, ions enter at an angle, and the profile tilts.",
+    "etch.equipment.esc": "The lower electrode with an electrode embedded within a dielectric layer, clamping the wafer with electrostatic force while receiving RF bias. If clamping weakens, the wafer lifts, backside helium leaks, and temperature control and ion-energy control collapse together.",
+    "etch.equipment.pumpPort": "A large exhaust port cut into the chamber floor beneath the chuck, where the throttle valve's opening sets chamber pressure. If pressure drifts, etch rate and anisotropy move in opposite directions, missing both depth and sidewall angle together.",
+    "etch.equipment.turboPump": "Hangs below the exhaust port, maintaining the chamber at high vacuum and carrying reaction byproducts out. If exhaust falls short, byproducts remain in the chamber, redeposition and particles increase, and the etch becomes unstable."
+  }
+}

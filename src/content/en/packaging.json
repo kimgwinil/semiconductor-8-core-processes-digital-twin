@@ -1,0 +1,356 @@
+{
+  "processId": "packaging",
+  "theory": {
+    "title": "Theory",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "A die that has finished front-end processing is not yet a product. The pad pitch is far too tight to mount on a board, and the surface is fully exposed to handling stress and atmospheric moisture. Packaging is the back-end process that turns this bare die into a component a board can carry."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Four Jobs a Package Does"
+      },
+      {
+        "type": "p",
+        "text": "The first is electrical interconnection. It takes the die pad's fine pitch through wires or bumps, routes it through the substrate wiring, and fans it out to external terminals spaced widely enough for the board to mount. The second is mechanical and chemical protection: the mold compound encloses the die and the interconnects, isolating them from stress, moisture, and ionic contamination."
+      },
+      {
+        "type": "p",
+        "text": "The third is heat removal. Heat generated in the die escapes along two paths — an upward path through the mold to ambient air, and a downward path through the die-attach layer, substrate, and solder balls to the board. The fourth is standard form factor. Following a registered outline and terminal layout lets parts from different suppliers mount onto the same board footprint."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Package Cross-Section — What Holds What"
+      },
+      {
+        "type": "p",
+        "text": "Cut a wire-bonded BGA vertically and, from the bottom up, you see the solder balls, an organic multilayer substrate, a die-attach layer, and the die, with wires arcing from the die pads to the substrate bond fingers. Epoxy molding compound covers the whole assembly. Solder resist on the substrate surface insulates and protects the wiring while its openings define the ball lands, and vias inside the substrate connect the wiring layers vertically."
+      },
+      {
+        "type": "p",
+        "text": "There are two ways to connect the die to the substrate. Wire bonding melts the wire tip with an electrical discharge to form a ball, presses it onto the pad (ball bond), then presses the other end sideways onto the substrate finger and breaks it off (stitch bond). Flip chip inverts the die and mounts it directly on bumps, filling the gap with underfill — the interconnects get shorter, but stress management gets harder."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "It is easy to mistake the solder balls for the interlayer connections inside the substrate. Vias are what connect the different wiring layers vertically; the solder balls are the external terminals leaving the package and the endpoint of the downward heat path."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Where the Heat Goes — Thermal Resistance"
+      },
+      {
+        "type": "p",
+        "text": "Thermal resistance is the temperature difference that develops between two points for a unit of power flowing between them. Between junction and ambient it is θ_JA, between junction and case it is θ_JC, and the unit is °C/W. Inverting the definition gives the design equation directly."
+      },
+      {
+        "type": "formula",
+        "latex": "\\theta_{JA}=\\frac{T_J-T_A}{P_H}\\qquad\\Longleftrightarrow\\qquad T_J=T_A+\\theta_{JA}\\,P_H",
+        "sourceId": "S247",
+        "caption": "JESD51-2A equation (1) and its inverse. The left form derives thermal resistance from measurement; the right form uses that value to predict junction temperature. The standard fixes only the measurement method — it does not set an upper limit on junction temperature. That limit comes from the device datasheet."
+      },
+      {
+        "type": "p",
+        "text": "Because the upward and downward paths run side by side, they combine in parallel; within a single path, the layers a segment passes through in sequence combine in series. In a parallel combination, heat flow splits in inverse proportion to thermal resistance, so the path with lower resistance carries more of the heat. Making the mold thicker buys more protective margin but raises the upward thermal resistance, pushing more heat downward. You cannot make just one side better."
+      },
+      {
+        "type": "note",
+        "tone": "info",
+        "text": "θ_JA is measured in still air and serves as a comparative figure of merit between packages. Measure it with airflow, and even though the calculation is the same, the name changes to θ_JMA and even the reference standard changes — a datasheet's θ_JA must not be plugged directly into a forced-air-cooling design."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Warpage and Moisture — Where Reflow Breaks Things"
+      },
+      {
+        "type": "p",
+        "text": "Silicon, mold compound, and organic substrate expand by different amounts as temperature rises. This mismatch in coefficient of thermal expansion warps the package during the reflow temperature ramp (warpage) and widens coplanarity — the variation in height across the terminal contact surfaces. Once warpage exceeds the solder balls' standoff margin, the outermost balls, which lift the most, separate from the board lands first and the connection opens."
+      },
+      {
+        "type": "p",
+        "text": "A non-hermetic plastic package absorbs atmospheric moisture. If it enters the peak temperature zone of lead-free reflow (around 260 °C) while still moisture-laden, moisture pooled at internal interfaces flash-expands and causes delamination and cracking — popcorn cracking. That is why the moisture sensitivity level (MSL) specifies how long the part may remain out of its dry-pack after opening before it must be mounted."
+      },
+      {
+        "type": "table",
+        "head": [
+          "MSL",
+          "Floor Life",
+          "Standard Soak"
+        ],
+        "rows": [
+          [
+            "1",
+            "Unlimited",
+            "168 h"
+          ],
+          [
+            "2",
+            "1 year",
+            "168 h"
+          ],
+          [
+            "2a",
+            "4 weeks",
+            "696 h"
+          ],
+          [
+            "3",
+            "168 h",
+            "192 h"
+          ],
+          [
+            "4",
+            "72 h",
+            "96 h"
+          ],
+          [
+            "5",
+            "48 h",
+            "72 h"
+          ],
+          [
+            "5a",
+            "24 h",
+            "48 h"
+          ]
+        ]
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "It is easy to mistake MSL for a threshold defined by exceeding some wt% moisture uptake. What J-STD-020F Table 4 specifies is the per-level floor life (at 30 °C / 60 %RH) and soak conditions shown in the table above, not a weight-percent threshold. The more sensitive the level, the shorter both times become together, and once floor life has been exceeded, the part must be baked back to a dry state before mounting."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Tests and Specifications Come as Pairs"
+      },
+      {
+        "type": "p",
+        "text": "Package reliability testing reads along four branches: bond integrity (die shear, wire bond pull, wire bond shear), environment (temperature cycling, temperature-humidity bias, accelerated humidity), lifetime (HTOL, early failure rate), and the preconditioning that precedes all of these (bake → moisture soak → reflow)."
+      },
+      {
+        "type": "p",
+        "text": "Even for the same bond strength, different tests measure different quantities in different units. Die shear sets requirement values by force (kg) according to area bracket, wire bond pull is handled in gf, and ball bond shear is handled as a value per unit area, divided by the sheared ball's cross-sectional area. The more important difference is whether a pass/fail line even exists — die shear has a requirement value set by the standard, while the solder ball shear test standard specifies only the method and defers the numeric pass criterion to another document. A specification number must always be cited together with the specific test it belongs to."
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Basic — Adjust \"measured thermal resistance θ,\" \"test heating power P_H,\" \"wind-tunnel air velocity v,\" and \"air-velocity measurement location\" to keep the junction temperature rise ΔT within 20–60 °C. The moment v is raised above 0, the metric's name changes from θJA to θJMA.",
+          "Applied — Adjust \"MSL rating,\" \"line exposure time after opening the dry-pack,\" \"moisture-diffusion activation energy E_a,\" and \"mold compound filler\" to find a combination that keeps remaining floor life at 0 or above while allowing use of an accelerated soak (60 °C/60 %RH).",
+          "Advanced — Adjust \"scenario,\" \"solder ball shear speed,\" \"elapsed time after reflow,\" \"solder alloy,\" \"die area,\" and \"applied die shear force\" to set up test conditions. The core of this section is the contrast that die shear has a pass/fail line and solder ball shear does not."
+        ]
+      }
+    ]
+  },
+  "overview": {
+    "title": "Process Overview",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "Packaging does not start empty-handed. EDS, the preceding process, probes each die on the wafer and leaves behind a pass/fail verdict — the good-die map — carried forward together with the wafer coordinate system. This map directly becomes the pick instruction for the die bonder, which skips any site marked defective without picking it up."
+      },
+      {
+        "type": "p",
+        "text": "Three handoffs carry over. Material still arrives as a whole wafer rather than individual pieces; die location and pass/fail information follow along in wafer coordinates; and the pad metal exposed on the topmost wiring layer becomes the bonding interface."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "From Wafer to Unit — the Back-End Flow"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Backgrinding — grinds the wafer backside to thin it. This is where the package thickness budget is earned.",
+          "Dicing — cuts the wafer along the scribe lines into individual die.",
+          "Die attach — reads the good-die map and picks up only known-good die to bond onto the substrate.",
+          "Wire bonding — connects the die pads to the substrate bond fingers. For flip chip, this is the step where the die is flipped and mounted via bumps instead.",
+          "Molding — encapsulates the die and the interconnects with epoxy molding compound.",
+          "Marking — engraves the part name, lot, and pin-1 indicator on the top of the mold.",
+          "Solder ball attach — arrays balls on the ball lands on the substrate underside and fuses them by reflow.",
+          "Singulation — cuts the strip apart into individual units.",
+          "Final test — electrically retests the package to sort good units from bad.",
+          "Packing and shipping — seals the units in a moisture-barrier bag together with desiccant, a humidity indicator, and an MSL label."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "The trick to remembering the sequence is how the unit of handling changes. Material enters as a wafer (sheets), becomes individual die (pieces) at dicing, is assembled while still on a strip, and only splits into units (pieces) at singulation before shipping out in batches. This is also why the order cannot be reversed — thinning can only be done at wafer scale, and ball arraying and marking must each happen once while still on the strip so that individual pieces are never handled separately."
+      },
+      {
+        "type": "note",
+        "tone": "info",
+        "text": "Not every package walks through all ten steps. Leadframe-family packages use the metal leads themselves as the external terminals, so they branch into trim/form instead of solder ball attach, and wafer-level packages skip die attach, wire bonding, and molding altogether."
+      }
+    ]
+  },
+  "equipment": {
+    "title": "Equipment Structure",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "The diagram in this section is a vertical cross-section through the bond joint of a wire bonder. It is cut so that the capillary's axis and the leadframe's length direction both lie in one plane, so where the wire comes down, where it is pressed, and where it is cut are all captured in a single view."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Bonding Head Descending from Above"
+      },
+      {
+        "type": "p",
+        "text": "The large mass at the very top is the bond head. This block moves up and down and, mounted on an XY table, relocates for each bond point. The bar extending horizontally from the head is the ultrasonic transducer, which carries the vibration generated by the piezoelectric disc at its rear out to the tip. The horn lies horizontal while only the tool hangs vertically."
+      },
+      {
+        "type": "p",
+        "text": "The hollow ceramic cone fitted vertically into the crosswise hole at the end of that bar is the capillary. The wire does not run along the outside of the tool but through its center, emerging at the tip. A pair of wire clamps directly above grips and releases the wire, and this single pair of jaws handles both paying out the wire and cutting it."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Capillary Tip — From Outside to Inside"
+      },
+      {
+        "type": "p",
+        "text": "Because one tool makes both the ball bond and the stitch bond, the geometry at the tip is itself what determines bond quality. Working from the outside in, first comes the cone angle, roughly 20–30°; the larger this angle, the faster the tool thickens with height, making it easier for the body to touch a neighboring wire that has already been bonded. The tip outer diameter is roughly 7–8 times the wire diameter, and this thickness is what sets the limit on pad spacing at fine pitch."
+      },
+      {
+        "type": "p",
+        "text": "Moving further inward, the face, chamfer, and center hole appear in that order. The face is a flat working surface tilted about 4° from horizontal — this is the surface that presses the side of the wire in the stitch bond to leave a crescent-shaped indent. The chamfer is an inner countersink where the hole flares out like a trumpet; the ball sits here while it is pressed onto the pad. The innermost hole has a diameter roughly 1.2–1.5 times the wire diameter."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "It is easy to picture the capillary as a solid metal needle. If it were solid, there would be no path for the wire to emerge. If this hole becomes blocked, wire feed itself stops and bonding cannot even begin."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Bond Interface — What It Rests On, What It Heats"
+      },
+      {
+        "type": "p",
+        "text": "The EFO electrode approaches the side of the capillary tip with a gap left between them. If they were touching, the discharge could not occur. The wire tip, melted by the discharge and drawn together by surface tension into a sphere hanging beneath the tool, is the free-air ball, with a diameter roughly 1.8 times the wire diameter."
+      },
+      {
+        "type": "p",
+        "text": "Below that is the bond target. The die sits on the leadframe paddle, standing higher than the leads, with aluminum pads lined up along its top edge. Without this step difference, the loop could not form. A heater block beneath the leadframe supports it and heats the bond area; in a reported example condition, the stage was held at 220 °C during bonding."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Marks Left Behind — Two Different Shapes"
+      },
+      {
+        "type": "p",
+        "text": "The ball bond is the primary bond, where the ball is pressed flat onto the pad, leaving concentric rings stamped by the chamfer when viewed from above. The stitch bond is the secondary bond, made by pressing the side of the wire onto the lead, leaving a crescent indent and a thin feathered tail rather than concentric rings. The diameter of the flattened ball directly becomes the bond area used in the shear test, so an under-pressed ball comes off easily."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "Remembering the two bonds as looking the same erases the key learning point. The shape of the indent alone tells you which bond it is, and when the concentric rings vary from ball to ball, that is grounds to suspect the bond condition."
+      }
+    ]
+  },
+  "principle": {
+    "title": "Operating Principle",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "Wire bonding is not a soldering process that melts the wire. Melting happens only once, when forming the ball; the actual bond is solid-state bonding, formed by combining load, ultrasonic energy, heat, and time. There is one question to trace along the time axis: when does it melt, when does it press, when does it scrub, and when does it cut?"
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "One Cycle That Makes One Strand"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Wire feed — the clamp opens and the wire pays out a short length beyond the tip along the center hole.",
+          "EFO discharge — a spark jumps between the electrode and the wire tip, melting the tip; the molten metal draws together by surface tension into a free-air ball.",
+          "Ball bond — the capillary descends and presses the ball onto the die pad. The chamfer receives the ball, and load, ultrasonic energy, and heat are applied together, stamping the concentric-ring indent.",
+          "Loop formation — the tool rises, moves sideways, then descends again, tracing an arc. The height it rises to sets the loop height, and the distance it travels sideways sets the loop angle.",
+          "Stitch bond — over the lead, the face presses the side of the wire, leaving a crescent indent, and the pressed wire embeds in the lead, forming an anchor.",
+          "Cut — with the clamp closed, the head rises and the wire breaks behind the stitch. The break point becomes the wire tip for the next cycle.",
+          "Index — the head moves to the next bond point and returns to step 1."
+        ]
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Why This Order"
+      },
+      {
+        "type": "p",
+        "text": "The ball is axisymmetric, so the bond shape does not change no matter which direction it is drawn away in, but the stitch is a directional bond that leaves a tail in the direction it was pressed and dragged. That is why the tight, fine-pitch die-pad side is bonded first with a ball, and the more generously spaced lead side is finished with a stitch."
+      },
+      {
+        "type": "p",
+        "text": "The arc in the middle is not decorative either. Because the die sits higher than the leads, the wire must trace a downward-curving path; pulling it taut in a straight line concentrates stress right at the neck above the ball. Bias it sideways and it touches a neighbor — a picture of crossing loops is itself a short-circuit defect."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "What Makes It Bond"
+      },
+      {
+        "type": "p",
+        "text": "Pressing force alone is not what makes it bond. The capillary tip scrubs back and forth over the bond interface on a very small scale; in the surveyed data, this axial displacement is on the order of 1–2 µm at a drive frequency around 60 kHz. This scrubbing breaks up the oxide film on the pad surface so that freshly exposed metal surfaces meet each other, and heat from the heater softens the metal so that the same load brings a wider area into contact."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "What Gets Decided at Each Stage"
+      },
+      {
+        "type": "p",
+        "text": "The discharge current and time in step 2 determine the size and shape of the ball. Too little and it melts insufficiently, leaving a hollow center; too much and it skews to one side into a golf-club shape. If this sphere descends already tilted, step 3 starts from an already misaligned position — a defect from an earlier stage is not fixed later on."
+      },
+      {
+        "type": "p",
+        "text": "The load and ultrasonic energy in step 3 determine the diameter of the flattened ball. Increasing them widens the contact area and raises strength, but pushed too far, pad metal is squeezed out around the ball's edge and the passivation at the pad edge cracks. The reported example condition was 70 mW / 45 gf for the ball and 90 mW / 75 gf for the stitch."
+      },
+      {
+        "type": "formula",
+        "latex": "A=\\pi r^{2}=\\frac{\\pi d^{2}}{4}",
+        "sourceId": "S53",
+        "caption": "The sheared ball area as specified by JESD22-B116B §4.3. The flattened ball diameter d determined in step 3 directly becomes this area. Note that this standard specifies only the test method and defers the numeric pass criterion to another document."
+      },
+      {
+        "type": "p",
+        "text": "So verification measures different things for different tests. The pull test pulls the loop and measures force (gf), while the ball shear test handles the value per unit area, divided by the area above. The advanced-lab parameters \"applied die shear force\" and \"solder ball shear speed\" belong to yet another test."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "It is easy to mistake a picture of the free-air ball sitting on the pad still in its spherical shape as normal. The finished bond state is a ball pressed flat; if it is still spherical, it has either not yet bonded or the load and ultrasonic energy were insufficient."
+      }
+    ]
+  },
+  "labels": {
+    "packaging.equipment.wireClamp": "A pair of metal jaws directly above the capillary that grip and release the wire. Once the stitch bond is finished, this pair grips the wire while the head rises, cutting it, and closing out one cycle.",
+    "packaging.equipment.ultrasonicTransducer": "The bar extending horizontally from the bond head, which carries the vibration generated by the piezoelectric disc at its rear out to the capillary tip. This vibration is both the bonding energy and the action that scrubs the bond interface clean; if it is insufficient, the ball only gets pressed without bonding, leaving lift-off.",
+    "packaging.equipment.bondHead": "The block that holds the transducer and moves up and down, mounted on an XY table and relocating for each bond point. The height this head rises to and the distance it moves sideways determine the loop's height and angle; get it wrong and it touches a neighboring wire, causing a short.",
+    "packaging.equipment.capillary": "The hollow ceramic cone fitted vertically into the crosswise hole at the end of the transducer, with the wire passing through its center and emerging at the tip. This single tool stamps both the ball bond and the stitch bond, and if the center becomes blocked, the wire cannot emerge and bonding cannot even begin.",
+    "packaging.equipment.efoElectrode": "A thin metal needle positioned with a gap beside the capillary tip, which sparks a discharge to melt the wire tip. Too little current leaves the ball hollow inside from insufficient melting; too much skews the ball to one side into a golf-club shape.",
+    "packaging.equipment.dieBondPad": "The silicon die mounted on the leadframe paddle and the aluminum pads lined up along its top edge, where the ball bond lands. Raise the load too far and the passivation at the pad edge cracks, with the fracture extending into the substrate below.",
+    "packaging.equipment.heaterBlock": "The metal block that supports the leadframe from below and heats the bond area. Because this bond relies on heat together with ultrasonic energy, bonding is poor without heating; in a reported example condition, the stage was held at 220 °C during bonding.",
+    "packaging.equipment.capillaryHole": "The hole running vertically through the center of the capillary, the only path the wire follows down to the tip. Its diameter, roughly 1.2–1.5 times the wire diameter, lets the wire slide without catching, but if it becomes blocked, wire feed itself stops.",
+    "packaging.equipment.capillaryConeAngle": "The angle, roughly 20–30°, at which the capillary's outer surface flares outward going up from the tip, which sets how quickly the tool thickens. The larger the angle, the faster the tool thickens with height, making it easier for the body to touch a neighboring wire that has already been bonded.",
+    "packaging.equipment.capillaryFaceAngle": "The angle, roughly 4° from horizontal, of the flat working surface surrounding the outside of the chamfer. This is exactly the surface that presses the side of the wire onto the lead in the stitch bond to leave a crescent indent; insufficient pressing leaves the stitch lifted.",
+    "packaging.equipment.capillaryTipGeometry": "The entire bottom end of the capillary, precision-ground as one piece encompassing the center hole, chamfer, face, and cone angle. Its tip outer diameter, roughly 7–8 times the wire diameter, is the thickness that sets the limit on how tight a pad spacing the tool can descend into.",
+    "packaging.equipment.freeAirBall": "The sphere hanging beneath the capillary, formed as the wire tip melted by the discharge draws together by surface tension, with a diameter roughly 1.8 times the wire diameter. If this sphere descends tilted or hollow, the ball bond that follows starts out misaligned from the beginning.",
+    "packaging.equipment.capillaryChamfer": "The inner countersink at the end of the center hole, flaring out like a trumpet, where the free-air ball sits while it is pressed onto the pad. The shape and count of the concentric rings left on the flattened ball are set by this chamfer's geometry, so when the rings vary from ball to ball, that is grounds to suspect the bond condition.",
+    "packaging.equipment.ballBond": "The primary bond formed when the free-air ball is pressed flat onto the die pad, leaving concentric rings stamped by the chamfer when viewed from above. The diameter of the flattened ball directly becomes the bond area used in the shear test, so an under-pressed ball has too little area and comes off easily.",
+    "packaging.equipment.stitchBond": "The secondary bond made when the capillary presses the side of the wire onto the lead, leaving a crescent indent and a feathered tail behind it, with no concentric rings like the ball. It uses greater load and ultrasonic energy than the ball, and if bonding is insufficient it lifts and separates in the pull test."
+  }
+}

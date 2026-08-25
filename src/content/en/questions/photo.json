@@ -1,0 +1,184 @@
+{
+  "processId": "photo",
+  "items": [
+    {
+      "id": "photo-q01",
+      "type": "single",
+      "difficulty": "low",
+      "objectiveId": "LO-P3-01",
+      "stem": "A positive photoresist is coated, exposed, and developed. What happens after development to the area that received light through the transparent part of the mask (the exposed area)?",
+      "choices": [
+        "It dissolves and is removed",
+        "It remains and becomes the pattern",
+        "Its thickness doubles by swelling",
+        "It converts into an oxide film"
+      ],
+      "answer": 0,
+      "explanation": "A positive resist becomes more soluble in the developer where it is exposed to light. The exposed area dissolves away during development, while the unexposed area remains and forms the pattern. Having the exposed area remain is the behavior of a negative resist instead, and development is a dissolution-removal process, not oxidation or swelling.",
+      "sourceId": "S141",
+      "weakTopic": "positive-resist-exposure-behavior"
+    },
+    {
+      "id": "photo-q02",
+      "type": "short",
+      "difficulty": "mid",
+      "objectiveId": "LO-P3-01",
+      "stem": "A positive photoresist's characteristic curve (H-D curve) plots log exposure dose on the x-axis against remaining relative resist thickness after development on the y-axis. Name the exposure dose at which the curve first reaches zero thickness, i.e. the x-intercept dose. (A symbol answer is also accepted.)",
+      "answer": {
+        "accept": [
+          "dose-to-clear",
+          "dosetoclear",
+          "도즈투클리어",
+          "도스투클리어",
+          "E0",
+          "E₀",
+          "이제로",
+          "클리어선량",
+          "클리어 선량",
+          "완전제거선량",
+          "dose to clear"
+        ]
+      },
+      "explanation": "The x-intercept of the H-D curve is the minimum exposure dose at which the resist begins to be fully removed after development, called E0 (dose-to-clear). The slope at this point gives the contrast gamma. Contrast gamma is the slope at that point, not the intercept itself, so it is wrong, and 'threshold dose' overlaps conceptually but is not the formal name, so it is excluded from the accepted answers.",
+      "sourceId": "S141",
+      "weakTopic": "dose-to-clear-e0"
+    },
+    {
+      "id": "photo-q03",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P3-02",
+      "stem": "An ArF immersion scanner scans with the narrow gap between the final lens surface and the wafer filled with ultrapure water (refractive index n ~= 1.44 at 193 nm). What is the direct purpose of filling this water layer?",
+      "choices": [
+        "To cool the wafer during exposure and reduce overlay error from thermal expansion",
+        "To raise n in NA = n*sin(theta) from 1.00 to 1.44 and widen the achievable numerical aperture ceiling",
+        "To develop the exposed resist in place",
+        "To wash particles off the lens surface"
+      ],
+      "answer": 1,
+      "explanation": "Numerical aperture is defined as NA = n*sin(theta), and since sin(theta) < 1, NA can never exceed the medium's refractive index n. In air (n = 1.00) the practical NA ceiling is about 0.93, but filling the gap with ultrapure water (n = 1.44) raises the achievable NA to 1.35, improving resolution R = k1*lambda/NA proportionally. Overlay is handled by stage alignment sensors, development by a separate track module, and particle control by the pellicle and cleanroom, so none of these is the purpose of introducing immersion.",
+      "sourceId": "S141",
+      "weakTopic": "immersion-lithography-na"
+    },
+    {
+      "id": "photo-q04",
+      "type": "single",
+      "difficulty": "low",
+      "objectiveId": "LO-P3-02",
+      "stem": "One photo-process cycle proceeds as follows. Choose the bake steps for (a) and (b) in order: spin coating -> (a) -> exposure scan -> (b) -> development -> hard bake",
+      "choices": [
+        "(a) Soft bake, (b) PEB (post-exposure bake)",
+        "(a) Hard bake, (b) Soft bake",
+        "(a) PEB (post-exposure bake), (b) Soft bake",
+        "(a) Soft bake, (b) Hard bake"
+      ],
+      "answer": 0,
+      "explanation": "Right after spin coating, the film retains a lot of solvent, so a soft bake evaporates it to stabilize the film before exposure. After exposure, a PEB (post-exposure bake) smooths out standing waves by diffusion and drives the acid-catalyzed deprotection reaction in chemically amplified resists, and only then is development performed. Hard bake is the final step after development that drives off residual solvent to build etch resistance, so it cannot occur right after coating or before exposure.",
+      "sourceId": "S141",
+      "weakTopic": "photo-cell-bake-sequence"
+    },
+    {
+      "id": "photo-q05",
+      "type": "numeric",
+      "difficulty": "mid",
+      "objectiveId": "LO-P3-03",
+      "stem": "A dry (air) ArF scanner operates with wavelength lambda = 193 nm, numerical aperture NA = 0.93, and process factor k1 = 0.35. Using the Rayleigh resolution equation R = k1*lambda/NA, find the minimum resolvable half-pitch R. (Give the unit.)",
+      "answer": {
+        "value": 72.6,
+        "unit": "nm",
+        "tolerance": 0.03
+      },
+      "explanation": "R = k1*lambda/NA = (0.35*193)/0.93 = 67.55/0.93 ~= 72.6 nm. Since NA is in the denominator, a larger NA shrinks R (better resolution), and since lambda is in the numerator, a shorter wavelength helps. Multiplying instead of dividing by NA gives 62.8, omitting k1 gives 207.5, and squaring NA in the denominator confuses this with the depth-of-focus formula and gives 78.1 — all incorrect.",
+      "sourceId": "S141",
+      "weakTopic": "rayleigh-resolution-calc"
+    },
+    {
+      "id": "photo-q06",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P3-03",
+      "stem": "A positive resist exposes a semi-isolated line at 120 nm pitch (target CD 45 nm). With focus held exactly at best focus, exposure dose alone is raised 20% above nominal. How do the remaining resist line width (CD) and tool throughput each change?",
+      "choices": [
+        "Line CD shrinks and throughput drops",
+        "Line CD grows and throughput rises",
+        "Line CD shrinks and throughput rises",
+        "Line CD stays the same and only throughput drops"
+      ],
+      "answer": 0,
+      "explanation": "In a positive resist, the exposed space regions are removed. Raising the dose pushes the effective threshold cutline down, widening the removed area and thinning the line left between spaces. Since dose is the optical energy delivered per wafer, raising it while source power is fixed requires a slower scan, which lowers throughput. This CD-versus-throughput tradeoff is the core lesson of dose control.",
+      "sourceId": "S141",
+      "weakTopic": "exposure-dose-cd-throughput-tradeoff"
+    },
+    {
+      "id": "photo-q07",
+      "type": "numeric",
+      "difficulty": "high",
+      "objectiveId": "LO-P3-04",
+      "stem": "The same ArF tool (lambda = 193 nm, k1 = 0.35) is converted to ultrapure-water immersion, raising NA from 0.93 to 1.35. Depth of focus follows the paraxial Rayleigh formula DOF = k2*lambda/NA^2 with k2 = 0.745. Find the DOF after the conversion. (Give the unit.)",
+      "answer": {
+        "value": 78.9,
+        "unit": "nm",
+        "tolerance": 0.03
+      },
+      "explanation": "DOF = k2*lambda/NA^2 = (0.745*193)/1.35^2 = 143.785/1.8225 ~= 78.9 nm. Before conversion, DOF was 143.785/0.93^2 = 166.2 nm, so DOF drops by 52.5%, matching (0.93/1.35)^2 exactly. The same conversion improves resolution by 1/NA, a 31.1% gain, so raising NA improves resolution linearly while worsening depth of focus quadratically. Forgetting to square NA in the denominator gives the common wrong answer 106.5.",
+      "sourceId": "S141",
+      "weakTopic": "depth-of-focus-calc"
+    },
+    {
+      "id": "photo-q08",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P3-04",
+      "stem": "Assuming an infinite-contrast resist, aerial-image quality and CD dose sensitivity are related by d(lnCD)/d(lnE) = 2/NILS (NILS = normalized image log slope). An illumination change raises NILS from 2.0 to 4.0. If dose fluctuates +/-2% from nominal, how does the resulting CD variation change?",
+      "choices": [
+        "From 4% to 2%, halved",
+        "From 2% to 1%, halved",
+        "From 2% to 4%, doubled",
+        "Unchanged — NILS affects only depth of focus"
+      ],
+      "answer": 1,
+      "explanation": "At NILS = 2.0, sensitivity is 2/2.0 = 1.0, so a 2% dose swing produces a 2% CD swing. At NILS = 4.0, sensitivity is 2/4.0 = 0.5, so the CD variation becomes 1%, i.e. it is halved. NILS measures how steep the aerial-image intensity curve is at the pattern edge; a larger NILS means the same dose error moves the edge less. Because NILS sits in the denominator, missing that a larger NILS lowers sensitivity leads to the wrong answer.",
+      "sourceId": "S141",
+      "weakTopic": "nils-cd-sensitivity"
+    },
+    {
+      "id": "photo-q09",
+      "type": "short",
+      "difficulty": "mid",
+      "objectiveId": "LO-P3-05",
+      "stem": "Resist coated on a highly reflective substrate is exposed and developed, and the SEM cross-section shows a regular ripple pattern up and down the resist sidewall. The cause is interference between the incoming light and light reflected off the substrate, creating intensity peaks and troughs in depth inside the resist, with period lambda/(2*n2) (n2 = resist refractive index). Name this phenomenon.",
+      "answer": {
+        "accept": [
+          "정재파",
+          "정상파",
+          "standing wave",
+          "standingwave",
+          "standing waves",
+          "스탠딩웨이브",
+          "정재파 효과",
+          "standing wave effect"
+        ]
+      },
+      "explanation": "When incident light interferes with light reflected off the substrate, a standing intensity pattern forms in the depth direction inside the resist, with a period equal to half the wavelength inside the resist, lambda/(2*n2). Standing waves produce sidewall scalloping, and the best countermeasure is a bottom anti-reflective coating (BARC) to lower substrate reflectivity. A swing curve shares the same root cause but refers to the oscillation seen in linewidth as resist thickness is varied, so it is a different concept from the ripple pattern itself seen in cross-section.",
+      "sourceId": "S141",
+      "weakTopic": "standing-wave-effect"
+    },
+    {
+      "id": "photo-q10",
+      "type": "single",
+      "difficulty": "high",
+      "objectiveId": "LO-P3-04",
+      "stem": "After exposing a lot on an ArF immersion line, metrology shows (all other conditions normal, same dose/develop time/mask as the previous lot): line CD is too wide at 68 nm versus a 45 nm target, resist sidewall angle fell from 88 to 74 degrees, aerial-image metric NILS fell from 3.2 to 1.6, the best-focus vertex of the focus-exposure matrix (Bossung) shifted -70 nm, and the overlay vector-map arrow length is unchanged at 1.8 nm from the previous lot. What is the most likely cause?",
+      "choices": [
+        "Focus drift (defocus) — wafer stage leveling/AF sensor offset",
+        "Overlay error — systematic stage alignment drift from thermal expansion",
+        "Excess develop time — developer puddle time exceeded spec",
+        "Mask reduction-ratio error — reticle fabricated at a ratio other than 4:1"
+      ],
+      "answer": 0,
+      "explanation": "When the image goes out of focus, contrast drops and the edge intensity slope flattens, which shows up directly as NILS falling from 3.2 to 1.6. In a positive resist, lower space intensity leaves a wider line (45 to 68 nm), and a shallower intensity slope prevents the sidewall from standing up, lowering the sidewall angle (88 to 74 degrees). The -70 nm shift of the Bossung vertex means the focus plane the tool believes is optimal no longer matches the true optimum, directly pointing to an AF/leveling offset. Since the overlay arrow length is unchanged from the previous lot, overlay error is ruled out immediately; overdevelopment would instead thin the line, and a mask ratio error could widen CD but cannot explain the sidewall angle, NILS, or the Bossung vertex shift.",
+      "sourceId": "S141",
+      "weakTopic": "defocus-signature-diagnosis"
+    }
+  ]
+}

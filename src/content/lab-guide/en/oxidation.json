@@ -1,0 +1,17 @@
+{
+  "lab-basic": {
+    "intro": "A lab where you grow a dry oxide and land its thickness precisely inside the target window.",
+    "goal": "Move only the two sliders “Oxidation temperature” (a 3-way choice of 920 · 1000 · 1100 °C) and “Oxidation time” (10–300 min) to hit the “Oxide thickness x_ox” target. Dry O₂ ambient, 1 atm pressure, 12 slm flow, a 10 °C/min ramp rate, and ⟨100⟩ orientation are fixed conditions. Si consumed, surface rise, and the instantaneous growth rate are shown for reference only.",
+    "passHint": "You pass when “Oxide thickness x_ox” is 95 nm or more and 105 nm or less. Oxidation cannot be undone — if you overshoot past 105 nm, you must lower the conditions and run the whole recipe again from the start."
+  },
+  "lab-applied": {
+    "intro": "A lab where you set thickness, uniformity, and throughput at once for a single batch of field oxide.",
+    "goal": "Adjust “Oxidation temperature T” (920–1100 °C), “Oxidation ambient M” (0 = dry O₂ / 1 = wet H₂O), “Oxidation time t” (10–300 min), and “Oxidant flow Q” (2–20 slm) and watch how the average thickness, spread σ, and throughput TP move together. The supply-limited factor f_Q and the gas/exhaust load index are observational values and are not part of the verdict.",
+    "passHint": "All three verdicts must hold at once — “Average oxide thickness x̄” 380–420 nm, “Wafer-to-wafer thickness spread σ (1σ/mean)” 1.5% or less, “Batch throughput TP” 18 wafer/h or higher."
+  },
+  "lab-advanced": {
+    "intro": "A lab where you diagnose a hidden disturbance, remove its cause, and bring all five metrics back at once.",
+    "goal": "Pick a “Fault scenario,” then combine oxidation temperature T, ambient M, “Oxidation time t” (10–300 min), “Oxidant flow Q” (2–20 slm), “Ramp rate R” (2–15 °C/min), “HCl addition concentration C” (0–5 vol%), “Line leak check / N₂ purge,” “Dummy wafers, top and bottom” (5–10 wafers), and “Temperature stabilization time” (10–30 min) to bring back all five verdict outputs.",
+    "passHint": "All five verdicts must hold at once — average thickness x̄ 385–415 nm, spread σ 1.5% or less, relative dielectric-breakdown field index 0.90 or higher, OISF density D_sf 100 ea/cm² or less, batch throughput TP 18 wafer/h or higher."
+  }
+}

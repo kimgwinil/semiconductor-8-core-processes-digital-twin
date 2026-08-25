@@ -1,0 +1,186 @@
+{
+  "processId": "wafer",
+  "items": [
+    {
+      "id": "wafer-q01",
+      "type": "single",
+      "difficulty": "low",
+      "objectiveId": "LO-P1-01",
+      "stem": "In the Siemens process for producing electronic-grade polycrystalline silicon, what is the main gaseous feedstock supplied together with hydrogen (H2) to deposit silicon onto the hot silicon filament inside the reactor?",
+      "choices": [
+        "Silicon vapor",
+        "Trichlorosilane (SiHCl3)",
+        "Silicon dioxide (SiO2) powder",
+        "Aqueous sodium silicate (Na2SiO3)"
+      ],
+      "answer": 1,
+      "explanation": "The Siemens process reacts metallurgical-grade silicon with HCl to obtain trichlorosilane (SiHCl3), purifies it by distillation, and then feeds it with hydrogen into the reactor where it is reduced and deposited on a hot silicon filament. Silicon cannot be supplied directly as vapor because of its very high melting point (choice 1), SiO2 powder is the feedstock for the earlier carbothermic reduction step (choice 3), and sodium silicate has no role in this purification route (choice 4).",
+      "sourceId": "S107",
+      "weakTopic": "siemens-process-trichlorosilane"
+    },
+    {
+      "id": "wafer-q02",
+      "type": "short",
+      "difficulty": "mid",
+      "objectiveId": "LO-P1-01",
+      "stem": "Among single-crystal silicon growth methods, one grows the crystal without a crucible by locally melting only a section of a polycrystalline rod and moving that molten zone along it. Because there is no crucible contact, oxygen incorporation is very low. Name this growth method.",
+      "answer": {
+        "accept": [
+          "부유대역법",
+          "부유대역",
+          "부유용융법",
+          "플로트존법",
+          "플로트존",
+          "FZ",
+          "FZ법",
+          "Float Zone",
+          "Float Zone Method",
+          "Floating Zone",
+          "Floating Zone Method",
+          "존부유법"
+        ]
+      },
+      "explanation": "Float Zone (FZ) growth melts only a narrow section of a polycrystalline silicon rod with an RF induction coil, holds it by surface tension, and moves it along the rod to grow a single crystal. Because the melt never touches a crucible, there is no oxygen pickup from crucible erosion. Czochralski (CZ) growth always uses a quartz crucible, and Bridgman growth also proceeds inside a container, so neither satisfies the crucible-free condition.",
+      "sourceId": "S107",
+      "weakTopic": "float-zone-vs-czochralski"
+    },
+    {
+      "id": "wafer-q03",
+      "type": "single",
+      "difficulty": "low",
+      "objectiveId": "LO-P1-02",
+      "stem": "In a Czochralski (CZ) puller cross-section, what is the name of the part that mechanically supports the quartz crucible from the outside and conducts heat from the heater into the crucible?",
+      "choices": [
+        "Graphite susceptor",
+        "Seed chuck",
+        "Heat shield / reflector",
+        "Viewport"
+      ],
+      "answer": 0,
+      "explanation": "The quartz crucible softens above about 1400 degC and cannot hold its own shape, so a graphite susceptor supports it from outside and conducts the heater's radiant and conductive heat evenly to the crucible. The seed chuck instead holds the seed at the ingot end, the heat shield sets the temperature gradient near the melt interface, and the viewport is only an observation window with no structural role.",
+      "sourceId": "S106",
+      "weakTopic": "crucible-graphite-susceptor"
+    },
+    {
+      "id": "wafer-q04",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P1-02",
+      "stem": "In CZ growth, right after the seed is dipped into the melt, a necking step pulls the diameter down to about 3-5 mm. What is the main purpose of this step?",
+      "choices": [
+        "To lower the interstitial oxygen concentration of the ingot below spec",
+        "To let dislocations created by the thermal shock of the seed touching the melt propagate out to the free surface, so dislocation-free growth can begin",
+        "To push the dopant's effective segregation coefficient toward 1 and flatten the axial resistivity profile",
+        "To keep the wafer thickness variation (TTV) within spec"
+      ],
+      "answer": 1,
+      "explanation": "The moment a room-temperature seed touches the 1414 degC melt, thermal shock generates many dislocations. Because dislocations in silicon propagate at an angle to the crystal axis, pulling a long enough thin neck lets them exit through the side surface and die out, so dislocation-free growth begins below the neck. Oxygen concentration is set by crucible erosion and convection, the segregation coefficient by the dopant species, and TTV by later slicing, lapping, and polishing, none of which necking directly controls.",
+      "sourceId": "S107",
+      "weakTopic": "necking-dislocation-release"
+    },
+    {
+      "id": "wafer-q05",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P1-03",
+      "stem": "During CZ growth, with heater power, rotation, and all other conditions fixed, only the pull rate is increased. What happens to the crystal diameter and to the length-based throughput per hour?",
+      "choices": [
+        "Diameter increases and throughput increases",
+        "Diameter decreases and throughput increases",
+        "Diameter stays the same and only throughput increases",
+        "Diameter increases and throughput decreases"
+      ],
+      "answer": 1,
+      "explanation": "Latent heat released at the melt interface can only escape by conduction through the ingot and radiation from its surface, so the volume that can solidify per unit time (cross-section times pull rate) is fixed by this heat balance. Raising the pull rate forces the cross-section, and hence the diameter, to shrink to keep that volume constant. Length-based throughput, however, scales directly with pull rate and therefore increases. Reported practice for a 12 cm crystal is a pull rate around 8-10 cm/h, and the maximum pull rate falls as the target diameter grows.",
+      "sourceId": "S106",
+      "weakTopic": "pull-rate-diameter-tradeoff"
+    },
+    {
+      "id": "wafer-q06",
+      "type": "numeric",
+      "difficulty": "mid",
+      "objectiveId": "LO-P1-03",
+      "stem": "An n-type silicon wafer is uniformly doped with phosphorus. The donor concentration is N_D = 1.0e15 cm^-3 and is assumed fully ionized at room temperature. Using electron mobility mu_n = 1350 cm^2/(V*s) and elementary charge q = 1.602e-19 C at this concentration, find the resistivity considering only majority carriers.",
+      "answer": {
+        "value": 4.6,
+        "unit": "Ω·cm",
+        "tolerance": 0.05
+      },
+      "explanation": "Majority-carrier conductivity is sigma = q*n*mu_n = (1.602e-19)(1.0e15)(1350) = 0.2163 (Ω·cm)^-1, and resistivity is its reciprocal, rho = 1/sigma ~= 4.6 Ω·cm. Forgetting to invert conductivity gives 0.216, and computing in SI units but mislabeling the result as Ω·cm gives a value 100 times too small (0.046), so unit handling matters here.",
+      "sourceId": "S100",
+      "weakTopic": "resistivity-doping-relation"
+    },
+    {
+      "id": "wafer-q07",
+      "type": "numeric",
+      "difficulty": "high",
+      "objectiveId": "LO-P1-04",
+      "stem": "A boron-doped CZ silicon ingot is grown. The resistivity at the top of the ingot (solidified fraction g = 0) is rho_T = 10.0 Ω·cm, and boron's effective segregation coefficient is k_eff = 0.85. Using the normal-freezing relation rho(g) = rho_T*(1-g)^(1-k_eff), find the resistivity at solidified fraction g = 0.85. (Ignore complete mixing and solid-state diffusion.)",
+      "answer": {
+        "value": 7.5,
+        "unit": "Ω·cm",
+        "tolerance": 0.05
+      },
+      "explanation": "With 1-k_eff = 0.15 and 1-g = 0.15, 0.15^0.15 = exp(0.15*ln0.15) ~= 0.7523, so rho(0.85) = 10.0 * 0.7523 ~= 7.5 Ω·cm. Because k_eff < 1, the dopant prefers to stay in the liquid, so the remaining melt becomes more concentrated as growth proceeds and resistivity drops further down the ingot. Flipping the sign of the exponent gives 13.3, which reverses the physical direction and is therefore wrong.",
+      "sourceId": "S107",
+      "weakTopic": "normal-freezing-axial-resistivity"
+    },
+    {
+      "id": "wafer-q08",
+      "type": "single",
+      "difficulty": "high",
+      "objectiveId": "LO-P1-04",
+      "stem": "In CZ growth, the ratio V/G of pull rate V to the axial temperature gradient G near the melt interface determines which point defect dominates in the ingot. When V/G is sufficiently above the critical value, which point defect dominates and what surface-inspection defect does it cause?",
+      "choices": [
+        "Excess self-interstitials — dislocation loop clusters",
+        "Excess vacancies — COP (vacancy-agglomerated voids)",
+        "Excess substitutional boron — slip lines",
+        "Loss of oxygen precipitates — the whole ingot is defect-free"
+      ],
+      "answer": 1,
+      "explanation": "Near the melting point the equilibrium vacancy concentration exceeds that of self-interstitials, so when V/G is large enough that recombination and diffusion have little time to act, vacancies freeze in and later agglomerate on cooling into octahedral voids (COP). When V/G is small instead, self-interstitials, which diffuse faster, dominate and produce dislocation loops. Slip lines are line defects caused by thermal stress and belong to a different failure axis than point-defect distribution.",
+      "sourceId": "S102",
+      "weakTopic": "v-over-g-vacancy-cop"
+    },
+    {
+      "id": "wafer-q09",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P1-05",
+      "stem": "During an advanced lab exercise, heat-shield deformation causes the axial temperature gradient near the melt interface to fall sharply from 45 K/cm to 18 K/cm. The screen shows V/G jumping from 0.133 to 0.333, the ingot's surface habit lines disappearing one by one, and diameter control becoming unstable. What is the first action to take?",
+      "choices": [
+        "Immediately lower the pull rate to 0.30 mm/min or below to bring V/G back into the window, restore the heat balance, and if needed remelt and reform the neck",
+        "Maximize crucible rotation to strengthen melt convection and resupply heat",
+        "Add more dopant to meet the resistivity spec first, then fix the temperature",
+        "Cut the Ar supply and switch the chamber to vacuum to reduce heat loss"
+      ],
+      "answer": 0,
+      "explanation": "Habit lines are the surface striations that persist while dislocation-free growth is maintained, so their disappearing one by one is an indicator that dislocation-free growth is already breaking down. Among the controllable variables, the only one that can be changed right now is pull rate. When the axial temperature gradient at the melt interface falls by more than half, the crystal's ability to conduct the heat of solidification away also falls, and holding the previous pull rate asks more of the interface than it can deliver. So the sequence is to lower pull rate first, easing the load on the interface and letting the heat balance recover, then remelt and reform the neck if needed to re-establish the dislocation-free state. Driving crucible rotation to maximum only increases oxygen pickup without restoring the gradient, adding dopant has nothing to do with a crystal structure that is already failing, and cutting the argon purge prevents SiO vapour from being carried away, hastening crystal loss. One distinction is worth keeping straight. V/G governs which point defect dominates in the growing crystal, that is, whether it ends up vacancy-rich or interstitial-rich. V/G leaving its window is not by itself the direct cause of dislocation generation. Loss of structure usually arrives by other routes such as thermal stress, a falling particle, or an abrupt temperature excursion. The reason to lower pull rate here is not to push the V/G number back inside its window, but to reduce the load on a thermally destabilised interface.",
+      "sourceId": "S263",
+      "weakTopic": "habit-line-loss-of-structure"
+    },
+    {
+      "id": "wafer-q10",
+      "type": "short",
+      "difficulty": "mid",
+      "objectiveId": "LO-P1-05",
+      "stem": "As a CZ ingot cools, excess vacancies agglomerate into a tiny octahedral void. Because surface inspection tools detect this defect by light scattering and count it as if it were a particle, it has a specific name. Write the common three-letter English abbreviation for this defect.",
+      "answer": {
+        "accept": [
+          "COP",
+          "C.O.P",
+          "Crystal Originated Particle",
+          "Crystal Originated Particles",
+          "Crystal Originated Pit",
+          "Crystal-Originated Particle",
+          "결정기인입자",
+          "결정기원입자",
+          "결정기인 파티클"
+        ]
+      },
+      "explanation": "COP (Crystal Originated Particle) is an octahedral void formed when vacancies generated during growth agglomerate on cooling. It is not surface debris but an empty space that originated inside the crystal, yet light-scattering inspection cannot distinguish it from a particle, hence the name. Its density rises when V/G is above the critical value (the vacancy-rich regime). OISF is a stacking fault revealed only after an oxidation anneal, not the void itself, so it is not the correct term here.",
+      "sourceId": "S102",
+      "weakTopic": "cop-defect-definition"
+    }
+  ]
+}

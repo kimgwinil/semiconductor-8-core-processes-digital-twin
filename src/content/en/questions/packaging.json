@@ -1,0 +1,185 @@
+{
+  "processId": "packaging",
+  "items": [
+    {
+      "id": "packaging-q01",
+      "type": "single",
+      "difficulty": "low",
+      "objectiveId": "LO-P8-01",
+      "stem": "A finished silicon die is not mounted on a board directly; it ships inside a package. Which grouping correctly lists packaging's four core functions?",
+      "choices": [
+        "Electrical connection, mechanical protection, heat dissipation, standard form factor",
+        "Electrical connection, mechanical protection, optical alignment, magnetic shielding",
+        "Heat dissipation, standard form factor, vacuum retention, optical alignment",
+        "Mechanical protection, magnetic shielding, vacuum retention, electrical insulation"
+      ],
+      "answer": 0,
+      "explanation": "Packaging provides electrical connection, expanding tens-of-micron die-pad pitch to a board-mountable pitch; mechanical/chemical protection, isolating the die from handling stress, moisture, and ionic contamination; heat dissipation, routing heat out through the mold above and through the die-attach/substrate/external terminals below; and standard form factor, letting parts from different vendors mount to the same board footprint. Optical alignment, magnetic shielding, and vacuum retention are extra requirements only for specific package types such as image sensors, RF, or MEMS, not general packaging's four core functions.",
+      "sourceId": "S55",
+      "weakTopic": "packaging-four-functions"
+    },
+    {
+      "id": "packaging-q02",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P8-01",
+      "stem": "For a substrate-based wire-bond BGA assembled in strip units, what is the correct order of back-end steps after wafer receipt?",
+      "choices": [
+        "Dicing -> backgrinding -> die attach -> wire bonding -> molding -> marking -> solder ball attach -> singulation -> final test",
+        "Backgrinding -> dicing -> wire bonding -> die attach -> molding -> solder ball attach -> marking -> singulation -> final test",
+        "Backgrinding -> dicing -> die attach -> wire bonding -> molding -> marking -> solder ball attach -> singulation -> final test",
+        "Backgrinding -> dicing -> die attach -> wire bonding -> molding -> singulation -> solder ball attach -> marking -> final test"
+      ],
+      "answer": 2,
+      "explanation": "What determines the flow is the change of unit. Backgrinding, which thins the wafer, is only possible while it is still a wafer, so it must precede dicing, and dicing is what splits the wafer into individual dice. The die must be fixed to the substrate (die attach) before wire can be looped, so wire bonding follows, molding can encapsulate only after wiring is complete, and marking is done on the top of the mold so it comes after molding. Solder ball attach happens on the underside of the strip, and singulation, which cuts the strip into individual units, must come after it and after marking, since singulating first would force per-unit handling and collapse throughput. Because a fully diced wafer cannot be ground uniformly afterward, in the standard grind-then-dice flow, dicing cannot precede wire bonding. One caveat is worth attaching. The order of marking relative to solder ball attach varies by supplier and by line, and real process documentation also shows flows where balls are attached and reflowed first, with marking and singulation carried out together afterwards. What decides right from wrong in this item is the order of backgrinding versus dicing and of die attach versus wire bonding, not where marking sits.",
+      "sourceId": "S58",
+      "weakTopic": "assembly-process-flow-order"
+    },
+    {
+      "id": "packaging-q03",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P8-02",
+      "stem": "In the cross-section of a wire-bond BGA package, which pairing of a part with its primary function is incorrect?",
+      "choices": [
+        "EMC mold compound — encapsulates die and bonding wires for mechanical/chemical protection and doubles as the upward heat path",
+        "Solder resist — insulates and protects substrate surface traces and defines the ball-land opening to stop solder from spreading",
+        "Bonding wire — electrically connects the die pad to the substrate bond finger",
+        "Solder ball — vertically connects different wiring layers inside the substrate"
+      ],
+      "answer": 3,
+      "explanation": "A solder ball is the package's external terminal: it attaches to the ball land on the substrate underside, providing electrical connection and standoff height between the package and the PCB, and terminates the downward heat path. Vertically connecting different wiring layers inside the substrate is instead the job of a via — different in both location (outside the package versus inside the substrate) and function (external connection versus interlayer connection). The other three descriptions of EMC, solder resist, and bonding wire are all correct.",
+      "sourceId": "S57",
+      "weakTopic": "package-cross-section-parts"
+    },
+    {
+      "id": "packaging-q04",
+      "type": "short",
+      "difficulty": "mid",
+      "objectiveId": "LO-P8-02",
+      "stem": "In a wire-bond package, name the encapsulant that covers the die and all bonding wires, providing (1) mechanical/chemical protection, (2) moisture barrier, and (3) an upward heat path all at once. (English abbreviation accepted.)",
+      "answer": {
+        "accept": [
+          "에폭시몰딩컴파운드",
+          "에폭시몰드컴파운드",
+          "에폭시몰딩컴파운드EMC",
+          "몰딩컴파운드",
+          "몰드컴파운드",
+          "emc",
+          "epoxymoldingcompound",
+          "epoxymouldingcompound",
+          "epoxymoldcompound"
+        ]
+      },
+      "explanation": "This material is an epoxy thermoset heavily filled with silica, injected by transfer molding, that wraps the die and wires entirely to block handling stress, moisture, and ionic contamination while forming the upward heat path from the die top through the mold top to the ambient. 'Encapsulant,' already used generically in the question, names only the material category, not the formal material name, so it is not accepted; 'underfill' fills the die-substrate gap in flip-chip packages and is not the encapsulant of a wire-bond package; and 'die-attach film' is an adhesive layer that sits only beneath the die, which is different.",
+      "sourceId": "S47",
+      "weakTopic": "epoxy-molding-compound"
+    },
+    {
+      "id": "packaging-q05",
+      "type": "single",
+      "difficulty": "low",
+      "objectiveId": "LO-P8-03",
+      "stem": "Which is the correct definition of junction-to-ambient thermal resistance theta-JA? (Tj = junction temperature, Tc = case temperature, Ta = ambient temperature, P = power dissipation)",
+      "choices": [
+        "theta-JA = (Tj - Ta) / P",
+        "theta-JA = (Tj - Tc) / P",
+        "theta-JA = (Tc - Ta) / P",
+        "theta-JA = P / (Tj - Ta)"
+      ],
+      "answer": 0,
+      "explanation": "Thermal resistance is defined as the temperature difference produced between two points per unit power dissipated, and theta-JA is the value between the junction (J) and ambient (A), so the numerator is (Tj-Ta) and the denominator is P. Its unit is degC/W (=K/W), and inverting it gives the design equation Tj = Ta + theta-JA*P. (Tj-Tc)/P instead defines junction-to-case resistance theta-JC, and (Tc-Ta)/P defines case-to-ambient resistance theta-CA; flipping numerator and denominator gives thermal conductance rather than resistance, reversing the meaning so a larger value implies better heat escape.",
+      "sourceId": "S247",
+      "weakTopic": "thermal-resistance-theta-ja"
+    },
+    {
+      "id": "packaging-q06",
+      "type": "numeric",
+      "difficulty": "mid",
+      "objectiveId": "LO-P8-03",
+      "stem": "A package has junction-to-case thermal resistance theta-JC = 4.5 degC/W and case-to-ambient theta-CA = 24.0 degC/W, connected in series. With power dissipation P = 3.2 W and ambient temperature Ta = 45 degC, find junction temperature Tj. (Give the unit.)",
+      "answer": {
+        "value": 136.2,
+        "unit": "°C",
+        "tolerance": 0.02
+      },
+      "explanation": "Series combination theta-JA = theta-JC + theta-CA = 4.5+24.0 = 28.5 degC/W. Temperature rise delta-T = theta-JA*P = 28.5*3.2 = 91.2 degC. Junction temperature Tj = Ta+delta-T = 45+91.2 = 136.2 degC. Forgetting to add Ta after computing delta-T gives the wrong 91.2; using only theta-CA while dropping theta-JC gives the wrong 121.8; and combining in parallel instead of series gives the wrong 57.1 — the two resistances must be in series since the same heat flux passes through them one after the other.",
+      "sourceId": "S247",
+      "weakTopic": "series-thermal-resistance-calc"
+    },
+    {
+      "id": "packaging-q07",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P8-04",
+      "stem": "With die, substrate, pin count, and cooling all fixed, mold-compound thickness alone is increased from 0.3 mm to 1.0 mm. Which set of expected changes is correct?",
+      "choices": [
+        "Mechanical protection margin up, upward thermal resistance up, package thickness up, warpage tendency up",
+        "Mechanical protection margin up, upward thermal resistance down, package thickness up, warpage tendency down",
+        "Mechanical protection margin down, upward thermal resistance up, package thickness down, warpage tendency up",
+        "Mechanical protection margin up, upward thermal resistance unchanged, package thickness unchanged, warpage unchanged"
+      ],
+      "answer": 0,
+      "explanation": "A thicker mold means a thicker resin layer covering the die and wires, increasing mechanical protection and loop clearance; conductive thermal resistance R = thickness/(thermal conductivity * area), so upward thermal resistance rises proportionally with thickness; total package thickness T_pkg = t_m + t_die + t_da + t_sub + t_ball grows because the t_m term grows; and warpage from the CTE mismatch among silicon, EMC, and the organic substrate tends to increase as a thicker resin layer sits on one side. So protection improves while thermal performance, thickness, and flatness all worsen — claiming that upward thermal resistance decreases, or that all four metrics stay unchanged, contradicts the basic physics that conductive resistance scales with thickness.",
+      "sourceId": "S61",
+      "weakTopic": "mold-thickness-tradeoff"
+    },
+    {
+      "id": "packaging-q08",
+      "type": "numeric",
+      "difficulty": "high",
+      "objectiveId": "LO-P8-04",
+      "stem": "A package has two parallel thermal paths. The upward path (die -> mold -> ambient) has theta-top = 34.0 degC/W, and the downward path (die -> die attach -> substrate -> solder ball -> PCB) has theta-bot = 28.0 degC/W. With P = 4.0 W and Ta = 40 degC, find (a) the combined thermal resistance theta-JA, (b) junction temperature Tj, and (c) the fraction of total heat carried by the downward path.",
+      "answer": {
+        "parts": [
+          { "label": "a", "value": 15.4, "unit": "°C/W", "tolerance": 0.03 },
+          { "label": "b", "value": 101.4, "unit": "°C", "tolerance": 0.03 },
+          { "label": "c", "value": 54.8, "unit": "%", "tolerance": 0.03 }
+        ]
+      },
+      "explanation": "Parallel combination: 1/theta-JA = 1/theta-top + 1/theta-bot -> theta-JA = theta-top*theta-bot/(theta-top+theta-bot) = (34.0*28.0)/62.0 = 15.355 ~= 15.4 degC/W (a). delta-T = 15.355*4.0 = 61.42 degC, Tj = 40+61.42 ~= 101.4 degC (b). Since the temperature drop is the same across both paths, heat flux splits inversely with resistance, so the downward share = theta-top/(theta-top+theta-bot) = 34.0/62.0 ~= 54.8% (c) — the path with lower resistance always carries more heat. All three parts (a)(b)(c) must be correct. Combining in series instead of parallel gives the wrong 62.0, which violates the rule that a parallel combination must be smaller than either individual resistance.",
+      "sourceId": "S247",
+      "weakTopic": "parallel-thermal-path-calc"
+    },
+    {
+      "id": "packaging-q09",
+      "type": "short",
+      "difficulty": "mid",
+      "objectiveId": "LO-P8-05",
+      "stem": "A non-hermetic plastic package, left exposed beyond the MSL-rated floor life after its moisture-barrier bag was opened, is sent through reflow (peak ~260 degC) without baking. Moisture absorbed in the mold compound rapidly vaporizes and expands, causing interfacial delamination and package cracking. Name this phenomenon.",
+      "answer": {
+        "accept": [
+          "팝콘크랙",
+          "팝콘균열",
+          "팝콘현상",
+          "팝코닝",
+          "팝콘크래킹",
+          "popcorncrack",
+          "popcorncracking",
+          "popcorning",
+          "popcorneffect"
+        ]
+      },
+      "explanation": "Absorbed moisture collects at the weakest interface, such as the mold-to-die-paddle interface, and builds vapor pressure during the reflow ramp. Near the peak temperature, once this vapor pressure exceeds the interfacial adhesion and resin strength, the interface delaminates first and the mold then bursts open, a phenomenon named popcorn cracking after the resemblance to popping corn. The countermeasure is respecting the floor life and baking if it is exceeded. 'Delamination' is only the interfacial event that accompanies popcorn cracking, not the name for the whole phenomenon including the crack, and 'Kirkendall voiding' and 'warpage' are separate defects caused by differential diffusion rates and CTE mismatch respectively.",
+      "sourceId": "S248",
+      "weakTopic": "popcorn-cracking"
+    },
+    {
+      "id": "packaging-q10",
+      "type": "single",
+      "difficulty": "high",
+      "objectiveId": "LO-P8-05",
+      "stem": "Which statement about package bond-integrity tests and their specs is correct?",
+      "choices": [
+        "The wire-bond pull test and wire-bond (ball) shear test measure the same target with the same load direction, so either spec value can be used interchangeably",
+        "The die shear test derives its requirement differently by die-area bracket, and the requirement's unit is force (kg)",
+        "JEDEC JESD22-B116B (wire bond shear test method) directly specifies numeric ball-bond pass/fail limits in its own table",
+        "The gf-unit requirement from the wire-bond pull test can be used directly as the die shear test's pass/fail limit"
+      ],
+      "answer": 1,
+      "explanation": "The die shear test's requirement (MIL-STD-883 Method 2019) is not a single fixed value but is derived differently across die-area brackets, and its unit is force (kg). By contrast, the wire-bond pull test's requirement (Method 2011) is in gf, and the shear test (JESD22-B116B) uses a shear-per-unit-area concept. The pull test pulls the wire loop upward while the shear test pushes the bonded ball sideways — different load directions and failure modes — so their spec values cannot be swapped. JESD22-B116B specifies only the test method (area formula, failure codes, etc.); the numeric ball-bond pass/fail limits were moved to JESD47 and are not in this document. Carrying a gf-unit wire-bond requirement over to a kg-unit die-attach requirement likewise mixes up the target, the unit, and the test type, so it is wrong.",
+      "sourceId": "S53",
+      "weakTopic": "bond-test-standard-mismatch"
+    }
+  ]
+}

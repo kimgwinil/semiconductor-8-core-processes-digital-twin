@@ -1,0 +1,6 @@
+{
+  "processId": "wafer",
+  "items": [
+    { "id": "wafer-not-numbered", "objectiveId": "LO-P1-01", "type": "single", "difficulty": "low", "answer": 0 }
+  ]
+}

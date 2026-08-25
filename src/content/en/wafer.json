@@ -1,0 +1,339 @@
+{
+  "processId": "wafer",
+  "theory": {
+    "title": "Theory",
+    "blocks": [
+      {
+        "type": "h",
+        "level": 2,
+        "text": "From Quartzite to Semiconductor-Grade Silicon"
+      },
+      {
+        "type": "p",
+        "text": "The starting material is quartzite (SiO2). Heating it with carbon in an arc furnace gives SiO2 + 2C → Si + 2CO, yielding metallurgical-grade silicon (MG-Si), but its purity is too low for semiconductor use. The trick to purification is not to handle silicon itself but to route it through a gaseous compound that can be purified by a difference in boiling points — the Siemens process distills trichlorosilane (SiHCl3) and then deposits it, together with hydrogen, on a hot filament, producing semiconductor-grade polycrystalline silicon (EG-Si)."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Two Paths to a Single Crystal — CZ and FZ"
+      },
+      {
+        "type": "p",
+        "text": "The Czochralski method (CZ) melts silicon in a quartz crucible (melting point about 1685 K · S101), dips in a seed crystal, and pulls it up while rotating. Growth proceeds through seed dip, necking, crown, body, and tail in order; necking is the step that lets the dislocations created by the thermal shock of the seed touching the melt escape out of the crystal. The diameter must be narrowed to just a few millimeters and pulled long enough for the dislocation lines to exit through the side surface and vanish, after which dislocation-free crystal grows below that point."
+      },
+      {
+        "type": "p",
+        "text": "Growth orientation is written using Miller indices, and device-grade wafers are generally grown along the ⟨100⟩ direction; the ingot surface then shows four habit lines spaced 90° apart (S263). The Float Zone method (FZ) melts and moves only a narrow section of the rod, so the melt never touches a crucible — since crucible erosion is the main path by which oxygen enters in CZ, FZ crystal has very low oxygen."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "It is easy to assume that as growth proceeds and the melt shrinks, the melt level must also drop, but the puller raises the crucible by the same amount so that the height of the melt's free surface stays constant. The reference plane for the optical diameter-measuring system is that free surface, so if the melt level wanders, diameter control wanders with it. What changes during growth is not the melt level but the solidified fraction."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Upper Limit on Pull Rate — Set by the Heat Balance"
+      },
+      {
+        "type": "p",
+        "text": "Latent heat of solidification is released at the solid-liquid interface and leaves either by conduction along the ingot or by radiation from its surface. Once the heat that can be removed is fixed, the volume that can solidify per unit time is also fixed, and that volume is the product of cross-sectional area and pull rate. So raising the pull rate alone actually shrinks the diameter while increasing length-based throughput, and by the same logic the maximum pull rate falls as the crystal grows thicker."
+      },
+      {
+        "type": "formula",
+        "latex": "V_max(d) = V_ref · √(d_ref / d)",
+        "sourceId": "S106",
+        "caption": "The maximum pull rate is proportional to the crystal radius to the −1/2 power. The reference point is 20–30 cm/h at a diameter of 12 cm, and three independent heat-transfer models give the same exponent (S106 §A.1·Fig. 3)."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Resistivity, Doping, and Axial Segregation"
+      },
+      {
+        "type": "p",
+        "text": "Which device a wafer can be used for is decided by resistivity. Resistivity is set by the density of electrically active dopants and the carrier mobility, and that mobility in turn varies with doping concentration. Treating mobility as a constant is fine only for seeing the structure of the relationship, not for converting to spec values."
+      },
+      {
+        "type": "formula",
+        "latex": "ρ = 1 / (q · n · μ)",
+        "sourceId": "S100",
+        "caption": "q is the elementary charge, n is the electrically active dopant density, and μ is the apparent mobility. Because mobility depends on concentration, NBS SP 400-64 (S100) fits the product qρn itself as a function of resistivity, and the simulator uses that same empirical relation."
+      },
+      {
+        "type": "p",
+        "text": "An ingot is not the same from top to bottom. Most dopants have a segregation coefficient less than 1, so they prefer to remain in the liquid rather than the solid, and as growth proceeds the remaining melt becomes more concentrated. So the dopant builds up toward the tail, resistivity drops, and a dopant with a smaller segregation coefficient hits the lower spec limit sooner, shortening the usable ingot length. This means the “concentration charged into the melt” and the “concentration inside the crystal” are not the same quantity, and this is also why the lab exercises that follow take the concentration at the top of the crystal directly as an input, not the melt concentration."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "V/G — Which Way Point Defects Go"
+      },
+      {
+        "type": "p",
+        "text": "At the solid-liquid interface, vacancies and self-interstitial silicon form together, and after leaving the interface they compete through recombination and diffusion. If the ratio of pull rate V to axial temperature gradient G is above a critical value, vacancies — which have a larger equilibrium concentration near the melting point — freeze in and agglomerate on cooling into octahedral voids — the COP (Crystal Originated Particle) that surface inspection counts as if it were a particle. If the ratio is small, the faster-diffusing self-interstitials dominate instead."
+      },
+      {
+        "type": "formula",
+        "latex": "ξ = V / G",
+        "sourceId": "S101",
+        "caption": "The defect-free window is 0.85×10⁻³ – 1.50×10⁻³ cm²·min⁻¹·K⁻¹ by the “adj.” column of S101 Table 4, and the lab screen converts the same values to mm² units and displays 0.085–0.150."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "It is a mistake to think that pushing V/G higher removes defects — the defect-free region is only a narrow window near the critical value, and stepping outside it in either direction leaves defects behind. Leaving the window and losing structure are also different events. The literature attributes structure loss to thermal stress and melt-temperature instability, and the disappearance of habit lines (growth ridges) is not an early warning that loss is imminent but a retrospective indicator that it has already happened (S263·S264)."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "From Ingot to Wafer — The Language of Spec Sheets"
+      },
+      {
+        "type": "p",
+        "text": "Once growth is finished, the ingot goes through cropping and diameter grinding, gets a notch or flat marking its orientation, and is then sliced thin. From this point on, the vocabulary for measurement changes — total thickness variation (TTV), bow, warp in the free state, and local flatness become the spec items. Some products specify a 300 mm wafer at a thickness of 775 ± 25 µm, with TTV within 3 µm, bow within 25 µm, and warp within 25 µm, but these are values from a product datasheet (S108), not tolerances from the standard's original text."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "What the Following Lab Exercises Manipulate"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "The basic lab exercise has only two sliders — “pull rate V” (mm/min) and “dopant (boron) concentration at the top of the crystal” (×10¹⁵ cm⁻³). The pass criterion is a single value, “crystal diameter D,” and it passes if that value falls within 198–202 mm.",
+          "“Throughput R,” “top resistivity ρ_T,” and “the literature maximum pull rate for this diameter” are also shown but are not part of the pass criterion. The point is to watch how throughput and the literature upper bound follow along as raising the pull rate shrinks the diameter.",
+          "The applied lab exercise adds “axial temperature gradient at the solid-liquid interface G” (K/cm), “crystal (seed) rotation rate ω_c” (rpm), and “crucible rotation rate ω_cr” (rpm), for four manipulated variables, and requires meeting three targets at once — the “V/G ratio,” “interstitial oxygen concentration O_i,” and “diameter deviation σ_D.”",
+          "The V/G pass window of 0.085–0.150 is the same defect-free window from the earlier section. σ_D must be 1 mm or less and O_i must be 5–8 (×10¹⁷ cm⁻³) to pass, but raising rotation rates to reduce the deviation also raises oxygen — the first trade-off.",
+          "The advanced lab exercise adds “Ar flow rate Q_Ar” (slm) and “chamber pressure P_ch” (torr), for six manipulated variables, and requires holding “dislocation-free length yield Y” at 80% or higher under conditions where two disturbances — a sudden jump in crucible erosion and collapse of the temperature gradient — are constantly active."
+        ]
+      }
+    ]
+  },
+  "overview": {
+    "title": "Process Overview",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "Wafer manufacturing is the only one of the eight major processes that does not build any device. The seven processes that follow — from oxidation and photolithography through etch, all the way to EDS and packaging — all happen on top of this substrate, so P1 is not a step that simply hands off to the next process but the substrate supplier that feeds material into every process."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Ten Steps from Raw Material to Wafer"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Raw material — reduce quartzite to obtain metallurgical-grade silicon, then purify it through the trichlorosilane route to make semiconductor-grade polycrystalline silicon (EG-Si).",
+          "Single-crystal growth — pull the ingot by CZ or FZ. Crystal orientation, doping type, and resistivity are all set here.",
+          "Ingot post-processing — cut off the seed end and tail, grind the diameter, and cut a notch or flat marking the orientation.",
+          "Slicing — slice thin with a multi-wire saw. The output is a wafer that still carries a cutting-damage layer.",
+          "Edge rounding — round the edge to remove the starting point for chipping.",
+          "Lapping — grind both faces to reduce thickness variation and cutting marks.",
+          "Etching — chemically strip the damage layer left by mechanical processing, using acid or alkali.",
+          "Polishing — wafer-level CMP that turns one face into a mirror surface (interconnect-layer CMP belongs to P6).",
+          "Cleaning — remove particles, metals, and native oxide with RCA-family SC-1·SC-2 and dilute hydrofluoric acid (DHF).",
+          "Inspection and shipment — measure diameter, thickness, TTV, bow, warp, flatness, and surface defects to confirm the spec is met."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "If the first two steps are about making the crystal, the remaining eight are about making the shape and surface, and they set different specs. Orientation, doping type, and resistivity are already fixed at growth and cannot be changed afterward, while thickness, TTV, bow, warp, and surface condition are set by the later mechanical and chemical processing."
+      },
+      {
+        "type": "p",
+        "text": "Follow where material removal happens and the flow reads as a single line. Cutting removes material — studies on wafering for solar-cell wafers report that about 40% of the ingot is lost as cutting kerf (S109). Lapping mechanically, then etching chemically, strips off the remaining damage layer, polishing then creates the mirror surface, and cleaning removes the particles and metals sitting on top of it."
+      },
+      {
+        "type": "note",
+        "tone": "info",
+        "text": "P1's output becomes the input to many processes. Crystal orientation, doping type, and resistivity feed into P2 oxidation rate, P5 ion-implantation channeling, and P7 pass criteria, and flatness (TTV·bow·warp) directly determines P3 photolithography's focus margin. Wafer specs should not be memorized as a list but read as conditions for the processes that follow."
+      }
+    ]
+  },
+  "equipment": {
+    "title": "Equipment Structure",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "This section walks the cross-section of a CZ puller once, from top to bottom and from outside to inside. For each part we look at where it sits, what it is made of, and what defect it shows up as when it degrades."
+      },
+      {
+        "type": "figure",
+        "src": "/assets/figures/wafer/ingot-multiwire-slicing-v1.png",
+        "caption": "Photorealistic training visualization — a multi-wire saw slices a cylindrical single-crystal ingot into thin wafers, followed downstream by edge finishing, lapping, and polishing.",
+        "sourceId": "S109"
+      },
+      {
+        "type": "note",
+        "tone": "info",
+        "text": "This is an educational visualization of process direction, not a photograph of a named commercial tool. The existing labelled cross-section explains CZ growth equipment; this image explains the wafering equipment used after ingot growth."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Shaft Hanging from the Ceiling and the Crystal at Its End"
+      },
+      {
+        "type": "p",
+        "text": "The pull shaft descends from the chamber ceiling, and the seed chuck at its end grips the seed crystal. Because the chuck rotates the crystal while pulling it up at the same time, a loose grip or a wobbling shaft makes the crystal grow off-center, increasing diameter deviation. The narrowest section just below the chuck is the neck, and the section that widens from the neck and holds the target diameter is the ingot body. Only this body is what gets sliced into wafers."
+      },
+      {
+        "type": "p",
+        "text": "Specification sets the neck diameter at 3–5 mm. Narrowing it this much lets the dislocations created when the seed touches the melt escape out through the side surface; if the neck is too thick, dislocations remain and the whole ingot below it loses dislocation-free growth. Growth facet striations on the body surface disappearing one by one is a sign that dislocation-free growth has broken down."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Melt and the Three Nested Vessels That Hold It"
+      },
+      {
+        "type": "p",
+        "text": "The lower end of the body sits submerged in the melt. The liquid silicon held in the quartz crucible has a mirror-like reflective surface and supplies material to the crystal. The curved surface of melt drawn up around the crystal is the meniscus, and this curved surface reflects the glow of the hot crucible wall to form a bright ring. The diameter of that ring is the input signal for diameter control."
+      },
+      {
+        "type": "p",
+        "text": "The vessel holding the melt is not a single layer. The inner layer is a translucent, milky-white quartz crucible that withstands molten silicon, which reacts with most elements. A graphite susceptor wraps around the outside of it, holding the shape of the crucible, which softens at high temperature, and spreading heater heat evenly. The bottom of the susceptor is carried by the crucible rotation-and-lift shaft, which rotates the crucible opposite to the crystal and raises it as the melt is consumed."
+      },
+      {
+        "type": "p",
+        "text": "Each of the three layers produces a different kind of defect. If the crucible erodes, oxygen dissolves into the melt and raises the interstitial oxygen concentration. If the susceptor fails to do its job, the crucible sags and the melt leaks out while heat piles up on one side. If the lift shaft stops, the free surface drops and the reference plane for optical measurement wanders."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Shell That Traps Heat and the Path the Gas Follows"
+      },
+      {
+        "type": "p",
+        "text": "Surrounding the crucible is a resistive heating element made from a graphite cylinder cut in a zigzag pattern. Around that, and around the walls and floor of the hot zone, carbon felt insulation wraps to keep heat from escaping into the water-cooled chamber. Just above the melt surface, a heat shield sits wrapped around the crystal, blocking radiant heat. If heater output wanders, melt temperature follows and diameter drifts off target, and if the insulation or heat-shield position is off, the axial temperature gradient at the solid-liquid interface wanders."
+      },
+      {
+        "type": "p",
+        "text": "Gas flows from top to bottom. Argon enters at the top of the chamber and flows down past the crystal, and the heat shield channels that flow toward the crystal surface. Argon that has swept up the SiO evaporated from the melt exits through an exhaust port at the lower side of the chamber. If the flow rate is too low or the exhaust is blocked, SiO lingers in the hot zone, raising oxygen concentration, and it builds up as white powder on the cold walls."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Eye That Watches from Outside"
+      },
+      {
+        "type": "p",
+        "text": "The device that measures diameter is not inside the chamber. A camera outside a viewport in the water-cooled chamber aims at the bright ring of the meniscus. It reads the ring diameter and converts it into crystal diameter, so if any one of the window, the ring, or the curved surface is disturbed, the wrong value comes out. If the window fogs up with SiO, the ring is read incorrectly and control moves toward that wrong value."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "It is easy to mistake the heat shield for a cooling device. What it actually does is two things — block radiant heat above the melt surface, and channel argon toward the crystal surface. So the symptom that appears when its position is off is not “it cools less” but a wandering axial temperature gradient."
+      }
+    ]
+  },
+  "principle": {
+    "title": "Operating Principle",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "If the previous section looked at layout, this section looks at time. Even for the same cross-section, what is happening inside right after charging, during body growth, and just before separation is entirely different. Here we look at what happens in what order over one run of the puller, and why that order."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Ten Steps of Growth"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Charge polysilicon chunks and dopant into the quartz crucible.",
+          "Evacuate the chamber, then fill it with argon and hold a partial pressure.",
+          "Raise the heater to increase temperature and melt the silicon.",
+          "Stabilize the melt temperature and find the seed-dip temperature.",
+          "Seed dip — the bottom of the seed touches the melt and a meniscus forms.",
+          "Necking — pull thin, down to 3–5 mm in diameter, to drive the dislocations from contact thermal shock out of the crystal.",
+          "Crown expansion — lower the pull rate to widen out to the target diameter.",
+          "Shoulder transition, then constant-diameter body growth — diameter feedback corrects pull rate and heater output in real time.",
+          "Tailing — taper the diameter down to keep the thermal shock at separation from sending dislocations back up into the crystal.",
+          "Separate from the melt, cool, and remove the ingot."
+        ]
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Nine Steps from Ingot to Wafer"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Cropping — cut off the seed end and tail, leaving only the in-spec body.",
+          "Diameter grinding and notch machining — set the cylinder diameter and mark crystal orientation.",
+          "Multi-wire slicing — a parallel wire web passes through the ingot and cuts many thin disks at once.",
+          "Edge grinding and rounding — round the sharp rim to reduce chips and crack initiation.",
+          "Lapping — mechanically reduce saw marks and thickness variation on both faces.",
+          "Damage-layer etching — chemically remove the microcracked layer left by slicing and lapping.",
+          "Mirror polishing — lower roughness and haze on one face to create the mirror surface.",
+          "RCA/DHF cleaning and drying — remove particles, metals, and native oxide.",
+          "Inspection — verify thickness, TTV, bow, warp, flatness, and surface defects before shipment."
+        ]
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Why This Order"
+      },
+      {
+        "type": "p",
+        "text": "There is a reason evacuation and argon filling come before the temperature rise. The argon flow is the channel that carries evaporated SiO down to the exhaust port, and once melting starts that vapor comes out right away. The channel has to be established first so SiO doesn't linger in the hot zone. Placing temperature stabilization as a separate step before seed dip is the same kind of concern — if the conditions at the moment of dipping are not settled, everything afterward wobbles."
+      },
+      {
+        "type": "p",
+        "text": "Seed dip and necking have to be right next to each other. The instant the seed touches the melt, thermal shock at the contact surface creates dislocations, and those dislocations have to be driven out before the crystal widens. So the crystal is pulled at its thinnest right after contact, sending the dislocation lines out through the side surface. Skipping this or passing through too thick loses dislocation-free growth for the entire ingot below it."
+      },
+      {
+        "type": "p",
+        "text": "Once crown transitions into body, growth becomes a control loop. A camera outside the viewport reads the bright ring formed by the meniscus, and that value is fed back into pull rate and heater output. Over the same stretch, the lift shaft pushes the crucible up by however much the ingot has taken, holding the free surface at the same height. As seen in the theory section, what changes is not the melt level but the solidified fraction, and because the free surface is the reference plane, if its height wanders the loop's input is thrown off from the start."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "What Gets Decided in This Stretch"
+      },
+      {
+        "type": "p",
+        "text": "Constant-diameter body growth is the longest stretch and the one where the crystal's actual properties get decided. Which way point defects leaving the solid-liquid interface end up is decided by the ratio of pull rate to axial temperature gradient at that moment, and whether it falls within the defect-free window of 0.085–0.150 mm²·min⁻¹·K⁻¹ seen in the theory section is settled here. Oxygen also builds up throughout this stretch through the balance of crucible erosion and argon exhaust, and the longer the body, the wider the resistivity gap between top and bottom."
+      },
+      {
+        "type": "p",
+        "text": "The last two steps are about protecting the crystal. Simply pulling the fully grown ingot away from the melt lets the thermal shock of separation push dislocations back into the crystal. Tailing is the step that gradually shrinks the diameter to prevent that reversal, and skipping it loses the end of a body that was grown dislocation-free."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "It is easy to mistake necking as a wasted stretch best passed through quickly. If the neck is thick, dislocations remain, and the dislocations that remain drop everything below it out of dislocation-free growth. Passing through thick to save time is a bet on the entire ingot."
+      },
+      {
+        "type": "p",
+        "text": "The lab exercises that follow hold onto one stretch of this timeline — constant-diameter body growth — and manipulate it. In the basic exercise, pull rate is used to bring the diameter into 198–202 mm; in the applied exercise, axial temperature gradient and two rotation rates are added to meet V/G, oxygen, and diameter deviation all at once."
+      }
+    ]
+  },
+  "labels": {
+    "wafer.equipment.heatShield": "Sits wrapped around the crystal just above the melt surface, blocking radiant heat and channeling argon toward the crystal surface. If its position is off, the axial temperature gradient G at the solid-liquid interface wanders, throwing off the defect distribution that V/G determines.",
+    "wafer.equipment.quartzCrucible": "A translucent, milky-white vessel holding the melt, made of a material that withstands molten silicon, which reacts with most elements. If the crucible erodes at high temperature, oxygen dissolves into the melt and raises the crystal's interstitial oxygen concentration.",
+    "wafer.equipment.graphiteHeater": "A heating element made from a graphite cylinder cut in a zigzag pattern that surrounds the crucible and heats the silicon above its melting point. If output wanders, melt temperature follows and crystal diameter drifts out of the target range.",
+    "wafer.equipment.carbonInsulation": "Carbon felt wrapped around the outside of the heater and the hot-zone walls and floor, keeping heat from escaping into the water-cooled chamber. If insulation degrades, the axial temperature gradient at the interface grows larger, changing the crystal's thermal stress and defect distribution.",
+    "wafer.equipment.exhaustPort": "Draws argon and the SiO vapor it has swept down out of the lower side of the chamber. If the exhaust is blocked, SiO lingers in the hot zone, raising the crystal's oxygen concentration and building up as white powder on the cold walls.",
+    "wafer.equipment.seedChuck": "Grips the dislocation-free seed crystal at the end of the pull shaft descending from the chamber ceiling, rotating the crystal while pulling it up. A loose grip or a wobbling shaft makes the crystal grow off-center, increasing diameter deviation.",
+    "wafer.equipment.opticalGauge": "A viewport in the water-cooled chamber, with a camera outside it aimed at the bright ring of the meniscus. If the window fogs up with SiO, the ring diameter is read incorrectly and diameter control moves in the wrong direction.",
+    "wafer.equipment.neck": "The stretch where the seed is dipped into the melt and quickly pulled to its thinnest, driving out dislocations created by contact thermal shock. If the neck is thick, dislocations remain and the entire ingot loses dislocation-free growth.",
+    "wafer.equipment.argonFlow": "Enters the top of the chamber, flows down past the crystal, and exits at the bottom, sweeping down the SiO evaporated from the melt. If the flow rate is too low, SiO remains and raises the crystal's interstitial oxygen concentration.",
+    "wafer.equipment.crystalBody": "The constant-diameter section that widens from the neck through the crown and then grows while holding the target diameter — the part that gets sliced into wafers. Growth facet striations on the surface disappearing one by one signals that dislocation-free growth has broken down.",
+    "wafer.equipment.meniscus": "The curved surface of melt drawn up around the crystal, which reflects the glow of the hot crucible wall to form a bright ring. Because this ring is the input signal for diameter control, if the curved surface is disturbed, diameter cannot be held.",
+    "wafer.equipment.siliconMelt": "Liquid silicon held in the quartz crucible, with a mirror-like reflective surface that supplies material to the crystal. The free-surface height is held constant by raising the crucible, and if temperature wanders, interface shape and diameter change together.",
+    "wafer.equipment.graphiteSusceptor": "A graphite vessel that wraps around and supports the quartz crucible from outside, holding the shape of the soft crucible and spreading heater heat evenly. Without the susceptor, the crucible sags at high temperature, the melt leaks, and heat piles up on one side.",
+    "wafer.equipment.crucibleShaft": "Supports the bottom of the susceptor, rotating the crucible opposite to the crystal and raising it as the melt is consumed. If the lift stops, the free surface drops and the reference plane for optical diameter measurement wanders."
+  }
+}

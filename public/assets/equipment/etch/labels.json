@@ -1,0 +1,390 @@
+{
+  "processId": "etch",
+  "image": "cross-section.webp",
+  "viewBox": [
+    0,
+    0,
+    1600,
+    900
+  ],
+  "noteMaxWidth": 420,
+  "labels": [
+    {
+      "id": "rf-source",
+      "anchor": [
+        489,
+        257
+      ],
+      "leaderEnd": [
+        338,
+        180
+      ],
+      "side": "left",
+      "ko": "RF 소스 전원(RF Source)",
+      "en": "RF Source Power",
+      "descKey": "etch.equipment.rfSource"
+    },
+    {
+      "id": "showerhead",
+      "anchor": [
+        680,
+        275
+      ],
+      "leaderEnd": [
+        298,
+        90
+      ],
+      "side": "left",
+      "ko": "샤워헤드(Showerhead)",
+      "en": "Showerhead",
+      "descKey": "etch.equipment.showerhead"
+    },
+    {
+      "id": "match-source",
+      "anchor": [
+        489,
+        327
+      ],
+      "leaderEnd": [
+        362,
+        270
+      ],
+      "side": "left",
+      "ko": "소스 정합망(Source Match)",
+      "en": "Source Match Network",
+      "descKey": "etch.equipment.matchSource"
+    },
+    {
+      "id": "bulk-plasma",
+      "anchor": [
+        680,
+        400
+      ],
+      "leaderEnd": [
+        373,
+        360
+      ],
+      "side": "left",
+      "ko": "벌크 플라즈마(Bulk Plasma)",
+      "en": "Bulk Plasma (Glow)",
+      "descKey": "etch.equipment.bulkPlasma"
+    },
+    {
+      "id": "sheath",
+      "anchor": [
+        680,
+        538
+      ],
+      "leaderEnd": [
+        198,
+        450
+      ],
+      "side": "left",
+      "ko": "시스(Sheath)",
+      "en": "Sheath",
+      "descKey": "etch.equipment.sheath"
+    },
+    {
+      "id": "backside-he",
+      "anchor": [
+        738,
+        590
+      ],
+      "leaderEnd": [
+        336,
+        540
+      ],
+      "side": "left",
+      "ko": "헬륨 냉각 홈(He Groove)",
+      "en": "Helium Cooling Groove",
+      "descKey": "etch.equipment.backsideHe"
+    },
+    {
+      "id": "match-bias",
+      "anchor": [
+        489,
+        627
+      ],
+      "leaderEnd": [
+        384,
+        630
+      ],
+      "side": "left",
+      "ko": "바이어스 정합망(Bias Match)",
+      "en": "Bias Match Network",
+      "descKey": "etch.equipment.matchBias"
+    },
+    {
+      "id": "rf-bias",
+      "anchor": [
+        489,
+        717
+      ],
+      "leaderEnd": [
+        298,
+        715
+      ],
+      "side": "left",
+      "ko": "RF 바이어스(RF Bias)",
+      "en": "RF Bias Power",
+      "descKey": "etch.equipment.rfBias"
+    },
+    {
+      "id": "oes-viewport",
+      "anchor": [
+        1090,
+        384
+      ],
+      "leaderEnd": [
+        1294,
+        330
+      ],
+      "side": "right",
+      "ko": "OES 창(OES Viewport)",
+      "en": "OES Viewport",
+      "descKey": "etch.equipment.oesViewport"
+    },
+    {
+      "id": "ion-trajectory",
+      "anchor": [
+        990,
+        538
+      ],
+      "leaderEnd": [
+        1249,
+        420
+      ],
+      "side": "right",
+      "ko": "이온궤적(Ion Trajectory)",
+      "en": "Ion Trajectories",
+      "descKey": "etch.equipment.ionTrajectory"
+    },
+    {
+      "id": "focus-ring",
+      "anchor": [
+        995,
+        574
+      ],
+      "leaderEnd": [
+        1288,
+        510
+      ],
+      "side": "right",
+      "ko": "포커스 링(Focus Ring)",
+      "en": "Focus Ring",
+      "descKey": "etch.equipment.focusRing"
+    },
+    {
+      "id": "esc",
+      "anchor": [
+        960,
+        612
+      ],
+      "leaderEnd": [
+        1305,
+        600
+      ],
+      "side": "right",
+      "ko": "정전척(ESC)",
+      "en": "Electrostatic Chuck",
+      "descKey": "etch.equipment.esc"
+    },
+    {
+      "id": "pump-port",
+      "anchor": [
+        941,
+        751
+      ],
+      "leaderEnd": [
+        1262,
+        690
+      ],
+      "side": "right",
+      "ko": "배기 포트(Pumping Port)",
+      "en": "Pumping Port",
+      "descKey": "etch.equipment.pumpPort"
+    },
+    {
+      "id": "turbo-pump",
+      "anchor": [
+        890,
+        835
+      ],
+      "leaderEnd": [
+        1302,
+        780
+      ],
+      "side": "right",
+      "ko": "터보펌프(Turbo Pump)",
+      "en": "Turbomolecular Pump",
+      "descKey": "etch.equipment.turboPump"
+    }
+  ],
+  "notes": [
+    {
+      "id": "icp-inset-title",
+      "anchor": [
+        610,
+        36
+      ],
+      "leaderEnd": [
+        610,
+        36
+      ],
+      "side": "left",
+      "ko": "인셋 — ICP(유도결합) 형식. 챔버 몸통은 그대로 두고 상부만 갈아 끼운다",
+      "en": "Inset — ICP (inductively coupled) configuration: only the chamber lid is swapped",
+      "tone": "info"
+    },
+    {
+      "id": "icp-coil-window",
+      "anchor": [
+        600,
+        78
+      ],
+      "leaderEnd": [
+        400,
+        40
+      ],
+      "side": "left",
+      "ko": "코일 안테나는 유전체 창 바깥(대기측)에 있고 플라즈마에 잠기지 않는다. 창은 평판형으로 그렸으며 돔 형태도 쓰인다",
+      "en": "The coil antenna sits outside the dielectric window on the atmospheric side and is never immersed in the plasma. The window is drawn flat; dome-shaped windows are also used",
+      "tone": "warn"
+    },
+    {
+      "id": "icp-bias-unchanged",
+      "anchor": [
+        600,
+        162
+      ],
+      "leaderEnd": [
+        400,
+        175
+      ],
+      "side": "left",
+      "ko": "바이어스 전원과 정전척은 CCP와 동일하다 — 바뀌는 것은 플라즈마 발생부뿐이고 이온 가속부는 그대로다",
+      "en": "The bias supply and electrostatic chuck are identical to the CCP case — only the plasma source changes, while the ion acceleration stage stays the same",
+      "tone": "info"
+    },
+    {
+      "id": "zoom-inset-title",
+      "anchor": [
+        980,
+        36
+      ],
+      "leaderEnd": [
+        980,
+        36
+      ],
+      "side": "right",
+      "ko": "확대 — 벌크와 시스의 경계, 그리고 이온 궤적의 수직 정렬",
+      "en": "Detail — the bulk/sheath boundary and the vertical alignment of ion trajectories",
+      "tone": "info"
+    },
+    {
+      "id": "ion-alignment",
+      "anchor": [
+        980,
+        116
+      ],
+      "leaderEnd": [
+        1180,
+        240
+      ],
+      "side": "right",
+      "ko": "벌크에서는 이온 방향이 무질서하지만, 시스에 들어서면 시스 전계가 이온을 웨이퍼 면에 수직으로 가속한다 — 이것이 이방성 식각의 원리다",
+      "en": "Ion directions are randomized in the bulk, but on entering the sheath the sheath field accelerates them perpendicular to the wafer surface — the origin of anisotropic etching",
+      "tone": "info"
+    },
+    {
+      "id": "gap-exaggeration",
+      "anchor": [
+        540,
+        830
+      ],
+      "leaderEnd": [
+        400,
+        820
+      ],
+      "side": "left",
+      "ko": "치수 과장 — 위 막대는 웨이퍼 지름(=1), 아래 막대는 실제 전극 간격(웨이퍼 지름의 약 1/6). 이 도해는 가독성을 위해 약 0.94로 그려 약 5.6배 과장했다",
+      "en": "Exaggerated dimension — the upper bar is the wafer diameter (=1); the lower bar is the real electrode gap (about 1/6 of the wafer diameter). This drawing uses about 0.94 for legibility, an exaggeration of roughly 5.6x",
+      "tone": "warn"
+    },
+    {
+      "id": "rf-role",
+      "anchor": [
+        489,
+        292
+      ],
+      "leaderEnd": [
+        400,
+        310
+      ],
+      "side": "left",
+      "ko": "이중주파수 구동 — 고주파(소스)가 전자밀도, 즉 이온 플럭스를 지배하고, 저주파(바이어스)가 자기바이어스, 즉 이온 에너지를 지배한다",
+      "en": "Dual-frequency drive — the high-frequency source controls electron density (ion flux), while the low-frequency bias controls the self-bias (ion energy)",
+      "tone": "info"
+    },
+    {
+      "id": "static-image-note",
+      "anchor": [
+        833,
+        420
+      ],
+      "leaderEnd": [
+        1180,
+        645
+      ],
+      "side": "right",
+      "ko": "이 그림은 정지 구조도다. 발광층과 시스의 밝기, 이온 화살표의 길이는 값이 아니다 — 플라즈마 밀도와 이온 에너지는 실습 오버레이가 파라미터에 따라 그린다",
+      "en": "This is a static structural drawing. The brightness of the glow and sheath and the length of the ion arrows carry no quantitative meaning — plasma density and ion energy are rendered by the interactive overlay",
+      "tone": "warn"
+    },
+    {
+      "id": "liner-omitted",
+      "anchor": [
+        576,
+        470
+      ],
+      "leaderEnd": [
+        400,
+        400
+      ],
+      "side": "left",
+      "ko": "챔버 소모성 라이너(내벽)는 조사에서 확인되지 않아 그리지 않았다. 진공 용기 벽만 그렸다",
+      "en": "The consumable chamber liner could not be confirmed in the sources and is therefore omitted; only the vacuum vessel wall is drawn",
+      "tone": "warn"
+    },
+    {
+      "id": "upper-electrode-feed",
+      "anchor": [
+        643,
+        258
+      ],
+      "leaderEnd": [
+        400,
+        580
+      ],
+      "side": "left",
+      "ko": "소스 RF를 상부 전극에 급전하는 결선으로 그렸다. 상부 전극을 접지 쪽으로 서술하는 문헌도 있어 형식에 따라 다르다",
+      "en": "The source RF is drawn as feeding the upper electrode. Some sources describe the upper electrode as grounded instead; this varies by configuration",
+      "tone": "warn"
+    },
+    {
+      "id": "oes-limited",
+      "anchor": [
+        1090,
+        384
+      ],
+      "leaderEnd": [
+        1180,
+        735
+      ],
+      "side": "right",
+      "ko": "OES는 옆 창으로 발광을 받아 분광 검출한다는 것까지만 그렸다. 관측 파장과 개구 위치의 구체값은 확인되지 않아 표기하지 않았다",
+      "en": "Optical emission spectroscopy is drawn only as far as collecting emission through a side window. The specific observation wavelengths and aperture position could not be confirmed and are not shown",
+      "tone": "warn"
+    }
+  ]
+}

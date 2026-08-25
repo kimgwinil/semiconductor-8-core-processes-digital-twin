@@ -1,0 +1,340 @@
+{
+  "processId": "deposition",
+  "theory": {
+    "title": "Theory",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "P5 is the process that \"adds\" material to the wafer. It covers both deposition, which lays a film on top of the surface, and ion implantation, which pushes dopants beneath the surface. Because the two operations repeat together as one bundle on the actual line, this section treats them together."
+      },
+      {
+        "type": "h",
+        "level": 3,
+        "text": "Three ways to build up a film — PVD, CVD, ALD"
+      },
+      {
+        "type": "p",
+        "text": "PVD physically knocks atoms off a target and sends them flying. The number of target atoms ejected per incident ion is the sputter yield, and because the ejected atoms are neutral they travel in a straight line without bending. CVD builds a film through a chemical reaction at the substrate surface and splits into APCVD, LPCVD, PECVD, and HDP-CVD; the growth rate is governed by the surface reaction at low temperature and by gas-phase mass transport at high temperature."
+      },
+      {
+        "type": "p",
+        "text": "When a film meets a trench, the question becomes \"how well did it follow along.\" Step coverage is the ratio of the sidewall or bottom thickness to the top (flat-field) thickness, and aspect ratio is the depth divided by the width. Conformality worsens in the order ALD, PECVD, sputter PVD, and the split traces back to differences in self-limiting surface reaction, diffusion, and line-of-sight flux. When coverage is poor, the entrance shoulders build up into an overhang, and once the shoulders meet, a void is trapped underneath."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "It is easy to swap step coverage and aspect ratio in memory. The former is a quality figure of the film (a thickness ratio); the latter is a shape figure of the structure (depth ÷ width). Because it is a ratio, even if you raise the cycle count and grow both the top and bottom by the same factor, step coverage stays the same."
+      },
+      {
+        "type": "h",
+        "level": 3,
+        "text": "ALD — thickness is set by \"counting\""
+      },
+      {
+        "type": "p",
+        "text": "One ALD cycle consists of four steps: precursor pulse → purge → reactant pulse → purge. The key is separating the two half-reactions in time — if the intervening purge is dropped, the two species meet in the gas phase and grow like CVD instead. Once the surface reaction sites are all filled, adding more precursor does not stick, and this self-limitation is what keeps growth per cycle (GPC) constant."
+      },
+      {
+        "type": "formula",
+        "latex": "d = \\mathrm{GPC} \\times N",
+        "sourceId": "S186",
+        "caption": "Within the ALD window (150–250 °C), GPC is flat at 1.1 Å/cycle. Since one cycle takes 83 s, the price of thickness is tool occupancy time."
+      },
+      {
+        "type": "p",
+        "text": "The temperature range where GPC is flat is the ALD window. Below the window, self-limitation breaks down from condensation or incomplete reaction; above the window, it breaks down from thermal decomposition and desorption. Inside the window, raising the temperature gains nothing, and the only knob that changes thickness is the cycle count."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "\"Raising the temperature deposits faster\" is CVD intuition, and it is wrong inside the ALD window. Cycle count vs. thickness is a straight line through the origin, while exposure vs. GPC is a saturation curve that levels off at a plateau — they differ from the axes up."
+      },
+      {
+        "type": "h",
+        "level": 3,
+        "text": "Ion implantation — how much goes in, and how deep"
+      },
+      {
+        "type": "p",
+        "text": "The implanted amount is counted as dose, the number of ions per unit area. Dose is set by the product of beam current and time — that is, integrated charge — and the tool cuts the beam once the target charge is reached. Beam current is only \"how many per second,\" so it cannot change the depth — depth is set by the accelerating energy."
+      },
+      {
+        "type": "formula",
+        "latex": "Q = \\frac{I\\,t}{q\\,A}",
+        "sourceId": "S181",
+        "caption": "Raising the beam current shortens the time needed for the same dose in inverse proportion. What you are buying is time, not depth."
+      },
+      {
+        "type": "p",
+        "text": "Ions are most concentrated not at the surface but at some depth below it. The average depth reached is the projected range R_p, the spread around it is the longitudinal straggle ΔR_p, and the depth–concentration profile is a Gaussian peaked at R_p. Both values differ by ion species and energy and are always given as conditions — the only measured anchor point in this course's physics layer is a single case of boron implanted into silicon at 100 keV (R_p 2968 Å · ΔR_p 735 Å)."
+      },
+      {
+        "type": "formula",
+        "latex": "N_p = \\frac{Q}{\\sqrt{2\\pi}\\,\\Delta R_p}",
+        "sourceId": "S181",
+        "caption": "The area under the Gaussian is exactly the dose. Even at the same dose, if ΔR_p widens, the peak drops."
+      },
+      {
+        "type": "formula",
+        "latex": "x_j = R_p \\pm \\sqrt{2}\\,\\Delta R_p \\sqrt{\\ln\\!\\left(\\frac{N_p}{N_B}\\right)}",
+        "sourceId": "S180",
+        "caption": "The junction is where the concentration meets the substrate background concentration N_B. There are two junctions, one on each side of the peak."
+      },
+      {
+        "type": "h",
+        "level": 3,
+        "text": "Channeling, damage, and anneal"
+      },
+      {
+        "type": "p",
+        "text": "Because silicon is a single crystal, atoms line up along certain crystallographic directions to form open channels. If the beam runs parallel to such a channel, ions slip in with almost no collisions, leaving a long tail behind the peak — this is channeling. It is suppressed by conventionally tilting the wafer 7° (tilt), adding rotation (twist), and scrambling the angle of incidence with a screen oxide."
+      },
+      {
+        "type": "p",
+        "text": "Lattice damage accumulates along the ion's path, and once the dose exceeds a threshold, the surface layer becomes amorphous. That is why anneal follows implantation, to restore the lattice and seat the dopant on substitutional sites. Because the same heat also drives diffusion, whatever activation is gained comes at the cost of junction abruptness."
+      },
+      {
+        "type": "formula",
+        "latex": "\\sigma' = \\sqrt{\\Delta R_p^{\\,2} + 2Dt}",
+        "sourceId": "S180",
+        "caption": "This is the profile width after anneal. With 2Dt added, the peak drops and the junction goes deeper."
+      },
+      {
+        "type": "h",
+        "level": 3,
+        "text": "What the following labs let you control"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Basic — using two variables, \"ALD cycle count\" (cycles) and \"substrate temperature\" (°C), bring the \"film thickness d\" into the 23.0–25.0 nm range.",
+          "Applied — enter \"projected range R_p (given in the problem)\" and \"longitudinal straggle ΔR_p (given in the problem)\" in nm, and adjust \"dose Q\" (×10¹⁴ cm⁻²) and \"beam current I\" (mA).",
+          "Applied — two passing criteria: \"junction depth x_j (deeper side)\" 180–220 nm, and \"implant time t\" at most 35 s.",
+          "Advanced — the four variables above are joined by \"ALD cycle count,\" \"substrate temperature,\" \"activation anneal temperature\" (K), and \"activation anneal time\" (s), making eight in total.",
+          "Advanced — four passing criteria: \"dielectric film thickness d\" 23.0–25.0 nm, \"junction depth after anneal x_j\" 180–220 nm, \"effective straggle after anneal σ′\" at most 40 nm, and \"implant time t\" at most 35 s."
+        ]
+      }
+    ]
+  },
+  "overview": {
+    "title": "Process Overview",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "P5 comes after wafer manufacturing (P1) and oxidation (P2), interleaves with photo (P3) and etch (P4), and then hands off to metallization (P6). If the processes before and after are on the \"cutting and carving\" side, P5 is on the \"adding\" side."
+      },
+      {
+        "type": "p",
+        "text": "The thermal oxide of P2 is a grown film that consumes the substrate silicon as it forms, but a deposited film brings material in from outside and lays it on top. Deposited films are used as gate/capacitor dielectrics, interlayer dielectrics, hard masks/spacers, and diffusion barriers, while ion implantation is used for well formation, threshold-voltage adjustment, and source/drain formation."
+      },
+      {
+        "type": "h",
+        "level": 3,
+        "text": "The structure chooses the deposition method"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Look at the structure first. If it is a flat surface or the aspect ratio is low, PVD, which deposits by line-of-sight, is enough.",
+          "As aspect ratio rises, move to CVD, which grows by a surface chemical reaction, and when the thermal budget is tight, use PECVD, where plasma assists the reaction.",
+          "If the aspect ratio is even larger, or thickness must be specified by cycle count, it is ALD. In exchange for saturating even deep locations to the same thickness, each cycle must spend time on purging."
+        ]
+      },
+      {
+        "type": "h",
+        "level": 3,
+        "text": "Implantation is one bundle through anneal"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Deposition — lays down the needed film. Films made for the next step, such as a screen oxide before implantation, are also made here.",
+          "Implantation — pushes dopant ions into the sites the mask has opened. At this point, most of the dopant is not yet doing electrical work.",
+          "Anneal / activation — uses heat to reverse lattice damage and seat the dopant on substitutional sites. Because the same heat also causes diffusion, it is applied briefly and hot.",
+          "Metrology — measures film thickness and sheet resistance to confirm the preceding three steps went as intended."
+        ]
+      },
+      {
+        "type": "note",
+        "tone": "info",
+        "text": "The two operations are bundled into one section because both are processes that \"add material onto or into the substrate,\" and because mask → implant → resist strip → deposit repeats as one module on the actual line."
+      }
+    ]
+  },
+  "equipment": {
+    "title": "Equipment Structure",
+    "blocks": [
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Sputter chamber — from ceiling to floor"
+      },
+      {
+        "type": "p",
+        "text": "The chamber side of this cross-section is a magnetron sputter tool. At the ceiling, the sputter target hangs as the cathode facing the wafer, and the cathode power supply applies a negative DC voltage to it. Right behind the target sits the backing plate, a water-cooled copper plate that supports the target while carrying away the heat generated by ion bombardment through cooling water, and behind that again sits the magnet array. It is more accurate to see the ceiling not as a single part but as a stack of four layers — material, power, cooling, and magnet — overlapping one another."
+      },
+      {
+        "type": "p",
+        "text": "The magnet array raises an arch of magnetic field lines in front of the target to trap electrons. As a result, the plasma does not scatter across the whole chamber, and a ring-shaped plasma torus glows brightly only beneath the arch. Because ions strike concentrated only at that ring, an erosion track groove is carved into the underside of the target, and in the diagram that groove sits at about two-thirds of the target radius. The target must be replaced before the groove breaks through to the back side, and because the center and edge are left less eroded, target utilization never reaches 100%."
+      },
+      {
+        "type": "p",
+        "text": "At the bottom of the chamber, the wafer pedestal holds the wafer facing the target head-on. This is not a mere support but an electrode — applying a bias to it pulls in ions and densifies the film. If the wafer is loosely clamped or tilted, the distance to the target varies from spot to spot, so thickness becomes non-uniform across the wafer. The vacuum pump connected to the side is the part that holds argon pressure at the process condition; as pressure rises, atoms leaving the target collide more often with the gas, scattering their direction and losing energy."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "The overhang and void drawn large on one side of the diagram are not equipment parts but the resulting shapes left inside the trench. The overhang is metal that builds up first at the entrance shoulder like an eave and juts out, and the void is the empty space trapped beneath it once that eave seals the entrance. Neither is caused by a broken part — both are made by particles arriving in a straight line — so swapping a part will not make them disappear."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Ion implanter beamline — from left to right"
+      },
+      {
+        "type": "p",
+        "text": "The beamline is not something that happens in one room but a long tube of parts lined up in a row. The very first is the ion source, which turns dopant gas into plasma by arc discharge to generate ions. Right behind it, the extraction electrode applies a voltage across a slit-shaped opening to pull ions out of the plasma and shape them into a beam bundle. Even though these two parts sit right next to each other, their roles differ — the first makes the ions, the second draws out the ions already made."
+      },
+      {
+        "type": "p",
+        "text": "The largest part that comes next is the mass-analyzing magnet. It bends the beam sharply, splitting ions of different mass-to-charge ratios onto different trajectories, and the lighter the ion, the more it bends. The narrow gap attached to its exit is the resolving aperture, which passes only the trajectory of the target ion and blocks anything off-target with a mask. The magnet only separates — without the aperture, the sorting is never completed — which is why these two parts must be viewed together."
+      },
+      {
+        "type": "p",
+        "text": "Past the aperture, the acceleration column uses several ring electrodes to accelerate or decelerate the beam and set the final energy. This is exactly the point that determines the depth at which the dopant will come to rest. Right after it, the neutral beam trap is the section that filters out particles that lost their charge during acceleration or deceleration. A neutralized particle no longer bends in the magnetic field and travels straight until it is stopped by a wall — if it is not filtered out, particles invisible to dose metrology will still land on the wafer, so the actual implanted amount diverges from the metered value."
+      },
+      {
+        "type": "p",
+        "text": "The beam scanner sweeps the beam side to side in a fan shape between two facing electrodes so it covers the entire wafer. But when the fan-shaped beam reaches the wafer still spread apart, the angle of incidence differs between the center and the edge, so the angle-correction magnet right behind it straightens that fan back into a parallel bundle. These two parts each handle a different problem — \"covering the whole surface\" and \"making the beam land at the same angle.\""
+      },
+      {
+        "type": "p",
+        "text": "At the end of the beamline, at the end station, the wafer stands tilted 7° relative to the beam axis. This posture is meant to avoid facing the crystal's open channels head-on. Right in front of it sits the flood gun, which sprays low-energy electrons, because if only positive ions keep landing, charge builds up on the surface and damages the gate dielectric, and a low-energy, high-current beam can lose its own transport entirely. These last two parts are not responsible for the implanted amount but for the safety of the implant."
+      },
+      {
+        "type": "note",
+        "tone": "info",
+        "text": "This diagram does not include an ALD or CVD chamber. On an actual line, that family sprays gas over the whole surface through a showerhead, a heated susceptor holds the substrate temperature, and high-speed valves that open and close on millisecond timescales separate the two precursors in time. With no target and no beamline, \"when gas goes in and when it comes out\" being the equipment's backbone is the biggest difference from the sputter chamber."
+      }
+    ]
+  },
+  "principle": {
+    "title": "Operating Principle",
+    "blocks": [
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Sputtering — from discharge ignition to atoms flying off"
+      },
+      {
+        "type": "p",
+        "text": "The chamber is pumped down first, and then argon is admitted and balanced at the process pressure. When the cathode power supply applies a negative voltage to the target, a discharge ignites, and ionization crowds in where the magnet holds electrons in place, so a ring-shaped plasma stands up. Argon ions are accelerated toward the cathode target and strike the surface, and that impact triggers a cascade beneath the surface that eventually knocks a surface atom outward. The reason the sequence is fixed this way is simple — without gas there is no discharge, and without a discharge there is no ion to strike with."
+      },
+      {
+        "type": "p",
+        "text": "No matter how hard a single ion strikes, a minimum energy is needed to knock a surface atom free. That threshold is the threshold energy, proportional to the surface binding energy holding the material together and corrected by the mass ratio of the ion to the target atom. Copper's surface binding energy is 3.49 eV, and the lighter the ion striking the heavier target, the larger the mass-ratio term grows, raising the threshold as well."
+      },
+      {
+        "type": "formula",
+        "latex": "E_{th} = U_s\\left(1.9 + 3.8\\,\\frac{M_1}{M_2} + 0.134\\left(\\frac{M_2}{M_1}\\right)^{1.24}\\right)",
+        "sourceId": "S185",
+        "caption": "Sputter threshold energy. This is the light-ion (M₁ < M₂), normal-incidence branch, and U_s is the surface binding energy of the target."
+      },
+      {
+        "type": "p",
+        "text": "Crossing the threshold does not mean it is all upside to keep raising the energy. The nuclear stopping term, which transfers collision energy into the target lattice, is single-peaked with respect to energy — it rises up to a point and then falls back afterward. An ion that is too fast does not stop near the surface but digs inward, so the share of energy actually used to knock out a surface atom shrinks. There really is a regime where raising the voltage does not bring the deposition rate up along with it."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "It is easy to mistake what flies off the target for an ion. What is ejected is a neutral atom, so it is not bent by electric or magnetic fields and travels straight. This is also why an overhang forms from material piling up first at the trench entrance shoulder, and why applying a bias to the pedestal cannot itself change the arrival direction."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Ion beam — eight stages from ion source to wafer"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Feed dopant gas into the ion source and raise a plasma by arc discharge to make ions.",
+          "The extraction electrode pulls ions out of the plasma and shapes them into a single beam bundle.",
+          "The mass-analyzing magnet bends the beam, splitting ions of different mass-to-charge ratios onto different trajectories.",
+          "The resolving aperture passes only the target trajectory and stops the rest against a wall, completing the sorting.",
+          "The acceleration column accelerates or decelerates the remaining beam to fix the final energy — that is, the depth it will reach.",
+          "The neutral beam trap filters out particles that lost their charge along the way, preventing implantation that dose metrology would miss.",
+          "The beam scanner sweeps the beam side to side, and the angle-correction magnet straightens that fan into a parallel bundle.",
+          "While the beam strikes the wafer tilted 7°, the flood gun neutralizes surface charge, and once the integrated charge reaches the target, the beam is cut off."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "There are a few positions in this sequence that cannot be swapped. Sorting comes before acceleration because accelerating unwanted ion species up to the target energy first and picking them out afterward would be far more expensive and hazardous. The same goes for placing the neutral beam trap after acceleration — since the accident of losing charge mostly happens during the acceleration stage, it must sit downstream of it to catch them. Parallelization coming after the scan is likewise because there is nothing to straighten until after the beam has been fanned out."
+      },
+      {
+        "type": "p",
+        "text": "The final stage's stopping criterion is decided not by a clock but by charge. Once the target dose and wafer area are fixed, the required total charge is fixed, and the time it takes the beam current to fill that charge is exactly the implant time. So even if the beam current fluctuates, the dose is preserved as long as the cutoff is by integrated amount, and raising the current is a knob that shortens processing time, not depth."
+      },
+      {
+        "type": "formula",
+        "latex": "t = \\frac{\\Phi\\,q\\,A}{I}",
+        "sourceId": "S181",
+        "caption": "The implant time it takes to fill the target dose Φ. q is the ion charge, A is the area, and I is the beam current."
+      },
+      {
+        "type": "p",
+        "text": "What sets the depth is the energy delivered by the acceleration column. As seen in the theory section, the peak of the distribution sits at the projected range R_p; to give one measured anchor point, when boron is implanted into silicon at 100 keV, R_p is 2968 Å and the spread is 735 Å. However, a general conversion table from energy to depth is not carried in this course's physics layer, so in the labs, R_p and the spread are taken as given problem conditions for the calculation."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "It is easy to lump scan and tilt into the same knob in memory. Scan and parallelization are devices for evening out the dose across the wafer, while the 7° tilt is a device for avoiding the crystal's open channels to suppress the tail of the distribution. Even with a perfect scan, standing the wafer upright still leaves channeling untouched."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Even the same \"one layer\" — ALD divides it by time"
+      },
+      {
+        "type": "p",
+        "text": "While sputtering ignites a discharge and deposits continuously, ALD splits the half-reactions in time and builds up one cycle at a time. A published thermal-ALD alumina recipe lays out one cycle as 1 s precursor, 40 s purge, 2 s reactant, 40 s purge. Most of the time goes not to reaction but to purging. Shortening the purge speeds up the cycle, but then the two precursors meet in the gas phase and self-limitation breaks down, so the time saved here is exactly the price paid in film quality."
+      },
+      {
+        "type": "formula",
+        "latex": "t_{cycle} = 1 + 40 + 2 + 40 = 83\\ \\mathrm{s}",
+        "sourceId": "S186",
+        "caption": "Time breakdown of one thermal-ALD Al₂O₃ cycle (precursor pulse · purge · reactant pulse · purge)."
+      },
+      {
+        "type": "p",
+        "text": "Temperature is not a speed knob but a condition for keeping the window. In the same reference, growth per cycle across the 150–250 °C range is flat at 1.1 Å, and it drops once you go below that. As long as you stay inside the window, raising the temperature does not deposit faster, so the only knob that changes thickness is the cycle count. When the following basic lab moves cycle count and substrate temperature separately, this asymmetry shows up directly."
+      }
+    ]
+  },
+  "labels": {
+    "deposition.equipment.overhang": "Metal grows thick like an eave over the upper edge of the trench entrance and juts out. It forms because sputtered atoms travel in a straight line and build up first at the entrance shoulder, and as it grows it narrows the entrance, making the sidewall and bottom even thinner.",
+    "deposition.equipment.void": "An empty space trapped beneath the trench entrance once the growing overhang seals it off first. Because a spot that should be filled is left empty, that interconnect cannot carry current as designed.",
+    "deposition.equipment.magnetArray": "Behind the target, it raises an arch of magnetic field lines to trap electrons at the target's front face, and rotating around the axis evens out the erosion mark into circular symmetry. Without this magnet the plasma would scatter and the magnetron would not work.",
+    "deposition.equipment.cathodePower": "The power supply that applies a negative DC voltage to the target to discharge the argon and pull ions toward the target. If the voltage fluctuates, the discharge becomes unstable and the deposition rate varies from lot to lot.",
+    "deposition.equipment.backingPlate": "A water-cooled copper plate sandwiched between the target and the magnet array; it supports the target while carrying away the heat generated by ion bombardment through cooling water. If cooling is interrupted, the target overheats and deposition cannot continue.",
+    "deposition.equipment.erosionTrack": "A groove carved only where that ring sits beneath the arch of magnetic field lines, located at about two-thirds of the target radius. The target must be replaced before the groove breaks through to the back side, and because the center and edge are left behind, utilization never reaches 100%.",
+    "deposition.equipment.sputterTarget": "A metal disc hung as the cathode at the chamber ceiling, facing the wafer; the atoms knocked out by argon-ion bombardment become the material that is deposited as is. What leaves here is a neutral atom, so it does not bend and travels straight.",
+    "deposition.equipment.plasmaTorus": "A dense, ring-shaped argon plasma that glows brightly, gathered only right beneath the erosion groove on the underside of the target. If it scattered across the whole chamber, fewer ions would strike the target and the deposition rate would drop.",
+    "deposition.equipment.waferPedestal": "The electrode at the bottom of the chamber that holds the wafer facing the target; applying a bias to it pulls in ions and densifies the film. If the wafer is loosely clamped or tilted, film thickness becomes non-uniform across the wafer.",
+    "deposition.equipment.vacuumPump": "The device that pumps the chamber to hold argon pressure at the process condition. As pressure rises, sputtered atoms collide more often with the gas, scattering their direction and losing energy, which degrades film quality.",
+    "deposition.equipment.angleCorrector": "The magnet that straightens the fan-shaped beam from the scanner back into a parallel bundle. Without this straightening, the angle of incidence differs between the wafer's center and edge, so the tilt angle set to avoid channeling ends up shifted from spot to spot.",
+    "deposition.equipment.beamScanner": "Sweeps the beam side to side in a fan shape between two facing electrodes so it covers the entire wafer. Without sweeping, implantation would occur only where the beam lands, causing large dose non-uniformity across the wafer.",
+    "deposition.equipment.resolvingSlit": "A narrow gap placed at the exit of the mass-analyzing magnet; it passes only the trajectory of the target ion and blocks off-target ions with a mask. Without it, the magnet only separates without filtering, and the sorting is never completed.",
+    "deposition.equipment.tiltedWafer": "At the end of the beamline, the wafer is stood tilted 7° relative to the beam axis, meant to block the crystal's open channels and avoid channeling. Standing it upright lets ions slip deep along the channels, producing a long tail in the profile.",
+    "deposition.equipment.analyzerMagnet": "The largest magnet after extraction; it bends the beam sharply, splitting ions of different mass-to-charge ratios onto different trajectories, with lighter ions bending more. Without this magnet, unwanted ion species would be implanted along with the target species.",
+    "deposition.equipment.accelColumn": "Uses several ring electrodes to accelerate or decelerate the beam that has passed the resolving aperture, setting the final energy. That energy determines the projected range R_p, so if this goes wrong the dopant does not settle at the intended depth.",
+    "deposition.equipment.neutralTrap": "The section that filters out particles that lost their charge and turned neutral during acceleration or deceleration; a neutralized particle is not bent by the magnetic field and travels straight until stopped by a wall. Without filtering, particles invisible to dose metrology still land on the wafer, so the actual implanted amount diverges from the metered value.",
+    "deposition.equipment.floodGun": "Sprays low-energy electrons right in front of the wafer to offset the surface charge built up by positive ions. Without neutralization, charging damages the gate dielectric, and a low-energy, high-current beam can lose its own transport entirely.",
+    "deposition.equipment.extractionElectrode": "Right behind the ion source, it applies a voltage across a slit-shaped opening to pull ions out of the plasma and shape them into a beam bundle. Without this electrode, ions would stay inside the source and never emerge into the beamline.",
+    "deposition.equipment.ionSource": "The first stage of the beamline; it turns dopant gas into plasma by arc discharge to generate ions. If ions are not made here, none of the downstream equipment matters, and no beam is formed at all."
+  }
+}

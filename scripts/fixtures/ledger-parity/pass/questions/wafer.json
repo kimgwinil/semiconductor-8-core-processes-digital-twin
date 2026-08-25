@@ -1,0 +1,13 @@
+{
+  "processId": "wafer",
+  "items": [
+    { "id": "wafer-q01", "objectiveId": "LO-P1-01", "type": "single", "difficulty": "low", "answer": 1 },
+    { "id": "wafer-q02", "objectiveId": "LO-P1-02", "type": "numeric", "difficulty": "mid", "answer": { "value": 78.9, "unit": "nm", "tolerance": 0.01 } },
+    { "id": "wafer-q03", "objectiveId": "LO-P1-03", "type": "short", "difficulty": "high", "answer": { "accept": ["Czochralski", "CZ법"] } },
+    { "id": "wafer-q04", "objectiveId": "LO-P1-04", "type": "numeric", "difficulty": "mid", "answer": { "parts": [
+      { "label": "a", "value": 15.4, "unit": "°C/W", "tolerance": 0.01 },
+      { "label": "b", "value": 101.4, "unit": "°C", "tolerance": 0.01 },
+      { "label": "c", "value": 54.8, "unit": "%", "tolerance": 0.01 }
+    ] } }
+  ]
+}

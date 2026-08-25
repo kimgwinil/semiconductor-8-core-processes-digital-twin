@@ -1,0 +1,17 @@
+{
+  "lab-basic": {
+    "intro": "With chamber pressure fixed at 30 mTorr and source power at 1000 W, a lab where you etch a trench down to the target depth.",
+    "goal": "Move only bias power P_b (0–500 W) and etch time t (10–180 s) to hit the trench depth D. Anisotropy A, sidewall angle θ, resist selectivity S_PR, and undercut U change along with them too, but they are not verdict targets — read them as the trade-off cost.",
+    "passHint": "There is one verdict output, trench depth D. You pass when D is 285.0 nm or more and 315.0 nm or less."
+  },
+  "lab-applied": {
+    "intro": "A lab where pressure and source power are also opened up, satisfying three metrics at once.",
+    "goal": "Combine chamber pressure p (5–300 mTorr), source (ICP) power P_s (200–2000 W), bias power P_b (0–500 W), and etch time t (10–180 s). Pressure and bias pull anisotropy and selectivity in opposite directions, so move them as a pair, then finish the depth with time.",
+    "passHint": "All three verdicts must be satisfied at once — trench depth D 380.0–420.0 nm, anisotropy A 0.930 or higher, resist selectivity S_PR 9.00 or higher."
+  },
+  "lab-advanced": {
+    "intro": "A lab where you restore yield and throughput in a chamber under disturbance.",
+    "goal": "Pick a disturbance (0 = normal · 1 = chamber drift · 2 = low open-area ratio) and an endpoint-detection mode (0 = OES · 1 = interferometry · 2 = fixed time), then recover using chamber pressure p (5–300 mTorr), bias power P_b (0–500 W), total etch gas flow Q (20–500 sccm), overetch rate OE (0–80%), and passivation gas fraction f (0–40%). The underlying film is only 10 nm of SiO₂.",
+    "passHint": "All five verdicts must be satisfied at once — anisotropy A 0.9400 or higher, underlayer loss Δd_UL 5.00 nm or less, residue index R_res 15.00 or less, throughput TH 12.0 wafer/h or higher, yield Y 90.0% or higher."
+  }
+}

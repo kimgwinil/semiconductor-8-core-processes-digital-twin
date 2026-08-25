@@ -1,0 +1,39 @@
+{
+  "recordedAt": "2026-08-24T03:46:00.285Z",
+  "source": "--url http://localhost:5178",
+  "servedFrom": "http://localhost:5178",
+  "summary": {
+    "measuredScreens": 222,
+    "widths": [
+      1400,
+      1024,
+      375
+    ],
+    "routes": 74,
+    "total": 0,
+    "sev1": 0,
+    "sev2": 0,
+    "sev3": 0,
+    "byWidth": {
+      "375": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "total": 0
+      },
+      "1024": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "total": 0
+      },
+      "1400": {
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "total": 0
+      }
+    },
+    "partial": null
+  }
+}

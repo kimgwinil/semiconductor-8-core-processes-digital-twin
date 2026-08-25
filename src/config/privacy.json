@@ -1,0 +1,6 @@
+{
+  "_comment": "🔴 개인 식별 정보 전송 설정. 기본값은 전부 false(=보내지 않음). D-006 유효. 켜는 것 자체가 CEO 승인 게이트다(설계서 §12-4).",
+  "sendLearnerIdentity": false,
+  "fields": { "id": false, "name": false, "orgId": false, "email": false },
+  "remoteSink": { "enabled": false, "endpoint": "", "sharedToken": "" }
+}

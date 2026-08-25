@@ -1,0 +1,419 @@
+{
+  "processId": "packaging",
+  "image": "cross-section.webp",
+  "viewBox": [
+    0,
+    0,
+    1600,
+    900
+  ],
+  "labels": [
+    {
+      "id": "wire-clamp",
+      "anchor": [
+        740,
+        264
+      ],
+      "leaderEnd": [
+        360,
+        110
+      ],
+      "side": "left",
+      "ko": "와이어 클램프(Wire Clamp)",
+      "en": "Wire Clamp",
+      "descKey": "packaging.equipment.wireClamp"
+    },
+    {
+      "id": "ultrasonic-transducer",
+      "anchor": [
+        640,
+        352
+      ],
+      "leaderEnd": [
+        426,
+        195
+      ],
+      "side": "left",
+      "ko": "초음파 트랜스듀서 혼(Ultrasonic Transducer Horn)",
+      "en": "Ultrasonic Transducer Horn",
+      "descKey": "packaging.equipment.ultrasonicTransducer"
+    },
+    {
+      "id": "bond-head",
+      "anchor": [
+        400,
+        420
+      ],
+      "leaderEnd": [
+        298,
+        365
+      ],
+      "side": "left",
+      "ko": "본드 헤드(Bond Head)",
+      "en": "Bond Head",
+      "descKey": "packaging.equipment.bondHead"
+    },
+    {
+      "id": "capillary",
+      "anchor": [
+        774,
+        480
+      ],
+      "leaderEnd": [
+        410,
+        280
+      ],
+      "side": "left",
+      "ko": "캐필러리 · 본딩 툴(Capillary)",
+      "en": "Capillary (Bonding Tool)",
+      "descKey": "packaging.equipment.capillary"
+    },
+    {
+      "id": "efo-electrode",
+      "anchor": [
+        700,
+        577
+      ],
+      "leaderEnd": [
+        343,
+        470
+      ],
+      "side": "left",
+      "ko": "EFO 전극(EFO Electrode)",
+      "en": "EFO Torch Electrode",
+      "descKey": "packaging.equipment.efoElectrode"
+    },
+    {
+      "id": "die-bond-pad",
+      "anchor": [
+        800,
+        618
+      ],
+      "leaderEnd": [
+        360,
+        640
+      ],
+      "side": "left",
+      "ko": "다이·본드 패드(Die / Pad)",
+      "en": "Die / Bond Pad",
+      "descKey": "packaging.equipment.dieBondPad"
+    },
+    {
+      "id": "heater-block",
+      "anchor": [
+        700,
+        690
+      ],
+      "leaderEnd": [
+        394,
+        720
+      ],
+      "side": "left",
+      "ko": "히터 블록 · 워크 홀더(Heater Block)",
+      "en": "Heater Block (Work Holder)",
+      "descKey": "packaging.equipment.heaterBlock"
+    },
+    {
+      "id": "capillary-hole",
+      "anchor": [
+        1165,
+        172
+      ],
+      "leaderEnd": [
+        1179,
+        164
+      ],
+      "side": "right",
+      "ko": "캐필러리 중심 구멍 H(Capillary Hole)",
+      "en": "Capillary Hole (H)",
+      "descKey": "packaging.equipment.capillaryHole"
+    },
+    {
+      "id": "capillary-cone-angle",
+      "anchor": [
+        1077,
+        348
+      ],
+      "leaderEnd": [
+        1145,
+        100
+      ],
+      "side": "right",
+      "ko": "캐필러리 콘 각 CA(Cone Angle)",
+      "en": "Capillary Cone Angle (CA)",
+      "descKey": "packaging.equipment.capillaryConeAngle"
+    },
+    {
+      "id": "capillary-face-angle",
+      "anchor": [
+        1120,
+        379
+      ],
+      "leaderEnd": [
+        1226,
+        228
+      ],
+      "side": "right",
+      "ko": "캐필러리 페이스 각(FA)",
+      "en": "Capillary Face Angle (FA)",
+      "descKey": "packaging.equipment.capillaryFaceAngle"
+    },
+    {
+      "id": "capillary-tip-geometry",
+      "anchor": [
+        1232,
+        377
+      ],
+      "leaderEnd": [
+        1201,
+        356
+      ],
+      "side": "right",
+      "ko": "캐필러리 끝단(Capillary Tip)",
+      "en": "Capillary Tip Geometry",
+      "descKey": "packaging.equipment.capillaryTipGeometry"
+    },
+    {
+      "id": "free-air-ball",
+      "anchor": [
+        1165,
+        394
+      ],
+      "leaderEnd": [
+        1196,
+        292
+      ],
+      "side": "right",
+      "ko": "자유공 볼 FAB(Free Air Ball)",
+      "en": "Free Air Ball (FAB)",
+      "descKey": "packaging.equipment.freeAirBall"
+    },
+    {
+      "id": "capillary-chamfer",
+      "anchor": [
+        1165,
+        440
+      ],
+      "leaderEnd": [
+        1222,
+        420
+      ],
+      "side": "right",
+      "ko": "챔퍼 지름 CD(Chamfer Dia.)",
+      "en": "Chamfer Diameter CD",
+      "descKey": "packaging.equipment.capillaryChamfer"
+    },
+    {
+      "id": "ball-bond",
+      "anchor": [
+        1105,
+        585
+      ],
+      "leaderEnd": [
+        1155,
+        484
+      ],
+      "side": "right",
+      "ko": "볼 본드 · 1st 본드(Ball Bond)",
+      "en": "Ball Bond (1st Bond)",
+      "descKey": "packaging.equipment.ballBond"
+    },
+    {
+      "id": "stitch-bond",
+      "anchor": [
+        1246,
+        575
+      ],
+      "leaderEnd": [
+        1251,
+        548
+      ],
+      "side": "right",
+      "ko": "스티치 본드(Stitch Bond)",
+      "en": "Stitch / Wedge Bond",
+      "descKey": "packaging.equipment.stitchBond"
+    }
+  ],
+  "notes": [
+    {
+      "id": "scale-exaggeration",
+      "anchor": [
+        170,
+        40
+      ],
+      "leaderEnd": [
+        170,
+        40
+      ],
+      "side": "left",
+      "ko": "가독성을 위해 와이어 지름과 다이 두께를 실제 축척보다 과장해 그렸다. 다만 조사에서 확보한 상대 비 — 캐필러리 끝단 외경 : 선경 = 7.5 : 1, 본드 패드 한 변 : 선경 = 2.5 : 1, FAB : 선경 = 1.82 : 1 — 는 그대로 지켰다",
+      "en": "Wire diameter and die thickness are drawn larger than true scale for legibility. The sourced ratios are preserved: capillary tip OD : wire = 7.5 : 1, bond pad side : wire = 2.5 : 1, FAB : wire = 1.82 : 1",
+      "tone": "warn"
+    },
+    {
+      "id": "ultrasonic-not-drawn",
+      "anchor": [
+        170,
+        548
+      ],
+      "leaderEnd": [
+        170,
+        548
+      ],
+      "side": "left",
+      "ko": "초음파 진동은 그리지 않았다. 트랜스듀서 축방향 변위는 1~2 µm로 육안 스케일이 아니며, 흔들림·잔상으로 과장하면 틀린 그림이 된다. 접합력·초음파 파워도 색이나 화살표로 표현하지 않았다",
+      "en": "Ultrasonic motion is not depicted. Axial transducer displacement is only 1-2 um, far below visible scale; exaggerating it as blur or vibration would be wrong. Bond force and ultrasonic power are likewise not encoded in color or arrows",
+      "tone": "warn"
+    },
+    {
+      "id": "loop-height-estimate",
+      "anchor": [
+        840,
+        585
+      ],
+      "leaderEnd": [
+        170,
+        606
+      ],
+      "side": "left",
+      "ko": "루프 높이는 다이 두께의 약 1~2배로 그렸다. 이 비는 조사에서 정성 추정으로 남은 값이며 루프 높이(LH)의 실제 µm 값은 미확인이다",
+      "en": "Loop height is drawn at roughly 1-2x the die thickness. This ratio is a qualitative estimate in the source survey; the actual loop height in um is unverified",
+      "tone": "warn"
+    },
+    {
+      "id": "molding-absorbed",
+      "anchor": [
+        170,
+        760
+      ],
+      "leaderEnd": [
+        170,
+        760
+      ],
+      "side": "left",
+      "ko": "수지 봉지(트랜스퍼 몰딩)는 별도 단면을 만들지 않는다. 형체 기구(수백 mm)와 와이어 스윕(µm)이 3~4자리 배율 차이라 한 컷에 담기지 않기 때문이다. 같은 루프 형상에 수지 유동의 항력을 얹는 실습 2단계 상태로 다룬다",
+      "en": "Transfer molding has no separate cross-section here. Clamping hardware (hundreds of mm) and wire sweep (um) differ by 3-4 orders of magnitude and cannot share one frame. It is handled as a second-stage exercise state that applies resin flow drag to these same loops",
+      "tone": "info"
+    },
+    {
+      "id": "heated-stage",
+      "anchor": [
+        170,
+        812
+      ],
+      "leaderEnd": [
+        170,
+        812
+      ],
+      "side": "left",
+      "ko": "열초음파 접합이므로 히터 블록이 스테이지를 가열한 상태다(연구 조건례 220 °C). 상온 접합이 아니다",
+      "en": "This is thermosonic bonding, so the heater block holds the stage hot (220 C in the reported study condition). It is not a room-temperature process",
+      "tone": "info"
+    },
+    {
+      "id": "window-clamp-unsourced",
+      "anchor": [
+        170,
+        864
+      ],
+      "leaderEnd": [
+        170,
+        864
+      ],
+      "side": "left",
+      "ko": "리드프레임을 누르는 윈도우 클램프는 업계 통용 부품이나 조사에서 부호가 달린 도면을 확보하지 못했다. 형태만 단순히 그렸고 치수 근거는 없다",
+      "en": "The window clamp holding the lead frame is a standard industry part, but no numbered patent figure was secured in the survey. It is drawn in simple outline only, with no dimensional basis",
+      "tone": "warn"
+    },
+    {
+      "id": "inset-a-title",
+      "anchor": [
+        1165,
+        136
+      ],
+      "leaderEnd": [
+        1165,
+        136
+      ],
+      "side": "right",
+      "ko": "확대 A — 캐필러리 끝단 기하와 자유공 볼 형성",
+      "en": "Detail A - Capillary tip geometry and free air ball formation",
+      "tone": "info"
+    },
+    {
+      "id": "inset-b-title",
+      "anchor": [
+        1165,
+        528
+      ],
+      "leaderEnd": [
+        1165,
+        528
+      ],
+      "side": "right",
+      "ko": "확대 B — 볼 본드(좌)와 스티치 본드(우)의 형상 대비. 위는 상면도, 아래는 측단면",
+      "en": "Detail B - Ball bond (left) vs stitch bond (right). Top row is plan view, bottom row is cross-section",
+      "tone": "info"
+    },
+    {
+      "id": "fab-ratio",
+      "anchor": [
+        1400,
+        640
+      ],
+      "leaderEnd": [
+        1400,
+        640
+      ],
+      "side": "right",
+      "ko": "자유공 볼(FAB) 지름은 선경의 약 1.8배다. 실측례로 25 µm 와이어에서 45.5 µm(1.82배)가 보고됐다. EFO 전류 25 mA · 650 µs 조건",
+      "en": "The free air ball diameter is about 1.8x the wire diameter. A reported measurement gives 45.5 um from 25 um wire (1.82x) at 25 mA and 650 us EFO",
+      "tone": "info"
+    },
+    {
+      "id": "tip-od-ratio",
+      "anchor": [
+        1400,
+        700
+      ],
+      "leaderEnd": [
+        1400,
+        700
+      ],
+      "side": "right",
+      "ko": "캐필러리 끝단 바깥지름(TD)은 선경의 약 7~8배다. 1 mil 와이어용 캐필러리에서 TD 7.0~8.0 mil",
+      "en": "Capillary tip outer diameter (TD) is about 7-8x the wire diameter: TD 7.0-8.0 mil for a 1 mil wire tool",
+      "tone": "info"
+    },
+    {
+      "id": "hole-chamfer-ratio",
+      "anchor": [
+        1400,
+        760
+      ],
+      "leaderEnd": [
+        1400,
+        760
+      ],
+      "side": "right",
+      "ko": "중심 구멍 H는 선경의 약 1.2~1.5배, 챔퍼 지름 CD는 H의 약 1.4~1.7배다. 페이스 각 FA는 약 4°, 콘 각 CA는 20~30°. 각도 변화가 접합 형상에 미치는 정량적 영향은 미확인이다 — 원문 기재값(H<1.5 mil, CD1<2.1 mil)에서 유도한 범위이며 원문에 비로 적혀 있지 않다.",
+      "en": "Hole diameter H is about 1.2-1.5x the wire diameter and chamfer diameter CD about 1.4-1.7x H. Face angle FA is about 4 degrees and cone angle CA 20-30 degrees. The quantitative effect of these angles on bond shape is unverified — a range DERIVED from the cited limits (H<1.5 mil, CD1<2.1 mil); the ratio itself is not stated in the source.",
+      "tone": "warn"
+    },
+    {
+      "id": "pad-wire-ratio",
+      "anchor": [
+        1400,
+        820
+      ],
+      "leaderEnd": [
+        1400,
+        820
+      ],
+      "side": "right",
+      "ko": "본드 패드 한 변은 선경의 약 1.6~3.6배다(패드 40~90 µm 대 와이어 25 µm). 와이어는 패드보다 가늘어야 하며, 굵은 케이블 다발처럼 그리면 틀린 그림이다",
+      "en": "Bond pad side is about 1.6-3.6x the wire diameter (pad 40-90 um vs wire 25 um). The wire must be thinner than the pad; drawing it as a thick cable bundle is incorrect",
+      "tone": "info"
+    }
+  ]
+}

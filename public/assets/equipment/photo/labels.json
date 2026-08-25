@@ -1,0 +1,630 @@
+{
+  "processId": "photo",
+  "image": "cross-section.webp",
+  "viewBox": [
+    0,
+    0,
+    1600,
+    900
+  ],
+  "noteMaxWidth": 420,
+  "labels": [
+    {
+      "id": "excimer-laser",
+      "anchor": [
+        534,
+        84
+      ],
+      "leaderEnd": [
+        346,
+        56
+      ],
+      "side": "left",
+      "ko": "엑시머 레이저(ArF Laser)",
+      "en": "ArF Excimer Laser",
+      "descKey": "photo.equipment.excimerLaser"
+    },
+    {
+      "id": "beam-delivery",
+      "anchor": [
+        722,
+        146
+      ],
+      "leaderEnd": [
+        336,
+        140
+      ],
+      "side": "left",
+      "ko": "빔 전송 광로(Beam Line)",
+      "en": "Beam Delivery Line",
+      "descKey": "photo.equipment.beamDelivery"
+    },
+    {
+      "id": "illuminator",
+      "anchor": [
+        768,
+        238
+      ],
+      "leaderEnd": [
+        1312,
+        49
+      ],
+      "side": "right",
+      "ko": "조명계(Illuminator)",
+      "en": "Illuminator",
+      "descKey": "photo.equipment.illuminator"
+    },
+    {
+      "id": "exposure-slit",
+      "anchor": [
+        890,
+        311
+      ],
+      "leaderEnd": [
+        1368,
+        112
+      ],
+      "side": "right",
+      "ko": "노광 슬릿(Slit)",
+      "en": "Exposure Slit",
+      "descKey": "photo.equipment.exposureSlit"
+    },
+    {
+      "id": "reticle-stage",
+      "anchor": [
+        996,
+        346
+      ],
+      "leaderEnd": [
+        1282,
+        175
+      ],
+      "side": "right",
+      "ko": "레티클 스테이지(Stage)",
+      "en": "Reticle Stage",
+      "descKey": "photo.equipment.reticleStage"
+    },
+    {
+      "id": "reticle",
+      "anchor": [
+        940,
+        370
+      ],
+      "leaderEnd": [
+        1365,
+        238
+      ],
+      "side": "right",
+      "ko": "레티클(Reticle)",
+      "en": "Reticle (Mask)",
+      "descKey": "photo.equipment.reticle"
+    },
+    {
+      "id": "pellicle",
+      "anchor": [
+        975,
+        385
+      ],
+      "leaderEnd": [
+        1352,
+        301
+      ],
+      "side": "right",
+      "ko": "펠리클(Pellicle)",
+      "en": "Pellicle",
+      "descKey": "photo.equipment.pellicle"
+    },
+    {
+      "id": "projection-lens",
+      "anchor": [
+        966,
+        462
+      ],
+      "leaderEnd": [
+        1288,
+        364
+      ],
+      "side": "right",
+      "ko": "투영 렌즈(Projection)",
+      "en": "Projection Lens",
+      "descKey": "photo.equipment.projectionLens"
+    },
+    {
+      "id": "leveling-sensor",
+      "anchor": [
+        1044,
+        517
+      ],
+      "leaderEnd": [
+        1291,
+        490
+      ],
+      "side": "right",
+      "ko": "레벨링 센서(Leveling)",
+      "en": "Leveling Sensor",
+      "descKey": "photo.equipment.levelingSensor"
+    },
+    {
+      "id": "final-lens",
+      "anchor": [
+        890,
+        552
+      ],
+      "leaderEnd": [
+        1288,
+        427
+      ],
+      "side": "right",
+      "ko": "최종 렌즈(Final Lens)",
+      "en": "Final Lens Element",
+      "descKey": "photo.equipment.finalLens"
+    },
+    {
+      "id": "immersion-hood",
+      "anchor": [
+        948,
+        553
+      ],
+      "leaderEnd": [
+        1344,
+        553
+      ],
+      "side": "right",
+      "ko": "이머전 후드(Hood)",
+      "en": "Immersion Hood",
+      "descKey": "photo.equipment.immersionHood"
+    },
+    {
+      "id": "water-gap",
+      "anchor": [
+        890,
+        570
+      ],
+      "leaderEnd": [
+        1302,
+        616
+      ],
+      "side": "right",
+      "ko": "초순수 갭(Water Gap)",
+      "en": "Ultrapure Water Gap",
+      "descKey": "photo.equipment.waterGap"
+    },
+    {
+      "id": "second-stage",
+      "anchor": [
+        588,
+        638
+      ],
+      "leaderEnd": [
+        283,
+        560
+      ],
+      "side": "left",
+      "ko": "제2 스테이지(Stage)",
+      "en": "Second Stage",
+      "descKey": "photo.equipment.secondStage"
+    },
+    {
+      "id": "wafer-stage",
+      "anchor": [
+        1000,
+        638
+      ],
+      "leaderEnd": [
+        1282,
+        679
+      ],
+      "side": "right",
+      "ko": "웨이퍼 스테이지(Stage)",
+      "en": "Wafer Stage",
+      "descKey": "photo.equipment.waferStage"
+    },
+    {
+      "id": "track-interface",
+      "anchor": [
+        837,
+        742
+      ],
+      "leaderEnd": [
+        1285,
+        742
+      ],
+      "side": "right",
+      "ko": "노광기 인터페이스(I/F)",
+      "en": "Scanner Interface",
+      "descKey": "photo.equipment.trackInterface"
+    },
+    {
+      "id": "hmds-prime",
+      "anchor": [
+        549,
+        734
+      ],
+      "leaderEnd": [
+        294,
+        628
+      ],
+      "side": "left",
+      "ko": "밀착 촉진 모듈(HMDS)",
+      "en": "HMDS Vapor Prime",
+      "descKey": "photo.equipment.hmdsPrime"
+    },
+    {
+      "id": "spin-coater",
+      "anchor": [
+        621,
+        764
+      ],
+      "leaderEnd": [
+        259,
+        696
+      ],
+      "side": "left",
+      "ko": "스핀 코터(Coater)",
+      "en": "Spin Coater",
+      "descKey": "photo.equipment.spinCoater"
+    },
+    {
+      "id": "soft-bake",
+      "anchor": [
+        693,
+        778
+      ],
+      "leaderEnd": [
+        333,
+        760
+      ],
+      "side": "left",
+      "ko": "소프트베이크(Soft Bake)",
+      "en": "Soft Bake Hotplate",
+      "descKey": "photo.equipment.softBake"
+    },
+    {
+      "id": "peb-plate",
+      "anchor": [
+        909,
+        772
+      ],
+      "leaderEnd": [
+        1333,
+        868
+      ],
+      "side": "right",
+      "ko": "노광후 베이크(PEB)",
+      "en": "PEB Hotplate",
+      "descKey": "photo.equipment.pebPlate"
+    },
+    {
+      "id": "chill-plate",
+      "anchor": [
+        765,
+        782
+      ],
+      "leaderEnd": [
+        294,
+        824
+      ],
+      "side": "left",
+      "ko": "냉각 플레이트(Chill)",
+      "en": "Chill Plate",
+      "descKey": "photo.equipment.chillPlate"
+    },
+    {
+      "id": "developer",
+      "anchor": [
+        1053,
+        752
+      ],
+      "leaderEnd": [
+        1302,
+        805
+      ],
+      "side": "right",
+      "ko": "현상 모듈(Developer)",
+      "en": "Developer Module",
+      "descKey": "photo.equipment.developer"
+    }
+  ],
+  "notes": [
+    {
+      "id": "inset-immersion-title",
+      "anchor": [
+        470,
+        208
+      ],
+      "leaderEnd": [
+        470,
+        208
+      ],
+      "side": "left",
+      "ko": "확대 — 이머전 후드와 국소 초순수 갭. 최종 렌즈 아래면과 웨이퍼 사이만 물이 채운다",
+      "en": "Detail — immersion hood and the local ultrapure water gap: liquid fills only the space between the final lens face and the wafer",
+      "tone": "info"
+    },
+    {
+      "id": "inset-track-title",
+      "anchor": [
+        452,
+        714
+      ],
+      "leaderEnd": [
+        452,
+        714
+      ],
+      "side": "left",
+      "ko": "인셋 — 트랙(도포·현상) 모듈 열. 왼쪽에서 오른쪽으로 공정이 흐르고, 가운데 노광기 인터페이스를 기준으로 좌측이 노광 전, 우측이 노광 후다",
+      "en": "Inset — the coater/developer track module row. Process flows left to right; the scanner interface at the centre divides pre-exposure (left) from post-exposure (right) modules",
+      "tone": "info"
+    },
+    {
+      "id": "scan-ratio",
+      "anchor": [
+        890,
+        352
+      ],
+      "leaderEnd": [
+        1120,
+        82
+      ],
+      "side": "right",
+      "ko": "슬릿 주사 노광 — 레티클과 웨이퍼는 서로 **반대 방향**으로 동기 주사하고, 도해의 두 화살표 길이비 280 : 70 이 그 **4 : 1** 이다. 같은 방향·같은 속도로 움직이면 상이 흐른다. 다만 **4 : 1 이라는 속도비는 원문 기재값(축소비 4×)에서 유도한 값**이며 원문에 속도비로 적혀 있지 않다 — 출처가 적는 것은 「두 스테이지가 반대 방향으로 움직인다」와 「스캐너의 축소비는 4배다」 두 가지이고, 둘을 잇는 것은 계산이다.",
+      "en": "Slit scanning exposure — the reticle and the wafer scan synchronously in OPPOSITE directions, and the two arrows in the figure, 280 to 70, carry that 4 to 1. Moving them the same way at the same speed would smear the image. Note that the 4 to 1 SPEED ratio is DERIVED from the cited value (a 4x reduction); the speed ratio itself is not stated in the source, which says only that the two stages travel in opposite directions and that a scanner demagnifies by four.",
+      "tone": "info"
+    },
+    {
+      "id": "demag-ratio",
+      "anchor": [
+        540,
+        522
+      ],
+      "leaderEnd": [
+        460,
+        168
+      ],
+      "side": "left",
+      "ko": "4 : 1 축소비 — 위 막대(160)가 레티클 위의 필드, 아래 막대(40)가 웨이퍼 위의 상이다. 도해에서는 레티클 크롬 격자의 피치 20 이 웨이퍼에서 피치 5 로 줄어드는 것으로도 같은 비를 나타냈다",
+      "en": "4 : 1 reduction — the upper bar (160) is the field on the reticle, the lower bar (40) its image on the wafer. The same ratio is shown by the chrome grating: pitch 20 on the reticle becomes pitch 5 on the wafer",
+      "tone": "info"
+    },
+    {
+      "id": "slit-not-stepper",
+      "anchor": [
+        890,
+        311
+      ],
+      "leaderEnd": [
+        1120,
+        162
+      ],
+      "side": "right",
+      "ko": "노광 슬릿은 필드 전체를 한 번에 비추지 않는다. 가늘고 긴 개구가 필드를 훑는다. 참고 절대치로 35 x 25 mm 필드에 9 x 25 mm 슬릿 예시가 있으며, 도해의 개구 40 은 필드 160 의 1/4 로 그 비를 따랐다. 필드 전체를 한 번에 조명하는 것은 스텝퍼다",
+      "en": "The exposure slit does not illuminate the whole field at once; a long narrow aperture scans across it. A reported example is a 9 x 25 mm slit in a 35 x 25 mm field; the drawing uses an aperture of 40 against a field of 160, the same one-quarter ratio. Illuminating the entire field at once would be a stepper",
+      "tone": "info"
+    },
+    {
+      "id": "immersion-not-bath",
+      "anchor": [
+        890,
+        570
+      ],
+      "leaderEnd": [
+        1120,
+        242
+      ],
+      "side": "right",
+      "ko": "이머전은 수조가 아니다. 웨이퍼는 물에 잠기지 않으며, 최종 렌즈면과 웨이퍼 사이의 국소 갭에만 초순수가 있고 후드가 그 물을 데리고 다닌다. 후드 한쪽 노즐이 액을 주입하고 마주 보는 노즐이 회수하며, 후드 하단 틈은 기체 실로 막는다",
+      "en": "Immersion is not a bath. The wafer is never submerged: ultrapure water occupies only the local gap between the final lens face and the wafer, and the hood carries that water along. One nozzle injects the liquid, the opposing nozzle recovers it, and a gas seal closes the gap under the hood rim",
+      "tone": "warn"
+    },
+    {
+      "id": "gap-dimension",
+      "anchor": [
+        586,
+        372
+      ],
+      "leaderEnd": [
+        460,
+        248
+      ],
+      "side": "left",
+      "ko": "갭 치수 — 공개 특허 명세 기준으로 샤워헤드(후드) 하면과 기판 사이는 약 100 마이크로미터이고, 투영광학 최종 렌즈 요소의 하면과 기판 표면 사이는 약 0.5~2 mm 다. 서로 다른 두 부위의 간격이며, 노즐 기울임은 이와 별개로 노즐당 50 마이크로미터로 적혀 있다. 도해의 갭은 보이도록 크게 과장했고, 확대 인셋의 치수 화살표는 최종 렌즈 하면과 기판 사이를 가리킨다",
+      "en": "Gap dimension — the published patent specification gives about 100 micrometres between the showerhead (hood) and the substrate, and about 0.5 to 2 millimetres between the last element of the projection optics and the substrate surface. These are two different pairs of surfaces; the nozzle tilt is a separate figure of 50 micrometres per nozzle. The gap in this drawing is heavily exaggerated for legibility, and the dimension arrow in the detail inset marks the final-lens face to substrate spacing",
+      "tone": "info"
+    },
+    {
+      "id": "na-water",
+      "anchor": [
+        890,
+        556
+      ],
+      "leaderEnd": [
+        1120,
+        294
+      ],
+      "side": "right",
+      "ko": "물을 넣으면 왜 NA 가 1을 넘는가 — 개구수는 NA = n sin(세타) 이고 n 은 최종 렌즈와 웨이퍼 사이 매질의 굴절률이다. 공기의 n 은 약 1.0003 이지만 193 nm 에서 물은 n 이 약 1.44 여서 같은 광 원뿔로도 NA 가 커진다. 해상도 개선폭은 재료에 따라 약 30~40%, NA 1.35 와 193 nm 조합의 해상 한계는 36 nm 로 보고된다",
+      "en": "Why water pushes NA above 1 — numerical aperture is NA = n sin(theta), where n is the refractive index of the medium between the final lens and the wafer. Air has n of about 1.0003, but water has n of about 1.44 at 193 nm, so the same cone of light yields a larger NA. Reported resolution gains are roughly 30 to 40 percent depending on material, and an NA of 1.35 at 193 nm is reported to resolve 36 nm",
+      "tone": "info"
+    },
+    {
+      "id": "rayleigh",
+      "anchor": [
+        966,
+        462
+      ],
+      "leaderEnd": [
+        1120,
+        374
+      ],
+      "side": "right",
+      "ko": "레일리 식 — 해상도는 CD = k1 x 람다 / NA, 초점심도는 DOF = k2 x 람다 / NA 제곱이다. k1 은 공정 요인 계수로 고전 광학의 레일리 기준에서는 0.61, 양산에서는 통상 약 0.4 로 쓴다. NA 를 올리면 해상도는 반비례로 좋아지지만 초점심도는 제곱으로 나빠진다 — 이머전의 이득과 대가가 같은 식 안에 있다",
+      "en": "Rayleigh relations — resolution is CD = k1 x lambda / NA and depth of focus is DOF = k2 x lambda / NA squared. The process factor k1 is 0.61 in the classical Rayleigh criterion and typically about 0.4 in production. Raising NA improves resolution inversely but degrades depth of focus quadratically: the gain and the cost of immersion sit in the same pair of equations",
+      "tone": "info"
+    },
+    {
+      "id": "pupil-mode",
+      "anchor": [
+        890,
+        214
+      ],
+      "leaderEnd": [
+        1120,
+        446
+      ],
+      "side": "right",
+      "ko": "조명 퓨필은 고리형(애뉼러) 한 가지만 그렸다. 실제로는 꽉 찬 원, 고리, 두 점(다이폴), 네 점(쿼드러폴)으로 패턴의 방향성과 피치에 따라 바꿔 쓴다. 도해의 고리는 여러 형상 중 한 사례이며 특정 조건을 지정한 것이 아니다",
+      "en": "The illumination pupil is drawn in a single annular form. In practice it is switched between conventional (filled circle), annular, dipole and quadrupole according to the orientation and pitch of the pattern. The ring shown here is one example among several, not a specified condition",
+      "tone": "warn"
+    },
+    {
+      "id": "reticle-grating",
+      "anchor": [
+        890,
+        377
+      ],
+      "leaderEnd": [
+        1120,
+        526
+      ],
+      "side": "right",
+      "ko": "레티클 패턴은 회사 로고나 알아볼 수 있는 그림 실루엣이 아니다. 투명 석영판 아래면에 놓인 크롬 흡수막의 미세한 선과 공간의 격자이며, 그 격자의 회절이 조명 퓨필 형상 선택과 직결된다. 레티클은 웨이퍼 위 상보다 4배 크다",
+      "en": "The reticle pattern is not a company logo or a recognizable picture. It is a fine line-and-space grating of chrome absorber on the underside of a transparent quartz plate, and the diffraction from that grating is what drives the choice of illumination pupil. The reticle is four times larger than its image on the wafer",
+      "tone": "info"
+    },
+    {
+      "id": "pellicle-standoff",
+      "anchor": [
+        975,
+        385
+      ],
+      "leaderEnd": [
+        1120,
+        578
+      ],
+      "side": "right",
+      "ko": "펠리클은 마스크 면에 밀착시킨 랩이 아니다. 스페이서 프레임으로 띄워 붙이며, 띄우는 것 자체가 목적이다 — 막 위에 앉은 입자가 초점에서 벗어나 인쇄되지 않는다. 밀착시키면 기능이 사라진다. 도해에서는 띄운 높이를 레티클 두께의 약 1/2 로 그렸다",
+      "en": "The pellicle is not a film pressed onto the mask. It is held off by a spacer frame, and the standoff is the whole point: a particle landing on the membrane falls outside the focal plane and does not print. Pressed flat, it would do nothing. The drawing uses a standoff of about half the reticle thickness",
+      "tone": "info"
+    },
+    {
+      "id": "dual-stage-role",
+      "anchor": [
+        588,
+        638
+      ],
+      "leaderEnd": [
+        460,
+        328
+      ],
+      "side": "left",
+      "ko": "기판 스테이지를 둘 그린 근거는 명세서의 「둘 이상의 기판 테이블(듀얼 스테이지)」 서술까지다. 한쪽이 노광하는 동안 다른 쪽이 정렬·계측을 동시에 수행한다는 역할 분담은 허용 출처에서 확인하지 못해 그리지 않았고 캡션도 붙이지 않았다",
+      "en": "Two substrate stages are drawn only on the strength of a specification stating two or more substrate tables (dual stage). The division of roles, one stage exposing while the other aligns and measures, could not be confirmed in the permitted sources, so it is neither drawn nor captioned",
+      "tone": "warn"
+    },
+    {
+      "id": "refractive-only",
+      "anchor": [
+        890,
+        470
+      ],
+      "leaderEnd": [
+        1120,
+        630
+      ],
+      "side": "right",
+      "ko": "투영 렌즈는 굴절 소자만 그렸다. 확인된 범위는 명세서가 이를 단일 렌즈가 아니라 「굴절 렌즈 계(system)」라 부른다는 데까지이고, 배럴이라는 형태도 소자 매수도 어느 출처에서 확인하지 못했다 — 도해의 5매는 「여러 장」의 최소 표현일 뿐이다. 반사경을 섞은 반사굴절 구성도 확인하지 못해 그리지 않았다. 돋보기 한 장으로 그리면 축소와 수차 보정의 규모가 사라진다",
+      "en": "The projection lens is drawn with refractive elements only. What is confirmed is that the specification calls it a refractive projection lens system rather than a single lens; neither the barrel form nor the number of elements could be confirmed in any source, so the five elements drawn are only a minimal way of showing that there are several. A catadioptric arrangement mixing mirrors could not be confirmed either and is not drawn. Reducing it to a single magnifying lens would erase the scale of the demagnification and aberration correction",
+      "tone": "warn"
+    },
+    {
+      "id": "meniscus-unconfirmed",
+      "anchor": [
+        934,
+        570
+      ],
+      "leaderEnd": [
+        1120,
+        710
+      ],
+      "side": "right",
+      "ko": "물 갭이 흔들리면 웨이퍼에 물자국이나 기포가 남는다는 결함의 이름까지는 확인했으나, 스캔 속도와 메니스커스 붕괴의 정량 관계는 확인하지 못했다. 따라서 임계 속도나 붕괴 형상은 그리지 않았다",
+      "en": "The names of the defects that follow a disturbed water gap, watermarks and bubbles, are confirmed, but the quantitative relation between scan speed and meniscus collapse is not. No critical speed or collapse shape is therefore drawn",
+      "tone": "warn"
+    },
+    {
+      "id": "af-angle",
+      "anchor": [
+        1010,
+        570
+      ],
+      "leaderEnd": [
+        1120,
+        790
+      ],
+      "side": "right",
+      "ko": "레벨링(오토포커스) 센서는 웨이퍼 면에 거의 눕는 얕은 각으로 빛을 쏘고 받는다. 공개 특허는 이를 그레이징(스치는) 입사라 부르고, 한 예로 측정빔이 면의 법선에서 60~80도 기운다고 적는다 — 웨이퍼 면을 기준으로 하면 약 10~30도로 눕는다는 뜻이다. 이 도해의 광선은 그 범위 밖이다. 좌표로 실측한 입사각은 법선 기준 41.8도(면 기준 48.2도)로, 인용한 60~80도보다 오히려 더 세워져 있다 — 지면 폭이 모자라 세운 것이며 각도는 값이 아니다. 두 헤드를 배럴 오른쪽에 나란히 둔 것은 입사와 출사의 결합 광학을 한쪽에 모으는 구성이 같은 특허의 다른 실시예에 실재하기 때문이며, 이 좌우 배치 역시 특정 설계를 주장하는 것은 아니다",
+      "en": "The leveling (autofocus) sensor launches and receives light at a shallow, nearly grazing angle to the wafer surface. Published patents call this grazing incidence, and one gives the measuring beam at 60 to 80 degrees from the surface normal, which is only about 10 to 30 degrees above the wafer surface itself. The rays drawn here fall outside that band: measured from the coordinates, the angle of incidence is 41.8 degrees from the normal (48.2 degrees from the surface), steeper rather than shallower than the cited range. It is steepened for want of page width and is not a measured value. Both heads sit to the right of the barrel because a further embodiment of the same patent gathers the input and output coupling optics on one side; that left-right placement likewise asserts no particular design",
+      "tone": "warn"
+    },
+    {
+      "id": "exaggeration",
+      "anchor": [
+        890,
+        536
+      ],
+      "leaderEnd": [
+        460,
+        408
+      ],
+      "side": "left",
+      "ko": "가독성을 위해 과장한 치수 — 투영 렌즈 배럴 길이는 실제 웨이퍼 지름의 약 2배지만 도해에서는 약 0.5배로 줄였다. 감광막은 약 1 마이크로미터로 웨이퍼 두께 대비 선처럼 얇아야 하나 도해에서는 웨이퍼 두께의 약 1/6 로 두껍게 그렸다. 초순수 갭도 웨이퍼 두께의 약 1/5 로 크게 그렸다. 확대 인셋과 4 : 1 비교 막대가 실제 비를 대신 짚는다",
+      "en": "Dimensions exaggerated for legibility — the projection lens barrel is about twice the wafer diameter in reality but is drawn at about half of it here. The resist, about 1 micrometre thick, should read as a hairline against the wafer thickness but is drawn at about one sixth of it. The water gap is likewise drawn at about one fifth of the wafer thickness. The detail inset and the 4 : 1 comparison bars carry the true ratios instead",
+      "tone": "warn"
+    },
+    {
+      "id": "puddle-term",
+      "anchor": [
+        1053,
+        752
+      ],
+      "leaderEnd": [
+        460,
+        488
+      ],
+      "side": "left",
+      "ko": "현상은 웨이퍼를 액조에 담그는 것이 아니다. 컵 안 회전 척 위에서 노즐로 현상액을 깔고 초순수로 린스한 뒤, 같은 자리에서 고속 회전으로 말린다. 공개 특허도 린스와 건조를 현상 유닛 안에서 끝낸다고 적는다 — 그래서 현상 다음에 별도의 스핀 건조 모듈을 두지 않았다. 「퍼들(고인 막) 방식」이라는 용어 자체는 허용 출처에서 확인하지 못해 쓰지 않았다",
+      "en": "Development is not a dip tank. Developer is dispensed by nozzle onto a wafer on a spin chuck inside a cup, rinsed with ultrapure water and then spun dry in the same place. Published patents likewise complete the rinse and the drying inside the developing unit, which is why no separate spin-dry module follows it here. The term puddle development itself could not be confirmed in the permitted sources and is not used",
+      "tone": "warn"
+    },
+    {
+      "id": "static-image",
+      "anchor": [
+        890,
+        424
+      ],
+      "leaderEnd": [
+        460,
+        568
+      ],
+      "side": "left",
+      "ko": "이 그림은 정지 구조도다. 광로의 색과 폭, 퓨필 고리의 밝기는 값이 아니다 — 노광량, 광선 세기, 공중상 대비, 레지스트 프로파일은 실습 오버레이가 파라미터에 따라 그린다",
+      "en": "This is a static structural drawing. The colour and width of the light path and the brightness of the pupil ring carry no quantitative meaning; dose, intensity, aerial image contrast and resist profile are rendered by the interactive overlay from its parameters",
+      "tone": "warn"
+    },
+    {
+      "id": "inline-track",
+      "anchor": [
+        837,
+        712
+      ],
+      "leaderEnd": [
+        460,
+        648
+      ],
+      "side": "left",
+      "ko": "트랙과 노광기는 멀리 떨어진 별개의 섬이 아니라 인라인으로 붙어 있고, 로봇이 인터페이스를 통해 웨이퍼를 직접 넘긴다. 도해의 세로 점선 양방향 화살표가 그 결속이다. 핫플레이트마다 냉각 플레이트가 짝으로 붙는 것도 같은 이유다 — 베이크 직후의 지연이 곧 치수 산포다",
+      "en": "The track and the scanner are not separate islands: they are inline, and a robot hands wafers straight across through the interface. The vertical dashed double arrow marks that coupling. For the same reason every hotplate is paired with a chill plate, since delay right after bake shows up directly as dimensional spread",
+      "tone": "info"
+    }
+  ]
+}

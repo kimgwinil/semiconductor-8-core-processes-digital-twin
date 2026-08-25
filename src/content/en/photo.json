@@ -1,0 +1,352 @@
+{
+  "processId": "photo",
+  "theory": {
+    "title": "Theory",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "Photolithography is the process that transfers the circuit shapes from the design layout onto the photoresist using light. By the end of this section, you should be able to plug values into two equations to calculate resolution and depth of focus, and explain why exposure light sources have kept shrinking their wavelength. All three stages of the labs that follow operate on top of these two equations."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Light Changes Solubility — Photoresist"
+      },
+      {
+        "type": "p",
+        "text": "Photoresist is a material whose solubility in the developer changes at the spots that receive light. In a positive resist, the exposed areas become more soluble and wash away during development, leaving the unexposed areas behind to form the lines. A negative resist is the opposite — the exposed areas remain. Short-wavelength resists are mostly chemically amplified resists (CAR), where exposure only pulls the trigger that generates acid; the actual reaction takes place during the post-exposure bake (PEB), as that acid diffuses and acts as a catalyst."
+      },
+      {
+        "type": "p",
+        "text": "Resist sensitivity is read from the characteristic curve (H-D curve). Plotting the remaining relative thickness after development against the log of exposure dose, the x-intercept where the curve reaches zero thickness is the dose-to-clear E₀, and the slope at that point is the contrast γ. If the exposure dose is below E₀, the pattern will not open even after development."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Imaging Optics — Two Equations Are All There Is"
+      },
+      {
+        "type": "formula",
+        "latex": "NA = n · sinθ",
+        "sourceId": "S140",
+        "caption": "The definition of numerical aperture. Since sinθ cannot exceed 1, NA can never exceed the refractive index n of the medium."
+      },
+      {
+        "type": "p",
+        "text": "Numerical aperture NA indicates how wide an angle of diffracted light the lens can accept. In air, the practical maximum is sinθ ≈ 0.93, and going beyond it requires filling the gap between the lens and the wafer with a liquid of higher refractive index. At 193 nm, the refractive index of ultrapure water is 1.436, and this immersion has opened the NA ceiling up to 1.35. Water does not directly raise NA — it enables the construction of lenses with a larger NA."
+      },
+      {
+        "type": "formula",
+        "latex": "R = k₁ · λ / NA",
+        "sourceId": "S140",
+        "caption": "The Rayleigh resolution. R is the smallest half-pitch that can be printed."
+      },
+      {
+        "type": "p",
+        "text": "k₁ is a process factor shaped jointly by the illumination scheme, mask technique, and resist. The physical lower limit for two-beam imaging is 0.25, and practical values have fallen from 1.0 in 1975 to 0.28 in 2010. Plugging in λ = 193 nm, NA = 1.35, and k₁ = 0.25 gives a single-patterning resolution limit of 36 nm."
+      },
+      {
+        "type": "formula",
+        "latex": "DOF = k₂ · λ / NA²",
+        "sourceId": "S143",
+        "caption": "The Rayleigh depth of focus. This is the paraxial form assuming a low-NA case printing line-and-space patterns at the resolution limit."
+      },
+      {
+        "type": "p",
+        "text": "Placing the two equations side by side reveals the character of this process. Raising NA improves resolution as 1/NA but worsens depth of focus as 1/NA². What you gain is linear; what you lose is squared. k₂ has no universal value, so this simulator uses only the experimentally derived value of 0.745 for ArF immersion when computing absolute values."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "The most common mistake is swapping the NA exponents between the two equations. In resolution, NA appears in the denominator to the first power; in depth of focus, to the second power. Dividing by NA only once produces the self-contradiction that raising NA increases depth of focus."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Light Source Generations and Immersion"
+      },
+      {
+        "type": "table",
+        "head": [
+          "Generation",
+          "Wavelength"
+        ],
+        "rows": [
+          [
+            "g-line",
+            "436 nm"
+          ],
+          [
+            "i-line",
+            "365 nm"
+          ],
+          [
+            "KrF",
+            "248 nm"
+          ],
+          [
+            "ArF",
+            "193 nm"
+          ],
+          [
+            "ArF immersion",
+            "193 nm (water n = 1.436)"
+          ],
+          [
+            "EUV",
+            "13.5 nm"
+          ]
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Shrinking the wavelength by one generation requires changing the light source, lens material, and resist all at once. That is why the industry stayed at 193 nm for a long time, holding the line with immersion and lower k₁. Immersion is not free either — it brings new defect sources such as watermarks and bubbles, along with throughput loss."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Metrics for Reading Process Margin"
+      },
+      {
+        "type": "formula",
+        "latex": "NILS = w · |∂lnI/∂x|     ∂lnCD/∂lnE = 2 / NILS",
+        "sourceId": "S141",
+        "caption": "NILS is the log-slope of the aerial image normalized by the feature size w. The relation on the right assumes an infinite-contrast resist."
+      },
+      {
+        "type": "p",
+        "text": "The steeper the edge slope of the brightness distribution (aerial image) formed on the wafer surface, the less the linewidth wobbles even when the exposure dose fluctuates. Raising NILS from 2 to 4 reduces the linewidth variation caused by a ±2% dose fluctuation from 2% to 1%. If focus drifts, this slope is the first thing to collapse, and linewidth, sidewall angle, and NILS all worsen together."
+      },
+      {
+        "type": "formula",
+        "latex": "P_sw = λ / (2 · n₂)",
+        "sourceId": "S141",
+        "caption": "The standing-wave period. n₂ is the refractive index of the resist."
+      },
+      {
+        "type": "p",
+        "text": "When the substrate reflects light back, the incoming and returning light overlap to form peaks and troughs of brightness along the depth direction inside the resist. This standing wave leaves a wavy pattern on the sidewalls. The best countermeasure is to lower the reflection itself with a bottom anti-reflective coating (BARC), and PEB diffusion serves as the after-the-fact smoothing means. The diffusion length must be larger than half the standing-wave period and much smaller than the minimum feature size."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "What the Following Labs Let You Move"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Basic — Using \"exposure dose E\" (10-60 mJ/cm²) and \"focus offset ΔF\" (-150 to 150 nm), simultaneously meet a line CD of 42-48 nm and a sidewall angle SWA of 82° or more. The on-screen focus-response curve is a downward-convex (U-shaped) curve, and the exposure dose only shifts that U-shape up or down as a whole.",
+          "Applied — \"Numerical aperture NA\" (1.00-1.35) is opened up. Simultaneously satisfy resolution R ≤ 58 nm, depth of focus DOF ≥ 100 nm, and line CD 42-48 nm, comparing the NA trade-off numerically.",
+          "Advanced — \"Resist thickness T\" (60-900 nm), \"PEB temperature T_PEB\" (90-130 °C), and \"bottom anti-reflective coating BARC\" are added, and all six metrics must be satisfied at once."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "The condition card for the basic lab shows seven fixed values: wavelength 193 nm, numerical aperture 1.20, immersion water refractive index 1.436, k₁ 0.35, k₂ 0.745, resist thickness 120 nm, and dose-to-clear 12 mJ/cm². The first five plug directly into the two equations above, and the last two are teaching-set values fixed by the lab."
+      }
+    ]
+  },
+  "overview": {
+    "title": "Process Overview",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "P3 photo is where \"which areas to keep and which to remove\" gets drawn onto the film the preceding process laid down. P2 oxidation creates the target film, P3 builds a photoresist pattern on top of it, and P4 etch cuts into the film following that pattern. What P3 hands off to the next process is not the circuit itself but a resist mask."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "One Cycle Through the Photo Cell"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "HMDS priming — exposes the surface to an adhesion promoter as a vapor, turning it hydrophobic. It is not applied as a liquid.",
+          "Spin coating — spreads the resist dispensed at the center using rotational centrifugal force. The faster the spin, the thinner the film.",
+          "Soft bake — drives off the solvent on a hotplate to stabilize the film.",
+          "Alignment and exposure scan — a sensor reads the marks on the previous layer to determine the correction values, and while the slit of light scans across the reticle, the wafer moves in the opposite direction so that an image reduced 4:1 is formed.",
+          "PEB — the acid generated by exposure diffuses and catalyzes the reaction, and the standing wave is smoothed out at the same time.",
+          "Development — the developer is laid down as a flat pooled layer, then rinsed off with ultrapure water and spin-dried.",
+          "Hard bake and metrology — hardens the film to gain etch resistance, and measures linewidth and alignment status to feed back as correction values for the next lot."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "These seven steps do not all take place on one piece of equipment. Steps 1-3 occur on the track's pre-exposure modules, step 4 on the scanner, and steps 5-7 on the track's post-exposure modules; the two are connected inline, with a robot handing the wafer directly across."
+      },
+      {
+        "type": "p",
+        "text": "Viewed as information, this is a chain in which the design shape is carried from mask → aerial image → latent image → developed resist image → etched image, and loss occurs at every link. A single wafer repeats this cycle dozens of times, and each time, how much it has drifted from the previous layer (overlay) is at stake as well."
+      },
+      {
+        "type": "note",
+        "tone": "info",
+        "text": "What this section does not cover — etch rate and selectivity belong to P4 etch, and the story of building up films belongs to P5 deposition."
+      }
+    ]
+  },
+  "equipment": {
+    "title": "Equipment Structure",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "Here we see which piece of hardware the two equations from the theory section sit on. The cross-section splits into two parts. There is an optical column where light travels from top to bottom, and beside it sits the track, which prepares and post-processes wafers. Below, we sweep from top to bottom in the order light passes through, then move on to the track."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Path Light Travels Down — From the Light Source to Just Before the Reticle"
+      },
+      {
+        "type": "p",
+        "text": "A light source module sits separately outside the column, generating pulsed ArF excimer laser light at a wavelength of 193 nm. Because it is placed in a separate enclosure rather than inside the optical system, a beam delivery tube follows, folding the emerging light through several mirrors to carry it along. This tube only transports the light, but whatever light is lost along the way lengthens the time needed to fill the exposure dose, cutting into productivity."
+      },
+      {
+        "type": "p",
+        "text": "Where the tube arrives is the illuminator. It selects the pupil shape from annular, dipole, or quadrupole, and shapes the light into a narrow, long band to illuminate the reticle. The window that cuts out that band is the exposure slit. Because this structure does not illuminate the entire field at once, if the slit's width or brightness is uneven, the amount of light received differs from spot to spot as the band passes, causing linewidth to vary within a single field."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Plate Carrying the Pattern and the Film Protecting It"
+      },
+      {
+        "type": "p",
+        "text": "The reticle lies horizontally beneath the slit. Its pattern is drawn using a chrome absorber film on the underside of a quartz plate, and it is 4 times larger than the image that will be formed on the wafer. The reticle stage holding this plate is not fixed — it runs during exposure. The pattern surface is covered by a pellicle, which is not a filter that screens out particles but a stand-off that pushes wherever a particle lands out of the focal plane."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Where NA Is Determined — The Lens Tip and the Water"
+      },
+      {
+        "type": "p",
+        "text": "Light that has passed the reticle is reduced to a quarter-size image by the projection lens system. It is this lens system that determines the numerical aperture NA. The final lens at the very bottom is the only optical component that touches the water directly, and an immersion hood wraps around it, feeding ultrapure water in through one nozzle and drawing it out through the opposing nozzle. The thin layer left only between the final lens and the wafer is the water gap, and this is the last segment where the image is formed."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "It is easy to mistake the water gap for \"coolant that cools the lens.\" This layer is part of the optical path, and because its refractive index is greater than air's, it allows a larger numerical aperture to be used. If the water wavers and bubbles mix in or a watermark is left behind, that spot becomes an imaging defect, not a cooling failure."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Lower Section That Holds the Wafer"
+      },
+      {
+        "type": "p",
+        "text": "Directly below the water gap is the wafer, and the wafer stage carrying it runs in X and Y while also controlling height and tilt. There is a second substrate table beside it, but since there is no confirmed source, we cover only its existence. A leveling sensor, which shoots light at a shallow angle nearly grazing the wafer surface and reads it back, measures height and tilt in real time. If this value is wrong, the wafer gets exposed out of focus."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Track Attached Alongside"
+      },
+      {
+        "type": "p",
+        "text": "The passage where the scanner and track meet is the track interface. A robot hands the wafer directly across here, with pre-exposure modules on the left and post-exposure modules on the right. On the pre-exposure side sit, in order, a priming module that applies an adhesion promoter as vapor inside a sealed chamber, a spin coater that spins the wafer inside a cup to spread the photoresist, and a soft-bake plate that heats it to 90-100°C for 30-60 seconds right after coating."
+      },
+      {
+        "type": "p",
+        "text": "On the post-exposure side are a PEB plate that heats the wafer by dividing it into multiple zones, a paired chill plate, and a development module that lays down developer on a spinning chuck, then rinses and dries it with ultrapure water. A distinguishing feature of this area is that every plate that uses heat has a chill plate paired with it. If the wafer is not returned to a set temperature, its thermal history differs from wafer to wafer, and dimensional reproducibility breaks down."
+      },
+      {
+        "type": "note",
+        "tone": "info",
+        "text": "The alignment sensor that reads alignment marks, the chuck that holds the wafer, the metrology system that feeds back position, and the load port that receives the FOUP all exist on the real equipment but are not clickable targets in this diagram. Do not look for them in the figure — just remember their names and roles."
+      }
+    ]
+  },
+  "principle": {
+    "title": "Operating Principle",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "If the previous section was about \"what is where,\" this section is about \"when does what happen at that spot.\" The sequence for a single wafer entering the track on the left, passing through the scanner, and exiting on the right is fixed at thirteen steps."
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "HMDS priming — turns the surface hydrophobic, creating a base to which the photoresist will adhere.",
+          "Spin coating — dispenses the photoresist, accelerates, then spins at constant speed to spread the film. The edge bead is removed separately.",
+          "Soft bake — drives off the solvent on a hotplate to harden the film. The film shrinks at this stage.",
+          "Wafer loading, chucking, and pre-alignment — the wafer is clamped onto the stage and roughly aligned using the notch as a reference.",
+          "Alignment — reads the marks etched on the previous layer to compute correction values for X, Y, rotation, and magnification.",
+          "Leveling and focusing — reads the wafer's height and tilt to align Z and tilt to the optimal focal plane.",
+          "Exposure scan — while the two stages run synchronized in opposite directions, the projection lens forms an image reduced 4:1. The water gap moves together with the lens.",
+          "Step move — the wafer moves to the next field and step 7 repeats.",
+          "PEB — the acid generated by exposure diffuses and catalyzes the reaction, and the standing-wave marks along the depth direction are smoothed out at the same time.",
+          "Development — the developer is laid down as a flat pooled layer, dissolving material depending on whether it was exposed, and is then rinsed with ultrapure water.",
+          "Spin dry — spins off the rinse liquid. This is the stage where surface tension, as the liquid drains, can topple thin, tall patterns.",
+          "Hard bake — drives off the remaining solvent and hardens the film, building the resistance it needs to survive the subsequent etch.",
+          "Metrology and feedback — measures linewidth and alignment status and feeds them back as correction values for the next lot."
+        ]
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Why This Order"
+      },
+      {
+        "type": "p",
+        "text": "The first three steps are \"the time for making the film.\" Priming comes first because the base must be prepared before anything is applied to it, and soft bake comes right after coating because a film that still holds solvent is soft and gets damaged if handled. If even one of the three wavers, every later step proceeds on top of a film of a different thickness."
+      },
+      {
+        "type": "p",
+        "text": "Steps four through six are \"the time for setting posture,\" and no light has been emitted yet. What is determined in these two steps differs. Alignment determines the horizontal and vertical misregistration relative to the previous layer, i.e. overlay, while leveling determines the vertical focus position. Neither can be corrected once light has been emitted."
+      },
+      {
+        "type": "p",
+        "text": "The seventh step is the heart of this process. Because the field is not printed all at once but scanned with a narrow band, the reticle and wafer must run interlocked in opposite directions matched to the reduction ratio, and if synchronization is off, the image smears along the scan direction and the pattern blurs. Meanwhile, the immersion hood continuously feeds and draws off water to maintain the gap. Once one field finishes, the wafer moves to the next field and the same thing repeats."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Moment Exposure Ends, the Wafer Still Has No Pattern"
+      },
+      {
+        "type": "p",
+        "text": "In a chemically amplified resist, all that light does is generate acid. Right after exposure, what is inside the film is an invisible latent image, with no shape yet. PEB uses heat to move that acid and drive the reaction forward, and the distance the acid spreads at this stage smooths out the standing-wave pattern, making the sidewalls smooth. The condition seen in the theory section applies here. If the diffusion distance falls short of half the standing-wave period, stripes remain; if it spreads too far, the line swells or disappears."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "\"Exposure creates the pattern\" is a common misconception. Exposure only determines where will dissolve; it is development that carves out the shape. If the waiting time from exposure to PEB differs from wafer to wafer, the reaction progresses differently during that interval, producing different linewidths even from the same exposure dose."
+      },
+      {
+        "type": "p",
+        "text": "Development and drying are the last stage where liquid is involved. If the developer's dwell time is off, the linewidth falls outside spec, and at the moment the rinse liquid drains, surface tension can pull adjacent lines together and topple thin, tall patterns. Hard bake hardens the surviving film, building the body it needs to be handed off as the mask for P4 etch."
+      },
+      {
+        "type": "p",
+        "text": "The final metrology and feedback step is not for this wafer. It is where past results are measured to correct the exposure dose and focus for the next lot, and it is this loop that lets the same equipment print hundreds of wafers to the same dimensions. In the labs that follow, moving the exposure dose E and focus offset ΔF by hand is a chance to perform this feedback yourself, once. The fact that the basic lab starts at a focus offset of 90 nm is not a flaw — it is by design."
+      }
+    ]
+  },
+  "labels": {
+    "photo.equipment.excimerLaser": "The light source, housed in a separate enclosure outside the optical column, generates and sends out pulsed ArF excimer laser light at a wavelength of 193 nm. If pulse intensity fluctuates, the exposure dose the wafer receives varies shot to shot, causing the linewidth (CD) to become uneven.",
+    "photo.equipment.beamDelivery": "A tube that folds the light coming out of the light source enclosure through several mirrors and carries it to the illuminator. If light is lost along this path, filling the set exposure dose takes longer, lowering scan speed and productivity.",
+    "photo.equipment.illuminator": "An optical assembly that receives the light, selects the pupil shape (annular, dipole, or quadrupole), and shapes it into a slit form to illuminate the reticle. Using a pupil shape mismatched to the pattern lets less higher-order diffracted light enter the lens, blurring the image.",
+    "photo.equipment.exposureSlit": "A window that opens only a narrow, long aperture instead of the entire field, letting that bright band scan across the field to expose it. If the slit width or illuminance is uneven, the exposure dose differs from spot to spot as it sweeps past, causing linewidth to vary within the field.",
+    "photo.equipment.reticleStage": "Holds the reticle and runs in the scan direction, synchronously scanning opposite to the wafer stage in accordance with the 4:1 reduction ratio. If the two stages fall out of sync, the image smears along the scan direction and the pattern blurs.",
+    "photo.equipment.reticle": "The plate carrying the pattern to be transferred to the wafer, formed as a line-and-space grid in a chrome absorber film on the underside of a quartz plate; it is 4 times larger than the image on the wafer. If a particle or scratch appears on the pattern surface, it too gets printed, repeating at the same spot in every shot.",
+    "photo.equipment.pellicle": "A thin film held off the reticle pattern surface by a frame rather than pressed against it, pushing any particle that lands on it out of the focal plane. If the film tears or presses against the pattern, a particle enters the focal plane and gets printed as-is.",
+    "photo.equipment.projectionLens": "A refractive lens system that gathers the light passing the reticle through multiple lens elements and forms a quarter-size image on the wafer; it determines the numerical aperture (NA). If this system degrades, image contrast drops and the linewidth widens even at the same exposure dose.",
+    "photo.equipment.levelingSensor": "A sensor that shoots light at a shallow angle nearly grazing the wafer surface and reads it back to measure height and tilt in real time. If this value is wrong, the wafer is exposed out of focus, changing the linewidth and degrading the sidewall angle.",
+    "photo.equipment.finalLens": "The lens element at the very bottom of the projection lens system that touches the ultrapure water gap directly; the space between this surface and the wafer is the last segment where the image is formed. If this gap wavers, focus drifts and the water gap is disturbed along with it.",
+    "photo.equipment.immersionHood": "Wraps around the final lens, feeding ultrapure water in through one nozzle and drawing it out through the opposing nozzle, while a gas seal blocks the gap below to keep the water confined within the gap. If the hood loses control of the water, watermarks or bubbles are left on the wafer.",
+    "photo.equipment.waterGap": "A thin layer of ultrapure water filling only the space between the final lens's bottom surface and the wafer; with a refractive index of about 1.44, it enables a larger numerical aperture than air would. If the water layer wavers and bubbles mix in or a watermark is left, that spot becomes a defect.",
+    "photo.equipment.secondStage": "A second substrate table that holds an additional substrate separate from the wafer being exposed. There is no confirmed source for how the roles are divided between the two tables, so this material covers only their existence.",
+    "photo.equipment.waferStage": "Holds the wafer and scans it in X and Y while also controlling height and tilt, running synchronized in the opposite direction to the reticle stage. If its position is off by even nanometers, alignment (overlay) with the previous layer goes wrong.",
+    "photo.equipment.trackInterface": "The passage where the track and the exposure tool meet, where a robot hands the wafer directly across; the pre-exposure modules are on the left, and the post-exposure modules on the right. If handoff falls behind, the wait after baking lengthens, and dimensions vary from wafer to wafer.",
+    "photo.equipment.hmdsPrime": "A module that applies an adhesion promoter as vapor inside a sealed chamber, helping the photoresist adhere well to the wafer. If treatment is insufficient, adhesion weakens and the pattern lifts or peels away during development.",
+    "photo.equipment.spinCoater": "A module that dispenses photoresist at the center of the wafer inside a cup, then spins it at high speed to spread it thin and even using centrifugal force. If the rotation is uneven, film thickness varies across the wafer, and the subsequent exposure result differs from spot to spot.",
+    "photo.equipment.softBake": "The spot where, right after coating, the wafer is brought close to an open hotplate and heated to 90-100°C for 30-60 seconds to drive off the remaining solvent. If the temperature or time fluctuates, the amount of residual solvent varies, and pattern dimensions differ from wafer to wafer.",
+    "photo.equipment.pebPlate": "Precisely heats the exposed wafer by dividing it into multiple zones, driving forward the chemical change that occurs only in the exposed areas and also reducing standing-wave marks. If the temperature is too low, line edges become rough, and if too high, the pattern disappears.",
+    "photo.equipment.chillPlate": "A plate that immediately receives the wafer once baking is done and returns it to a set temperature, paired with every hotplate. If cooling is missing or delayed, thermal history varies from wafer to wafer, and dimensional reproducibility breaks down.",
+    "photo.equipment.developer": "Lays developer flat onto the wafer on a spinning chuck through a nozzle, dissolving or leaving the photoresist depending on whether it was exposed, then rinses it with ultrapure water and spin-dries it in the same spot. If the concentration or dwell time is off, the linewidth falls outside spec."
+  }
+}

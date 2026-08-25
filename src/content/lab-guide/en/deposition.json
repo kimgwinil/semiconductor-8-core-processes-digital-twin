@@ -1,0 +1,17 @@
+{
+  "lab-basic": {
+    "intro": "A lab where you use ALD to hit a target film thickness.",
+    "goal": "Move “ALD cycle count” (10–500 cycles) and “Substrate temperature” (80–250 °C) and watch “Film thickness d”. A flat substrate and a 1.0 Torr chamber pressure are fixed, and inside the 150–250 °C ALD window raising temperature does not change thickness — so hit the target with cycle count instead.",
+    "passHint": "You pass when “Film thickness d” falls within 23.00–25.00 nm."
+  },
+  "lab-applied": {
+    "intro": "A lab where you hit junction depth and implant time together in ion implantation.",
+    "goal": "Move “Projected range R_p (as-given)” (50–400 nm), “Longitudinal straggle ΔR_p (as-given)” (10–120 nm), “Dose Q” (0.1–50 ×10¹⁴ cm⁻²), and “Beam current I” (0.1–5.0 mA) and watch “Junction depth x_j (deep side)” and “Implant time t”. Substrate background concentration N_B is fixed at 1×10¹⁷ cm⁻³, and x_j is the depth where the profile meets this concentration.",
+    "passHint": "“Junction depth x_j (deep side)” 180.0–220.0 nm while “Implant time t” is 35.0 s or less — both must be satisfied at once to pass."
+  },
+  "lab-advanced": {
+    "intro": "A lab where you tune deposition, ion implantation, and activation anneal together in one pass.",
+    "goal": "Control the dielectric film with “ALD cycle count” (10–500 cycles) and “Substrate temperature” (80–250 °C); the implant with “Projected range R_p (as-given)” (50–400 nm), “Longitudinal straggle ΔR_p (as-given)” (10–120 nm), “Dose Q” (0.1–50 ×10¹⁴ cm⁻²), and “Beam current I” (0.1–5.0 mA); and the anneal with “Activation anneal temperature” (1173–1373 K) and “Activation anneal time” (1–120 s).",
+    "passHint": "“Dielectric film thickness d” 23.00–25.00 nm, “Post-anneal junction depth x_j” 180.0–220.0 nm, “Post-anneal effective straggle σ′” 40.0 nm or less, “Implant time t” 35.0 s or less — all four must be satisfied at once to pass."
+  }
+}

@@ -1,0 +1,1175 @@
+{
+  "_규약": "modelId → 등급 원장. 접근자는 src/models/registry.ts. 게이트는 scripts/check-grades.mjs.",
+  "_kind": "literature = 계산 경로 상수가 전부 withSource(문헌계수). synthetic = 값 자체가 교육용 스코어링 합성. operational = 물리 법칙이 아니라 업계 운영 범위(A15-op, 오케스트레이터 승인 2026-08-20).",
+  "_notice": "kind가 synthetic 이면 notice 필수. 문구는 공정별 맥락에 맞게 쓰되 게이트는 문장이 아니라 kind 필드로 검사한다.",
+  "_검증식": "검증식은 L2(현업 검증, 판정자 CEO — D-013) 통과 항목에만 쓴다. 2026-08-20 현재 0건.",
+  "models": {
+    "deposition.ald.cycles": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.ald.gpc": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.ald.thickness": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.ald.thicknessNm": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.ald.time": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.cvd.apparentEa": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.cvd.growthRate": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.cvd.ks": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.cvd.transportFraction": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.diffusion.arrhenius": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.diffusion.arrheniusLiteratureK": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.diffusion.dopantD": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.diffusion.dose": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.diffusion.driveInTime": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.diffusion.erfcProfile": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.diffusion.gaussianPeak": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.diffusion.gaussianProfile": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.diffusion.junctionErfc": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.diffusion.junctionGaussian": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.implant.annealedStraggle": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.implant.beamCurrent": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.implant.dose": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.implant.junctionDeep": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.implant.junctionShallow": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.implant.peak": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.implant.profile": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.implant.time": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.implant.totalIons": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.implant.waferArea": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.lab.adv.implantTimeS": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.lab.adv.junctionDeepNm": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.lab.adv.peakCm3": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.lab.adv.straggleNm": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.lab.adv.totalTimeS": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.lab.implantTimeS": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.lab.junctionDeepNm": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.lab.junctionShallowNm": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.lab.peakCm3": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.lab.totalIons": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.sputter.kFactor": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.sputter.nuclearStopping": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.sputter.reducedEnergy": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.sputter.thresholdEnergy": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.stoney.biaxialModulus": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.stoney.radius": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "deposition.stoney.stress": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.defectLevel": {
+      "declaredGrade": "문헌식",
+      "kind": "literature",
+      "notice": "1차 출처(Williams-Brown 1981) 오픈액세스본 미확보(M-21). 식 형태·수치정합을 2차 출처 S227 로만 확인했습니다."
+    },
+    "eds.dieCount.good": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.dieCount.gross": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.lab.s6.adProduct": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. A·D₀ 는 문헌량이나 실효면적 A_eff = A(1+0.003·R)의 0.003/라인은 교육용 설정값입니다."
+    },
+    "eds.lab.s6.costPerGoodDie": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 테스터 단가 300,000원/h·가드밴드 오버킬 0.004/%G 를 쓴 학습용 원가 모형입니다."
+    },
+    "eds.lab.s6.defectLevelPpm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 문헌식 DL=1−Y^(1−T)(S227)에 교육용 가드밴드 언더킬 3000·exp(−0.35·G) ppm 을 더한 값입니다."
+    },
+    "eds.lab.s6.repairedYield": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 음이항 수율(S222·S223)에 교육용 리페어 이득 min(0.02·R, 0.32)를 덧씌운 값입니다."
+    },
+    "eds.lab.s6.waferTestMin": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 다이당 테스트 시간 t_die 와 웨이퍼 오버헤드 60 s 는 교육용 설정값입니다."
+    },
+    "eds.lab.s7.contactResistanceUOhm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. S229 공칭 접촉저항(조회값)에 교육용 니들오염 배수 3.5 를 곱한 값입니다."
+    },
+    "eds.lab.s7.defectLevelPpm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 문헌식 DL=1−Y^(1−T)(S227)에 교육용 가드밴드 언더킬 3000·exp(−0.35·G) ppm 을 더한 값입니다."
+    },
+    "eds.lab.s7.falseFailPct": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. F = min(0.95, 0.6·max(0, Rc/Rspec−1)+0.002·(P−1)) 는 문헌식이 아닌 교육용 응답식입니다."
+    },
+    "eds.lab.s7.observedYield": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 리페어·가짜불량률·오버킬 등 교육용 설정값을 곱한 학습용 관측수율입니다."
+    },
+    "eds.lab.s7.throughputWph": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. t_die·웨이퍼 오버헤드 60 s·클리닝 오버헤드 30 s 가 모두 교육용 설정값입니다."
+    },
+    "eds.learning.monthlyReduction": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.learning.yieldLoss": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.probe.contactForce": {
+      "declaredGrade": "문헌식",
+      "kind": "operational",
+      "notice": "[운영규약] 물리 법칙이 아니라 업계 운영 범위입니다(A15-op). 값은 S229 조회값이며 식으로 유도한 결과가 아닙니다."
+    },
+    "eds.probe.contactResistance": {
+      "declaredGrade": "문헌식",
+      "kind": "operational",
+      "notice": "[운영규약] 물리 법칙이 아니라 업계 운영 범위입니다(A15-op). 값은 S229 조회값이며 식으로 유도한 결과가 아닙니다."
+    },
+    "eds.probe.overdriveMargin": {
+      "declaredGrade": "문헌식",
+      "kind": "operational",
+      "notice": "[운영규약] 물리 법칙이 아니라 업계 운영 범위입니다(A15-op). 값은 S229 조회값이며 식으로 유도한 결과가 아닙니다."
+    },
+    "eds.probe.scrubClearance": {
+      "declaredGrade": "문헌식",
+      "kind": "operational",
+      "notice": "[운영규약] 물리 법칙이 아니라 업계 운영 범위입니다(A15-op). 값은 S229 조회값이며 식으로 유도한 결과가 아닙니다."
+    },
+    "eds.spc.cp": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.spc.cpk": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.spc.defectiveCentered": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.spc.defectiveOneSided": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.spc.rLcl": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.spc.rUcl": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.spc.sigmaHat": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.spc.xbarLcl": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.spc.xbarUcl": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.yield.auto": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.yield.boseEinstein": {
+      "declaredGrade": "문헌식",
+      "kind": "literature",
+      "notice": "[파생 기대값] 문헌 인쇄 수치표 미확보(M-20) — T2 골든값이 없어 현업 검증(L2)을 통과해도 「검증식」으로 올릴 수 없습니다."
+    },
+    "eds.yield.maxSigmaDistance": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.yield.murphy": {
+      "declaredGrade": "문헌식",
+      "kind": "literature",
+      "notice": "[파생 기대값] 문헌 인쇄 수치표 미확보(M-20) — T2 골든값이 없어 현업 검증(L2)을 통과해도 「검증식」으로 올릴 수 없습니다."
+    },
+    "eds.yield.negativeBinomial": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.yield.overall": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.yield.poisson": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.yield.poissonInverse": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.yield.randomFromMaxObserved": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "eds.yield.seeds": {
+      "declaredGrade": "문헌식",
+      "kind": "literature",
+      "notice": "[파생 기대값] 문헌 인쇄 수치표 미확보(M-20) — T2 골든값이 없어 현업 검증(L2)을 통과해도 「검증식」으로 올릴 수 없습니다."
+    },
+    "eds.yield.systematic": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "etch.anisotropyDegree": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "etch.dry.averageRate": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "etch.dry.clausingTransmission": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "etch.dry.cycleDepth": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "etch.dry.depth": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "etch.dry.maskSelectivity": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "etch.dry.oxideSelectivity": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "etch.dry.rieLag": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "etch.dry.selfBiasRatio": {
+      "declaredGrade": "문헌식",
+      "kind": "literature",
+      "notice": "출처 등급 B — q = 4 는 이상화 한계값이며(S167) 실기에서는 더 작게 나온다고 원문이 경고합니다."
+    },
+    "etch.dry.time": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "etch.lab.advanced.anisotropy": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 학습용 합성 측면·수직 식각률비에서 유도한 이방성도입니다."
+    },
+    "etch.lab.advanced.cycleTimeS": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 오버헤드 45 s 를 가정한 학습용 사이클 시간입니다."
+    },
+    "etch.lab.advanced.effectiveOveretchPct": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 합성 종점 시각 대비 실효 오버에치입니다."
+    },
+    "etch.lab.advanced.endpointTimeS": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 합성 식각률로 역산한 학습용 종점 시각입니다."
+    },
+    "etch.lab.advanced.endpointWavelengthNm": {
+      "declaredGrade": "문헌식",
+      "kind": "literature",
+      "notice": "출처 등급 B — S172 는 OCR 열화본이라 원장이 재확인 대상으로 표시했습니다."
+    },
+    "etch.lab.advanced.etchRate": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 학습용 합성 수직 식각률입니다."
+    },
+    "etch.lab.advanced.notchWidthNm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 차징 노칭 발동 조건·폭 계수를 임의로 정한 학습용 지표입니다."
+    },
+    "etch.lab.advanced.residueIndex": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. R_res = 100·exp(−OE/12)·(1+0.030·f) 는 학습용 잔사 지수입니다."
+    },
+    "etch.lab.advanced.resistRemainNm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 합성 선택비로 계산한 학습용 레지스트 잔막입니다."
+    },
+    "etch.lab.advanced.selectivityPR": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. S_PR 식의 계수가 전부 학습용 설계값입니다."
+    },
+    "etch.lab.advanced.selectivityUL": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 학습용 합성 하부막 선택비입니다."
+    },
+    "etch.lab.advanced.throughputWph": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 이송·펌핑 오버헤드 45 s 를 가정한 학습용 처리량 지수입니다."
+    },
+    "etch.lab.advanced.totalEtchTimeS": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 합성 종점 시각에 오버에치를 곱한 학습용 식각 시간입니다."
+    },
+    "etch.lab.advanced.underlayerLossNm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 합성 하부막 선택비 S_UL 로 계산한 학습용 하부막 손실입니다."
+    },
+    "etch.lab.advanced.yieldPct": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 감점 가중(3.0/0.4/200/2.5)을 임의로 정한 학습용 수율 점수입니다."
+    },
+    "etch.lab.applied.anisotropy": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 학습용 합성 측면·수직 식각률비에서 유도한 이방성도입니다."
+    },
+    "etch.lab.applied.depthNm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. R_vert = 150 + 0.60·P_b 등 학습용 합성 식각률 모델입니다."
+    },
+    "etch.lab.applied.endpointWavelengthNm": {
+      "declaredGrade": "문헌식",
+      "kind": "literature",
+      "notice": "출처 등급 B — S172 는 OCR 열화본이라 원장이 재확인 대상으로 표시했습니다."
+    },
+    "etch.lab.applied.etchRate": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 학습용 합성 수직 식각률입니다."
+    },
+    "etch.lab.applied.lateralRate": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 학습용 합성 측면 식각률입니다."
+    },
+    "etch.lab.applied.resistRemainNm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 합성 선택비로 계산한 학습용 레지스트 잔막입니다."
+    },
+    "etch.lab.applied.selectivityPR": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. S_PR 식의 계수가 전부 학습용 설계값입니다."
+    },
+    "etch.lab.applied.sidewallAngleDeg": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 합성 식각률비에서 유도한 학습용 측벽각입니다."
+    },
+    "etch.lab.applied.undercutNm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 합성 측면 식각률로 계산한 학습용 언더컷입니다."
+    },
+    "etch.lab.basic.anisotropy": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 학습용 합성 측면·수직 식각률비에서 유도한 이방성도입니다."
+    },
+    "etch.lab.basic.depthNm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. R_vert = 150 + 0.60·P_b 등 학습용 합성 식각률 모델입니다."
+    },
+    "etch.lab.basic.resistRemainNm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 합성 선택비로 계산한 학습용 레지스트 잔막입니다."
+    },
+    "etch.lab.basic.selectivityPR": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. S_PR 식의 계수가 전부 학습용 설계값입니다."
+    },
+    "etch.lab.basic.sidewallAngleDeg": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 합성 식각률비에서 유도한 학습용 측벽각입니다."
+    },
+    "etch.lab.basic.undercutNm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 합성 측면 식각률로 계산한 학습용 언더컷입니다."
+    },
+    "etch.oes.endpointWavelength": {
+      "declaredGrade": "문헌식",
+      "kind": "literature",
+      "notice": "출처 등급 B — S172 는 OCR 열화본이라 원장이 재확인 대상으로 표시했습니다. 10개 발광선 중 9개가 등급 B 입니다."
+    },
+    "etch.plasma.debyeLength": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "etch.plasma.debyeSphereCount": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "etch.plasma.electronPlasmaFrequency": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "etch.plasma.probeToDebyeRatio": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "etch.wet.arrheniusRate": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "etch.wet.kohOrientationSelectivity": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "etch.wet.kohRate": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.cmp.polishTime": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.cmp.prestonCoefficient": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.cmp.relativeVelocity": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.cmp.removalRate": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.em.accelerationFactor": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.em.blechProduct": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.fourPointProbe.resistivity": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.fourPointProbe.sheetResistance": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.lab.blechMargin": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.lab.currentDensity": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.lab.effectiveResistivity": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.lab.pitchNm": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.lab.rcDelayRatio": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.lab.resistanceRatio": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.lab.tenYearAttainment": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 기준 MTTF 1,469 h 와 10년 기준선 87,600 h 는 학습용 조건값이며 실측 수명이 아닙니다."
+    },
+    "metal.plating.charge": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.plating.depositedMass": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.rc.capacitanceShape": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.rc.delayRatio": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.rc.idealScalingCoefficient": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.rc.normalizedDelay": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.rc.resistanceShape": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.resistance.effectiveResistivity": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.resistance.effectiveResistivityLine": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.resistance.lineResistance": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "metal.resistance.sizeEffectRatio": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "oxidation.dealGrove.thickness": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "oxidation.dealGrove.time": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "oxidation.lab.advanced.breakdownIndex": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 절대 전계(MV/cm)는 출처 라이선스 미확보(M-36)로 표시하지 않으며, 기준 조건을 1.00 으로 둔 학습용 상대 지수입니다."
+    },
+    "oxidation.lab.advanced.corrosionIndex": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. HCl 2점(0 %→1.0 · 2 %→2.6)을 지나는 학습용 배관 부식 직선 지수입니다."
+    },
+    "oxidation.lab.advanced.gasLoadIndex": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 유량 3점을 지나는 학습용 직선 지수입니다."
+    },
+    "oxidation.lab.advanced.oisfDensity": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. HCl 게터링의 정량 효과는 미확보(M-9)이며 가르치는 것은 방향뿐인 학습용 결함밀도 모형입니다."
+    },
+    "oxidation.lab.advanced.siConsumedNm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 소모비 0.44(S121)는 문헌값이나 곱해지는 두께가 교육용 외란 배수를 거친 값입니다."
+    },
+    "oxidation.lab.advanced.slotSlopePct": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 슬롯 50개 프로파일 그래프를 대신하는 학습용 진단 지표(0.13 %/slot 고정)입니다."
+    },
+    "oxidation.lab.advanced.spreadPct": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 온도구배 ×1.8 · 슬립 ×1.4 · 더미 −0.25 %p 는 학습용으로 설계된 계수입니다."
+    },
+    "oxidation.lab.advanced.supplyFactorQ": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 포화 유량 6 slm 을 가정한 학습용 공급제한 계수입니다."
+    },
+    "oxidation.lab.advanced.thicknessNm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. Deal-Grove 문헌식에 교육용 공급제한 f_Q 와 수분혼입 배수 1.22 를 시간에 곱해 반영한 값입니다."
+    },
+    "oxidation.lab.advanced.throughputWph": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 승온율·안정화 연장을 반영한 학습용 배치 스루풋 모형입니다."
+    },
+    "oxidation.lab.applied.gasLoadIndex": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 유량 3점(4→1.0 · 12→3.0 · 20→5.0)을 지나는 학습용 직선 지수입니다."
+    },
+    "oxidation.lab.applied.siConsumedNm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 소모비 0.44(S121)는 문헌값이나 곱해지는 두께가 교육용 공급제한 계수를 거친 값입니다."
+    },
+    "oxidation.lab.applied.spreadPct": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 웨이퍼 간 산포는 학습용 선형 합성식이며 실측 장비 산포가 아닙니다."
+    },
+    "oxidation.lab.applied.supplyFactorQ": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 포화 유량 6 slm 을 가정한 학습용 공급제한 계수입니다."
+    },
+    "oxidation.lab.applied.thicknessNm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. Deal-Grove 문헌식에 교육용 산화제 공급제한 f_Q = min(1, Q/6)을 곱한 시간으로 계산한 값입니다 — 포화 유량 6 slm 은 문헌값이 아닙니다."
+    },
+    "oxidation.lab.applied.throughputWph": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 보트 50장·로딩 20분·언로드 15분을 가정한 학습용 배치 스루풋 모형입니다."
+    },
+    "oxidation.lab.growthRate": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "oxidation.lab.siConsumedNm": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "oxidation.lab.surfaceRiseNm": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "oxidation.lab.thicknessNm": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "oxidation.siConsumption": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.ballBond.shearArea": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.ballBond.shearStrengthPerArea": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.burnIn.equivalentUseHours": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.burnIn.temperatureAF": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.burnIn.totalAF": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.burnIn.voltageAF": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.dieShear.requirement": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.elfr.fit": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.elfr.ppm": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.lab.advanced.dieShearMargin": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.lab.advanced.elapsed": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.lab.advanced.speedMatch": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.lab.applied.acceleratedSoak": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.lab.applied.floorMargin": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.lab.basic.directionIndependence": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.lab.basic.metricName": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.lab.basic.powerRatio": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.lab.basic.riseC": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.lab.basic.theta": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.lab.basic.velocityLocation": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.msl.floorLife": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.msl.standardSoak": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.singulation.fractureStrength": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.solderBallShear.speedClass": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.thermal.junctionTemp": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.thermal.recommendedPower": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.thermal.testBoardWidth": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.thermal.thetaJA": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.underfill.apparentViscosity": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.underfill.capillaryPressure": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.underfill.referenceFillTime": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.waferThinning.fractureStrength": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.windTunnel.velocityConformance": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "packaging.wirePull.requirement": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "photo.lab.advanced.aspectRatio": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. AR = T/CD 의 분모 CD 가 학습용 합성 응답값이며 발산 방지용 하한 1 nm 도 물리가 아닙니다."
+    },
+    "photo.lab.advanced.cdNm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 공중상·선량·디포커스·확산 부풀음 계수는 모두 학습용 CD 응답 계수입니다."
+    },
+    "photo.lab.advanced.collapseProbability": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. AR 3.0 무릎·기울기 0.25 는 학습용 값이며 실제 붕괴 임계는 레지스트·린스액 표면장력에 따라 달라집니다."
+    },
+    "photo.lab.advanced.dofNm": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "photo.lab.advanced.lerNm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. LER 기준 4.5 nm·PEB 부족 벌점 3.0 nm 는 학습용 값이며 수율 감점항으로만 씁니다(M-10)."
+    },
+    "photo.lab.advanced.resolutionNm": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "photo.lab.advanced.sigmaDiffusionNm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. σ_D = 12·exp((T−110)/12) 은 학습용 PEB 산확산 모형이며 절대값으로 합격을 가르지 않습니다(M-11)."
+    },
+    "photo.lab.advanced.standingWaveCount": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 정재파 주기 λ/2n 은 문헌식이나 레지스트 굴절률 1.70 이 근사값이라 출처 확정 전까지 합성으로 둡니다."
+    },
+    "photo.lab.advanced.swaDeg": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 이상각 88°·디포커스 18·반사 14 는 학습용 벽면각 합성식의 계수입니다."
+    },
+    "photo.lab.advanced.throughputWph": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 12000/(48+0.85·E)×0.92 는 학습용 스캐너 스루풋 모형입니다."
+    },
+    "photo.lab.advanced.yieldPct": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 붕괴 45·LER 2.5·SWA 1.5·CD 2.0 감점은 학습용 수율 스코어링이며 실제 수율이 아닙니다."
+    },
+    "photo.lab.applied.cdNm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 공중상 계수 0.78·선량 기울기 1.2·디포커스 30 은 학습용 CD 응답 계수입니다."
+    },
+    "photo.lab.applied.dofNm": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "photo.lab.applied.dofVsDryLimit": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "photo.lab.applied.lerNm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. LER 기준 4.5 nm·PEB 부족 벌점 3.0 nm 는 학습용 값이며 IRDS 목표값 미확보(M-10)로 판정에 쓰지 않습니다."
+    },
+    "photo.lab.applied.requiredK1For45nm": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "photo.lab.applied.resolutionNm": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "photo.lab.applied.throughputWph": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 12000/(48+0.85·E)×0.92 는 학습용 스캐너 스루풋 모형입니다."
+    },
+    "photo.lab.basic.cdNm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 선량 기울기 1.2 nm/(mJ/cm²)·초점 2차항 6.0e-4 는 학습용으로 설계된 CD 응답 계수입니다."
+    },
+    "photo.lab.basic.dofNm": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "photo.lab.basic.resolutionNm": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "photo.lab.basic.swaDeg": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 이상각 88°·디포커스 18·반사 14 는 학습용 벽면각 합성식의 계수입니다."
+    },
+    "photo.lab.basic.throughputWph": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 12000/(48+0.85·E)×0.92 는 학습용 스캐너 스루풋 모형입니다."
+    },
+    "photo.rayleigh.dof": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "photo.rayleigh.dofRatio": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "photo.rayleigh.requiredK1": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "photo.rayleigh.resolution": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "wafer.czochralski.maxPullRate": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "wafer.czochralski.meltConcentration": {
+      "declaredGrade": "문헌식",
+      "kind": "literature",
+      "notice": "출처는 라이선스상 화면에 표기하지 않습니다(M-1). 값 자체는 문헌식이나 출처를 주장하지 않습니다."
+    },
+    "wafer.czochralski.scheilAxial": {
+      "declaredGrade": "문헌식",
+      "kind": "literature",
+      "notice": "출처는 라이선스상 화면에 표기하지 않습니다(M-1). 값 자체는 문헌식이나 출처를 주장하지 않습니다."
+    },
+    "wafer.lab.diameterMm": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. D = 260 − 32·V 는 학습용 합성 응답식이며 S106 은 「인상속도↑ → 직경↓」 방향의 근거일 뿐 계수의 출처가 아닙니다."
+    },
+    "wafer.lab.diameterSigma": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 직경 편차 응답식의 계수(회전수·인상속도·Ar 항)는 전부 학습용 설계값입니다."
+    },
+    "wafer.lab.oxygen": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 도가니 회전 1 rpm 당 +0.45×10¹⁷ 등은 학습용 계수이며 실제 산소 혼입은 도가니 용해·용융액 대류·SiO 증발의 연성 해석으로 결정됩니다."
+    },
+    "wafer.lab.oxygenRecovered": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 외란 A 중 복구 조작을 범위 끝까지 썼을 때의 도달 산소값으로 학습용 합성 응답식의 산출입니다."
+    },
+    "wafer.lab.pullRateLimit": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. V_max ∝ r^(−1/2)(S106)는 문헌식이나 대입되는 직경이 학습용 합성 응답식 D = 260 − 32·V 의 출력입니다."
+    },
+    "wafer.lab.structureLossPullRate": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 붕괴 구배 18 K/cm·구조손실 임계 V/G 0.5 는 학습용으로 설정한 값입니다."
+    },
+    "wafer.lab.thermalStress": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. τ = 0.04·G 는 학습용 상대 지수이며 응력 단위(MPa)가 아닙니다."
+    },
+    "wafer.lab.throughput": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 처리량을 인상속도 그 자체(mm/min)로 두는 것은 학습용 정의이며 문헌이 준 지표가 아닙니다."
+    },
+    "wafer.lab.topResistivity": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "wafer.lab.vgRatio": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "wafer.lab.yield": {
+      "declaredGrade": "경향모델",
+      "kind": "synthetic",
+      "notice": "실제 장비 상수가 아닙니다. 외란 2종 생존 여부로 92 % / 100·g_fail 을 주는 학습용 수율 스코어링입니다."
+    },
+    "wafer.pointDefect.diffusivity": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "wafer.pointDefect.equilibriumConcentration": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "wafer.pointDefect.transportCapacity": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "wafer.pointDefect.voronkovCritical": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "wafer.pointDefect.voronkovRatio": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "wafer.probe.bulkResistivity": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "wafer.resistivity.apparentMobility": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "wafer.resistivity.dopantDensity": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "wafer.resistivity.fromDensity": {
+      "declaredGrade": "문헌식",
+      "kind": "literature"
+    },
+    "wafer.wireSaw.normalForceByFeed": {
+      "declaredGrade": "문헌식",
+      "kind": "literature",
+      "notice": "문헌이 제시한 1변수 최소제곱 경험 회귀식입니다. 와이어 속도 1.5 m/s 고정 조건에서만 유효합니다."
+    },
+    "wafer.wireSaw.normalForceByWireSpeed": {
+      "declaredGrade": "문헌식",
+      "kind": "literature",
+      "notice": "문헌이 제시한 1변수 최소제곱 경험 회귀식입니다. 같은 식의 다른 피팅이며 공통 조건에서 약 19 % 어긋납니다."
+    }
+  }
+}

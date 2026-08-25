@@ -1,0 +1,465 @@
+{
+  "processId": "oxidation",
+  "image": "cross-section.webp",
+  "viewBox": [
+    0,
+    0,
+    1600,
+    900
+  ],
+  "noteMaxWidth": 420,
+  "labels": [
+    {
+      "id": "heat-insulating-jacket",
+      "anchor": [
+        463,
+        450
+      ],
+      "leaderEnd": [
+        362,
+        404
+      ],
+      "side": "left",
+      "ko": "가열로 본체(Furnace Body)",
+      "en": "Furnace Body",
+      "descKey": "oxidation.equipment.heatInsulatingJacket"
+    },
+    {
+      "id": "multi-zone-heater",
+      "anchor": [
+        550,
+        500
+      ],
+      "leaderEnd": [
+        362,
+        340
+      ],
+      "side": "left",
+      "ko": "다중 존 히터(Zone Heater)",
+      "en": "Zone Heater",
+      "descKey": "oxidation.equipment.multiZoneHeater"
+    },
+    {
+      "id": "spike-thermocouple",
+      "anchor": [
+        605,
+        540
+      ],
+      "leaderEnd": [
+        312,
+        276
+      ],
+      "side": "left",
+      "ko": "스파이크 TC(Spike TC)",
+      "en": "Spike TC",
+      "descKey": "oxidation.equipment.spikeThermocouple"
+    },
+    {
+      "id": "quartz-outer-tube",
+      "anchor": [
+        634,
+        590
+      ],
+      "leaderEnd": [
+        312,
+        468
+      ],
+      "side": "left",
+      "ko": "석영 외관(Outer Tube)",
+      "en": "Outer Tube",
+      "descKey": "oxidation.equipment.quartzOuterTube"
+    },
+    {
+      "id": "quartz-inner-tube",
+      "anchor": [
+        674,
+        640
+      ],
+      "leaderEnd": [
+        312,
+        572
+      ],
+      "side": "left",
+      "ko": "석영 내관(Inner Tube)",
+      "en": "Inner Tube",
+      "descKey": "oxidation.equipment.quartzInnerTube"
+    },
+    {
+      "id": "gas-injector",
+      "anchor": [
+        700,
+        680
+      ],
+      "leaderEnd": [
+        362,
+        636
+      ],
+      "side": "left",
+      "ko": "가스 인젝터(Gas Injector)",
+      "en": "Gas Injector",
+      "descKey": "oxidation.equipment.gasInjector"
+    },
+    {
+      "id": "gas-supply-line",
+      "anchor": [
+        486,
+        780
+      ],
+      "leaderEnd": [
+        336,
+        796
+      ],
+      "side": "left",
+      "ko": "가스 공급관(Gas Supply)",
+      "en": "Gas Supply",
+      "descKey": "oxidation.equipment.gasSupplyLine"
+    },
+    {
+      "id": "boat-elevator",
+      "anchor": [
+        480,
+        830
+      ],
+      "leaderEnd": [
+        357,
+        860
+      ],
+      "side": "left",
+      "ko": "보트 엘리베이터(Elevator)",
+      "en": "Boat Elevator",
+      "descKey": "oxidation.equipment.boatElevator"
+    },
+    {
+      "id": "quartz-wafer-boat",
+      "anchor": [
+        866,
+        422
+      ],
+      "leaderEnd": [
+        1288,
+        284
+      ],
+      "side": "right",
+      "ko": "석영 보트(Wafer Boat)",
+      "en": "Quartz Wafer Boat",
+      "descKey": "oxidation.equipment.quartzWaferBoat"
+    },
+    {
+      "id": "wafer-stack",
+      "anchor": [
+        840,
+        466
+      ],
+      "leaderEnd": [
+        1251,
+        348
+      ],
+      "side": "right",
+      "ko": "웨이퍼 적층(Wafer Stack)",
+      "en": "Wafer Stack",
+      "descKey": "oxidation.equipment.waferStack"
+    },
+    {
+      "id": "profile-thermocouple",
+      "anchor": [
+        895,
+        534
+      ],
+      "leaderEnd": [
+        1262,
+        412
+      ],
+      "side": "right",
+      "ko": "프로파일 TC(Profile TC)",
+      "en": "Profile TC",
+      "descKey": "oxidation.equipment.profileThermocouple"
+    },
+    {
+      "id": "heat-insulating-pedestal",
+      "anchor": [
+        800,
+        738
+      ],
+      "leaderEnd": [
+        1352,
+        732
+      ],
+      "side": "right",
+      "ko": "단열통(Pedestal)",
+      "en": "Heat Insulator",
+      "descKey": "oxidation.equipment.heatInsulatingPedestal"
+    },
+    {
+      "id": "exhaust-port",
+      "anchor": [
+        1040,
+        779
+      ],
+      "leaderEnd": [
+        1262,
+        796
+      ],
+      "side": "right",
+      "ko": "배기 포트(Exhaust Port)",
+      "en": "Exhaust Port",
+      "descKey": "oxidation.equipment.exhaustPort"
+    },
+    {
+      "id": "manifold-flange",
+      "anchor": [
+        960,
+        780
+      ],
+      "leaderEnd": [
+        1328,
+        860
+      ],
+      "side": "right",
+      "ko": "매니폴드(Manifold)",
+      "en": "Manifold Flange",
+      "descKey": "oxidation.equipment.manifoldFlange"
+    }
+  ],
+  "notes": [
+    {
+      "id": "inset-pitch-title",
+      "anchor": [
+        618,
+        42
+      ],
+      "leaderEnd": [
+        400,
+        42
+      ],
+      "side": "left",
+      "ko": "확대 — 보트 슬롯 피치 : 웨이퍼 두께 ≈ 13 : 1",
+      "en": "Detail — boat slot pitch : wafer thickness ≈ 13 : 1",
+      "tone": "info"
+    },
+    {
+      "id": "inset-pitch-dim-pitch",
+      "anchor": [
+        770,
+        77
+      ],
+      "leaderEnd": [
+        400,
+        96
+      ],
+      "side": "left",
+      "ko": "슬롯 피치 10.5 mm",
+      "en": "Slot pitch 10.5 mm",
+      "tone": "info"
+    },
+    {
+      "id": "inset-pitch-dim-thickness",
+      "anchor": [
+        770,
+        184
+      ],
+      "leaderEnd": [
+        400,
+        150
+      ],
+      "side": "left",
+      "ko": "웨이퍼 두께 0.775 mm (300 mm 웨이퍼)",
+      "en": "Wafer thickness 0.775 mm (300 mm wafer)",
+      "tone": "info"
+    },
+    {
+      "id": "multi-zone-heater-note",
+      "anchor": [
+        550,
+        634
+      ],
+      "leaderEnd": [
+        400,
+        468
+      ],
+      "side": "left",
+      "ko": "히터 존 — 사례: 5존. 장비·세대별로 다르며 존 개수 일반화는 미확인",
+      "en": "Heater zones — example: 5 zones. Count varies by tool and generation; not generalised.",
+      "tone": "warn"
+    },
+    {
+      "id": "overlay-draws-values",
+      "anchor": [
+        605,
+        700
+      ],
+      "leaderEnd": [
+        400,
+        692
+      ],
+      "side": "left",
+      "ko": "온도 분포·산화막 두께·간섭색은 이미지에 굽지 않는다 — 오버레이가 그린다",
+      "en": "Temperature distribution, oxide thickness and film colour are not baked into this image — the overlay renders them.",
+      "tone": "info"
+    },
+    {
+      "id": "gas-path",
+      "anchor": [
+        700,
+        720
+      ],
+      "leaderEnd": [
+        400,
+        748
+      ],
+      "side": "left",
+      "ko": "가스 경로 — 하부 유입 → 인젝터 높이별 분사 → 내관 상승 → 상부 반전 → 내·외관 사이 하강 → 하부 측면 배기",
+      "en": "Gas path — bottom inlet → injection at multiple heights → up the inner tube → reversal at the top → down the inner/outer annulus → side exhaust at the bottom.",
+      "tone": "info"
+    },
+    {
+      "id": "inset-oxide-title",
+      "anchor": [
+        982,
+        42
+      ],
+      "leaderEnd": [
+        1180,
+        42
+      ],
+      "side": "right",
+      "ko": "확대 — 웨이퍼 표면 열산화 계면",
+      "en": "Detail — thermal oxidation interface at the wafer surface",
+      "tone": "info"
+    },
+    {
+      "id": "inset-oxide-layer",
+      "anchor": [
+        950,
+        78
+      ],
+      "leaderEnd": [
+        1180,
+        98
+      ],
+      "side": "right",
+      "ko": "성장한 SiO₂ 막",
+      "en": "Grown SiO₂ film",
+      "tone": "info"
+    },
+    {
+      "id": "inset-oxide-original-surface",
+      "anchor": [
+        950,
+        104
+      ],
+      "leaderEnd": [
+        1180,
+        154
+      ],
+      "side": "right",
+      "ko": "원래 웨이퍼 표면",
+      "en": "Original wafer surface",
+      "tone": "info"
+    },
+    {
+      "id": "inset-oxide-below-ratio",
+      "anchor": [
+        838,
+        127
+      ],
+      "leaderEnd": [
+        1180,
+        210
+      ],
+      "side": "right",
+      "ko": "총 산화막 두께의 약 46 %가 원표면 아래 — Si 1 소모 → SiO₂ 2.17",
+      "en": "About 46 % of the total oxide thickness lies below the original surface — 1 part Si consumed yields 2.17 parts SiO₂.",
+      "tone": "warn"
+    },
+    {
+      "id": "inset-oxide-substrate",
+      "anchor": [
+        950,
+        175
+      ],
+      "leaderEnd": [
+        1180,
+        266
+      ],
+      "side": "right",
+      "ko": "실리콘 기판 (소모)",
+      "en": "Silicon substrate (consumed)",
+      "tone": "info"
+    },
+    {
+      "id": "stack-abbreviated",
+      "anchor": [
+        840,
+        570
+      ],
+      "leaderEnd": [
+        1180,
+        468
+      ],
+      "side": "right",
+      "ko": "웨이퍼 적층 — 도해는 21단 축약 표기. 실제 배치는 1회 100~150장",
+      "en": "Wafer stack — drawn as 21 slots (abbreviated). An actual batch holds 100–150 wafers.",
+      "tone": "warn"
+    },
+    {
+      "id": "pitch-ratio-kept",
+      "anchor": [
+        840,
+        610
+      ],
+      "leaderEnd": [
+        1180,
+        524
+      ],
+      "side": "right",
+      "ko": "슬롯 피치 : 웨이퍼 두께 = 약 13 : 1 (10.5 mm : 0.775 mm) — 실제 비를 그대로 유지했다",
+      "en": "Slot pitch : wafer thickness = approx. 13 : 1 (10.5 mm : 0.775 mm) — the true ratio is preserved in this drawing.",
+      "tone": "info"
+    },
+    {
+      "id": "diameter-exaggerated",
+      "anchor": [
+        840,
+        648
+      ],
+      "leaderEnd": [
+        1180,
+        580
+      ],
+      "side": "right",
+      "ko": "축척 과장 — 슬롯 피치 : 웨이퍼 지름 = 실제 1 : 29 → 도해 1 : 8.3 (약 3.5배 과장)",
+      "en": "Scale exaggeration — slot pitch : wafer diameter is 1 : 29 in reality, drawn here as 1 : 8.3 (about 3.5x).",
+      "tone": "warn"
+    },
+    {
+      "id": "deal-grove-tau-zero",
+      "anchor": [
+        800,
+        687
+      ],
+      "leaderEnd": [
+        1180,
+        636
+      ],
+      "side": "right",
+      "ko": "Deal–Grove 계산은 τ = 0 가정. 건식 O₂ 약 25 nm 미만 구간은 실제가 더 빠르게 자란다(Massoud 영역)",
+      "en": "Deal–Grove values assume τ = 0. Below about 25 nm in dry O₂ the real growth is faster (Massoud regime).",
+      "tone": "warn"
+    },
+    {
+      "id": "interference-color-unverified",
+      "anchor": [
+        820,
+        700
+      ],
+      "leaderEnd": [
+        1180,
+        692
+      ],
+      "side": "right",
+      "ko": "SiO₂ 두께–간섭색 대응표를 라이선스 확인 가능한 출처에서 찾지 못해 미확인 — 간섭색을 쓰지 않는다",
+      "en": "The SiO₂ thickness-to-interference-colour table could not be confirmed from a licence-cleared source, so interference colour is not used.",
+      "tone": "warn"
+    }
+  ]
+}

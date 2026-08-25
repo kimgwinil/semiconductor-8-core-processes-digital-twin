@@ -1,0 +1,190 @@
+{
+  "processId": "metal",
+  "items": [
+    {
+      "id": "metal-q01",
+      "type": "single",
+      "difficulty": "low",
+      "objectiveId": "LO-P6-01",
+      "stem": "Aluminum wiring could be formed by depositing the metal first and plasma-etching away the unwanted areas (subtractive patterning). Copper wiring cannot use the same approach and instead uses the damascene method: trenches and vias are etched into the dielectric first, then filled with copper, with the excess polished away. What is the most direct reason copper is unsuited to subtractive patterning?",
+      "choices": [
+        "Copper's melting point is lower than aluminum's, so it melts under plasma heat",
+        "Copper chlorides and fluorides are not volatile enough, so plasma reaction products do not leave the surface",
+        "Copper does not conduct electricity, so a plasma discharge cannot even strike",
+        "Copper's resistivity is higher than aluminum's, so a thin remaining line would not work electrically"
+      ],
+      "answer": 1,
+      "explanation": "Plasma etching requires the reaction products to leave as a gas, but copper's compounds with halogens (chlorine, fluorine) are not volatile enough, so the products stick to the surface instead of leaving. This makes carve-the-shape subtractive patterning unworkable for copper and forces the damascene approach: etch the trench first, fill it, then polish away the excess. Copper's melting point (about 1085 degC) is actually higher than aluminum's (about 660 degC), copper is a good conductor, and copper's resistivity (1.68-1.72 microohm*cm) is lower than aluminum's (2.65-2.82 microohm*cm) — indeed the very reason the industry switched to copper — so the other three options are all factually wrong.",
+      "sourceId": "S207",
+      "weakTopic": "cu-damascene-vs-al-subtractive"
+    },
+    {
+      "id": "metal-q02",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P6-01",
+      "stem": "Even with the same copper material, as linewidth shrinks the effective resistivity of the wire rises above copper's bulk value (about 1.7 microohm*cm). Which statement correctly explains this?",
+      "choices": [
+        "As linewidth approaches the electron mean free path (about 39 nm for copper), surface and grain-boundary scattering increase, raising effective resistivity, while the barrier/liner also takes up a larger fraction of the trench, shrinking the copper cross-section carrying current",
+        "As linewidth shrinks, copper's bulk resistivity itself decreases as a material constant, so wire resistance always scales exactly inversely with width",
+        "As linewidth shrinks, electrons have fewer chances to collide so scattering decreases, and the barrier layer shares current in parallel with copper, actually lowering total wire resistance",
+        "As the interlayer dielectric's k value drops, copper's resistivity also drops, so no resistivity rise is observed in narrow wires"
+      ],
+      "answer": 0,
+      "explanation": "Two effects combine here. As wire dimensions approach the electron mean free path (about 39 nm for copper, about 15 nm for aluminum), extra scattering at surfaces and grain boundaries pushes effective resistivity above the bulk value — the electrical size effect. At the same time, barrier and liner thickness does not shrink proportionally with linewidth, so the barrier occupies a growing fraction of the trench cross-section, shrinking the copper area that actually carries current — geometric encroachment. Bulk resistivity is a material constant, not a function of linewidth; the barrier has far higher resistivity than copper and contributes almost nothing to current sharing while only encroaching on the cross-section; and the k value governs wire capacitance, unrelated to resistivity.",
+      "sourceId": "S216",
+      "weakTopic": "linewidth-resistivity-size-effect"
+    },
+    {
+      "id": "metal-q03",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P6-02",
+      "stem": "Below are six process blocks that complete one dual-damascene layer. Which is the actual execution order? (a) Copper electroplating (ECP) (b) Copper CMP + barrier CMP (c) TaN/Ta barrier deposition (d) Cap layer (SiCN) deposition (e) Via/trench patterning (including via-bottom cap removal) (f) Copper seed deposition",
+      "choices": [
+        "(e) -> (c) -> (f) -> (a) -> (b) -> (d)",
+        "(e) -> (f) -> (c) -> (a) -> (d) -> (b)",
+        "(c) -> (e) -> (a) -> (f) -> (b) -> (d)",
+        "(e) -> (c) -> (a) -> (f) -> (b) -> (d)"
+      ],
+      "answer": 0,
+      "explanation": "The logical order for dual damascene is: open the empty space, block diffusion, create a starting point for current, fill it, polish away the excess, then cap it. After opening the via and trench and exposing the underlying copper (e), the barrier goes down first to block copper diffusion into the dielectric (c). Electroplating requires current, so a conductive seed layer must sit on the barrier first (f), then current fills the structure with copper (a), the excess field copper and barrier are removed by CMP to isolate the wires (b), and finally the exposed copper is covered with a cap layer (d). Laying the barrier after the seed, laying the barrier before the trench is even opened, or plating without a seed are all physically unworkable orders.",
+      "sourceId": "S207",
+      "weakTopic": "dual-damascene-sequence"
+    },
+    {
+      "id": "metal-q04",
+      "type": "short",
+      "difficulty": "mid",
+      "objectiveId": "LO-P6-02",
+      "stem": "In copper CMP equipment, a component scrapes the surface of the polishing pad on the rotating platen with a diamond disc, restoring flattened grooves and clogged pores to prevent removal-rate decay. If this component wears out, removal rate crashes, residual copper remains in the field, and adjacent lines short. Name this component.",
+      "answer": {
+        "accept": [
+          "패드 컨디셔너",
+          "패드컨디셔너",
+          "컨디셔너",
+          "패드 드레서",
+          "패드드레서",
+          "드레서",
+          "pad conditioner",
+          "padconditioner",
+          "conditioner",
+          "pad dresser",
+          "paddresser",
+          "dresser",
+          "다이아몬드 컨디셔너",
+          "다이아몬드컨디셔너",
+          "diamond conditioner",
+          "diamondconditioner"
+        ]
+      },
+      "explanation": "As a polishing pad is used, its surface flattens (glazes) and its pores clog with slurry residue, lowering the removal rate. The pad conditioner (pad dresser) uses a diamond disc to micro-abrade the pad surface, exposing fresh surface and grooves to keep removal rate constant. The carrier head only holds the wafer and applies load to the pad without dressing it, the retainer ring prevents wafer slip-out and corrects edge pressure, and the slurry supply arm dispenses slurry — none of these performs the 'scraping the pad with a diamond disc' action described here.",
+      "sourceId": "S202",
+      "weakTopic": "cmp-pad-conditioner"
+    },
+    {
+      "id": "metal-q05",
+      "type": "single",
+      "difficulty": "low",
+      "objectiveId": "LO-P6-03",
+      "stem": "In copper electroplating (ECP), with suppressor concentration unchanged, plating current density alone is raised sharply from 20 to 45 mA/cm^2. In the trench cross-section, which outcome is correct?",
+      "choices": [
+        "The trench bottom rises faster and flatter, strengthening bottom-up fill and eliminating voids",
+        "Copper grows inward from both sides of the trench opening (overhang), sealing the opening first and leaving a closed void beneath it",
+        "Current density only affects plating speed, so fill shape is unaffected and only fill time shortens",
+        "Sidewall growth stops completely and only the bottom grows, leaving the trench empty even after fill finishes"
+      ],
+      "answer": 1,
+      "explanation": "Raising current density in electroplating speeds up growth most where ion supply is easiest, i.e. the trench opening and top surface. The bottom, at the end of a longer diffusion path, cannot keep up, so the bottom-up ratio (bottom growth rate divided by top growth rate) falls, and an overhang forms and grows inward at the opening. The instant the opening seals, the unfilled space beneath it becomes a sealed void. Strengthening bottom-up fill is the job of additive balance (suppressor and accelerator), not current density, and raising current density instead disrupts that balance. One clarification. The specific figures of 20 to 45 mA/cm^2 are conditions posed by this item, not values reported in any particular reference. What the literature supports is the direction only, that raising current density makes entrance growth outrun bottom growth and produces overhang and voids; the actual threshold current density depends on additive chemistry and trench geometry.",
+      "sourceId": "S272",
+      "weakTopic": "ecp-current-density-overhang"
+    },
+    {
+      "id": "metal-q06",
+      "type": "numeric",
+      "difficulty": "mid",
+      "objectiveId": "LO-P6-03",
+      "stem": "Find the resistance of one damascene copper wire. Trench width 40 nm, trench depth 80 nm, wire length 100 um. The barrier (TaN/Ta) forms a conformal 3 nm layer on both sidewalls and the bottom. The barrier on the trench top is fully removed by CMP with no dishing. Assume the barrier carries no current at all. The effective copper resistivity at this linewidth is 3.0 microohm*cm (scattering already included). Use R = rho*L/(W_Cu*t_Cu). Compute the effective conducting cross-section and the wire resistance, with unit.",
+      "answer": {
+        "value": 1150,
+        "unit": "Ω",
+        "tolerance": 0.02
+      },
+      "explanation": "Effective copper width = 40 - 2*3 = 34 nm. Effective copper thickness = 80 - 3 (bottom only, top removed) = 77 nm. Cross-section A = 34*77 = 2,618 nm^2. Converting units: rho = 3.0e-8 ohm*m, L = 1.0e-4 m, A = 2.618e-15 m^2. R = (3.0e-8*1.0e-4)/2.618e-15 = 3.0e-12/2.618e-15 ~= 1.146e3 ohm ~= 1.15 kohm. Ignoring the barrier gives the wrong answer 938 ohm, and forgetting the bottom barrier while subtracting only the sidewalls gives the wrong answer about 1,103 ohm — since the barrier is conformal it also sits on the bottom, so thickness must be reduced once (bottom only) as well.",
+      "sourceId": "S207",
+      "weakTopic": "damascene-resistance-calc"
+    },
+    {
+      "id": "metal-q07",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P6-04",
+      "stem": "To reduce wire delay, the interlayer dielectric (ILD) is switched from k = 3.0 to a porous k = 2.2 material, all else unchanged. Which statement correctly describes the outcome?",
+      "choices": [
+        "Wire capacitance drops about 27%, improving RC delay, but the porous structure lowers mechanical strength, raising the risk of delamination or cracking under CMP load",
+        "Both wire capacitance and wire resistance drop, doubling the RC delay improvement, and since mechanical strength is unrelated to permittivity, CMP conditions need no change",
+        "A lower dielectric constant suppresses copper diffusion, allowing the barrier to be thinned or omitted, increasing the effective cross-section",
+        "Dielectric constant only affects crosstalk between adjacent wires and has no bearing on the wire's own RC delay, so delay is unchanged and only crosstalk drops"
+      ],
+      "answer": 0,
+      "explanation": "Wire capacitance follows C proportional to k*A/d, so with geometry unchanged, C scales directly with k: 2.2/3.0 = 0.733, about a 26.7% drop. Delay tau = 0.89*R*C falls by the same fraction. But the standard way to lower k is to introduce porosity, and porosity means lower elastic modulus and hardness, so the material cannot withstand CMP load and delaminates or cracks at wire edges. Since resistance's formula has no k in it, resistance is unchanged, so delay improvement is capped by the capacitance drop; a porous low-k material actually opens more diffusion paths (pores) for copper, increasing the burden on the barrier; and k lowers both lateral and vertical capacitance, improving crosstalk and RC delay together.",
+      "sourceId": "S208",
+      "weakTopic": "low-k-ild-mechanical-tradeoff"
+    },
+    {
+      "id": "metal-q08",
+      "type": "numeric",
+      "difficulty": "high",
+      "objectiveId": "LO-P6-04",
+      "stem": "Copper wire electromigration (EM) life is evaluated by accelerated life testing, following MTTF = A * j^(-n) * exp(Ea/(k*T)). Current-density exponent n = 1.2, activation energy Ea = 0.80 eV, Boltzmann constant k = 8.617e-5 eV/K, and A is the same under both conditions. Stress condition: j2 = 2.5 MA/cm^2, T2 = 300 degC, measured MTTF = 12 hours. Use condition: j1 = 1.0 MA/cm^2, T1 = 105 degC. Find the use-condition MTTF, with unit. (T1 = 378 K, T2 = 573 K)",
+      "answer": {
+        "value": 153700,
+        "unit": "h",
+        "tolerance": 0.08
+      },
+      "explanation": "Acceleration factor AF = (j2/j1)^n * exp[(Ea/k)(1/T1 - 1/T2)]. (2.5/1.0)^1.2 ~= 3.003. Ea/k = 0.80/8.617e-5 ~= 9.2840e3 K. 1/T1 - 1/T2 = 1/378 - 1/573 ~= 9.00302e-4 K^-1. Temperature term = 9.2840e3*9.00302e-4 ~= 8.3584, exp(8.3584) ~= 4.2658e3. AF ~= 3.003*4.2658e3 ~= 1.281e4. MTTF1 = 12*1.281e4 ~= 1.54e5 h (about 153,700 hours, ~17.5 years). Flipping the sign of the temperature term would give a result smaller than 12 hours, which is immediately recognizable as wrong since the cooler, lower-current use condition must have a longer life than the stress condition.",
+      "sourceId": "S201",
+      "weakTopic": "electromigration-mttf-calc"
+    },
+    {
+      "id": "metal-q09",
+      "type": "short",
+      "difficulty": "mid",
+      "objectiveId": "LO-P6-05",
+      "stem": "After copper CMP, a cross-section shows the dielectric surface between lines staying at the reference height while only the copper line tops are dished down concavely, reducing effective wire thickness and raising resistance. Name this defect. (Distinguish it from a separate defect where the dielectric surface across a whole densely wired region sinks together.)",
+      "answer": {
+        "accept": [
+          "디싱",
+          "디싱현상",
+          "구리디싱",
+          "cu디싱",
+          "dishing",
+          "cudishing",
+          "copperdishing",
+          "dishingdefect",
+          "디싱결함"
+        ]
+      },
+      "explanation": "Dishing is defined as the vertical distance between the final dielectric surface and the lowest point within a copper line after CMP. Because copper is softer than the surrounding dielectric, the pad digs deeper into the line tops during the overpolish needed to fully clear residual copper and barrier elsewhere. The separate defect the question excludes is erosion, a broad sinking of the dielectric across a whole densely wired region, whereas dishing is a localized dip within a single line. A void is instead a closed cavity already formed inside the wire during plating, a different location from the top-surface dip described here.",
+      "sourceId": "S202",
+      "weakTopic": "cmp-dishing-defect"
+    },
+    {
+      "id": "metal-q10",
+      "type": "single",
+      "difficulty": "high",
+      "objectiveId": "LO-P6-05",
+      "stem": "On a copper damascene production line, wafers are run continuously and the following is observed: post-plating cross-section SEM shows a vertical line at the trench center growing thicker lot after lot into a closed circle (void). Post-CMP dishing/erosion are both within spec. Field residual copper is 0 nm (isolation normal). Kelvin-structure line resistance is +53% above target, rising in steps lot by lot, while via-chain resistance is +2% (normal). The CMP motor-torque endpoint signal is normal. Plating-bath analysis logs: suppressor measured 12 ppm (setpoint 12) / accelerator measured 7 ppm (setpoint 22). The wafer map reddens first in the edge 20 mm ring and spreads inward. What is the most appropriate diagnosis and fix?",
+      "choices": [
+        "CMP overpolish deepened dishing and reduced wire thickness. Lower CMP load and platen speed and raise leveler to reduce dishing",
+        "Plating-bath accelerator depleted, collapsing bottom-up fill into conformal growth that leaves a seam and void at the trench center. Raise the accelerator setpoint to restore the measured concentration, and increase CMP removal to match the resulting thicker overburden",
+        "Barrier thickness formed thicker than designed, shrinking the effective copper cross-section. Reduce barrier deposition thickness to recover the effective cross-section",
+        "Electromigration has progressed in the wires, growing a void at the cathode end. Widen the wire and lower operating temperature to reduce current density"
+      ],
+      "answer": 1,
+      "explanation": "Line resistance is +53% while via-chain resistance is a normal +2%, so the defect sits inside the wire line, and CMP is cleared since dishing, erosion, residual copper, and the CMP endpoint signal are all normal. A vertical line at the trench center that thickens into a closed circle is the classic signature of conformal growth: if bottom, sidewall, and top grow at the same rate they meet at the center and leave a seam, which grows into a void as the balance worsens further. The plating-bath log shows only the accelerator depleted from 22 to 7 ppm; since the accelerator's job is to speed up bottom growth, losing it collapses the bottom-up ratio into conformal growth. The fix is to restore the accelerator setpoint, but because a higher accelerator also thickens the overburden, CMP removal must be increased in step so the same CMP recipe does not leave residual copper shorts. Dishing and erosion are within spec, so there is no basis to blame CMP; a barrier-thickness anomaly would raise resistance uniformly across the wafer from the start of the lot and would also raise via-chain resistance, which is normal here; and EM requires prolonged operating current and appears near the cathode end of a wire, whereas this log is a post-plating cross-section with the defect at the trench's full-length center, matching neither the time axis nor the location. One clarification. The specific concentrations of 22 to 7 ppm and the +53% line resistance are conditions posed by this item, not values reported in any particular reference. What the literature supports is the direction only, that accelerator depletion collapses bottom-up fill and leads to conformal growth with seams and voids.",
+      "sourceId": "S274",
+      "weakTopic": "ecp-accelerator-depletion-diagnosis"
+    }
+  ]
+}

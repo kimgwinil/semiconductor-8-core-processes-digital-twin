@@ -1,0 +1,334 @@
+{
+  "processId": "eds",
+  "theory": {
+    "title": "Theory",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "EDS (Electrical Die Sorting) is the process that touches probe needles to every finished die on the wafer, operates it, and sorts good dice from bad. The defects were already created in earlier processes; if they are not screened out here, assembly and packaging cost is spent as-is on chips that will eventually be scrapped. The sorting result is left as a wafer map with a bin code recorded at every die coordinate, and this becomes the input that back-end processes use to decide which dice to pick up. What EDS hands off is not the wafer itself but the judgment record."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Yield — What Is Lost When the Die Grows"
+      },
+      {
+        "type": "p",
+        "text": "The fraction of dice that survive is estimated from the product of the die area A and the defect density per unit area D₀. Even on the same line, growing the die increases the probability that a given die contains a defect, so yield falls. The reference model is the negative binomial model, which assumes defects are distributed in clusters, and it uses a cluster factor α of 2 as the default."
+      },
+      {
+        "type": "formula",
+        "latex": "Y = \\left(1 + \\frac{A\\,D_{0}}{\\alpha}\\right)^{-\\alpha}",
+        "sourceId": "S222",
+        "caption": "Negative binomial yield. A is in cm², D₀ is in defects/cm². The default α = 2 is the value ITRS 2009 used across all product families (S223)."
+      },
+      {
+        "type": "p",
+        "text": "Assuming defects are scattered randomly and uniformly across the whole surface gives the much simpler Poisson model. However, this equation is valid only when the die area is 0.25 cm² or less, or when A·D₀ is below 1.0, and the lab's default values already sit right at that boundary. For that reason the screen keeps it only as a display-only indicator labeled \"Effective A·D₀ (Poisson validity limit 1.0)\". The Murphy model, which assumes a triangular distribution, belongs to the same lineage and is more optimistic than Poisson."
+      },
+      {
+        "type": "formula",
+        "latex": "Y = e^{-A\\,D_{0}}",
+        "sourceId": "S221",
+        "caption": "Poisson yield. Outside its validity limit it underestimates yield — this is where the non-monotonic behavior of yield rising even as area grows comes from."
+      },
+      {
+        "type": "formula",
+        "latex": "N \\approx \\frac{\\pi D^{2}}{4S} - \\frac{\\pi D}{\\sqrt{2S}}",
+        "sourceId": "S148",
+        "caption": "Approximation of total die count per wafer. D is the wafer diameter (mm), S is the die area (mm²), and the second term is the edge-loss correction."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Contact — Overdrive and Scrub Marks"
+      },
+      {
+        "type": "p",
+        "text": "The wafer is held on a vacuum chuck and rises from below to touch the needles. The chuck does not stop at first contact; it is pushed up a little further, and that additional rise is the overdrive. Because of the thin native oxide on the aluminum pad, merely touching it lightly does not produce a low-resistance contact. The practical range is 25-76 µm (1-3 mil)."
+      },
+      {
+        "type": "p",
+        "text": "When overdrive is applied, the needle bows like a bent bow and its tip slides sideways across the pad. This scraping strips away the oxide to make contact and leaves a scrub mark at that spot. The larger the mark grows, the more stable the contact becomes, but the risk of it running outside the passivation opening also grows, and a mark that crosses the opening threatens the wire bonding that follows. Since this lab's pad is 60 × 60 µm, the judgment is made on whether the mark stays inside the opening."
+      },
+      {
+        "type": "p",
+        "text": "Contact resistance is not a calculated value but a lookup value determined by the combination of needle material and pad metal. On an aluminum pad, BeCu is 200 µΩ and W/W-Re is 250 µΩ; on a gold pad, BeCu is 100 µΩ. In exchange, BeCu's contact-force coefficient is 0.5-1.6 g/mil, lower than W's 1.0-2.5 g/mil, so it delivers less pressing force at the same overdrive. If aluminum residue builds up on the needle tip, contact resistance can jump to as much as 3.5 times its nominal value."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "Two common misconceptions. (1) The needle punctures the pad — it does not penetrate; it only slides sideways and scrapes, so the mark left behind is a line, not a hole. (2) Every bad die gets a dot of ink — inking was the old method; today an electronic wafer-map file has taken its place."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "What Is Measured and How It Is Recorded"
+      },
+      {
+        "type": "list",
+        "ordered": false,
+        "items": [
+          "Open/short (contact) — checks only whether the needle and pad are connected, using a tiny current. It is placed first.",
+          "DC parametric — checks whether DC characteristics such as leakage current, logic-level voltage, and threshold voltage fall within the spec window.",
+          "Function — writes a pattern and reads it back to check whether the logic operates as designed.",
+          "AC/speed — checks whether setup/hold timing margin remains at the specified clock.",
+          "Minimum operating voltage — checks how far the voltage can be lowered while operation is still maintained."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "These same items are not checked only at room temperature. A temperature-controlled chuck makes the wafer hot or cold to check margin across temperature as well. The judgment becomes a bin code stamped onto the wafer map, and the shape on the map tells the cause — edge-ring, cluster, random, scratch, and center-concentrated are the five representative patterns. An edge-ring, where only the outermost few rows fail in a ring shape, comes from edge-specific causes such as spin coating, plasma distribution, or handling, not from a rise in defect density."
+      },
+      {
+        "type": "p",
+        "text": "A product with spare lines can be saved by swapping the defective portion for a spare word line or bit line. This is repair; after the substitution, the die is measured again and the map is updated. However, spare lines also consume effective die area, so this is not free. Defects the test fails to catch ship as-is, and that fraction is the shipped defect level."
+      },
+      {
+        "type": "formula",
+        "latex": "DL = 1 - Y^{\\,1-T}",
+        "sourceId": "S227",
+        "caption": "Shipped defect level. Y is the true yield, T is test coverage, and it drops off a cliff in the final stretch as T approaches 1."
+      },
+      {
+        "type": "p",
+        "text": "Raising coverage lowers the shipped defect level, but it lengthens test time per die, worsening throughput and cost. The guard band works the same way — widening it reduces defect leakage (underkill), but increases overkill, discarding good dice along with the bad. Most of what EDS manipulates is a choice that gains one side while giving up the other."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "What the Following Labs Manipulate"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Basic — using the three parameters \"overdrive OD\", \"needle material\", and \"measured scrub-mark major axis Dm\", pass \"practical overdrive window margin\" ≥ 0, \"nominal contact resistance\" ≤ 200 µΩ, and \"passivation opening margin\" ≥ 0 all at once.",
+          "Applied — using \"test coverage T\", \"die area A\", \"decision guard band G\", and \"redundancy spare lines R\", hit \"shipped defect level DL_total\" ≤ 2,000 ppm, \"per-wafer test time\" ≤ 10.0 min, and \"test cost per good die\" ≤ 100 KRW.",
+          "Advanced — starts with a needle-contamination disturbance already active. Adjust nine parameters, adding \"defect density D₀\" and \"parallel test count P\" to \"(a) run immediate needle cleaning\", and hit six metrics including \"observed yield Y_obs\" ≥ 0.800 and \"wafer throughput\" ≥ 8.0 wafers/h."
+        ]
+      }
+    ]
+  },
+  "overview": {
+    "title": "Process Overview",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "EDS begins with a wafer that has finished P6 metallization. Because the target the needles touch is the top-layer metal pad, probing is only possible once the wiring is complete. The wafer map produced here becomes the input P8 packaging uses to decide which dice to pick up."
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Wafer load-in — the wafer is taken from the cassette, its notch is aligned on the pre-aligner, and it is vacuum-held on the chuck.",
+          "WAT/PCM measurement — the process-parameter monitor pattern is measured first to check the line's condition.",
+          "Probe card alignment — a downward-looking camera captures the pads and an upward-looking camera captures the needle tips, aligning the two coordinate systems.",
+          "Contact check — the chuck is raised to make first contact, then raised further by the overdrive amount, and the open/short test checks the contact itself first.",
+          "Tests are run in the order DC parametric → function → AC/speed → minimum operating voltage.",
+          "Indexing and map recording — the chuck is lowered, moved to the next die, and the bin code is recorded. Once the accumulated touch count reaches a set value, the sequence routes through the needle-cleaning pad partway through.",
+          "Repair decision — dice that can be saved with spare lines are substituted and remeasured, and the map is updated.",
+          "Handoff — instead of ink, an electronic wafer-map file marks the bad dice and is handed off to the back-end process."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "What is easy to miss is that steps 4 through 6 repeat for every single die. Finishing one wafer requires repeating this hundreds to thousands of times, which is why per-die test time and the parallel test count govern throughput."
+      },
+      {
+        "type": "p",
+        "text": "What EDS hands off is the wafer together with a complete set of its judgment records. Only if the map records which coordinates are good and why the others are bad can the back-end process pick out only the good dice."
+      },
+      {
+        "type": "note",
+        "tone": "info",
+        "text": "Once package assembly is finished, the device goes through testing once more (final test). EDS tests at the wafer level while final test tests at the package level, and its equipment and pass/fail criteria are covered in the back-end track."
+      }
+    ]
+  },
+  "equipment": {
+    "title": "Equipment Structure",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "EDS equipment is a single signal column. The signal the tester generates starts at the top and travels downward, meeting the wafer that rises from the bottom, at the pad. Scanning the cross-section from top to bottom shows exactly which parts that column is built from."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Signal Coming Down From Above — From Head to Card"
+      },
+      {
+        "type": "p",
+        "text": "At the very top is the test head. Rather than standing off to the side and connecting by cable, it docks vertically directly above the probe card. Between the underside of the head and the top of the card sits a bundle of spring-loaded, gold-plated pogo pins that connect the two surfaces. This is a joint that is attached and detached every time the card is swapped, so if the docking tilts even slightly, only the channels assigned to the under-pressed pins lose signal."
+      },
+      {
+        "type": "p",
+        "text": "Below that, the probe-card PCB is mounted horizontally across the head-plate opening and splits the signal down through copper-foil traces. However, the trace pitch on the board is far coarser than the pad pitch. So a space transformer — a ceramic multilayer board — is inserted directly beneath the card, gathering the widely spaced traces into a dense pad grid over an area about one-quarter the card's diameter. Without this one layer, there would be no way at all to connect the board traces to the needle pitch."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Two Guide Plates That Hold the Needles"
+      },
+      {
+        "type": "p",
+        "text": "Below that are two perforated guide plates stacked with a gap between them, and the probe needles pass through those holes. The upper plate holds the upper part of the needle so its head lands exactly on the transformer's contact pad, and the lower plate holds the lower part so the tip points at the die pad. The two sets of holes do not line up exactly — they are deliberately offset sideways, which predetermines which direction the needle bows when it is pressed."
+      },
+      {
+        "type": "p",
+        "text": "The needle is a thin metal probe that hands the signal coming down from the card to the pad. Threaded through the two holes, it bows in the middle like a bent bow to absorb the press. Its tip is a consumable — if aluminum residue builds up on it during scraping, contact resistance can jump to several times its nominal value."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "It is easy to assume a well-made card is one where the holes of the two guide plates line up exactly. The opposite is true. Without the offset, the needle would stand straight when pressed, unable to settle on a bowing direction, and would neither absorb the press nor scrape sideways across the pad."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Wafer Rising From Below and the Mark Contact Leaves"
+      },
+      {
+        "type": "p",
+        "text": "At the very bottom is the wafer chuck. It is a metal disk that holds the wafer with vacuum grooves, pushes it upward while maintaining a set temperature so it touches the needles, and shifts sideways by the die pitch to move between dice. If the set temperature diverges from the actual temperature, a shortfall in temperature-dependent margin gets missed, and in that case the map looks completely normal."
+      },
+      {
+        "type": "p",
+        "text": "The cross-section also marks two dimensions rather than parts. Overdrive is the additional rise of the chuck above the height at which the needle tip first touched the pad, and the scrub mark is the line-shaped mark left where the needle tip slid sideways and scraped off the oxide. It is a line exposing bare metal, not a hole, and if the mark runs outside the 60 µm passivation opening, the wire bonding that follows becomes difficult."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "What Face Does It Show When a Part Degrades"
+      },
+      {
+        "type": "table",
+        "head": [
+          "Part that degrades",
+          "Symptom that appears"
+        ],
+        "rows": [
+          [
+            "Insufficient pogo-pin press",
+            "Only the channel assigned to that pin loses signal"
+          ],
+          [
+            "Card board tilt",
+            "Only the needles on one side touch while the other side lifts off, and that region reads as open"
+          ],
+          [
+            "Residue buildup on needle tip",
+            "Contact resistance rises and good dice are judged bad"
+          ],
+          [
+            "Chuck temperature drift",
+            "The map looks normal but temperature-margin failures go undetected"
+          ]
+        ]
+      },
+      {
+        "type": "note",
+        "tone": "info",
+        "text": "A real prober also includes an alignment camera, stage, pin electronics, load port, and needle-cleaning pad. However, this cross-section only cuts out the contact section where the signal reaches the pad, so those parts do not appear in it."
+      }
+    ]
+  },
+  "principle": {
+    "title": "Operating Principle",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "If the previous section was a frozen cross-section, this section is the sequence of that thing in motion. With one wafer loaded, the equipment repeats the same action for as many dice as there are. One cycle has seven steps, and the pass/fail judgment is actually decided in only the third and fourth of them."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Seven Steps in One Cycle"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Loading — the wafer is taken from the cassette, its notch is aligned, and it is vacuum-held on the chuck.",
+          "Alignment — a camera recognizes the target pattern to align the wafer's and the needles' coordinate systems and correct rotational error.",
+          "Contact — the chuck rises in the Z-axis to make first contact, then rises further by the overdrive amount.",
+          "Test — signals are applied in the order open/short → DC parametric → function → AC/speed → minimum operating voltage.",
+          "Indexing — the chuck lowers to release contact, moves by the die pitch, and positions itself in front of the next die.",
+          "Map recording — the bin code for that coordinate is recorded, and it is flagged if it is a repair candidate.",
+          "Unloading — once the wafer is finished, the judgment results are left as an electronic map and the wafer is returned to the cassette."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Steps 3 through 6 repeat for every die, while steps 1, 2, and 7 happen only once per wafer. This distinction is what determines throughput. If there are thousands of dice, one second in the repeating section becomes tens of minutes across the whole wafer."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Why This Order"
+      },
+      {
+        "type": "p",
+        "text": "The reason alignment comes before contact is simple. The needle positions are fixed to the card and cannot move; only the chuck moves. Unless the two coordinate systems are overlaid first, the moment the chuck rises the needle lands outside the pad. The resulting value is not a defect but a meaningless reading, yet on screen the two look identical as failures."
+      },
+      {
+        "type": "p",
+        "text": "The same logic puts open/short first within the test sequence. Only after confirming that contact was made can the results of the later items be trusted. Skipping this misreads the measured values of a die the needle failed to touch as device characteristics, recording perfectly good dice as failures one after another."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "What Happens at the Moment of Contact"
+      },
+      {
+        "type": "p",
+        "text": "The fact that the chuck does not stop at first contact is the core action of this process. As the chuck keeps rising, the needle has nowhere further to go, so it bows in the direction the guides determined, and as it bows the needle tip slides sideways across the pad by that same amount. This sliding pushes the oxide out of the way, creating a face where bare metals meet, and leaves a line-shaped mark where it passed. Overdrive, bowing, scraping, and marking are not four separate phenomena but four facets of one single motion."
+      },
+      {
+        "type": "p",
+        "text": "At this moment, the force with which the needle presses the pad is estimated by multiplying overdrive by the material-specific coefficient given in the literature. Because the coefficient's unit is grams per mil of overdrive, this multiplication is arithmetic that matches units — not a newly derived physical equation."
+      },
+      {
+        "type": "formula",
+        "latex": "F\\,[\\mathrm{g}] = k\\,[\\mathrm{g/mil}] \\times OD\\,[\\mathrm{mil}]",
+        "sourceId": "S229",
+        "caption": "Needle contact force. k is the material-specific contact-force coefficient, a lookup value the literature presents in tabular form — an industry operating range, not a physical law."
+      },
+      {
+        "type": "p",
+        "text": "So increasing overdrive grows both the pressing force and the scraping length together. Contact becomes more stable, but the same motion digs into the pad more deeply, and at the point where the mark crosses the opening, the gain flips into a loss. The two outcomes are not separate control knobs — they hang together on a single one."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Change That Repetition Produces"
+      },
+      {
+        "type": "p",
+        "text": "While the same needle performs the same motion thousands of times, the equipment quietly changes. Aluminum residue shed with each scrape builds up on the needle tip, gradually raising contact resistance, and past a certain point good dice start reading as contact failures. So once the accumulated touch count reaches a set value, the chuck routes through the needle-cleaning pad partway through the cycle. This is not because of a malfunction — it is a periodic action built into the cycle from the start."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "A common misjudgment is immediately suspecting the upstream process when failures on the map increase. If the fail rate climbs over time and the contact-resistance log trends upward together with it, the cause is the needle tip, not the wafer, and cleaning alone restores it."
+      },
+      {
+        "type": "p",
+        "text": "The bin code from the map-recording step is not consumed on the spot and forgotten. Dice that can be saved with spare lines are substituted and remeasured to rewrite the map, and the record that finally remains passes to the back-end process, determining which dice get picked. This is why the cycle closes with seven steps."
+      }
+    ]
+  },
+  "labels": {
+    "eds.equipment.testHead": "A box that sends the tester's test signal down to just above the wafer; it docks vertically directly above the probe card, forming the very top of the signal path. If it is kept off to the side and connected by cable instead, or if the docking tilts, the pogo pins below are not pressed evenly.",
+    "eds.equipment.pogoPinUnit": "Sandwiched between the underside of the test head and the top of the probe card, spring-loaded, gold-plated pins connect the two surfaces as they are pressed. Since this joint is attached and detached every time the card is swapped, insufficient press cuts the signal only on the channel that pin is responsible for.",
+    "eds.equipment.probeCardPcb": "A board that splits the signal handed down by the pogo pins through copper-foil traces and passes it to the space transformer below; it is mounted horizontally across the head-plate opening. If the board tilts by 12 µm, only the needles on one side touch the pads while the other side lifts off, and that region reads as open.",
+    "eds.equipment.spaceTransformer": "A ceramic multilayer board inserted directly beneath the probe card that gathers the widely spaced traces on the board into a dense pad grid over an area about one-quarter of the card's diameter. Without this pitch conversion, the board traces could not be connected to the narrow needle pitch.",
+    "eds.equipment.upperGuidePlate": "Directly below the space transformer, this plate threads and holds the upper part of the needle through its holes, setting the spot where the needle head touches the transformer's contact pad. If the hole positions shift out of place, the needle head misses its pad and that channel loses signal.",
+    "eds.equipment.probeNeedle": "A thin metal probe that hands the signal coming down from the card to the pad; passing through the upper and lower guide holes, it bows in the middle like a bent bow to absorb the overdrive. If aluminum residue builds up on its tip, contact resistance can rise to as much as 3.45 Ω, reading good dice as bad.",
+    "eds.equipment.lowerGuidePlate": "Positioned below the upper guide with a gap between them, this plate holds the lower part of the needle; the holes in the two plates are deliberately offset sideways, predetermining the direction the needle bows. Without this offset, the needle would stand straight and fail to absorb the overdrive.",
+    "eds.equipment.waferChuck": "A metal disk that holds the wafer with vacuum grooves and pushes it up from below so it touches the needles, moving by the die pitch while maintaining temperature. If the actual reading diverges from the set temperature, high-temperature margin gets missed, and the map looks normal even as defects leak through.",
+    "eds.equipment.scrubMark": "A short line-shaped mark left where the needle tip slid sideways across the pad and scraped off the native oxide; it is a line exposing bare metal, not a punched hole. If the mark grows and extends beyond the 60 µm passivation opening, the wire bonding in the following process becomes difficult.",
+    "eds.equipment.overdrive": "The additional rise of the chuck after the needle tip touches the pad; this press bows the needle to scrape the oxide and secure contact. Too little and contact resistance rises; too much and the mark grows large enough to damage the pad."
+  }
+}

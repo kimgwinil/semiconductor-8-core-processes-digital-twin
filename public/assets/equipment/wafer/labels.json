@@ -1,0 +1,300 @@
+{
+  "processId": "wafer",
+  "image": "cross-section.webp",
+  "viewBox": [
+    0,
+    0,
+    1600,
+    900
+  ],
+  "labels": [
+    {
+      "id": "heat-shield",
+      "anchor": [
+        700,
+        480
+      ],
+      "leaderEnd": [
+        288,
+        420
+      ],
+      "side": "left",
+      "ko": "열차폐(Heat Shield)",
+      "en": "Heat Shield",
+      "descKey": "wafer.equipment.heatShield"
+    },
+    {
+      "id": "quartz-crucible",
+      "anchor": [
+        643,
+        590
+      ],
+      "leaderEnd": [
+        309,
+        520
+      ],
+      "side": "left",
+      "ko": "석영 도가니(Crucible)",
+      "en": "Quartz Crucible",
+      "descKey": "wafer.equipment.quartzCrucible"
+    },
+    {
+      "id": "graphite-heater",
+      "anchor": [
+        560,
+        620
+      ],
+      "leaderEnd": [
+        259,
+        610
+      ],
+      "side": "left",
+      "ko": "흑연 히터(Heater)",
+      "en": "Graphite Heater",
+      "descKey": "wafer.equipment.graphiteHeater"
+    },
+    {
+      "id": "carbon-insulation",
+      "anchor": [
+        495,
+        690
+      ],
+      "leaderEnd": [
+        336,
+        700
+      ],
+      "side": "left",
+      "ko": "카본 단열재(Insulation)",
+      "en": "Carbon Insulation",
+      "descKey": "wafer.equipment.carbonInsulation"
+    },
+    {
+      "id": "exhaust-port",
+      "anchor": [
+        452,
+        774
+      ],
+      "leaderEnd": [
+        338,
+        790
+      ],
+      "side": "left",
+      "ko": "배기 포트(Exhaust Port)",
+      "en": "Bottom Exhaust Port",
+      "descKey": "wafer.equipment.exhaustPort"
+    },
+    {
+      "id": "seed-chuck",
+      "anchor": [
+        812,
+        298
+      ],
+      "leaderEnd": [
+        1312,
+        340
+      ],
+      "side": "right",
+      "ko": "시드 척(Seed Chuck)",
+      "en": "Seed Crystal Chuck",
+      "descKey": "wafer.equipment.seedChuck"
+    },
+    {
+      "id": "optical-gauge",
+      "anchor": [
+        873,
+        340
+      ],
+      "leaderEnd": [
+        1278,
+        400
+      ],
+      "side": "right",
+      "ko": "광학 측정창(View Port)",
+      "en": "Optical Gauge Window",
+      "descKey": "wafer.equipment.opticalGauge"
+    },
+    {
+      "id": "neck",
+      "anchor": [
+        808,
+        372
+      ],
+      "leaderEnd": [
+        1387,
+        520
+      ],
+      "side": "right",
+      "ko": "넥(Dash Neck)",
+      "en": "Dash Neck",
+      "descKey": "wafer.equipment.neck"
+    },
+    {
+      "id": "argon-flow",
+      "anchor": [
+        860,
+        384
+      ],
+      "leaderEnd": [
+        1264,
+        460
+      ],
+      "side": "right",
+      "ko": "아르곤 흐름(Argon Flow)",
+      "en": "Argon Purge Flow",
+      "descKey": "wafer.equipment.argonFlow"
+    },
+    {
+      "id": "crystal-body",
+      "anchor": [
+        848,
+        490
+      ],
+      "leaderEnd": [
+        1262,
+        580
+      ],
+      "side": "right",
+      "ko": "결정 바디(Crystal Body)",
+      "en": "Crystal Body / Crown",
+      "descKey": "wafer.equipment.crystalBody"
+    },
+    {
+      "id": "meniscus",
+      "anchor": [
+        848,
+        552
+      ],
+      "leaderEnd": [
+        1304,
+        640
+      ],
+      "side": "right",
+      "ko": "메니스커스(Meniscus)",
+      "en": "Meniscus",
+      "descKey": "wafer.equipment.meniscus"
+    },
+    {
+      "id": "silicon-melt",
+      "anchor": [
+        900,
+        610
+      ],
+      "leaderEnd": [
+        1238,
+        700
+      ],
+      "side": "right",
+      "ko": "실리콘 융액(Silicon Melt)",
+      "en": "Silicon Melt Surface",
+      "descKey": "wafer.equipment.siliconMelt"
+    },
+    {
+      "id": "graphite-susceptor",
+      "anchor": [
+        984,
+        650
+      ],
+      "leaderEnd": [
+        1278,
+        760
+      ],
+      "side": "right",
+      "ko": "흑연 서셉터(Susceptor)",
+      "en": "Graphite Susceptor",
+      "descKey": "wafer.equipment.graphiteSusceptor"
+    },
+    {
+      "id": "crucible-shaft",
+      "anchor": [
+        808,
+        800
+      ],
+      "leaderEnd": [
+        1306,
+        820
+      ],
+      "side": "right",
+      "ko": "도가니 회전축(Shaft)",
+      "en": "Crucible Shaft",
+      "descKey": "wafer.equipment.crucibleShaft"
+    }
+  ],
+  "notes": [
+    {
+      "id": "neck-scale-drawn",
+      "anchor": [
+        520,
+        116
+      ],
+      "leaderEnd": [
+        400,
+        110
+      ],
+      "side": "left",
+      "ko": "확대 인셋 위단 — 도해의 넥 : 바디 = 약 1 : 6 (가독성을 위해 과장한 값)",
+      "en": "Inset, upper pair - drawn neck : body is about 1 : 6, deliberately exaggerated for legibility",
+      "tone": "warn"
+    },
+    {
+      "id": "neck-scale-actual",
+      "anchor": [
+        520,
+        210
+      ],
+      "leaderEnd": [
+        400,
+        260
+      ],
+      "side": "left",
+      "ko": "확대 인셋 아래단 — 실제 넥 : 바디 = 약 1 : 50 (넥 2~5 mm, 바디 200 mm). 열차폐 하단–융액 간격, 도가니 내경비 등 일부 상대치수도 도해 가독성 기준의 제안치이며 원전에 수치가 없다",
+      "en": "Inset, lower pair - actual neck : body is about 1 : 50 (neck 2-5 mm, body 200 mm). Some other relative dimensions, such as the shield-to-melt gap and the crucible-to-crystal diameter ratio, are legibility-driven proposals because the sources give no figures",
+      "tone": "warn"
+    },
+    {
+      "id": "meniscus-detail",
+      "anchor": [
+        1014,
+        158
+      ],
+      "leaderEnd": [
+        1180,
+        120
+      ],
+      "side": "right",
+      "ko": "확대 인셋 — 삼중점과 메니스커스. 결정 쪽으로 끌려 올라간 융액 곡면이 뜨거운 도가니 벽빛을 반사해 밝은 링을 만들고, 광학 지름 측정계가 그 링 지름을 결정 지름으로 환산한다. 계면은 융액 쪽으로 볼록하게 그렸다(볼록·오목 전이의 회전율 의존은 미확인이라 정성 표현이다)",
+      "en": "Inset - triple point and meniscus. The melt drawn up against the crystal reflects the hot crucible wall as a bright ring, and the optical diameter gauge converts that ring diameter into the crystal diameter. The interface is drawn convex into the melt; the rotation dependence of the convex-to-concave transition is unconfirmed and is therefore shown qualitatively",
+      "tone": "warn"
+    },
+    {
+      "id": "counter-rotation",
+      "anchor": [
+        800,
+        272
+      ],
+      "leaderEnd": [
+        400,
+        360
+      ],
+      "side": "left",
+      "ko": "결정과 도가니는 서로 반대 방향으로 회전한다. 도가니는 융액이 줄어드는 만큼 상승해 자유표면 높이를 일정하게 유지한다. 회전수(rpm) 절대치는 확인된 출처를 얻지 못해 표기하지 않는다",
+      "en": "Crystal and crucible rotate in opposite directions, and the crucible rises as the melt is consumed so that the free surface stays at a constant height. Absolute rotation rates in rpm are omitted because no clearable source was obtained",
+      "tone": "warn"
+    },
+    {
+      "id": "habit-lines",
+      "anchor": [
+        800,
+        500
+      ],
+      "leaderEnd": [
+        400,
+        480
+      ],
+      "side": "left",
+      "ko": "결정 바디 표면의 세로선은 성장 파셋 줄무늬(습관선, habit line)다. <100> 방위로 자란 무전위 단결정에서는 이 선이 90° 간격으로 4가닥, 잉곳 표면을 따라 끊기지 않고 이어진다. 이 그림은 인상축을 지나는 종단면이라 정면 1가닥만 안쪽에 보이고, 2가닥은 실루엣(바디 외곽선)에 겹치며 1가닥은 결정 뒤에 가린다 — 그래서 1가닥만 그렸다. 선이 하나씩 사라지는 것은 무전위 성장이 깨지는 신호다",
+      "en": "The vertical line on the crystal body is a growth facet stripe, also called a habit line. In a dislocation-free single crystal grown in the <100> orientation these lines run continuously along the ingot surface, four of them 90 degrees apart. This drawing is a longitudinal section through the pull axis, so only the one facing the viewer appears inside the body; two coincide with the silhouette, which is already the body outline, and one is hidden behind the crystal. That is why a single line is drawn. Habit lines disappearing one by one is the signal that dislocation-free growth is breaking down",
+      "tone": "warn"
+    }
+  ],
+  "noteMaxWidth": 420
+}

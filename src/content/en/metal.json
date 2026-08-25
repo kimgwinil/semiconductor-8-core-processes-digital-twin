@@ -1,0 +1,334 @@
+{
+  "processId": "metal",
+  "theory": {
+    "title": "Theory",
+    "blocks": [
+      {
+        "type": "h",
+        "level": 3,
+        "text": "What does metallization connect"
+      },
+      {
+        "type": "p",
+        "text": "Metallization is the back-end-of-line (BEOL) structure that links the devices the front-end process built to one another and, in the end, out to the external pads. It is built from four elements — contact, via, wiring, and interlayer dielectric (ILD) — and the wiring starts at M1 (local), directly above the device, and climbs through intermediate to global levels, growing thicker and longer the higher it goes. The trench is not etched here; it arrives already open — the given conditions are a width of 60 nm, a depth of 120 nm, a via aspect ratio of 2.0, and a barrier thickness of 3 nm, so the effective copper thickness once the barrier is subtracted is 117 nm."
+      },
+      {
+        "type": "h",
+        "level": 3,
+        "text": "From aluminum to copper — why fill instead of carve"
+      },
+      {
+        "type": "p",
+        "text": "The move from aluminum to copper rests on two grounds. Resistivity is lower for copper: 1.68 microohm*cm at 300 K (S210), versus 2.65-2.82 microohm*cm for aluminum (the latter figure is a widely agreed physical constant the design ledger accepts). Electromigration lifetime also favors copper — the activation energy of the dominant diffusion path is 0.70 eV for aluminum grain-boundary diffusion, but 0.80 eV for copper surface diffusion (S201)."
+      },
+      {
+        "type": "p",
+        "text": "But there is a steep price. Plasma carving requires the reaction products to leave as a gas, and copper's halides have low volatility, so they stick to the surface instead. This means subtractive patterning — carving copper away — does not work, and additive patterning is forced instead: etch the trench first, fill it, then polish away the excess by CMP. This is damascene. Dual damascene etches the via and trench in one step and fills them with a single plating pass and a single CMP pass, so both the interface count and the process-step count fall together."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "It is easy to assume copper is filled to just match the trench, but in reality it must always be overfilled above the flat surface — this excess is the overburden, and CMP is the process that removes it. Conformal growth, where the walls and bottom grow to the same thickness, is not normal either — it is a failure. The growth fronts meet at dead center and leave a vertical seam, and if things worsen further that seam thickens into a closed void."
+      },
+      {
+        "type": "h",
+        "level": 3,
+        "text": "Wire resistance and RC delay — narrowing makes it twice as bad"
+      },
+      {
+        "type": "formula",
+        "latex": "R = \\frac{\\rho L}{W \\cdot t}",
+        "sourceId": "S205",
+        "caption": "Wire resistance is proportional to length and inversely proportional to cross-sectional area. The barrier (TaN/Ta) lines both the sidewalls and the bottom, encroaching on the copper cross-section that carries current, but since the ledger has no quantitative basis for how much it encroaches, the physics layer does not include barrier thickness in the calculation."
+      },
+      {
+        "type": "p",
+        "text": "Narrowing the linewidth does not just shrink the cross-sectional area. As the wire dimension approaches the electron mean free path, electrons scatter additionally at the surface and the resistivity itself rises above the bulk value. The mean free path differs by material — 39 nm for copper, 15 nm for aluminum (S207). The physics layer computes this size effect with the Fuchs-Sondheimer formula for finite-width wires."
+      },
+      {
+        "type": "formula",
+        "latex": "\\rho_{\\mathrm{eff}} = \\rho_0\\left[1 + \\frac{C(k)\\,(1-p)}{k}\\right], \\quad k\\lambda = \\frac{4A}{P}",
+        "sourceId": "S216",
+        "caption": "The characteristic length is \"4 x cross-sectional area / perimeter,\" and the dimensionless k expresses how many mean free paths thick the wire is. The coefficient is 0.375 when k > 4, and 0.474 when 0.5 < k <= 4. Across the lab slider range (width 20-200 nm, thickness 117 nm), k runs 0.854-3.691, so the entire range falls on the 0.474 side."
+      },
+      {
+        "type": "p",
+        "text": "The calculation uses copper's bulk resistivity of 1.68 microohm*cm and a 300 K mean free path of 40 nm, with specular reflectance set to 0 (S210). Only surface scattering is included and grain-boundary scattering is left out, so this value should be read as a lower bound on the actual resistivity of fine wiring. Narrowing the width pushes cross-section and resistivity in the same direction, so resistance grows faster than 1/W."
+      },
+      {
+        "type": "formula",
+        "latex": "C = K_I K_{ox}\\varepsilon_0\\left(\\frac{WL}{X_{ox}} + \\frac{HL}{L_S}\\right), \\quad \\tau = 0.89\\,R\\,C",
+        "sourceId": "S205",
+        "caption": "Capacitance is the sum of a vertical component that sees the ground plane below and a lateral component that sees neighboring wires, and the fringe correction K_I is about 2. Crosstalk comes from this lateral component. The physics layer has no source to attach to the vacuum permittivity, so it does not produce an absolute delay time — only a ratio."
+      },
+      {
+        "type": "p",
+        "text": "Under ideal scaling, where dimensions shrink together, both R and C are proportional to length, so delay grows as the square of length — doubling the length gives roughly a fourfold delay, with a coefficient of 3.56 (S205). That leaves the dielectric's permittivity as the remaining lever. SiO2 is 4.0, FSG is 3.5, SiCOH is 2.6-2.7, and porous low-k is below 2.6 (S208), while the SiN cap layer is about 7, so once everything is stacked the effective permittivity rises above that of the dielectric alone (S207)."
+      },
+      {
+        "type": "h",
+        "level": 3,
+        "text": "Electromigration — Black's equation and the Blech length"
+      },
+      {
+        "type": "formula",
+        "latex": "\\mathrm{MTTF} = A\\,j^{-n}\\exp\\!\\left(\\frac{E_a}{kT}\\right), \\quad \\mathrm{AF} = \\left(\\frac{j_1}{j_2}\\right)^{n}\\exp\\!\\left[\\frac{E_a}{k}\\left(\\frac{1}{T_2}-\\frac{1}{T_1}\\right)\\right]",
+        "sourceId": "S201",
+        "caption": "The coefficient A varies with process and structure, and there is no public measured value for it. So the model does not produce an absolute lifetime; instead it produces the acceleration factor — the lifetime ratio between two conditions — in which A cancels out. How, and by how much, temperature and current density pull lifetime can be learned fully from the ratio alone."
+      },
+      {
+        "type": "p",
+        "text": "The dominant diffusion path in copper wiring is the surface, with an activation energy of 0.80 eV (S201 Table 2.1). The exponent n is set by the failure mode — 1 when void growth governs the rate, 2 when nucleation governs, and copper falls at 1.1-1.3 (S201). Below a current density of 10^4 A/cm^2 the phenomenon is not even under discussion (S201). Temperature is a far steeper factor than current density — raising it just 10 K, from 378 K to 388 K, drops lifetime to about 53%."
+      },
+      {
+        "type": "formula",
+        "latex": "(j\\cdot l)_{\\mathrm{crit}} = \\frac{2\\,\\sigma_{\\mathrm{crit}}\\,\\Omega}{e\\,z^{*}\\rho}",
+        "sourceId": "S206",
+        "caption": "As electron wind pushes atoms, stress builds up at both ends of the wire, and once that back-stress offsets the electron wind, the wire does not fail — the immortality condition. Plugging in the copper dual-damascene values (critical stress 41 MPa, atomic volume 1.18e-29 m^3, effective valence 1, resistivity 2.25e-8 ohm*m) gives a critical product of 0.268 A/um; if a wire's j*l is below this, it satisfies the immortality condition."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "It is easy to assume electromigration is governed by current density alone, but the temperature term in the exponent acts far more steeply. Also, a vertical seam or void at dead center of the trench is not electromigration — it is a plating-stage fill failure. That kind of void forms over time at the wire end near the cathode, where electrons are being drawn out."
+      },
+      {
+        "type": "h",
+        "level": 3,
+        "text": "What the upcoming lab lets you control"
+      },
+      {
+        "type": "formula",
+        "latex": "\\mathrm{MRR} = k_p \\cdot P \\cdot V",
+        "sourceId": "S204",
+        "caption": "CMP removal rate depends only on the product of load and relative velocity — raising either one reaches the same removal rate. When the platen and head rotate at the same speed, relative velocity is set by V = omega*d, and the head-pad center distance is fixed at 130 mm (S200). As the pad flattens and its grooves shallow, k_p falls, so the pad conditioner, which uses a diamond disc to restore the pad surface, keeps the removal rate constant."
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Basic — move only \"CMP load pressure\" (kPa) and \"platen/head rotation speed\" (rpm) to bring the \"removal rate MRR\" into the 302.5-350.1 nm/min window.",
+          "Applied — \"wire width W\" (nm) is added, and MRR, \"overburden polish time\" (2.25 min or less), \"wire resistance ratio R / R(baseline combination)\" (0.75 or less), and \"wire pitch 2W\" (170 nm or less) must all be satisfied at once.",
+          "Advanced — \"ILD permittivity k,\" \"evaluation wire length L\" (um), \"wire operating temperature\" (K), and \"wire current I\" (mA) are added. A resistance ratio of 0.68 or less must be met together with an \"RC delay ratio\" of 0.45 or less, an \"EM lifetime ratio\" of 2.5 or more, and a \"Blech margin\" of 1 or less.",
+          "Because spacing is tied to wire width (S = W, pitch = 2W), widening the wire to lower resistance pushes down density with the same hand.",
+          "Judging is done on the ratio against the baseline combination, not on absolute resistance — the on-screen \"wire resistance R\" value in ohms is display-only.",
+          "The \"10-year benchmark achievement rate\" is also a standing display, not a pass criterion — even when all seven criteria are met, it shows that the result still falls short of the industry's 10-year benchmark."
+        ]
+      }
+    ]
+  },
+  "overview": {
+    "title": "Process Overview",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "Metallization receives a wafer whose via holes and trenches are already open, fills that empty space with copper, planarizes it, and hands it to the next layer. What it receives is trench width and depth, via aspect ratio, and the dielectric's permittivity and mechanical strength; what it hands off is wire resistance, via resistance, effective permittivity, and electromigration lifetime. EDS, which follows, can only begin measuring once this metallization is complete."
+      },
+      {
+        "type": "h",
+        "level": 3,
+        "text": "One dual-damascene cycle"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Stack the cap layer (SiCN), low-k ILD, etch stop, and upper ILD in order.",
+          "Etch the via, then etch the wider trench above it — opening both grooves in one pass is what makes it dual damascene.",
+          "Remove the cap layer at the via bottom to expose the copper surface of the wire below.",
+          "Deposit the barrier (TaN/Ta) conformally on the walls and bottom — it blocks copper diffusion, but at the cost of encroaching on the cross-section copper will use.",
+          "Deposit a copper seed layer. It is the initial conductive film that carries the plating current, so a break in it becomes a void.",
+          "Fill by electroplating — the suppressor covers the opening and top surface while the accelerator concentrates at the bottom, so copper rises from the bottom up (bottom-up fill). If the balance breaks down, the opening closes first and a void gets trapped inside.",
+          "Stabilize the copper film with a post-plating anneal step.",
+          "Polish twice with CMP — first removing the overburden copper, then removing even the barrier in the field to secure isolation between wires.",
+          "Cap the layer and repeat the same cycle for M2, M3. Kelvin-structure and via-chain resistance measurements feed back into the next lot's conditions."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "This cycle exists because copper cannot be shaped by carving it away. The aluminum-era sequence of \"deposit the film, then carve it\" has flipped into \"etch the trench, fill it, then remove the excess by polishing\" — and that is why plating and CMP now sit at the center of the metallization process."
+      },
+      {
+        "type": "p",
+        "text": "CMP cannot be sure to fully remove the barrier without some degree of overpolish, and that overpolish creates dishing and erosion as its cost. Dishing is the vertical distance, after CMP, between the dielectric surface and the lowest point within a copper line; erosion is the sinking of an entire densely patterned region below its surroundings — the two are distinct shapes."
+      },
+      {
+        "type": "note",
+        "tone": "info",
+        "text": "The device contact layer still often uses tungsten plugs and tungsten CMP. In the flow diagram it should be read as a separate branch from the copper lines."
+      }
+    ]
+  },
+  "equipment": {
+    "title": "Equipment Structure",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "Metallization does not end with a single piece of equipment. An electrochemical plating (ECP) cell that fills the trenches with copper is paired with CMP equipment that polishes the overflow copper flat. Here we sweep through the cross-section of each piece of equipment once, seeing which part sits where and what it does. The progression along the time axis is covered in the next section."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The electroplating cell — from the outside into the bath"
+      },
+      {
+        "type": "p",
+        "text": "Outside the cell sits the DC power supply. From here the (+) terminal runs to the copper anode at the bottom of the cell, and the (-) terminal runs to the contact ring on the wafer side, closing the loop the plating current travels. If the current fluctuates, the amount of copper deposited fluctuates with it, so this part holds the key to lot-to-lot thickness reproducibility."
+      },
+      {
+        "type": "p",
+        "text": "Below the power supply the spindle shaft descends, and the clamshell holder hangs from its end. The cup and cone mate like a clamshell to grip the wafer edge, and an elastic seal blocks the edge of the plating face so electrolyte cannot cross to the back side. A loose grip lets the liquid leak to the wafer backside and the contact area, causing contamination and poor contact together."
+      },
+      {
+        "type": "p",
+        "text": "Along the inner circumference of the holder, the contact ring presses against the edge of the plating face. The plating current enters the thin seed layer on the wafer only through this ring. If some of the ring's contact points lift, less current flows there and plating thickness skews to one side. The wafer is held face-down, plating side facing the anode at the bottom of the cell."
+      },
+      {
+        "type": "p",
+        "text": "Below that is the plating bath. A blue acidic solution with dissolved copper ions fills the cell until the plating face is submerged. Midway down in the liquid, a perforated insulating plate called the field shield lies across the path to even out the current distribution reaching the wafer, and just above the anode a porous membrane covers it, letting ions pass while spreading the current through high resistance. The copper anode at the very bottom of the cell dissolves itself to supply ions, shrinking in proportion to the charge passed."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "Hanging the wafer face-down looks like a simple layout choice, but it is also an orientation where bubbles readily collect under the plating face. That is why the spindle keeps rotating the wafer, sweeping bubbles away and drawing in fresh electrolyte. If rotation is insufficient, exactly where a bubble sits goes unplated."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "CMP equipment — from the head down to the platen"
+      },
+      {
+        "type": "p",
+        "text": "The CMP cross-section reads top to bottom. At the top, the carrier head flips the wafer over, presses it against the pad, and rotates. Inside the head, zone chambers divide the center and edge so different pressures can be applied to each, and a thin elastic membrane below transmits that chamber pressure directly to the wafer backside. If the membrane tears or wrinkles, force is no longer transmitted evenly and the polished thickness becomes uneven."
+      },
+      {
+        "type": "p",
+        "text": "A retaining ring wraps around the wafer at the head's edge. This ring both holds the wafer in place so it cannot slip out and extends slightly below the wafer to press on the pad alongside it. So when the ring wears down, the edge pressure profile collapses and the wafer's rim gets over-polished."
+      },
+      {
+        "type": "p",
+        "text": "The wafer presses against the pad with its copper face to be polished facing down. Above the pad, a slurry supply arm reaches out and drips slurry, a mix of abrasive particles and chemical components, onto the pad surface, and grooves cut into the porous polyurethane pad carry that slurry down to the wafer. Alongside the pad, a diamond conditioner sweeps back and forth along the radius, scraping the flattened, clogged surface back to life. At the very bottom, the platen is a very flat rotating disk that carries the pad."
+      },
+      {
+        "type": "p",
+        "text": "Two forces create removal. One is the load the head applies, and the other is the relative velocity produced by the rotation of the platen and head. When the two rotation speeds match, relative velocity becomes uniform across the wafer face, and its magnitude is set by the head-pad center distance — the literature condition the repository has adopted as canonical is 130 mm. If the platen is not flat or wobbles, this uniformity assumption breaks down and the radial removal rate varies."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "It is easy to assume the pad scrapes the copper away like sandpaper. In reality the actual removal is done by the slurry, and the pad functions more as a carrier that holds the slurry and delivers it to the contact interface. So when the pad surface wears smooth, it can no longer hold slurry and removal rate drifts over time, and neglecting the pad conditioner leaves copper insufficiently stripped between wires."
+      },
+      {
+        "type": "p",
+        "text": "Meanwhile the additive dosing line, the rinse/dry section right after plating, the CMP endpoint-detection sensor, and the cleaning brushes are real components on the actual equipment, but they fall outside the range this cross-section diagram cut through. Do not look for them in the diagram — hold them as concepts for when the next section follows the time axis."
+      }
+    ]
+  },
+  "principle": {
+    "title": "Operating Principle",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "Having seen where each part sits in the previous section, we now look at how those parts engage with each other in sequence over time. One dual-damascene layer closes in twelve steps, and each step locks in one metric that cannot later be undone. Grasping what gets decided at which step is more useful than memorizing the order."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "One dual-damascene layer, twelve steps"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Stack the cap layer (SiCN), low-k ILD, etch stop, and upper ILD from bottom to top over the lower wiring — the permittivity this layer will use is set here.",
+          "Etch the via hole down to the etch stop.",
+          "Etch the wider trench above the via — wire width and the spacing to neighboring wires are fixed at this step.",
+          "Remove the cap layer remaining at the via bottom to expose the copper surface of the wiring below — via resistance is decided here.",
+          "Clean/pre-clean to remove etch residue and oxidation on the exposed copper surface.",
+          "Deposit the barrier (TaN/Ta) conformally, 3 nm, on the sidewalls and bottom — this is the moment the width copper actually uses shrinks from 60 nm to 54 nm.",
+          "Deposit the copper seed layer — this creates the path the plating current will flow through, and a slight overhang forms at the opening.",
+          "Start electroplating — the suppressor covers the opening and top surface to hold back growth there while the accelerator concentrates at the bottom and corners, so copper rises from the bottom up.",
+          "Continue plating past the point the trench is full, leaving an overburden of 260-400 nm on the top surface.",
+          "CMP stage 1 bulk-removes the overburden copper — the end of this step is the point where the barrier is exposed and the endpoint signal breaks.",
+          "CMP stage 2 removes even the field barrier and polishes a bit further — wire-to-wire isolation is secured, but dishing and erosion are locked in at this point as the cost.",
+          "After cleaning, deposit the cap layer (SiCN) to close out the layer, and repeat the same cycle for the layer above."
+        ]
+      },
+      {
+        "type": "p",
+        "text": "Why this order? The reason the cap layer at the via bottom is left in place until the last moment is that it is the lid covering the copper of the wire below. Opening it earlier would leave the copper surface exposed to plasma and residue throughout the trench etch. The barrier and seed are deposited back-to-back right before plating for the same reason — the longer the gap between them, the more the seed surface oxidizes, and an oxidized seed cannot carry current evenly."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "How plating fills from the bottom up"
+      },
+      {
+        "type": "p",
+        "text": "Once plating begins, three types of additives work in different places at different rates. The suppressor attaches first to the opening and flat surfaces in contact with the electrolyte, slowing growth there, while the accelerator concentrates relatively at the narrow, deep bottom, speeding up deposition there. The leveler attaches preferentially to protrusions, pressing down high spots. Only as long as this three-way balance holds over time does the bottom rise faster than the opening; once the balance breaks down, the opening closes first and traps an empty space inside."
+      },
+      {
+        "type": "formula",
+        "latex": "m = \\frac{M \\cdot I \\cdot t}{n \\cdot F}",
+        "sourceId": "S212",
+        "caption": "The amount of copper deposited is proportional to the charge passed, I*t. F is the Faraday constant, an exact value of 96,485.33212 C/mol, and for Cu2+ plating the charge number n is 2. This equation is the basis for the relationship that plating time is directly copper quantity."
+      },
+      {
+        "type": "p",
+        "text": "What this equation tells us is total mass, not shape. Even with the same charge passed, if the additive balance has broken down, the copper piles up near the opening rather than inside the trench. So plating conditions manage \"how much to pass\" and \"in what order to fill\" separately. The physics layer, too, calculates only the deposited mass and does not convert it to a thickness, because the ledger has no basis for the metal density that conversion would require."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "It is tempting to think that a larger current fills things faster, but filling speed and fill order are different problems. If the current is excessive, the opening — where ion supply cannot keep up — grows even faster instead and closes first, and even though the total charge is sufficient, an empty space remains inside."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Where CMP starts and where it stops"
+      },
+      {
+        "type": "p",
+        "text": "The CMP segment splits into two parts. The first part is the time spent removing only the overburden copper, and the second is the time spent removing even the barrier left in the field. The length of the first part is fixed by simple division, once the removal rate is known."
+      },
+      {
+        "type": "formula",
+        "latex": "t = \\frac{d_{\\text{target}}}{\\mathrm{MRR}}",
+        "sourceId": "S204",
+        "caption": "The target removal thickness divided by the removal rate gives the time. This holds only over a range where the removal rate is constant, and the actual stopping point determined by endpoint detection is not captured here."
+      },
+      {
+        "type": "p",
+        "text": "Since the removal rate itself is set by the product of load and relative velocity, either one can be raised to shorten the time. The literature condition the repository has fixed as the golden value is a load of 24.76 kPa, platen and head rotation speeds of 80 rpm each, and a head-pad center distance of 130 mm, under which the measured copper removal rate was 302.5 nm/min with an in-wafer thickness variation of 6.47%. Whether the same removal rate is produced by load or by speed changes the variation and the scratching, and that is the real judgment call at this point."
+      },
+      {
+        "type": "p",
+        "text": "In the second part, deciding where to stop becomes the same act as deciding what defects result. Fully clearing the barrier forces some amount of extra polishing, and that excess shows up as dishing, which dishes out the top of wide wires like a plate, and erosion, which sinks an entire densely wired region below its surroundings. Both defects were already latent from earlier steps and only harden into a visible shape at this moment — it was the third step, etching the trench, that had already fixed wire width and density."
+      },
+      {
+        "type": "note",
+        "tone": "info",
+        "text": "The controls the upcoming lab lets you move directly belong to this segment. Load and rotation speed create the removal rate, and wire width pushes and pulls resistance and density at the same time. Checking where in the twelve steps the learner holds the values makes the lab screen much faster to read."
+      }
+    ]
+  },
+  "labels": {
+    "metal.equipment.dcPowerSupply": "Outside the cell, it links the (+) terminal to the copper anode and the (-) terminal to the contact ring, driving the plating current. If the current fluctuates, the amount of copper deposited fluctuates with it and plating thickness varies from lot to lot.",
+    "metal.equipment.spindleRotation": "The shaft that carries the clamshell holder, spinning the wafer at 20-150 rpm to draw in fresh electrolyte. If rotation is insufficient, bubbles linger under the plating face and thickness diverges between center and edge.",
+    "metal.equipment.clamshellHolder": "The cup and cone mate like a clamshell to grip the wafer edge, and an elastic seal blocks the edge of the plating face. A loose grip lets electrolyte cross to the wafer backside and contact area, causing contamination and poor contact.",
+    "metal.equipment.waferFaceDown": "Flips the plating face down and submerges it in electrolyte, facing the copper anode at the bottom of the cell. This orientation also makes it easy for bubbles to form under the face, and without rotation to sweep them away, exactly that spot goes unplated.",
+    "metal.equipment.contactRing": "Presses against the edge of the wafer's plating face around its circumference, feeding plating current into the thin seed layer. If some contact points lift, less current flows there and plating thickness skews to one side.",
+    "metal.equipment.platingBath": "A blue acidic copper-sulfate solution with dissolved copper ions, filling the cell until the wafer's plating face is submerged. If the composition or additive concentration drifts, the trench fails to fill from the bottom up and gaps remain.",
+    "metal.equipment.fieldShield": "A perforated insulating plate between the anode and the wafer that shapes the electric field to even out the current distribution reaching the wafer. If the openings are misaligned, it cannot correct the skew that plates the edge thicker.",
+    "metal.equipment.anodeMembrane": "A porous membrane covering the anode that lets ions pass while spreading current evenly through high electrical resistance. If it tears, particles shed from the anode cross over to the wafer and become defects.",
+    "metal.equipment.anodeCu": "Acts as the (+) terminal at the bottom of the cell, dissolving itself to continually supply copper ions to the electrolyte. It shrinks in proportion to the charge passed, so without timely replenishment the bath's copper concentration drops and plating goes off.",
+    "metal.equipment.carrierHead": "Flips the wafer over, presses it against the pad, and rotates, generating the pressure that sets the removal rate. Excessive load worsens erosion, sinking an entire densely wired region below its surroundings.",
+    "metal.equipment.slurryArm": "Reaches out above the pad and drips slurry, a mix of abrasive particles and chemical components, onto the pad surface. Insufficient supply causes scratching and leaves copper insufficiently stripped between wires.",
+    "metal.equipment.zoneChambers": "Divides the space above the membrane into center and edge zones with different pressures, controlling how much is removed radially. High edge pressure over-polishes the rim first, throwing thickness out of step with the interior.",
+    "metal.equipment.padConditioner": "Sweeps a diamond tool radially across the pad surface, scraping it to restore flattened, clogged surface and grooves. Insufficient conditioning leaves the pad glazed, letting removal rate drift and copper remain.",
+    "metal.equipment.flexibleMembrane": "A thin elastic membrane spread beneath the base, its underside contacting the wafer backside to transmit chamber pressure directly. If it tears or wrinkles, force is no longer transmitted evenly and the polished thickness becomes uneven.",
+    "metal.equipment.waferFaceDownCmp": "Flips the copper face to be polished downward and presses it against the pad, rubbing away excess copper. Polishing past what is needed dishes out the top of wide wires like a plate.",
+    "metal.equipment.retainingRing": "Wraps around the wafer to keep it from slipping out, extending below the wafer to press on the pad alongside it. As the ring wears, edge pressure collapses and the wafer's rim gets over-polished.",
+    "metal.equipment.polishingPad": "A porous polyurethane disk whose surface grooves carry slurry down to the wafer. As the surface wears smooth, it can no longer hold slurry and the removal rate drifts over time.",
+    "metal.equipment.platen": "A very flat rotating disk that carries the pad, its rotation producing relative velocity between pad and wafer. If it is not flat or wobbles, the radial removal rate varies."
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "processId": "etch",
+  "items": [
+    {
+      "id": "etch-q01",
+      "type": "single",
+      "difficulty": "low",
+      "objectiveId": "LO-P4-01",
+      "stem": "Which statement correctly compares wet etching and dry (plasma) etching?",
+      "choices": [
+        "Ordinary wet chemical etching is isotropic, so undercut readily forms under the mask",
+        "Wet etching relies on impact from vertically accelerated ions, so it is highly anisotropic",
+        "Dry etching immerses the wafer in a chemical solution, so no exhaust system is needed",
+        "Dry etching's selectivity to the underlayer is inherently always close to 1 and cannot be adjusted"
+      ],
+      "answer": 0,
+      "explanation": "Wet chemical etching reacts at the same rate in every direction because the reactive species in solution has no preferred direction, so it undercuts the mask by the same amount it etches downward. Ion acceleration and vertical bombardment are instead characteristic of dry plasma etching, which runs in a vacuum chamber and therefore needs exhaust equipment, and dry etching's selectivity can be widely tuned through gas chemistry, pressure, and bias power.",
+      "sourceId": "S164",
+      "weakTopic": "wet-vs-dry-etch-comparison"
+    },
+    {
+      "id": "etch-q02",
+      "type": "numeric",
+      "difficulty": "mid",
+      "objectiveId": "LO-P4-01",
+      "stem": "Polysilicon under a 200 nm wide resist line is plasma etched. At the end of the fixed etch time, the cross-section shows a vertical etch depth of 720 nm and undercut of 54 nm on each side under the resist line. Using the anisotropy definition A = 1 - R_lateral/R_vertical, find the anisotropy A of this process. (Dimensionless, three decimal places.)",
+      "answer": {
+        "value": 0.925,
+        "unit": null,
+        "tolerance": 0.0054
+      },
+      "explanation": "Because both distances developed over the same time, the etch-rate ratio equals the distance ratio. Vertical distance = 720 nm, and the lateral distance is the undercut on one side = 54 nm (the two sides are not added together). R_lateral/R_vertical = 54/720 = 0.075, so A = 1 - 0.075 = 0.925. Adding both sides to get 108 nm gives the wrong answer 0.850, since anisotropy is a ratio of single-direction rates and the two sides must not be combined.",
+      "sourceId": "S256",
+      "weakTopic": "anisotropy-degree-calc"
+    },
+    {
+      "id": "etch-q03",
+      "type": "single",
+      "difficulty": "low",
+      "objectiveId": "LO-P4-02",
+      "stem": "In a plasma etch chamber, what is the main role of the focus ring (edge ring) placed on the lower electrode (electrostatic chuck) around the wafer edge?",
+      "choices": [
+        "Extends the sheath and electric-field distribution beyond the wafer edge to resemble the center, reducing edge-pattern profile tilt",
+        "Electrostatically clamps the wafer to the chuck and holds backside helium cooling",
+        "Regulates exhaust flow to keep chamber pressure at a target value",
+        "Measures a specific plasma-emission wavelength intensity to signal the etch endpoint"
+      ],
+      "answer": 0,
+      "explanation": "The wafer edge is a boundary where dielectric and potential distributions break, so without anything there the sheath boundary bows inward and ions strike at an angle, tilting only the edge-pattern sidewalls. The focus ring is a consumable ring with electrical properties similar to the wafer that extends the sheath and field beyond the wafer edge, keeping the ion incidence angle close to that at the center. Electrostatic clamping and backside cooling belong to the ESC, pressure regulation to the throttle valve, and endpoint detection to the OES viewport.",
+      "sourceId": "S258",
+      "weakTopic": "focus-ring-function"
+    },
+    {
+      "id": "etch-q04",
+      "type": "short",
+      "difficulty": "mid",
+      "objectiveId": "LO-P4-02",
+      "stem": "During plasma etching, a chamber viewport is used to monitor a specific plasma-emission wavelength intensity in real time, and etching is stopped at the inflection point of the intensity curve where the target film clears and reaction products drop off. Name this endpoint detection technique. (English abbreviation accepted.)",
+      "answer": {
+        "accept": [
+          "광학 발광 분광법",
+          "광학방출분광법",
+          "발광분광법",
+          "방출분광법",
+          "광학발광분광",
+          "OES",
+          "opticalemissionspectroscopy",
+          "opticalemissionspectrometry"
+        ]
+      },
+      "explanation": "Excited atoms and radicals in the plasma each emit light at characteristic wavelengths, and when the target film clears, that wavelength's intensity drops sharply. Detecting this inflection point as the endpoint is optical emission spectroscopy (OES). Interferometric endpoint (IEP) is a different technique that watches the interference-fringe period from film thickness, and generic phrases like 'endpoint detection' name the function rather than the technique itself, so they are not accepted.",
+      "sourceId": "S168",
+      "weakTopic": "oes-endpoint-detection"
+    },
+    {
+      "id": "etch-q05",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P4-03",
+      "stem": "In a basic lab, chamber pressure, source power, and gas composition are fixed, and only the lower-electrode bias power is raised from 50 W to 250 W. Which set of changes on the readout is most plausible?",
+      "choices": [
+        "Self-bias V_dc grows larger, so ions strike more vertically with more energy, raising anisotropy (sidewall angle), but the same ions also sputter the resist, lowering resist selectivity",
+        "Both anisotropy and resist selectivity increase",
+        "Both anisotropy and resist selectivity decrease",
+        "Anisotropy is unchanged and only resist selectivity increases"
+      ],
+      "answer": 0,
+      "explanation": "Lower-electrode bias power increases the wafer surface self-bias V_dc. A larger sheath voltage drop makes ions strike more vertically with higher energy, so only the vertical etch rate speeds up and anisotropy rises. But the same ions also physically sputter the resist surface, so resist selectivity falls. Bias power thus buys anisotropy at the cost of selectivity; if both improved together there would be no need to tune bias power at all, which is why choice 2 cannot be correct.",
+      "sourceId": "S167",
+      "weakTopic": "bias-power-anisotropy-selectivity-tradeoff"
+    },
+    {
+      "id": "etch-q06",
+      "type": "numeric",
+      "difficulty": "high",
+      "objectiveId": "LO-P4-03",
+      "stem": "A 300 nm thick polysilicon film is etched. Polysilicon etch rate = 250 nm/min, selectivity to the underlying SiO2 = 25, selectivity to resist = 4, overetch = 30% of the main-etch time. Assuming uniform thickness and etch rate across the wafer and that the underlying SiO2 is exposed only from the moment main etch ends, how many nm of the underlying SiO2 is lost?",
+      "answer": {
+        "value": 3.6,
+        "unit": "nm",
+        "tolerance": 0.05
+      },
+      "explanation": "Main etch time = 300/250 = 1.20 min. Overetch time = 0.30*1.20 = 0.36 min. SiO2 etch rate = 250/25 = 10.0 nm/min. Since SiO2 is exposed only during overetch, loss = 10.0*0.36 = 3.60 nm. The check formula delta-d = (OE%/100)*d/S = 0.30*300/25 = 3.60 confirms this. Using 250 nm/min directly without dividing by selectivity gives the wrong answer 90, and applying the SiO2 rate over the full etch time instead of only overetch gives the wrong answer 15.6.",
+      "sourceId": "S256",
+      "weakTopic": "overetch-underlayer-loss-calc"
+    },
+    {
+      "id": "etch-q07",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P4-04",
+      "stem": "In an applied lab, trench depth met spec, but the sidewall angle only reached 84 degrees with a large undercut. With source power, bias power, and etch time fixed, chamber pressure alone is lowered from 190 mTorr to 40 mTorr. Which outcome is most plausible?",
+      "choices": [
+        "Ion mean free path lengthens, so sheath-crossing collisions and incidence-angle spread shrink, raising sidewall angle, but sidewall-polymer precursors also decrease, lowering resist selectivity",
+        "Both sidewall angle and resist selectivity increase",
+        "Sidewall angle stays the same and only etch rate increases",
+        "Fewer collisions scatter ions in every direction, lowering the sidewall angle and increasing undercut"
+      ],
+      "answer": 0,
+      "explanation": "Lowering pressure reduces gas-molecule density, lengthening the ion mean free path; with fewer collisions while crossing the sheath, ion velocity direction stays intact and ions arrive closer to vertical, while isotropic chemical etching also decreases, all of which pushes sidewall angle up. At the same time, in carbon- and fluorine-based chemistries the density of the polymer precursors that coat and protect the sidewall also drops, which pushes resist selectivity down. The other three options contradict this structure, so among the four this is the most defensible answer. Note the scope carefully, however. This tradeoff is what is observed in chemistries that rely on polymer for sidewall protection, such as fluorocarbon etching of polysilicon and oxide; it is not a law that holds for every etch chemistry. In chlorine-based metal etching, which generates little polymer, measurements have been reported in which sidewall angle barely moves across a comparable pressure range. So rather than memorising that pressure is always a friend of selectivity and an enemy of anisotropy, get in the habit of checking the chemistry and the pressure range together.",
+      "sourceId": "S162",
+      "weakTopic": "pressure-sidewall-selectivity-tradeoff"
+    },
+    {
+      "id": "etch-q08",
+      "type": "short",
+      "difficulty": "mid",
+      "objectiveId": "LO-P4-04",
+      "stem": "During dry etching, a thin polymer generated in the plasma deposits on the trench sidewall and blocks lateral chemical etching, producing a near-vertical profile. Name this protective effect. (English accepted.)",
+      "answer": {
+        "accept": [
+          "패시베이션",
+          "측벽패시베이션",
+          "폴리머패시베이션",
+          "측벽폴리머패시베이션",
+          "부동태화",
+          "측벽부동태화",
+          "passivation",
+          "sidewallpassivation",
+          "polymerpassivation"
+        ]
+      },
+      "explanation": "Precursors and byproducts from the decomposed etch gas redeposit on the trench sidewall, forming a few-nanometer polymer film. At the bottom, continuous vertical ion bombardment strips the film away, but on the sidewall, where ions rarely reach, the film survives and blocks lateral chemical etching. This is sidewall passivation, and alternating it with the etch step gives the Bosch process. 'Polymer deposition' names only the physical event of buildup, not the protective effect, and 'scallop' or 'Bosch process' name the resulting shape or the process scheme, so none of these is accepted as the answer.",
+      "sourceId": "S160",
+      "weakTopic": "sidewall-passivation"
+    },
+    {
+      "id": "etch-q09",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P4-05",
+      "stem": "Conductive polysilicon on a buried insulating layer (SiO2) is etched. Past endpoint, during overetch, the cross-section shows the upper and mid sidewall intact, but a 12 nm wide groove has bored sideways only at the bottom pattern corner. What is the name of this defect and its main cause?",
+      "choices": [
+        "Notching — local positive charge buildup (charging) on the insulating underlayer creates a potential that bends incoming ion trajectories toward the bottom corner",
+        "ARDE / RIE lag — in high-aspect-ratio patterns, reactive species and ions reach the bottom less easily, slowing the etch",
+        "Microloading — reactive species locally deplete in densely patterned areas, changing the local etch rate",
+        "Scalloping — the Bosch process periodically alternates etch and deposition steps"
+      ],
+      "answer": 0,
+      "explanation": "When the underlayer is an insulator, charge from arriving positive ions cannot drain away and accumulates (charging); the resulting potential deflects the trajectories of subsequent ions toward the bottom pattern corner, carving a localized groove there — notching. The decisive clue is location: notching occurs only at the bottom corner, leaving the upper and mid sidewall untouched. ARDE shows up as depth varying with pattern width, and microloading as regional etch-rate variation, neither of which is a localized groove, while scalloping is a regular ripple across the whole sidewall, different from a single bottom-corner groove.",
+      "sourceId": "S161",
+      "weakTopic": "notching-charging-defect"
+    },
+    {
+      "id": "etch-q10",
+      "type": "single",
+      "difficulty": "high",
+      "objectiveId": "LO-P4-05",
+      "stem": "A contact layer is being etched over a thin underlying oxide, so the allowable overetch is narrow. Endpoint detection was enabled, but the emission-intensity curve only wobbled within the noise band, no inflection was detected, and the system kept etching to timeout, punching through the underlayer across the entire lot. The area exposed by this etch is very small. The tool offers four endpoint techniques: optical emission spectroscopy (OES), mass spectroscopy, chamber pressure, and laser interferometry. What is the most defensible first action?",
+      "choices": [
+        "Switch to laser interferometry: of the four, it is the only technique whose signal level is not a function of the etchable surface area",
+        "Switch to mass spectroscopy: it detects reaction products directly, so signal level holds up regardless of exposed area",
+        "Use chamber pressure change as the endpoint signal: pressure is a chamber-wide quantity, so exposed area does not affect it",
+        "Raise overetch from 30% to 80% to clear residue for certain, which widens process margin and resolves the problem"
+      ],
+      "answer": 0,
+      "explanation": "Endpoint techniques divide on whether their signal level depends on the area exposed by the etch. In the standard comparison of endpoint techniques, optical emission, mass spectroscopy, chamber pressure, mass flowmeter, and discharge impedance are all sensitive to etchable surface area, while laser interferometry alone has a signal level that is not a function of that area. Interferometry counts the fringes formed as light reflected from the film surface and from the underlying interface goes in and out of phase while the film thins, so it only needs the thickness change at the spot the beam is aimed at; how much total area is clearing across the wafer never enters the signal. That is what makes it the first technique to try on a layer with small exposed area. Mass spectroscopy and chamber pressure are both area-sensitive, so they carry the same problem forward, and raising overetch runs in exactly the wrong direction: the same reference notes that endpoint algorithms matter more as the allowable overetch shrinks, and that the etch should be stopped completely at endpoint to eliminate unnecessary overetch, whereas here the thin underlayer already leaves little overetch budget. One caution. This does not mean OES is impossible at small exposed area. The same reference states explicitly that although OES is sensitive to etchable surface area, it is nonetheless effective for very-small-surface-area applications such as contact vias. The reason to pick interferometry here is not that OES cannot work, but the comparative fact that among these four techniques only interferometry is area-independent.",
+      "sourceId": "S172",
+      "weakTopic": "endpoint-method-area-dependence"
+    }
+  ]
+}

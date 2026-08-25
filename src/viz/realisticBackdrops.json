@@ -1,0 +1,146 @@
+{
+  "backdrops": {
+    "wafer": "wafer/interior-v1.jpg",
+    "oxidation": "oxidation/interior-v1.jpg",
+    "photo": "photo/interior-v1.jpg",
+    "etch": "etch/interior-v1.jpg",
+    "deposition": "deposition/interior-v1.jpg",
+    "metal": "metal/interior-v2.png",
+    "eds": "eds/interior-v1.jpg",
+    "packaging": "packaging/interior-v1.jpg"
+  },
+  "profiles": {
+    "crystalGrowth": {
+      "processId": "wafer",
+      "x": 50,
+      "y": 66,
+      "hue": "#ff9d36",
+      "motion": "rise",
+      "stageAssets": {
+        "applied": "wafer/applied-diameter-control-v2.jpg",
+        "advanced": "wafer/advanced-interface-diagnostic-v2.jpg"
+      },
+      "stageFocus": {
+        "applied": { "x": 50, "y": 58 },
+        "advanced": { "x": 50, "y": 66 }
+      }
+    },
+    "filmGrowth": {
+      "processId": "oxidation",
+      "x": 50,
+      "y": 48,
+      "hue": "#ff633d",
+      "motion": "rise",
+      "stageAssets": {
+        "applied": "oxidation/applied-dry-wet-control-v2.jpg",
+        "advanced": "oxidation/advanced-interface-metrology-v2.jpg"
+      },
+      "stageFocus": {
+        "applied": { "x": 70, "y": 55 },
+        "advanced": { "x": 50, "y": 66 }
+      }
+    },
+    "aerialImage": {
+      "processId": "photo",
+      "x": 50,
+      "y": 52,
+      "hue": "#8177ff",
+      "motion": "scan",
+      "stageAssets": {
+        "applied": "photo/applied-focus-control-v2.jpg",
+        "advanced": "photo/advanced-immersion-gap-v2.jpg"
+      },
+      "stageFocus": {
+        "applied": { "x": 50, "y": 58 },
+        "advanced": { "x": 50, "y": 55 }
+      }
+    },
+    "plasma": {
+      "processId": "etch",
+      "x": 50,
+      "y": 55,
+      "hue": "#b66cff",
+      "motion": "fall",
+      "stageAssets": {
+        "applied": "etch/applied-rie-tuning-v4.png",
+        "advanced": "etch/advanced-trench-diagnostic-v3.png"
+      },
+      "stageFocus": {
+        "applied": { "x": 50, "y": 56 },
+        "advanced": { "x": 50, "y": 60 }
+      }
+    },
+    "aldCycle": {
+      "processId": "deposition",
+      "x": 50,
+      "y": 52,
+      "hue": "#49c5ff",
+      "motion": "pulse",
+      "asset": "deposition/ald-reactor-v2.jpg",
+      "stageAssets": {
+        "advanced": "deposition/advanced-ald-insitu-v4.png"
+      },
+      "stageFocus": {
+        "advanced": { "x": 50, "y": 58 }
+      }
+    },
+    "ionTrajectory": { "processId": "deposition", "x": 62, "y": 55, "hue": "#ffbd52", "motion": "fall", "asset": "deposition/ion-implanter-v2.jpg" },
+    "stepCoverage": { "processId": "deposition", "x": 26, "y": 54, "hue": "#62d8ff", "motion": "fall" },
+    "polishProfile": {
+      "processId": "metal",
+      "x": 50,
+      "y": 55,
+      "hue": "#5ad8ff",
+      "motion": "orbit",
+      "asset": "metal/cmp-module-v2.jpg",
+      "stageAssets": {
+        "applied": "metal/applied-cmp-contact-v5.png",
+        "advanced": "metal/advanced-interconnect-reliability-v3.png"
+      },
+      "stageFocus": {
+        "applied": { "x": 64, "y": 55 },
+        "advanced": { "x": 75, "y": 42 }
+      },
+      "stageMotion": {
+        "advanced": "em"
+      }
+    },
+    "probeScrub": {
+      "processId": "eds",
+      "x": 50,
+      "y": 62,
+      "hue": "#48cfff",
+      "motion": "scan",
+      "stageAssets": {
+        "basic": "eds/basic-probe-contact-v4.png",
+        "advanced": "eds/advanced-probe-cleaning-v4.png"
+      },
+      "stageFocus": {
+        "basic": { "x": 50, "y": 60 },
+        "advanced": { "x": 50, "y": 55 }
+      }
+    },
+    "waferMap": {
+      "processId": "eds",
+      "x": 50,
+      "y": 66,
+      "hue": "#60ffa8",
+      "motion": "orbit",
+      "stageAssets": {
+        "applied": "eds/applied-wafer-map-v4.png",
+        "advanced": "eds/applied-wafer-map-v4.png"
+      },
+      "stageFocus": {
+        "applied": { "x": 50, "y": 62 },
+        "advanced": { "x": 50, "y": 62 }
+      },
+      "stageMotion": {
+        "applied": "scan",
+        "advanced": "scan"
+      }
+    },
+    "packageThermal": { "processId": "packaging", "x": 50, "y": 55, "hue": "#ff7d48", "motion": "pulse", "asset": "packaging/thermal-chamber-v2.jpg" },
+    "moistureSoak": { "processId": "packaging", "x": 50, "y": 51, "hue": "#52d5ff", "motion": "rise", "asset": "packaging/moisture-chamber-v2.jpg" },
+    "shearTest": { "processId": "packaging", "x": 50, "y": 55, "hue": "#ffd45a", "motion": "scan", "asset": "packaging/shear-tester-v2.jpg" }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "lab-basic": {
+    "intro": "A lab where pull rate alone brings the crystal diameter within spec.",
+    "goal": "Move “Pull rate V” (0.5–3 mm/min) and watch how “Crystal diameter D” responds. The thermal gradient and rotation rate are fixed in this cell. “Top dopant concentration (boron)” (0.5–10 ×10¹⁵ cm⁻³) only changes the displayed top resistivity.",
+    "passHint": "You pass when “Crystal diameter D” falls within 198.0–202.0 mm. Throughput R, top resistivity ρ_T, and the literature maximum pull rate are reference readouts, not pass conditions."
+  },
+  "lab-applied": {
+    "intro": "A lab where four sliders must satisfy three specs that pull against each other.",
+    "goal": "Move “Pull rate V” (0.5–3 mm/min), “Axial thermal gradient at the melt interface G” (15–60 K/cm), “Crystal (seed) rotation ω_c” (5–30 rpm), and “Crucible rotation ω_cr (counter-rotation, absolute value)” (2–20 rpm) and watch the V/G ratio, oxygen content, and diameter deviation move together. Check the diameter-deviation verdict on the zoomed chart.",
+    "passHint": "All three must pass at once — “V/G ratio” 0.085–0.150 mm²/(min·K), “Interstitial oxygen concentration O_i” 5.00–8.00 ×10¹⁷ cm⁻³, “Diameter deviation σ_D” 1.00 mm or less."
+  },
+  "lab-advanced": {
+    "intro": "A lab where you build a recipe that survives two kinds of disturbance.",
+    "goal": "“Ar flow Q_Ar” (20–120 slm) and “Chamber pressure P_ch” (10–760 torr) are added to the applied lab's four sliders, and “Pull rate V” widens to 0.2–3 mm/min. Check the V/G verdict on the zoomed chart.",
+    "passHint": "All four must pass at once — “Dislocation-free length yield Y” 80.0% or higher, “V/G ratio” 0.085–0.150 mm²/(min·K), “Interstitial oxygen concentration O_i” 5.00–8.00 ×10¹⁷ cm⁻³, “Average throughput R” 0.55 mm/min or higher."
+  }
+}

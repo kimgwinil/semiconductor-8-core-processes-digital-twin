@@ -1,0 +1,17 @@
+{
+  "lab-basic": {
+    "intro": "A lab where you set the copper CMP polishing conditions. You must remove a 306 nm overburden at the specified rate.",
+    "goal": "Move the two sliders “CMP down-force” (4–66 kPa) and “Platen/head rotation” (10–200 rpm) to bring the verdict output “Removal rate MRR” into its band. The remaining conditions — 60 nm line width, 120 nm trench depth, and so on — are fixed; relative velocity V and polish time are shown alongside for reference only.",
+    "passHint": "You pass when “Removal rate MRR” is 302.5 nm/min or more and 350.1 nm/min or less."
+  },
+  "lab-applied": {
+    "intro": "A lab where you set both the polishing conditions and the interconnect dimensions together.",
+    "goal": "Use “CMP down-force” (4–66 kPa) and “Platen/head rotation” (10–200 rpm) to move “Removal rate MRR” and “Overburden polish time,” and use “Line width W” (20–200 nm) to move “Line-resistance ratio” and “Line pitch 2W.” Slurry flow of 200 mL/min and a low-k dielectric constant of 3.0 are fixed conditions.",
+    "passHint": "All four must be satisfied at once. Removal rate 302.5–350.1 nm/min · polish time 2.25 min or less · resistance ratio 0.75 or less · pitch 170 nm or less."
+  },
+  "lab-advanced": {
+    "intro": "A lab where you pass seven verdicts at once on a single screen.",
+    "goal": "“CMP down-force” (4–66 kPa) and “Platen/head rotation” (10–200 rpm) move removal rate and polish time; “Line width W” (20–200 nm), “Evaluation line length L” (10–200 µm), and “ILD dielectric constant k” (2.2–4.0) move resistance ratio, pitch, and RC-delay ratio; “Line operating temperature” (300–400 K) and “Line current I” (0.03–1.0 mA) move EM lifetime ratio and Blech margin. Pitch is tied to S = W, so width sets it.",
+    "passHint": "You must satisfy all of: removal rate 302.5–350.1 nm/min · polish time 2.25 min or less · resistance ratio 0.68 or less · pitch 170 nm or less · RC-delay ratio 0.45 or less · EM lifetime ratio 2.5 or higher · Blech margin 1 or less."
+  }
+}

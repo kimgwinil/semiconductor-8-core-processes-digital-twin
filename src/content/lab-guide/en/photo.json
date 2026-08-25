@@ -1,0 +1,17 @@
+{
+  "lab-basic": {
+    "intro": "With NA and resist thickness fixed, a cell where dose and focus alone must hit the target line width.",
+    "goal": "Only two things move: “Exposure dose E” (10–60 mJ/cm²) and “Focus offset ΔF” (−150–150 nm). Raising E narrows the “Line CD”; pushing ΔF away from 0 widens the CD while the “Sidewall angle SWA” degrades along with it. λ, NA, n, k₁, k₂, resist thickness T, and clearing dose E₀ are listed on the fixed-conditions card.",
+    "passHint": "There are two verdict outputs, and both must be satisfied at once: “Line CD” must fall within 42.0–48.0 nm, and “Sidewall angle SWA” must be 82.0° or higher."
+  },
+  "lab-applied": {
+    "intro": "A cell where numerical aperture NA itself becomes a control — you feel firsthand the trade where every gain in resolution costs depth of focus.",
+    "goal": "Move “Numerical aperture NA” (1.00–1.35), “Exposure dose E” (10–60 mJ/cm²), and “Focus offset ΔF” (−150–150 nm). Raising NA improves “Resolution R” as 1/NA but worsens “Depth of focus DOF” as 1/NA², while E moves the “Line CD”. λ, k₁, k₂, resist thickness T, and E₀ are on the fixed-conditions card.",
+    "passHint": "All three verdict outputs must be satisfied at once: “Resolution R” 58.0 nm or less, “Depth of focus DOF” 100.0 nm or more, “Line CD” 42.0–48.0 nm."
+  },
+  "lab-advanced": {
+    "intro": "A cell with six controls holding six verdicts at once.",
+    "goal": "Move “Numerical aperture NA” (1.00–1.35), “Exposure dose E” (10–80 mJ/cm²), “Focus offset ΔF” (−150–150 nm), “Resist thickness T” (60–900 nm), “PEB temperature T_PEB” (90–130 °C), and “Bottom anti-reflective coating BARC” (0 = OFF · 1 = ON) and watch all six verdict outputs together. k₁, k₂, n_r, E₀, and substrate reflectivity R_s are on the fixed-conditions card.",
+    "passHint": "All six verdicts must be satisfied at once: “Resolution R” 58.0 nm or less, “Depth of focus DOF” 100.0 nm or more, “Line CD” 42.0–48.0 nm, “Sidewall angle SWA” 82.0° or higher, “Yield Y” 92% or higher, “Throughput TP” 120 wph or higher."
+  }
+}

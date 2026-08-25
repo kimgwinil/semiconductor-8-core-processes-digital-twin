@@ -1,0 +1,187 @@
+{
+  "processId": "eds",
+  "items": [
+    {
+      "id": "eds-q01",
+      "type": "single",
+      "difficulty": "low",
+      "objectiveId": "LO-P7-01",
+      "stem": "What is the most fundamental reason EDS (Electrical Die Sorting) is performed while dice are still on the wafer?",
+      "choices": [
+        "To push every die's operating speed above spec",
+        "To sort out bad dice at the wafer stage before packaging, so back-end cost is not wasted on defective parts",
+        "To build a wafer-map coordinate system and add more needles to the probe card",
+        "To lower test temperature and reduce the tester's power consumption"
+      ],
+      "answer": 1,
+      "explanation": "EDS's core purpose is separating good dice from bad ones. If defective dice pass through to back-end processing unfiltered, packaging and test cost gets spent on parts that will end up scrapped anyway, so catching them at the earliest possible stage (on the wafer) is the most cost-effective. EDS only measures and judges performance; it does not raise operating speed. The wafer-map coordinate system and needle count are means to perform EDS, not its goal, and test temperature is deliberately swept hot and cold to check margin, not to save power.",
+      "sourceId": "S220",
+      "weakTopic": "eds-purpose"
+    },
+    {
+      "id": "eds-q02",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P7-01",
+      "stem": "Among EDS test categories, what does the 'DC parametric test' most appropriately check?",
+      "choices": [
+        "Whether setup/hold timing margins hold at a specified clock frequency",
+        "Whether DC electrical characteristics such as I/O pin leakage current, threshold voltage, and supply current fall within spec",
+        "Whether the needle and pad are merely physically connected, checked with a minimal current",
+        "Whether stored data patterns read back correctly, confirming the logic functions as designed"
+      ],
+      "answer": 1,
+      "explanation": "The DC parametric test measures a device's electrical specs under static (DC) conditions. Typical items are I/O leakage current, input/output logic-level voltages, threshold voltage, and standby/operating supply current. Clock frequency and timing margin instead belong to the AC/speed test, checking only the physical needle-to-pad connection is the open/short (contact) test, and confirming that a stored pattern reads back correctly is the function test.",
+      "sourceId": "S265",
+      "weakTopic": "dc-parametric-test"
+    },
+    {
+      "id": "eds-q03",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P7-02",
+      "stem": "In a wafer prober-tester setup, what is the docker's most appropriate role?",
+      "choices": [
+        "Removes wafers from the cassette (FOUP) and moves them onto the chuck with vacuum hold",
+        "Pulls the test head to a fixed position atop the prober and mechanically locks it, so the pin electronics and probe card become electrically connected",
+        "Scrapes aluminum residue off needle tips with an abrasive to restore contact resistance",
+        "Keeps the chuck at -25 to 125 degC so device margin can be measured across temperature"
+      ],
+      "answer": 1,
+      "explanation": "A docker is a mechanism that aligns and couples the heavy test head to the prober. Only after docking is complete are the pin electronics inside the test head and the probe-card PCB brought into electrical contact at the specified pressure, letting signals travel through the probe needles to the die pads. Wafer transport is handled by the cassette and robot, needle cleaning by the needle-cleaning pad, and temperature control by the temperature-controlled chuck.",
+      "sourceId": "S229",
+      "weakTopic": "prober-docker-function"
+    },
+    {
+      "id": "eds-q04",
+      "type": "short",
+      "difficulty": "mid",
+      "objectiveId": "LO-P7-02",
+      "stem": "In the EDS contact step, what is the term for the additional distance the chuck is pushed up in the Z direction after the probe needle first touches the die pad? (Managed in micrometers; a larger value lowers contact resistance but enlarges the probe mark.)",
+      "answer": {
+        "accept": [
+          "오버드라이브",
+          "오버 드라이브",
+          "오버드라이브량",
+          "overdrive",
+          "over drive",
+          "over-drive",
+          "OD",
+          "od",
+          "Over Drive",
+          "오버드라이브(OD)"
+        ]
+      },
+      "explanation": "A thin native oxide covers the pad surface, so a needle merely touching it does not give a stable, low-resistance contact. After first touch, pushing the chuck up further (overdrive) makes the needle tip slide sideways across the pad (scrub), scraping off the oxide to secure contact resistance. Contact force is the force that results from overdrive, not the pushed distance itself, and scrub/probe mark name the resulting mark or motion caused by overdrive — confusing cause with effect makes both wrong answers.",
+      "sourceId": "S229",
+      "weakTopic": "probe-overdrive"
+    },
+    {
+      "id": "eds-q05",
+      "type": "single",
+      "difficulty": "low",
+      "objectiveId": "LO-P7-03",
+      "stem": "With all else equal, overdrive alone is raised from 75 um to 110 um. Which pairing of resulting changes is correct?",
+      "choices": [
+        "Contact resistance decreases; probe-mark diameter increases",
+        "Contact resistance increases; probe-mark diameter decreases",
+        "Contact resistance decreases; probe-mark diameter decreases",
+        "Contact resistance increases; probe-mark diameter increases"
+      ],
+      "answer": 0,
+      "explanation": "A larger overdrive makes the needle scrape the pad deeper and longer, widening the contact area and clearing the oxide more thoroughly, so contact resistance falls. For the same reason, the scrub mark (probe mark) left on the pad grows larger in diameter. Finding an overdrive window that satisfies both requirements at once is the point of this lab; contact resistance rises instead when overdrive is insufficient or the needle is contaminated.",
+      "sourceId": "S229",
+      "weakTopic": "overdrive-contact-resistance-tradeoff"
+    },
+    {
+      "id": "eds-q06",
+      "type": "numeric",
+      "difficulty": "mid",
+      "objectiveId": "LO-P7-03",
+      "stem": "A product's die area is 50 mm^2, and the fab's defect density is D0 = 0.80 defects/cm^2 (both are educational example values). Using the Poisson yield model Y = exp(-A*D0), find the yield as a percentage. (One decimal place, with the % unit.)",
+      "answer": {
+        "value": 67.0,
+        "unit": "%",
+        "tolerance": 0.02
+      },
+      "explanation": "A = 50 mm^2 / 100 = 0.50 cm^2. A*D0 = 0.50*0.80 = 0.40. Y = exp(-0.40) = 0.67032, i.e. 67.0%. Failing to convert mm^2 to cm^2 gives a near-zero result close to exp(-40); using the first-order approximation Y ~= 1 - A*D0 gives the wrong 60.0%; and dropping the sign to compute exp(+0.40) gives a physically impossible 149.2%, over 100%.",
+      "sourceId": "S220",
+      "weakTopic": "poisson-yield-calc"
+    },
+    {
+      "id": "eds-q07",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P7-04",
+      "stem": "In EDS pass/fail judgment, the guard band is widened from 5% to 12% of spec. Which outcome is most likely?",
+      "choices": [
+        "Underkill (bad dice slipping through as good) decreases and overkill (good dice discarded as bad) increases",
+        "Underkill increases and overkill decreases",
+        "Both underkill and overkill decrease together, eliminating the tradeoff",
+        "Underkill and overkill stay the same and only wafer test time increases"
+      ],
+      "answer": 0,
+      "explanation": "A guard band tightens the pass/fail threshold inward from the spec limit to allow for measurement error and temperature/voltage variation. Widening it moves the threshold further inward, pushing many borderline dice into the fail bin — underkill (bad dice leaking through as good) drops, but overkill (good dice discarded even though they meet spec) rises. A guard band trades one error type for the other; it does not eliminate both, and since it only changes the decision threshold, it has almost no effect on test time.",
+      "sourceId": "S266",
+      "weakTopic": "guard-band-overkill-underkill"
+    },
+    {
+      "id": "eds-q08",
+      "type": "numeric",
+      "difficulty": "high",
+      "objectiveId": "LO-P7-04",
+      "stem": "A product has die area 25 mm^2, defect density D0 = 1.0 defect/cm^2, and test coverage T = 0.90 (all educational example values). Yield follows the Poisson model Y = exp(-A*D0), and shipped defect level follows the Williams-Brown equation DL = 1 - Y^(1-T). Find DL in ppm. (Round to an integer, with the ppm unit.)",
+      "answer": {
+        "value": 24690,
+        "unit": "ppm",
+        "tolerance": 0.03
+      },
+      "explanation": "A = 25 mm^2/100 = 0.25 cm^2. A*D0 = 0.25. Y = exp(-0.25) = 0.778801. 1-T = 0.10. Y^0.10 = exp(-0.25*0.10) = exp(-0.025) = 0.975310. DL = 1-0.975310 = 0.0246901, i.e. 24,690 ppm. Putting T instead of 1-T in the exponent gives the wrong 201,484 ppm; checking the limit T=1 (perfect detection), where DL must equal 0, immediately shows the exponent has to be 1-T. Failing to convert mm^2 to cm^2 gives the nonsensical wrong answer 917,915 ppm, where yield is effectively 0 but DL is claimed to be 92%.",
+      "sourceId": "S227",
+      "weakTopic": "williams-brown-defect-level-calc"
+    },
+    {
+      "id": "eds-q09",
+      "type": "short",
+      "difficulty": "mid",
+      "objectiveId": "LO-P7-05",
+      "stem": "An EDS wafer map shows only the outermost 2-3 rows of dice failing in a ring shape, with the center generally normal. Name this failure-distribution pattern. (English accepted.)",
+      "answer": {
+        "accept": [
+          "에지 링",
+          "에지링",
+          "엣지 링",
+          "엣지링",
+          "edge ring",
+          "edgering",
+          "edge-ring",
+          "가장자리 링",
+          "가장자리링",
+          "에지 링 패턴",
+          "에지링패턴",
+          "edge ring pattern"
+        ]
+      },
+      "explanation": "The wafer edge readily sees different conditions from the centre in spin coating, plasma distribution, thermal distribution, and handling contact, and that influence concentrates as a ring across the outermost few rows. This is called an edge-ring pattern. Published work on wafer-map patterns generally follows the classification used by the public benchmark dataset, which distinguishes nine classes: centre, donut, edge-loc, edge-ring, loc, near-full, random, scratch, and none. The pair that must be kept apart here is edge-ring and edge-loc. Both appear at the edge, but edge-ring runs as a ring nearly all the way around the perimeter, whereas edge-loc clusters as an arc over only one stretch of the edge. A failure band running as a ring across the outermost two or three rows, as in this item, is edge-ring. Of the others, loc is a blob at an arbitrary location and scratch is a line of failures along a thin elongated path, both distinct from a ring.",
+      "sourceId": "S267",
+      "weakTopic": "wafer-map-edge-ring"
+    },
+    {
+      "id": "eds-q10",
+      "type": "single",
+      "difficulty": "high",
+      "objectiveId": "LO-P7-05",
+      "stem": "During EDS on a lot, the following was observed: (a) starting mid-lot, orange (parametric fail) dice surged in a band along the indexing direction on the wafer map; (b) the contact-resistance monitor jumped from 0.8 to 3.4 ohm; (c) re-testing the same wafer with a different probe card returned most of those dice as good. What is the most likely cause and first-line fix?",
+      "choices": [
+        "The line's defect density D0 itself rose — inspect cleanliness/tool particles and recompute defect density",
+        "Aluminum residue accumulated on needle tips, sharply raising contact resistance — run needle cleaning immediately, shorten the cleaning interval, and re-test the affected wafer",
+        "The chuck temperature chamber drifted — recalibrate temperature, extend soak time, and re-test",
+        "Probe-card flatness (tilt) collapsed — readjust card flatness and re-test"
+      ],
+      "answer": 1,
+      "explanation": "That re-testing with a different card returns good confirms the die itself is fine and the problem is on the contact (card) side. A more than fourfold jump in contact resistance is direct evidence of a resistive residue lodged between needle and pad, and a band spreading along the indexing direction is the classic signature of needle contamination worsening with accumulated touch count. Rising defect density would still fail with a different card, contradicting observation (c); temperature drift would affect the whole wafer uniformly rather than following indexing order; and flatness failure typically produces a fixed crescent-shaped region on the wafer with open/short bin codes rather than parametric fails, which does not match this log.",
+      "sourceId": "S229",
+      "weakTopic": "needle-contamination-diagnosis"
+    }
+  ]
+}

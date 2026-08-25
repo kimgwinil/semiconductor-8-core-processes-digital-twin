@@ -1,0 +1,315 @@
+{
+  "processId": "eds",
+  "image": "cross-section.webp",
+  "viewBox": [
+    0,
+    0,
+    1600,
+    900
+  ],
+  "labels": [
+    {
+      "id": "test-head",
+      "anchor": [
+        556,
+        128
+      ],
+      "leaderEnd": [
+        322,
+        152
+      ],
+      "side": "left",
+      "ko": "테스트 헤드(Test Head)",
+      "en": "Test Head",
+      "descKey": "eds.equipment.testHead"
+    },
+    {
+      "id": "pogo-pin-unit",
+      "anchor": [
+        676,
+        221
+      ],
+      "leaderEnd": [
+        375,
+        216
+      ],
+      "side": "left",
+      "ko": "포고핀 유닛(Pogo Pin Unit)",
+      "en": "Pogo Pin Unit",
+      "descKey": "eds.equipment.pogoPinUnit"
+    },
+    {
+      "id": "probe-card-pcb",
+      "anchor": [
+        586,
+        248
+      ],
+      "leaderEnd": [
+        375,
+        280
+      ],
+      "side": "left",
+      "ko": "프로브카드(Probe Card PCB)",
+      "en": "Probe Card PCB",
+      "descKey": "eds.equipment.probeCardPcb"
+    },
+    {
+      "id": "space-transformer",
+      "anchor": [
+        746,
+        273
+      ],
+      "leaderEnd": [
+        445,
+        344
+      ],
+      "side": "left",
+      "ko": "스페이스 트랜스포머(Transformer)",
+      "en": "Space Transformer",
+      "descKey": "eds.equipment.spaceTransformer"
+    },
+    {
+      "id": "upper-guide-plate",
+      "anchor": [
+        736,
+        302
+      ],
+      "leaderEnd": [
+        349,
+        408
+      ],
+      "side": "left",
+      "ko": "상부 가이드(Upper Guide)",
+      "en": "Upper Guide Plate",
+      "descKey": "eds.equipment.upperGuidePlate"
+    },
+    {
+      "id": "probe-needle",
+      "anchor": [
+        750,
+        400
+      ],
+      "leaderEnd": [
+        338,
+        472
+      ],
+      "side": "left",
+      "ko": "프로브 침(Probe Needle)",
+      "en": "Probe Needle",
+      "descKey": "eds.equipment.probeNeedle"
+    },
+    {
+      "id": "lower-guide-plate",
+      "anchor": [
+        736,
+        469
+      ],
+      "leaderEnd": [
+        349,
+        536
+      ],
+      "side": "left",
+      "ko": "하부 가이드(Lower Guide)",
+      "en": "Lower Guide Plate",
+      "descKey": "eds.equipment.lowerGuidePlate"
+    },
+    {
+      "id": "wafer-chuck",
+      "anchor": [
+        636,
+        606
+      ],
+      "leaderEnd": [
+        325,
+        600
+      ],
+      "side": "left",
+      "ko": "웨이퍼 척(Wafer Chuck)",
+      "en": "Wafer Chuck",
+      "descKey": "eds.equipment.waferChuck"
+    },
+    {
+      "id": "scrub-mark",
+      "anchor": [
+        1030,
+        435
+      ],
+      "leaderEnd": [
+        1264,
+        380
+      ],
+      "side": "right",
+      "ko": "스크럽 마크(Scrub Mark)",
+      "en": "Scrub Mark",
+      "descKey": "eds.equipment.scrubMark"
+    },
+    {
+      "id": "overdrive",
+      "anchor": [
+        926,
+        445
+      ],
+      "leaderEnd": [
+        1267,
+        300
+      ],
+      "side": "right",
+      "ko": "오버드라이브(Overdrive)",
+      "en": "Overdrive",
+      "descKey": "eds.equipment.overdrive"
+    }
+  ],
+  "notes": [
+    {
+      "id": "inset-contact-title",
+      "anchor": [
+        1030,
+        300
+      ],
+      "leaderEnd": [
+        1046,
+        104
+      ],
+      "side": "left",
+      "ko": "확대 — 침 끝 · 본드 패드 접촉부 (오버드라이브 → 스크럽)",
+      "en": "Detail — probe tip and bond pad contact (overdrive to scrub)",
+      "tone": "info"
+    },
+    {
+      "id": "inset-drive-title",
+      "anchor": [
+        44,
+        566
+      ],
+      "leaderEnd": [
+        44,
+        566
+      ],
+      "side": "left",
+      "ko": "확대 — 웨이퍼 척 진공 흡착 · XYZθ 구동부",
+      "en": "Detail — wafer chuck vacuum hold and XYZ-theta stage",
+      "tone": "info"
+    },
+    {
+      "id": "pad-plan-view",
+      "anchor": [
+        1100,
+        351
+      ],
+      "leaderEnd": [
+        1310,
+        140
+      ],
+      "side": "left",
+      "ko": "인셋 우상단은 본드 패드 평면 — 침이 지나간 자리에 남은 스크럽 마크",
+      "en": "Top right of the detail view is a plan view of the bond pad, showing the scrub mark left where the tip travelled",
+      "tone": "info"
+    },
+    {
+      "id": "probe-type",
+      "anchor": [
+        1310,
+        632
+      ],
+      "leaderEnd": [
+        1310,
+        632
+      ],
+      "side": "left",
+      "ko": "침 형식은 수직형(버티컬)이다. 상·하 가이드 플레이트의 구멍이 서로 어긋나 있어 침이 미리 활처럼 휘고, 그 좌굴이 오버드라이브를 흡수한다 — 캔틸레버형·MEMS형이 아니다",
+      "en": "The probe type drawn is the vertical (buckling-beam) probe. The holes in the upper and lower guide plates are deliberately offset so each needle is pre-bowed, and that buckling absorbs the overdrive. It is not a cantilever or MEMS probe card",
+      "tone": "info"
+    },
+    {
+      "id": "overdrive-mechanism",
+      "anchor": [
+        1310,
+        676
+      ],
+      "leaderEnd": [
+        1310,
+        676
+      ],
+      "side": "left",
+      "ko": "인셋의 점선은 첫 접촉 시의 패드면, 실선은 오버드라이브 후의 패드면이다. 웨이퍼가 아래에서 위로 더 올라갈수록 침이 더 휘고 끝이 옆으로 밀린다",
+      "en": "In the detail view the dashed line is the pad surface at first touchdown and the solid line is the pad surface after overdrive. The wafer is pushed up from below, so the further it rises the more the needle deflects and the more its tip slides sideways",
+      "tone": "info"
+    },
+    {
+      "id": "scrub-no-puncture",
+      "anchor": [
+        1310,
+        720
+      ],
+      "leaderEnd": [
+        1310,
+        720
+      ],
+      "side": "left",
+      "ko": "침은 패드를 뚫지 않는다. 옆으로 미끄러지며 긁어 자연산화막만 벗기므로 자국은 구멍이 아니라 선이다",
+      "en": "The probe does not punch through the pad. It slides sideways and scrubs away only the native oxide, so the mark is a line rather than a hole",
+      "tone": "info"
+    },
+    {
+      "id": "partial-touchdown",
+      "anchor": [
+        1310,
+        764
+      ],
+      "leaderEnd": [
+        1310,
+        764
+      ],
+      "side": "left",
+      "ko": "침은 웨이퍼 전면을 한 번에 덮지 않는다. 일부 다이에만 동시에 접촉하고, 척이 다이 피치만큼 XY로 인덱스 이동하며 접촉을 반복한다",
+      "en": "The probes do not cover the whole wafer at once. They contact only a few dies at a time, and the chuck indexes in XY by the die pitch so the touchdown repeats across the wafer",
+      "tone": "info"
+    },
+    {
+      "id": "scale-exaggeration",
+      "anchor": [
+        1310,
+        808
+      ],
+      "leaderEnd": [
+        1310,
+        808
+      ],
+      "side": "left",
+      "ko": "가독성을 위한 과장이다. 도해상 웨이퍼 두께는 지름의 약 1/26이지만 실제는 약 1/400이다. 다이 피치와 침 굵기도 확대해 그렸다",
+      "en": "Dimensions are exaggerated for legibility. In the drawing the wafer thickness is about 1/35 of the wafer diameter, whereas the real ratio is about 1/400. The die pitch and the probe diameter are enlarged as well",
+      "tone": "warn"
+    },
+    {
+      "id": "no-unverified-numbers",
+      "anchor": [
+        40,
+        56
+      ],
+      "leaderEnd": [
+        40,
+        56
+      ],
+      "side": "left",
+      "ko": "수치를 넣지 않은 항목: 오버드라이브 µm 대 스크럽 길이 µm 환산식, 접촉저항 절대값(Ω), 척 온도 제어 범위. 조사에서 확인되지 않아 도해에 그리지 않았다",
+      "en": "Deliberately shown without numbers: the overdrive-to-scrub-length conversion, the absolute contact resistance in ohms, and the chuck temperature range. None of these were verified in the source survey, so they are not drawn",
+      "tone": "warn"
+    },
+    {
+      "id": "alignment-cameras",
+      "anchor": [
+        40,
+        100
+      ],
+      "leaderEnd": [
+        40,
+        100
+      ],
+      "side": "left",
+      "ko": "정렬에는 패드를 내려다보는 하향 카메라와, 척에 붙어 침 끝을 올려다보는 상향 카메라가 모두 필요하다. 한쪽만으로는 두 좌표계를 맞출 수 없다",
+      "en": "Alignment needs both a downward-looking camera that images the pads and a chuck-mounted upward-looking camera that images the probe tips. One camera alone cannot register the two coordinate systems",
+      "tone": "info"
+    }
+  ],
+  "noteMaxWidth": 420
+}

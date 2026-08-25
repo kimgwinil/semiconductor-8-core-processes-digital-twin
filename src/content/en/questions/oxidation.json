@@ -1,0 +1,183 @@
+{
+  "processId": "oxidation",
+  "items": [
+    {
+      "id": "oxidation-q01",
+      "type": "single",
+      "difficulty": "low",
+      "objectiveId": "LO-P2-01",
+      "stem": "Under the same temperature and time, which statement correctly compares dry oxidation (O2) and wet oxidation (H2O)?",
+      "choices": [
+        "Wet grows more slowly but the film is denser, so it is used for gate oxides",
+        "Dry grows faster, so it is used for thick field oxides for isolation",
+        "Wet grows faster and is used for thick field oxides; dry is slower but denser and used for thin gate oxides",
+        "The two growth rates are the same and only the reaction byproduct differs"
+      ],
+      "answer": 2,
+      "explanation": "Wet oxidation (Si + 2H2O -> SiO2 + 2H2) grows much faster than dry oxidation (Si + O2 -> SiO2) under the same conditions, but the resulting film is relatively less dense and has weaker dielectric breakdown characteristics. Thick field oxides for isolation are therefore grown wet, while thin, electrically critical gate oxides are grown dry. Note that thermally grown oxide is not porous in either case.",
+      "sourceId": "S127",
+      "weakTopic": "dry-wet-oxidation-comparison"
+    },
+    {
+      "id": "oxidation-q02",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P2-01",
+      "stem": "In the Deal-Grove model x_ox^2 + A*x_ox = B(t+tau), which step controls the growth rate once the oxide is sufficiently thick?",
+      "choices": [
+        "The rate of the chemical reaction at the Si/SiO2 interface",
+        "Diffusive transport of the oxidizing species through the already-grown oxide",
+        "Mass transfer across the stagnant gas boundary layer above the wafer",
+        "The number of adsorption sites available on the oxide surface"
+      ],
+      "answer": 1,
+      "explanation": "As the oxide thickens, the linear term A*x_ox becomes negligible compared with the quadratic term x_ox^2, giving x_ox^2 ~= B(t+tau), i.e. thickness growing with sqrt(t) in the parabolic regime. The parabolic rate constant B is proportional to the diffusion coefficient of the oxidizing species inside the oxide, so diffusive transport across the film is the rate-limiting step here. When the film is thin, the interface reaction is instead rate-limiting, giving the linear regime.",
+      "sourceId": "S120",
+      "weakTopic": "deal-grove-parabolic-regime"
+    },
+    {
+      "id": "oxidation-q03",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P2-02",
+      "stem": "Which pairing of a vertical batch oxidation furnace part with its function is incorrect?",
+      "choices": [
+        "Pyrogenic torch — burns H2 with O2 to generate steam for wet oxidation",
+        "Profile thermocouple — reads the process tube's inner temperature zone by zone for heater output correction",
+        "Quartz boat — loads wafers at even spacing so they receive uniform gas flow and radiant heat",
+        "Mass flow controller (MFC) — regulates exhaust valve opening to keep the process tube at atmospheric pressure"
+      ],
+      "answer": 3,
+      "explanation": "The MFC (mass flow controller) sets the flow rate of each gas line to a target value; maintaining tube pressure is a separate function handled by the exhaust line's pressure control valve. The pyrogenic torch burns H2 with O2 to produce high-purity steam, the profile thermocouple reads zone temperatures for heater correction, and boat wafer spacing directly affects thickness uniformity — the other three statements are all correct.",
+      "sourceId": "S127",
+      "weakTopic": "vertical-furnace-components"
+    },
+    {
+      "id": "oxidation-q04",
+      "type": "short",
+      "difficulty": "low",
+      "objectiveId": "LO-P2-02",
+      "stem": "Instead of loading many wafers into a batch furnace for a long heat, one method heats a single wafer with halogen-lamp radiation for seconds to tens of seconds to grow a thin gate oxide. Write the three-letter English abbreviation for this method.",
+      "answer": {
+        "accept": [
+          "RTO",
+          "rto",
+          "Rapid Thermal Oxidation",
+          "rapid thermal oxidation",
+          "급속열산화",
+          "급속 열산화",
+          "급속열 산화"
+        ]
+      },
+      "explanation": "RTO (Rapid Thermal Oxidation) radiantly heats a single wafer with a lamp array. Its small thermal mass allows fast ramps, which suits ultra-thin gate oxides that batch furnaces struggle to control. RTA uses the same lamp equipment but for annealing rather than oxidation, and RTP is an umbrella term for lamp-heated rapid thermal processes in general, so it does not name this specific oxidation step.",
+      "sourceId": "S121",
+      "weakTopic": "rapid-thermal-oxidation"
+    },
+    {
+      "id": "oxidation-q05",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P2-03",
+      "stem": "Under dry oxidation, all else fixed, temperature is raised from 900 degC to 1050 degC. Which outcome is correct?",
+      "choices": [
+        "The oxide thickens and the Si consumed also grows, staying about 0.44 times the oxide thickness",
+        "The oxide thickens but no Si is consumed, so the substrate surface position stays fixed",
+        "The oxide thickens and the Si consumed becomes about 2.27 times the oxide thickness",
+        "Oxide thickness is independent of temperature and depends only on oxidation time"
+      ],
+      "answer": 0,
+      "explanation": "Both the linear and parabolic rate constants increase with temperature following an Arrhenius form, so a higher temperature grows a thicker film in the same time. Thermal oxidation consumes substrate silicon, and the Si consumed is always 0.44 times the grown oxide thickness — a material-specific ratio set by the atomic densities of SiO2 and Si that does not change with temperature. The value 2.27 (=1/0.44) applies the ratio in the wrong direction.",
+      "sourceId": "S127",
+      "weakTopic": "oxidation-temperature-si-consumption"
+    },
+    {
+      "id": "oxidation-q06",
+      "type": "numeric",
+      "difficulty": "mid",
+      "objectiveId": "LO-P2-03",
+      "stem": "A blanket thermal oxidation grows 250 nm of SiO2 over the full front side of a (100) wafer with no mask. How many nm of silicon are consumed? (Use the ratio consumed Si : grown oxide = 0.44 : 1, and give the unit.)",
+      "answer": {
+        "value": 110,
+        "unit": "nm",
+        "tolerance": 0.05
+      },
+      "explanation": "x_Si = 0.44 * x_ox = 0.44 * 250 nm = 110 nm. Check: the oxide top surface rises 250 - 110 = 140 nm (= 0.56*250) above the original surface while the interface drops 110 nm below it, and the two sum to the total 250 nm thickness. Answering 0.56*250 = 140 confuses the surface rise with the consumed Si thickness and is therefore wrong.",
+      "sourceId": "S127",
+      "weakTopic": "si-consumption-calc"
+    },
+    {
+      "id": "oxidation-q07",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P2-04",
+      "stem": "An applied lab must satisfy three conditions at once: (a) field oxide thickness 400 +/- 20 nm, (b) wafer-to-wafer thickness spread 1 sigma <= 1.5%, (c) batch throughput at least 18 wafer/h. Starting from the default (dry O2, 1000 degC, 150 min), what adjustment is most appropriate?",
+      "choices": [
+        "Keep dry O2 and raise the temperature to 1150 degC to shorten the growth time",
+        "Switch to wet H2O, keep the temperature near 1000 degC, and target a time of about 65 min",
+        "Keep dry O2 and extend the oxidation time to 300 min",
+        "Switch to wet H2O and also raise the temperature to 1150 degC"
+      ],
+      "answer": 1,
+      "explanation": "Reaching 400 nm in a realistic time is impractical with dry oxidation, so switching to wet is the only way to satisfy both thickness and throughput. Because uniformity is sensitive to temperature, temperature should stay near 1000 degC. Raising temperature together with the switch meets thickness and throughput but breaks uniformity, and staying dry while extending time collapses throughput.",
+      "sourceId": "S127",
+      "weakTopic": "oxidation-recipe-tradeoff"
+    },
+    {
+      "id": "oxidation-q08",
+      "type": "numeric",
+      "difficulty": "high",
+      "objectiveId": "LO-P2-04",
+      "stem": "Use the Deal-Grove relation x_ox^2 + A*x_ox = B(t+tau), tau = (x_i^2 + A*x_i)/B. For a given oxidation condition, A = 0.165 um and B = 0.0117 um^2/h. Starting oxidation on a wafer that already has x_i = 0.020 um of oxide, how much time t is needed to reach a final thickness x_ox = 0.100 um? (Unit: hours)",
+      "answer": {
+        "value": 1.95,
+        "unit": "h",
+        "tolerance": 0.05
+      },
+      "explanation": "tau = (0.020^2 + 0.165*0.020)/0.0117 = 0.0037/0.0117 = 0.3162 h. (t+tau) = (0.100^2 + 0.165*0.100)/0.0117 = 0.0265/0.0117 = 2.2650 h. t = 2.2650 - 0.3162 = 1.95 h. Skipping the subtraction of tau gives 2.26 h, but tau is the fictitious time it would have taken to grow the pre-existing oxide from a bare wafer, so it must always be subtracted.",
+      "sourceId": "S120",
+      "weakTopic": "deal-grove-time-calc"
+    },
+    {
+      "id": "oxidation-q09",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P2-05",
+      "stem": "After an advanced lab batch, slot-by-slot oxide thickness measurements show a monotonically increasing straight-line profile from door-side slot 1 to gas-inlet-side slot 50, with 1 sigma of 3.2%. The average thickness is within spec. What is the most likely cause?",
+      "choices": [
+        "Piping-fitting leaks let moisture into the dry recipe",
+        "Zone heater calibration drifted, so some slots fell outside the flat-zone temperature",
+        "The ellipsometer's oxide refractive index setting was entered incorrectly",
+        "The wafers loaded in the boat had different crystal orientations slot to slot"
+      ],
+      "answer": 1,
+      "explanation": "The key clue is that the average is normal while the deviation is monotonic in slot position. Because oxidation rate is exponentially sensitive to temperature, if the tube's axial temperature profile drifts outside the flat zone with one end lower and the other higher, that gradient shows up directly as a thickness gradient across slots. Moisture contamination would shift the whole batch's average out of spec, and a measurement setting error would bias every slot equally, so neither produces a position-dependent slope.",
+      "sourceId": "S121",
+      "weakTopic": "furnace-temperature-uniformity"
+    },
+    {
+      "id": "oxidation-q10",
+      "type": "short",
+      "difficulty": "high",
+      "objectiveId": "LO-P2-05",
+      "stem": "During high-temperature oxidation, silicon self-interstitials are injected at the Si/SiO2 interface into the crystal and form a growing defect. Adding a halogen such as HCl to the oxidizing ambient, or oxidizing at higher temperature or pressure, can reduce its density. Give the English abbreviation or the formal Korean name of this defect.",
+      "answer": {
+        "accept": [
+          "OISF",
+          "oisf",
+          "OSF",
+          "osf",
+          "산화유기적층결함",
+          "산화 유기 적층결함",
+          "산화유도적층결함",
+          "산화 유도 적층결함",
+          "oxidation induced stacking fault",
+          "oxidation-induced stacking fault",
+          "Oxidation Induced Stacking Fault"
+        ]
+      },
+      "explanation": "Thermal oxidation does not consume silicon completely; it pushes some silicon atoms into the crystal as self-interstitials, which gather at existing defect nuclei and grow into a stacking fault caused by oxidation, hence OISF (Oxidation-Induced Stacking Fault). Adding HCl getters metallic impurities and reduces nucleation sites, and higher temperature or pressure also lowers the density. Writing only 'stacking fault' without the oxidation-induced qualifier is not accepted, since it fails to identify the specific cause.",
+      "sourceId": "S127",
+      "weakTopic": "oxidation-induced-stacking-fault"
+    }
+  ]
+}

@@ -1,0 +1,434 @@
+{
+  "processId": "metal",
+  "image": "cross-section.webp",
+  "viewBox": [
+    0,
+    0,
+    1600,
+    900
+  ],
+  "labels": [
+    {
+      "id": "dc-power-supply",
+      "anchor": [
+        494,
+        334
+      ],
+      "leaderEnd": [
+        356,
+        280
+      ],
+      "side": "left",
+      "ko": "DC 전원(DC Power Supply)",
+      "en": "DC Power Supply",
+      "descKey": "metal.equipment.dcPowerSupply"
+    },
+    {
+      "id": "spindle-rotation",
+      "anchor": [
+        591,
+        300
+      ],
+      "leaderEnd": [
+        428,
+        220
+      ],
+      "side": "left",
+      "ko": "회전 스핀들(Rotatable Spindle)",
+      "en": "Rotatable Spindle",
+      "descKey": "metal.equipment.spindleRotation"
+    },
+    {
+      "id": "clamshell-holder",
+      "anchor": [
+        538,
+        470
+      ],
+      "leaderEnd": [
+        415,
+        340
+      ],
+      "side": "left",
+      "ko": "클램셸 홀더(Clamshell Holder)",
+      "en": "Clamshell Holder",
+      "descKey": "metal.equipment.clamshellHolder"
+    },
+    {
+      "id": "wafer-face-down",
+      "anchor": [
+        630,
+        562
+      ],
+      "leaderEnd": [
+        331,
+        400
+      ],
+      "side": "left",
+      "ko": "웨이퍼 하향 배치(Wafer, Face-Down)",
+      "en": "Wafer, Face-Down",
+      "descKey": "metal.equipment.waferFaceDown"
+    },
+    {
+      "id": "contact-ring",
+      "anchor": [
+        549,
+        569
+      ],
+      "leaderEnd": [
+        314,
+        460
+      ],
+      "side": "left",
+      "ko": "접점 링(Contact Ring)",
+      "en": "Contact Ring",
+      "descKey": "metal.equipment.contactRing"
+    },
+    {
+      "id": "plating-bath",
+      "anchor": [
+        485,
+        600
+      ],
+      "leaderEnd": [
+        386,
+        520
+      ],
+      "side": "left",
+      "ko": "전해액·도금조(Plating Bath)",
+      "en": "Electrolyte Plating Bath",
+      "descKey": "metal.equipment.platingBath"
+    },
+    {
+      "id": "field-shield",
+      "anchor": [
+        510,
+        671
+      ],
+      "leaderEnd": [
+        338,
+        585
+      ],
+      "side": "left",
+      "ko": "필드 셰이핑 실드(Field-Shaping Shield)",
+      "en": "Field-Shaping Shield",
+      "descKey": "metal.equipment.fieldShield"
+    },
+    {
+      "id": "anode-membrane",
+      "anchor": [
+        540,
+        705
+      ],
+      "leaderEnd": [
+        388,
+        650
+      ],
+      "side": "left",
+      "ko": "애노드 격막(Anode Membrane)",
+      "en": "Anode Membrane (Partition)",
+      "descKey": "metal.equipment.anodeMembrane"
+    },
+    {
+      "id": "anode-cu",
+      "anchor": [
+        540,
+        750
+      ],
+      "leaderEnd": [
+        309,
+        714
+      ],
+      "side": "left",
+      "ko": "구리 애노드(Cu Anode)",
+      "en": "Soluble Cu Anode",
+      "descKey": "metal.equipment.anodeCu"
+    },
+    {
+      "id": "carrier-head",
+      "anchor": [
+        973,
+        431
+      ],
+      "leaderEnd": [
+        1238,
+        220
+      ],
+      "side": "right",
+      "ko": "캐리어 헤드(Carrier Head)",
+      "en": "Carrier Head",
+      "descKey": "metal.equipment.carrierHead"
+    },
+    {
+      "id": "slurry-arm",
+      "anchor": [
+        1100,
+        477
+      ],
+      "leaderEnd": [
+        1227,
+        400
+      ],
+      "side": "right",
+      "ko": "슬러리 공급 암(Slurry Arm)",
+      "en": "Slurry Delivery Arm",
+      "descKey": "metal.equipment.slurryArm"
+    },
+    {
+      "id": "zone-chambers",
+      "anchor": [
+        973,
+        568
+      ],
+      "leaderEnd": [
+        1188,
+        340
+      ],
+      "side": "right",
+      "ko": "존별 가압 챔버(Zone Chambers)",
+      "en": "Zoned Pressure Chambers",
+      "descKey": "metal.equipment.zoneChambers"
+    },
+    {
+      "id": "pad-conditioner",
+      "anchor": [
+        863,
+        577
+      ],
+      "leaderEnd": [
+        1227,
+        280
+      ],
+      "side": "right",
+      "ko": "패드 컨디셔너(Conditioner)",
+      "en": "Pad Conditioner",
+      "descKey": "metal.equipment.padConditioner"
+    },
+    {
+      "id": "flexible-membrane",
+      "anchor": [
+        973,
+        589
+      ],
+      "leaderEnd": [
+        1331,
+        465
+      ],
+      "side": "right",
+      "ko": "유연 멤브레인(Flexible Membrane)",
+      "en": "Flexible Membrane",
+      "descKey": "metal.equipment.flexibleMembrane"
+    },
+    {
+      "id": "wafer-face-down-cmp",
+      "anchor": [
+        973,
+        594
+      ],
+      "leaderEnd": [
+        1269,
+        528
+      ],
+      "side": "right",
+      "ko": "웨이퍼 하향 배치(Wafer, Face-Down)",
+      "en": "Wafer, Face-Down",
+      "descKey": "metal.equipment.waferFaceDownCmp"
+    },
+    {
+      "id": "retaining-ring",
+      "anchor": [
+        919,
+        608
+      ],
+      "leaderEnd": [
+        1212,
+        592
+      ],
+      "side": "right",
+      "ko": "리테이너 링(Retaining Ring)",
+      "en": "Retaining Ring",
+      "descKey": "metal.equipment.retainingRing"
+    },
+    {
+      "id": "polishing-pad",
+      "anchor": [
+        820,
+        613
+      ],
+      "leaderEnd": [
+        1225,
+        656
+      ],
+      "side": "right",
+      "ko": "폴리싱 패드(Polishing Pad)",
+      "en": "Polishing Pad",
+      "descKey": "metal.equipment.polishingPad"
+    },
+    {
+      "id": "platen",
+      "anchor": [
+        820,
+        710
+      ],
+      "leaderEnd": [
+        1378,
+        720
+      ],
+      "side": "right",
+      "ko": "플래튼(Platen)",
+      "en": "Platen",
+      "descKey": "metal.equipment.platen"
+    }
+  ],
+  "notes": [
+    {
+      "id": "panel-title-ecd",
+      "anchor": [
+        540,
+        58
+      ],
+      "leaderEnd": [
+        540,
+        58
+      ],
+      "side": "left",
+      "ko": "전해도금(ECD) 셀 — 회전 스핀들 축을 지나는 수직 종단면",
+      "en": "Electrochemical Deposition (ECD) Cell — vertical section through the spindle axis",
+      "tone": "info"
+    },
+    {
+      "id": "panel-title-cmp",
+      "anchor": [
+        1053,
+        58
+      ],
+      "leaderEnd": [
+        1053,
+        58
+      ],
+      "side": "right",
+      "ko": "CMP 폴리셔 — 플래튼 중심과 캐리어 헤드 중심을 지나는 수직 종단면",
+      "en": "CMP Polisher — vertical section through the platen and carrier head centres",
+      "tone": "info"
+    },
+    {
+      "id": "contact-count",
+      "anchor": [
+        170,
+        100
+      ],
+      "leaderEnd": [
+        170,
+        100
+      ],
+      "side": "left",
+      "ko": "접점 핑거는 웨이퍼 도금면 가장자리를 따라 원주 전체에 배치되고, 팁이 도금면을 긁도록 비틀려 있다. 개수는 실시예마다 다르다 — 한 실시예 180개, 다른 실시예 128개, 최소 16개. 단면에는 그중 일부만 그렸다.",
+      "en": "Contact fingers are arranged around the full circumference at the edge of the wafer plating surface, with tips twisted so they scrape the plating surface. The count varies by embodiment — 180 in one, 128 in another, at least 16. Only some are drawn in the section.",
+      "tone": "info"
+    },
+    {
+      "id": "bath-composition",
+      "anchor": [
+        170,
+        760
+      ],
+      "leaderEnd": [
+        170,
+        760
+      ],
+      "side": "left",
+      "ko": "전해액은 산성 황산구리 용액이라 푸른색이다. 참조 논문 조건: CuSO4·5H2O 0.88 M, H2SO4 0.54 M, HCl 50 ppm",
+      "en": "The bath is an acidic copper sulphate solution and is therefore blue. Reference conditions: 0.88 M CuSO4·5H2O, 0.54 M H2SO4, 50 ppm HCl.",
+      "tone": "info"
+    },
+    {
+      "id": "additives-not-shown",
+      "anchor": [
+        170,
+        812
+      ],
+      "leaderEnd": [
+        170,
+        812
+      ],
+      "side": "left",
+      "ko": "억제제(PEG+Cl-)·촉진제(SPS)·평탄제의 경쟁 흡착과 상향식 충전은 트렌치 스케일(수십~수백 nm) 현상이라, cm 스케일인 이 셀 단면에는 그리지 않았다. 별도 실습 시각화가 필요하다",
+      "en": "Competitive adsorption of suppressor (PEG + Cl-), accelerator (SPS) and leveler, and the resulting bottom-up superfill, occur at trench scale (tens to hundreds of nm). They are not drawn in this cell section, which is at cm scale; a separate visualisation is required.",
+      "tone": "warn"
+    },
+    {
+      "id": "ecd-unconfirmed",
+      "anchor": [
+        170,
+        864
+      ],
+      "leaderEnd": [
+        170,
+        864
+      ],
+      "side": "left",
+      "ko": "미확인이라 그리지 않은 것: 펄스·역펄스 전원 파형, 확산판의 구체 형상, 오버플로 위어 형상, 불용성 애노드 구성",
+      "en": "Not drawn because unconfirmed: pulse or reverse-pulse waveforms, the detailed form of a diffuser plate, the overflow weir geometry, and inert (insoluble) anode configurations.",
+      "tone": "warn"
+    },
+    {
+      "id": "rotation-undetermined",
+      "anchor": [
+        1430,
+        100
+      ],
+      "leaderEnd": [
+        1430,
+        100
+      ],
+      "side": "right",
+      "ko": "플래튼과 캐리어 헤드는 각각 회전하지만(예: 플래튼 87 rpm, 캐리어 38 rpm) 상대 회전 방향은 본 조사에서 확인하지 못했다. 회전 표시는 양끝 화살촉으로 그려 방향을 단정하지 않는다",
+      "en": "The platen and the carrier head each rotate (for example 87 rpm and 38 rpm), but their relative directions of rotation were not confirmed in this survey. Rotation is drawn with double-headed arcs so that no direction is asserted.",
+      "tone": "warn"
+    },
+    {
+      "id": "cmp-unconfirmed",
+      "anchor": [
+        1430,
+        760
+      ],
+      "leaderEnd": [
+        1430,
+        760
+      ],
+      "side": "right",
+      "ko": "미확인이라 그리지 않은 것: post-CMP 브러시 세정기 구조, 슬러리의 BTA 부식억제제, 에로전(erosion)의 정의",
+      "en": "Not drawn because unconfirmed: the structure of the post-CMP brush scrubber, BTA corrosion inhibitor in the slurry, and the definition of erosion.",
+      "tone": "warn"
+    },
+    {
+      "id": "scale-exaggeration",
+      "anchor": [
+        1430,
+        812
+      ],
+      "leaderEnd": [
+        1430,
+        812
+      ],
+      "side": "right",
+      "ko": "가독성을 위해 압축·과장한 비: 애노드 두께(실제 웨이퍼 두께의 20배 이상 -> 도해 약 13배), 애노드 격막 두께(실제 애노드의 1/20 이하 -> 도해 약 1/8), 플래튼 두께(실제 패드의 약 6배 -> 도해 약 4.1배), 유연 멤브레인 두께(실제 웨이퍼 두께의 약 1/3 -> 도해 약 1배)",
+      "en": "Ratios compressed or exaggerated for legibility: anode thickness (actually over 20x wafer thickness, drawn at about 13x), anode membrane thickness (actually under 1/20 of the anode, drawn at about 1/8), platen thickness (actually about 6x the pad, drawn at about 4.1x), and flexible membrane thickness (actually about 1/3 of wafer thickness, drawn at about 1x).",
+      "tone": "warn"
+    },
+    {
+      "id": "preston-equation",
+      "anchor": [
+        1430,
+        864
+      ],
+      "leaderEnd": [
+        1430,
+        864
+      ],
+      "side": "right",
+      "ko": "CMP 제거율은 프레스턴 식 MRR = k·P·V 를 따른다. P는 캐리어 헤드가 웨이퍼에 가하는 압력, V는 패드와 웨이퍼의 상대속도다",
+      "en": "The CMP removal rate follows the Preston equation MRR = k·P·V, where P is the pressure the carrier head applies to the wafer and V is the relative velocity between pad and wafer.",
+      "tone": "info"
+    }
+  ]
+}

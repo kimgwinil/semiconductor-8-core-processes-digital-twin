@@ -1,0 +1,17 @@
+{
+  "lab-basic": {
+    "intro": "A lab where you set up the test conditions for measuring a package's thermal resistance yourself. The same measurement method is called θJA in still air and θJMA once there is airflow — the name and the reference standard both change.",
+    "goal": "Use “Measured thermal resistance θ” (15–100 °C/W) and “Test heater power P_H” (0.5–3 W) to create the junction-temperature rise ΔT, and use “Wind-tunnel air velocity v” (0–10 m/s) and “Velocity measurement location” (0 = downstream · 1 = upstream) to check whether that measurement meets the standard.",
+    "passHint": "All three must be correct to pass. ① Junction-temperature rise ΔT must be 20 °C or more and 60 °C or less. ② Wind-tunnel velocity must be within the standard's range (under 10 m/s) — exceed it and the result becomes 0, a fail. ③ Velocity must have been measured upstream of the device — downstream gives 0, and this condition does not apply to still air."
+  },
+  "lab-applied": {
+    "intro": "A lab where you work out how long an opened moisture-barrier bag package can sit on the line. The verdict is based on exposure time, not moisture uptake.",
+    "goal": "Use “MSL level” (0 = Level 3 · 1 = 4 · 2 = 5 · 3 = 5a) and “Line exposure time after bag opening” (0–192 h) to see the remaining floor life, and use “Moisture-diffusion activation energy E_a” (0.3–0.48 eV) and “Mold compound filler” (0 = absent · 1 = present) to see whether accelerated soak applies.",
+    "passHint": "Both must be correct to pass. ① Remaining floor life must be 0 h or more — a negative value means the exposure time has exceeded the floor life, so the part cannot go straight into reflow. ② Accelerated-soak (60 °C / 60% RH) applicability must be 1 — 0 means the condition doesn't apply and the item fails."
+  },
+  "lab-advanced": {
+    "intro": "A lab where you design joint-verification tests and see the split between a test with a numeric pass criterion (die shear) and one without (solder ball shear).",
+    "goal": "Use “Concern” (0–5) and “Solder ball shear speed” (0.1–100 mm/s) for speed matching; use “Elapsed time after reflow” (1–24 h) and “Solder alloy” (0 = SnPb · 1 = lead-free) for test timing; and use “Die area” (1–100 ×10⁻⁴ in²) and “Applied die-shear force” (0–5 kg) for die-shear margin.",
+    "passHint": "All three must be correct to pass. ① Shear speed must match the concern (1). ② Elapsed time after reflow must fall within the standard's window (1 · SnPb 1–4 h · lead-free 1–24 h). ③ Die-shear margin (applied force minus required force) must be 0 kg or more. ① and ② give 0 on failure."
+  }
+}

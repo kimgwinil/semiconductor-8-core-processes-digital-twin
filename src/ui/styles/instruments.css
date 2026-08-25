@@ -1,0 +1,103 @@
+/**
+ * 계측기·스코프 패널 스타일.
+ *
+ * 🔴 **별도 파일로 둔 이유** — `index.css` 는 지금 다른 세션이 좌 사이드바 셸을 재구성하며
+ *    만지고 있다. 같은 파일을 둘이 만지면 충돌한다. 이 파일은 `LabScope.tsx`·`LabGauges.tsx` 가
+ *    직접 `import` 하므로 두 컴포넌트가 화면에 있는 한 반드시 함께 실린다(배럴 누락 사고가 불가능하다).
+ *
+ * 🔴 **색은 전부 `index.css` 의 토큰을 참조한다.** 여기서 색을 새로 정의하지 않는다 —
+ *    정의하면 다크/라이트 전환이 이 파일에서만 어긋난다. 폴백값은 토큰이 없을 때의 최후 수단이며
+ *    `index.css` 의 **라이트 값과 같은 값**으로 맞춰 둔다.
+ * 🔴 `@layer components` 에 넣는다 — `index.css` 의 레이어 순서에 그대로 얹힌다.
+ */
+
+@layer components {
+  /* ---------------- 스코프 패널 ---------------- */
+
+  .scope, .gauges {
+    background: var(--surface, #ffffff);
+    border: 1px solid var(--line, #d8dde5);
+    border-radius: var(--radius, 10px);
+    padding: 14px;
+    margin-block-start: 16px;
+  }
+
+  .scope__head { display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+  .scope__head h3 { margin: 0; }
+  .scope__lead { flex: 1 1 100%; font-size: 12px; color: var(--ink-2, #545b66); }
+  .scope__pick { display: flex; gap: 6px; align-items: center; font-size: 12px; margin-inline-start: auto; }
+  .scope__pick select {
+    font: inherit; font-size: 12px; padding: 3px 6px;
+    border: 1px solid var(--line, #d8dde5); border-radius: 6px;
+    background: var(--surface-2, #eef1f5); color: inherit;
+    max-inline-size: 220px;
+  }
+
+  /* 🔴 오버레이 정렬의 전부가 이 두 규칙에 있다.
+     `.scope__plot` 은 `position: relative` 이고 자식 `svg` 는 폭 100 % 이므로 높이가 종횡비로 정해진다.
+     오버레이는 `inset: 0` + **같은 viewBox·같은 preserveAspectRatio** 라 좌표계가 정의상 일치한다. */
+  .scope__plot { position: relative; }
+  .scope__overlay {
+    position: absolute; inset: 0;
+    inline-size: 100%; block-size: 100%;
+    pointer-events: none;           /* 아래 차트의 드래그 선택을 뺏지 않는다 */
+    color: var(--ink, #16191d);     /* 마커가 currentColor 를 쓴다 */
+  }
+
+  .scope__legend {
+    display: flex; flex-wrap: wrap; gap: 4px 16px;
+    margin-block-start: 8px; padding: 0; list-style: none;
+    font-size: 12px; color: var(--ink-2, #545b66);
+  }
+  .scope__legend li { display: flex; align-items: center; gap: 6px; }
+  .scope__swatch { inline-size: 24px; block-size: 12px; flex: none; }
+
+  .scope__readout {
+    display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: baseline;
+    margin-block-start: 8px; font-variant-numeric: tabular-nums; font-size: 14px;
+  }
+  .scope__now { color: var(--ink-2, #545b66); }
+  .scope__now--fail { color: var(--bad, #b3261e); font-weight: 700; }
+  .scope__blocked, .scope__note, .scope__empty {
+    flex: 1 1 100%; font-size: 11px; color: var(--ink-2, #545b66);
+  }
+  .scope__note { margin-block-start: 4px; }
+  /* 🔴 「이 축은 연속이 아니다」 — 참고 문구가 아니라 **사실 정정**이라 본문 색으로 낸다. */
+  .scope__discrete {
+    margin-block-start: 6px; font-size: 12px; color: var(--ink, #16191d);
+    padding: 6px 8px; border: 1px solid var(--line, #d8dde5); border-radius: 6px;
+    background: var(--surface-2, #eef1f5);
+  }
+
+  /* ---------------- 계측기 패널 ---------------- */
+
+  .gauges__lead { font-size: 12px; color: var(--ink-2, #545b66); margin-block-start: 2px; }
+  /* 판정이 많은 칸(심화 4~5개)에서도 세로로 늘어지지 않게 2열로 접는다. */
+  .gauges__list { display: grid; gap: 12px; grid-template-columns: minmax(0, 1fr); margin-block-start: 10px; }
+  @media (min-width: 720px) { .gauges__list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+  .gauge {
+    margin: 0; padding: 10px 12px;
+    border: 1px solid var(--line, #d8dde5); border-radius: 8px;
+    background: var(--surface-2, #eef1f5);
+    color: var(--ink, #16191d);        /* 바늘이 currentColor 를 쓴다 */
+    min-inline-size: 0;
+  }
+  .gauge--fail { border-color: var(--bad, #b3261e); }
+
+  .gauge__head { display: flex; flex-wrap: wrap; gap: 2px 8px; align-items: baseline; }
+  .gauge__name { flex: 1 1 120px; min-inline-size: 0; font-size: 13px; overflow-wrap: anywhere; }
+  .gauge__value { font-weight: 700; font-variant-numeric: tabular-nums; font-size: 14px; }
+  .gauge__value em { font-style: normal; font-weight: 400; font-size: 11px; color: var(--ink-2, #545b66); }
+  .gauge__flag { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 999px; border: 1px solid currentColor; }
+  .gauge__flag--ok { color: var(--ok, #1a7f4b); }
+  .gauge__flag--bad { color: var(--bad, #b3261e); }
+
+  /* 🔴 `preserveAspectRatio="none"` 이라 가로만 늘어난다 — 눈금자는 그래야 폭을 다 쓴다.
+     그래서 높이는 여기서 고정한다(늘어나면 바늘이 뚱뚱해진다). */
+  .gauge__svg { display: block; inline-size: 100%; block-size: 34px; margin-block-start: 6px; }
+
+  .gauge__scaleRow { display: flex; flex-wrap: wrap; gap: 2px 10px; font-size: 11px; color: var(--ink-2, #545b66); }
+  .gauge__spec { font-variant-numeric: tabular-nums; }
+  .gauge__outside { color: var(--bad, #b3261e); font-weight: 700; }
+}

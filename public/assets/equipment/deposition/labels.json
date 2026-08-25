@@ -1,0 +1,495 @@
+{
+  "processId": "deposition",
+  "image": "cross-section.webp",
+  "viewBox": [
+    0,
+    0,
+    1600,
+    900
+  ],
+  "noteMaxWidth": 420,
+  "labels": [
+    {
+      "id": "overhang",
+      "anchor": [
+        603,
+        194
+      ],
+      "leaderEnd": [
+        248,
+        120
+      ],
+      "side": "left",
+      "ko": "오버행(Overhang)",
+      "en": "Trench Overhang",
+      "descKey": "deposition.equipment.overhang"
+    },
+    {
+      "id": "void",
+      "anchor": [
+        620,
+        228
+      ],
+      "leaderEnd": [
+        195,
+        196
+      ],
+      "side": "left",
+      "ko": "보이드(Void)",
+      "en": "Void",
+      "descKey": "deposition.equipment.void"
+    },
+    {
+      "id": "magnet-array",
+      "anchor": [
+        591,
+        360
+      ],
+      "leaderEnd": [
+        346,
+        272
+      ],
+      "side": "left",
+      "ko": "마그넷 어레이(Magnetron)",
+      "en": "Magnetron Magnet Array",
+      "descKey": "deposition.equipment.magnetArray"
+    },
+    {
+      "id": "cathode-power",
+      "anchor": [
+        460,
+        375
+      ],
+      "leaderEnd": [
+        309,
+        348
+      ],
+      "side": "left",
+      "ko": "캐소드 전원(DC Power)",
+      "en": "DC Cathode Power",
+      "descKey": "deposition.equipment.cathodePower"
+    },
+    {
+      "id": "backing-plate",
+      "anchor": [
+        660,
+        389
+      ],
+      "leaderEnd": [
+        314,
+        424
+      ],
+      "side": "left",
+      "ko": "백킹판(Backing Plate)",
+      "en": "Backing Plate",
+      "descKey": "deposition.equipment.backingPlate"
+    },
+    {
+      "id": "erosion-track",
+      "anchor": [
+        540,
+        414
+      ],
+      "leaderEnd": [
+        298,
+        500
+      ],
+      "side": "left",
+      "ko": "침식 트랙(Racetrack)",
+      "en": "Erosion Racetrack",
+      "descKey": "deposition.equipment.erosionTrack"
+    },
+    {
+      "id": "sputter-target",
+      "anchor": [
+        620,
+        420
+      ],
+      "leaderEnd": [
+        283,
+        652
+      ],
+      "side": "left",
+      "ko": "스퍼터 타깃(Target)",
+      "en": "Sputter Target",
+      "descKey": "deposition.equipment.sputterTarget"
+    },
+    {
+      "id": "plasma-torus",
+      "anchor": [
+        540,
+        462
+      ],
+      "leaderEnd": [
+        331,
+        576
+      ],
+      "side": "left",
+      "ko": "고밀도 플라즈마(Plasma)",
+      "en": "High-Density Plasma",
+      "descKey": "deposition.equipment.plasmaTorus"
+    },
+    {
+      "id": "wafer-pedestal",
+      "anchor": [
+        603,
+        592
+      ],
+      "leaderEnd": [
+        333,
+        728
+      ],
+      "side": "left",
+      "ko": "페디스털 전극(Pedestal)",
+      "en": "Pedestal Electrode",
+      "descKey": "deposition.equipment.waferPedestal"
+    },
+    {
+      "id": "vacuum-pump",
+      "anchor": [
+        535,
+        762
+      ],
+      "leaderEnd": [
+        325,
+        804
+      ],
+      "side": "left",
+      "ko": "진공 펌프(Vacuum Pump)",
+      "en": "Vacuum Pumping System",
+      "descKey": "deposition.equipment.vacuumPump"
+    },
+    {
+      "id": "angle-corrector",
+      "anchor": [
+        1073,
+        544
+      ],
+      "leaderEnd": [
+        1254,
+        456
+      ],
+      "side": "right",
+      "ko": "평행화 마그넷(Corrector)",
+      "en": "Parallelizing Magnet",
+      "descKey": "deposition.equipment.angleCorrector"
+    },
+    {
+      "id": "beam-scanner",
+      "anchor": [
+        1034,
+        549
+      ],
+      "leaderEnd": [
+        1328,
+        394
+      ],
+      "side": "right",
+      "ko": "빔 스캐너(Scanner)",
+      "en": "Beam Scanner",
+      "descKey": "deposition.equipment.beamScanner"
+    },
+    {
+      "id": "resolving-slit",
+      "anchor": [
+        940,
+        561
+      ],
+      "leaderEnd": [
+        1302,
+        332
+      ],
+      "side": "right",
+      "ko": "질량 슬릿(Mass Slit)",
+      "en": "Mass Resolving Slit",
+      "descKey": "deposition.equipment.resolvingSlit"
+    },
+    {
+      "id": "tilted-wafer",
+      "anchor": [
+        1131,
+        570
+      ],
+      "leaderEnd": [
+        1304,
+        518
+      ],
+      "side": "right",
+      "ko": "틸트 웨이퍼(7° Tilt)",
+      "en": "7° Tilted Wafer",
+      "descKey": "deposition.equipment.tiltedWafer"
+    },
+    {
+      "id": "analyzer-magnet",
+      "anchor": [
+        849,
+        579
+      ],
+      "leaderEnd": [
+        1269,
+        270
+      ],
+      "side": "right",
+      "ko": "질량분석 마그넷(Magnet)",
+      "en": "Mass Analyzing Magnet",
+      "descKey": "deposition.equipment.analyzerMagnet"
+    },
+    {
+      "id": "accel-column",
+      "anchor": [
+        984,
+        580
+      ],
+      "leaderEnd": [
+        1299,
+        704
+      ],
+      "side": "right",
+      "ko": "가속관(Accel Column)",
+      "en": "Accel/Decel Column",
+      "descKey": "deposition.equipment.accelColumn"
+    },
+    {
+      "id": "neutral-trap",
+      "anchor": [
+        1101,
+        607
+      ],
+      "leaderEnd": [
+        1320,
+        580
+      ],
+      "side": "right",
+      "ko": "중성입자 트랩(Trap)",
+      "en": "Neutral Beam Trap",
+      "descKey": "deposition.equipment.neutralTrap"
+    },
+    {
+      "id": "flood-gun",
+      "anchor": [
+        1129,
+        615
+      ],
+      "leaderEnd": [
+        1315,
+        642
+      ],
+      "side": "right",
+      "ko": "플러드건(Flood Gun)",
+      "en": "Electron Flood Gun",
+      "descKey": "deposition.equipment.floodGun"
+    },
+    {
+      "id": "extraction-electrode",
+      "anchor": [
+        850,
+        711
+      ],
+      "leaderEnd": [
+        1288,
+        766
+      ],
+      "side": "right",
+      "ko": "추출 전극(Extraction)",
+      "en": "Extraction Electrode",
+      "descKey": "deposition.equipment.extractionElectrode"
+    },
+    {
+      "id": "ion-source",
+      "anchor": [
+        850,
+        791
+      ],
+      "leaderEnd": [
+        1326,
+        828
+      ],
+      "side": "right",
+      "ko": "이온원(Ion Source)",
+      "en": "Arc Ion Source",
+      "descKey": "deposition.equipment.ionSource"
+    }
+  ],
+  "notes": [
+    {
+      "id": "panel-left-title",
+      "anchor": [
+        603,
+        46
+      ],
+      "leaderEnd": [
+        603,
+        46
+      ],
+      "side": "left",
+      "ko": "좌 패널 — PVD 마그네트론 스퍼터 챔버. 챔버 중심축을 지나는 수직 종단면이며, 타깃이 천장(음극)에 웨이퍼가 바닥에 마주보고 놓인다",
+      "en": "Left panel — magnetron sputter (PVD) chamber, a vertical section through the chamber axis. The target hangs from the ceiling as the cathode and faces the wafer on the floor",
+      "tone": "info"
+    },
+    {
+      "id": "panel-right-title",
+      "anchor": [
+        1000,
+        60
+      ],
+      "leaderEnd": [
+        1000,
+        60
+      ],
+      "side": "right",
+      "ko": "우 패널 — 중전류 이온주입기 빔라인. 빔이 지나는 평면을 위에서 본 배치도이며, 90° 편향 질량분석 마그넷에서 L자로 접었다. 순서는 이온원 → 추출 → 질량분석 → 슬릿 → 가속 → 스캔 → 평행화 → 중화 → 웨이퍼다",
+      "en": "Right panel — medium-current ion implanter beamline, a plan view of the beam plane folded at the 90-degree analyzing magnet. The order is ion source, extraction, mass analysis, resolving slit, acceleration, scanning, parallelizing, neutralization, wafer",
+      "tone": "info"
+    },
+    {
+      "id": "stepcov-inset-title",
+      "anchor": [
+        616,
+        86
+      ],
+      "leaderEnd": [
+        616,
+        86
+      ],
+      "side": "left",
+      "ko": "인셋(좌상) — 스텝 커버리지 확대. 트렌치 입구의 오버행과 그 아래 갇힌 보이드",
+      "en": "Inset (upper left) — step-coverage detail: the overhang at the trench entrance and the void trapped beneath it",
+      "tone": "info"
+    },
+    {
+      "id": "profile-inset-title",
+      "anchor": [
+        1002,
+        100
+      ],
+      "leaderEnd": [
+        1002,
+        100
+      ],
+      "side": "right",
+      "ko": "인셋(우상) — 주입 깊이 분포. 가로축은 표면에서의 깊이, 세로축은 도펀트 농도이며 세 곡선은 에너지가 다른 세 조건이다",
+      "en": "Inset (upper right) — implant depth profile. The horizontal axis is depth from the surface, the vertical axis is dopant concentration, and the three curves are three different implant energies",
+      "tone": "info"
+    },
+    {
+      "id": "magnetic-rigidity",
+      "anchor": [
+        849,
+        579
+      ],
+      "leaderEnd": [
+        1120,
+        300
+      ],
+      "side": "right",
+      "ko": "가벼운 이온일수록 곡률 반경이 작아 더 많이 휜다. 자기장 안에서 이온은 F = qvB 를 받아 원호를 그리고, 그 반경은 자기강성 B·r = p/q = √(2mE/n²e) 로 정해진다. 그림의 세 궤적 중 가운데 하나만 질량 슬릿을 통과하고 나머지 둘은 마스크에 막힌다. BF₃ 소스의 정규화 강성 실측 예: ¹¹B⁺ 1.000 / ¹⁰B⁺ 0.953 / ¹⁹F⁺ 1.314 / ¹¹BF₂⁺ 2.111 — 값이 클수록 덜 휜다. 「무거운 이온이 더 휜다」는 흔한 오답이며 정반대다",
+      "en": "The lighter the ion, the smaller its radius of curvature and the more it bends. In a magnetic field an ion feels F = qvB and follows a circular arc whose radius is set by the magnetic rigidity B·r = p/q = sqrt(2mE/n^2 e). Of the three trajectories drawn, only the middle one passes the mass resolving slit while the other two are stopped by the mask. Measured normalized rigidities for a BF3 source: 11B+ 1.000, 10B+ 0.953, 19F+ 1.314, 11BF2+ 2.111 — a larger value means less bending. The common error, that heavier ions bend more, is exactly backwards",
+      "tone": "info"
+    },
+    {
+      "id": "racetrack-erosion",
+      "anchor": [
+        540,
+        414
+      ],
+      "leaderEnd": [
+        460,
+        473
+      ],
+      "side": "left",
+      "ko": "레이스트랙 침식 — 타깃 뒤 마그넷이 만드는 자력선 아치가 그 아래에만 플라즈마를 가두므로, 타깃 아랫면의 그 고리 자리만 계속 파여 링 모양 침식 트랙이 생긴다. 타깃 중심과 맨 가장자리는 거의 그대로 남아 타깃 이용률이 100%가 되지 못하며, 홈이 뒷면까지 뚫리기 직전에 교체한다. 홈 중심은 타깃 반지름의 약 2/3 지점이다",
+      "en": "Racetrack erosion — the arch of field lines produced by the magnets behind the target confines the plasma only beneath that arch, so only that ring-shaped band of the target face keeps eroding, forming a racetrack groove. The target centre and outer rim stay almost untouched, so target utilization never reaches 100 percent, and the target is replaced just before the groove punches through to the back surface. The groove sits at roughly two thirds of the target radius",
+      "tone": "info"
+    },
+    {
+      "id": "line-of-sight",
+      "anchor": [
+        603,
+        505
+      ],
+      "leaderEnd": [
+        460,
+        565
+      ],
+      "side": "left",
+      "ko": "직진성(line-of-sight) — 타깃에서 튀어나온 것은 전기적으로 중성인 원자라 전기장에 휘지 않고 직선으로 날아간다. 그래서 시선이 닿지 않는 트렌치 측벽 아래는 얇게 남고, 입구 모서리에는 처마처럼 오버행이 자라 끝내 입구가 막히면서 안쪽에 보이드가 갇힌다. 종횡비가 커질수록 자기 그림자 때문에 급격히 나빠지며, 이것이 PVD의 스텝 커버리지가 나쁜 근본 이유다",
+      "en": "Line-of-sight deposition — what leaves the target is an electrically neutral atom, so it is not deflected by fields and travels in a straight line. Trench sidewalls and floors that the target cannot see stay thin, an overhang grows like an eave at the entrance corner, and once the entrance pinches shut a void is sealed inside. The higher the aspect ratio the worse this becomes through self-shadowing, and this is the root reason PVD step coverage is poor",
+      "tone": "info"
+    },
+    {
+      "id": "implant-profile",
+      "anchor": [
+        986,
+        266
+      ],
+      "leaderEnd": [
+        1120,
+        200
+      ],
+      "side": "right",
+      "ko": "주입 깊이 분포 — 농도는 표면이 아니라 표면 아래 어느 깊이에서 최대가 된다. 그 깊이가 투영 비정 Rp 이고, 봉우리의 퍼짐이 산포 ΔRp 다. 에너지를 올리면 봉우리가 깊어지고(Rp↑) 동시에 넓어지며(ΔRp↑), 도즈를 올리면 위치와 모양은 대체로 그대로인 채 봉우리 높이만 올라간다. 표면에서 최대가 되는 모양은 확산 도핑의 모양이지 주입의 모양이 아니다",
+      "en": "Implant depth profile — the concentration peaks not at the surface but at some depth below it. That depth is the projected range Rp and the spread of the peak is the straggle dRp. Raising the energy pushes the peak deeper (Rp up) and also broadens it (dRp up), while raising the dose mostly leaves position and shape alone and simply raises the peak height. A profile that peaks at the surface is the shape of diffusion doping, not of implantation",
+      "tone": "info"
+    },
+    {
+      "id": "static-image-note",
+      "anchor": [
+        847,
+        700
+      ],
+      "leaderEnd": [
+        1120,
+        660
+      ],
+      "side": "right",
+      "ko": "이 그림은 정지 구조도다. 빔의 굵기·밝기, 플라즈마 덩어리의 밝기, 스퍼터 궤적 화살표의 길이는 값이 아니다 — 빔 세기와 플라즈마 밀도는 이미지에 굽지 않았고 실습 오버레이가 파라미터에 따라 그린다. 인셋의 세 가우시안도 상대 관계를 보이기 위한 형상이며 축에 눈금 수치를 넣지 않았다",
+      "en": "This is a static structural drawing. The thickness and brightness of the beam, the brightness of the plasma, and the length of the sputter-trajectory arrows carry no quantitative meaning — beam current and plasma density are not baked into the image and are drawn by the interactive overlay from its parameters. The three Gaussians in the inset likewise show relative behaviour only and their axes carry no numeric ticks",
+      "tone": "warn"
+    },
+    {
+      "id": "shutter-omitted",
+      "anchor": [
+        603,
+        520
+      ],
+      "leaderEnd": [
+        460,
+        616
+      ],
+      "side": "left",
+      "ko": "PVD 셔터를 그리지 않았다. 타깃과 웨이퍼 사이에서 여닫혀 프리스퍼터 중 웨이퍼를 가리는 판이지만, 조사에서 그 구조를 부호로 명시한 공개 특허를 확보하지 못했다(미확인 U-13). 근거 없이 그리지 않는다는 원칙에 따라 뺐으며, 근거가 확보되면 추가한다",
+      "en": "The PVD shutter is not drawn. It is the plate that opens and closes between target and wafer to mask the wafer during pre-sputtering, but the survey could not find a published patent that identifies its structure by reference numeral (open item U-13). It was omitted under the rule that nothing is drawn without evidence, and will be added once evidence is secured",
+      "tone": "warn"
+    },
+    {
+      "id": "implanter-omitted",
+      "anchor": [
+        850,
+        791
+      ],
+      "leaderEnd": [
+        1120,
+        778
+      ],
+      "side": "right",
+      "ko": "이온주입기에서 4중극 렌즈, 플래튼의 트위스트(방위각 회전) 축, 이온원 내부(간접가열 캐소드·리펠러·소스 마그넷)를 그리지 않았다. 존재와 역할은 서술 근거가 있으나 도면 부호를 확보하지 못했다(미확인 U-14). 이온원은 외곽 챔버와 플라즈마까지만 그렸고 내부는 비웠다. 패러데이 컵도 배치가 기종별로 달라 그리지 않았다",
+      "en": "In the implanter the quadrupole lenses, the platen twist (azimuthal rotation) axis, and the interior of the ion source (indirectly heated cathode, repellers, source magnet) are not drawn. Their existence and role are supported by descriptive sources but no drawing reference numerals could be secured (open item U-14). The ion source is drawn only as far as its outer chamber and plasma, with the interior left empty. The Faraday cup is also omitted because its placement differs between tool generations",
+      "tone": "warn"
+    },
+    {
+      "id": "ald-not-drawn",
+      "anchor": [
+        800,
+        96
+      ],
+      "leaderEnd": [
+        460,
+        96
+      ],
+      "side": "left",
+      "ko": "이 한 장은 PVD와 이온주입 2패널이다. 같은 공정에 속하는 PECVD와 ALD는 공정당 이미지 1장 규칙 때문에 담지 못했다. 특히 ALD 온도창 그래프는 앞으로 그리더라도 축에 온도 숫자를 넣을 수 없다 — 4개 이탈 모드의 구조는 확인됐으나 대표 온도 구간은 화학계마다 달라 원문 확인에 실패했다(미확인 U-8)",
+      "en": "This single frame carries two panels, PVD and ion implantation. PECVD and ALD, which belong to the same process step, could not be included under the one-image-per-process rule. In particular, an ALD temperature-window graph must carry no numeric temperature ticks even if it is drawn later — the structure of the four departure modes is confirmed, but the representative temperature range differs by chemistry and the primary source could not be reached (open item U-8)",
+      "tone": "warn"
+    }
+  ]
+}

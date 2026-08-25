@@ -1,0 +1,311 @@
+{
+  "processId": "oxidation",
+  "theory": {
+    "title": "Theory",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "Thermal oxidation is the process of exposing a silicon wafer to high-temperature oxygen or steam to obtain a silicon dioxide (SiO2) film on its surface. This film is not deposited on top of the wafer — it grows by consuming the substrate silicon itself as its source material. Because of this, the Si/SiO2 interface has never been exposed to outside air, giving it the best interface quality among all dielectric films."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Dry Oxidation and Wet Oxidation"
+      },
+      {
+        "type": "p",
+        "text": "Dry oxidation uses molecular oxygen, Si + O2 -> SiO2, while wet oxidation uses steam, Si + 2H2O -> SiO2 + 2H2. Because forming one molecule of SiO2 by the wet reaction requires two molecules of oxidizing species, the oxidizing-species density N1 is twice that of dry oxidation — but steam diffuses through the oxide far more readily, so the net result is much faster. In the reference coefficient tables (S120 Table I/II), the parabolic rate constant B at 1000 °C is 0.0117 for dry and 0.287 µm²/h for wet — roughly a 24x difference. In exchange, the wet film is less dense and has weaker dielectric properties, so thick field oxides are grown wet while thin gate oxides are grown dry."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Deal-Grove Relation"
+      },
+      {
+        "type": "p",
+        "text": "The oxidizing species must pass through three gates. It crosses the stagnant gas-phase boundary layer above the wafer, diffuses down through the oxide already grown, and reacts at the Si/SiO2 interface. Because the three steps are in series, the slowest one sets the overall rate."
+      },
+      {
+        "type": "formula",
+        "latex": "x_ox² + A·x_ox = B·(t + τ)",
+        "sourceId": "S120",
+        "caption": "The Deal-Grove linear-parabolic relation. The first-order term represents the interface reaction and the second-order term represents diffusion through the oxide."
+      },
+      {
+        "type": "formula",
+        "latex": "x_ox = (A/2)·[√(1 + 4B(t + τ)/A²) − 1]",
+        "sourceId": "S120",
+        "caption": "The explicit solution for x_ox from the equation above (Eq. 13 in the original paper). The thickness calculation on the lab screen is exactly this equation."
+      },
+      {
+        "type": "formula",
+        "latex": "A = 2D(1/k_s + 1/h_G)     B = 2·D·H·P_G/N₁     τ = (x_i² + A·x_i)/B",
+        "sourceId": "S127",
+        "caption": "D is the diffusion coefficient inside the oxide, k_s is the interface reaction rate constant, h_G is the gas-phase mass transfer coefficient, P_G is the partial pressure of the oxidizing species, and N₁ is the number of oxidizing-species molecules incorporated per unit volume of oxide (2.2×10²²/cm³ for dry, 4.4×10²²/cm³ for wet)."
+      },
+      {
+        "type": "p",
+        "text": "This equation behaves differently at the two extremes. When the film is thin, the second-order term can be dropped, so thickness grows nearly in proportion to time; the slope B/A is called the linear rate constant, and the rate-limiting step is the interface reaction. As the film thickens, the first-order term can instead be dropped, so thickness grows as √t; this B is called the parabolic rate constant, and the rate-limiting step is diffusion across the oxide. The transition thickness where the two terms become equal is x_ox ≈ A."
+      },
+      {
+        "type": "formula",
+        "latex": "x_ox ≈ (B/A)(t + τ)          x_ox² ≈ B(t + τ)",
+        "sourceId": "S127",
+        "caption": "The left is the thin-film approximation and the right is the thick-film approximation. In the parabolic regime, doubling the time only increases the thickness by about √2."
+      },
+      {
+        "type": "p",
+        "text": "τ is the hypothetical time it would have taken to grow the pre-existing oxide x_i from bare silicon — in other words, a correction that shifts the time axis forward. τ is pronounced for dry oxidation, with the measured table giving 0.37 h at 1000 °C and 1.40 h at 920 °C, whereas for wet oxidation it is 0 at every temperature. This value is used exactly as tabulated — recomputing it from x_i and adding it again would double-count the initial oxide."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "The oxide does not pile up on top of the silicon — it grows by consuming silicon. 0.44 times the grown thickness disappears as consumed silicon, and the remaining 0.56 times shows up as the surface rising, so the interface keeps moving downward for as long as oxidation continues. This is the decisive difference between a thermally grown oxide and a deposited film."
+      },
+      {
+        "type": "formula",
+        "latex": "x_Si = 0.44 × x_ox",
+        "sourceId": "S121",
+        "caption": "Thickness of silicon consumed. This value comes from the molar-density ratio of SiO2 to Si, so it does not change with temperature or ambient."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "What Changes the Thickness"
+      },
+      {
+        "type": "p",
+        "text": "Temperature is the strongest lever. Both B and B/A follow an Arrhenius form, so in the dry-oxidation measured table B grows from 0.0049 at 920 °C to 0.027 µm²/h at 1100 °C. Calculations, however, are made only at the temperatures actually measured in the table — interpolating an untabulated temperature would make the product claim a value that appears nowhere in the literature. The model's valid range is also limited to 700–1300 °C and 300–20,000 Å."
+      },
+      {
+        "type": "p",
+        "text": "Crystal orientation also changes the thickness. The ⟨111⟩ plane grows 1.68 times faster (linear growth) than the ⟨100⟩ plane (S121 Table 4.4, 5 measured points). This dependence affects only the linear term — the parabolic coefficient B is independent of orientation, because diffusion happens inside the oxide, which has no way of knowing which plane lies beneath it. The lab wafer uses the MOS-standard ⟨100⟩ orientation."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "What the Next Labs Let You Move"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Basic — move only \"Oxidation temperature\" (°C) and \"Oxidation time\" (min, 10–300) to bring \"Oxide thickness x_ox\" into the 95–105 nm range. The ambient is fixed at dry O2 and the orientation at ⟨100⟩; \"Silicon consumed x_Si\" and \"Surface rise x_up\" are displayed alongside.",
+          "Applied — use the four parameters \"Oxidation temperature T\", \"Ambient M\", \"Oxidation time t\", and \"Oxidant flow Q\" (slm) to simultaneously hit a thickness of 380–420 nm, a \"Wafer-to-wafer thickness spread σ\" of 1.5% or less, and a \"Batch throughput TP\" of at least 18 wafer/h.",
+          "Advanced — \"Ramp rate R\", \"HCl concentration C\", \"Leak check and N2 purge\", \"Dummy wafers per end\", \"Temperature stabilization time\", and \"Fault scenario\" are added, bringing the total to ten. From the outputs alone, you diagnose which of scenario 0 (normal), 1 (temperature gradient), 2 (moisture ingress), 3 (metal contamination), or 4 (moisture + contamination) is in effect, and restore all five indicators together."
+        ]
+      }
+    ]
+  },
+  "overview": {
+    "title": "Process Overview",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "Oxidation is the second of the eight major processes. It coats the single-crystal wafer made in P1 with an oxide film and hands it off to P3 Photolithography. The oxide film carries out three jobs — a gate dielectric, a field oxide that blocks ion implantation/diffusion and isolates devices from one another, and a surface protection layer."
+      },
+      {
+        "type": "p",
+        "text": "The path taken depends on the application. The gate oxide must be thin and dense, so it is grown by the slow dry process; the field oxide must be thick, so it is grown by the fast wet process. The 95–105 nm targeted by the basic lab is gate-oxide-grade thickness, and the 380–420 nm targeted by the applied lab is field-oxide-grade thickness."
+      },
+      {
+        "type": "p",
+        "text": "LOCOS (LOCal Oxidation of Silicon) is used for device isolation. A nitride film is deposited over a thin pad oxide, and only the areas meant to grow are opened; a thick oxide then grows only there. As it grows, the oxide encroaches under the edge of the nitride mask, forming the beak-shaped intrusion known as the bird's beak, which reduces the usable device width by that amount. The pad oxide buffers the stress between the nitride film and the silicon."
+      },
+      {
+        "type": "p",
+        "text": "In a batch-type vertical oxidation furnace, one batch proceeds through the following sequence."
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Load wafers onto the boat. Dummy wafers at the top and bottom ends match the conditions of the end slots.",
+          "Raise the boat to seal the tube, then purge with N2 to drive out residual oxygen and moisture.",
+          "Ramp up to the set temperature. Ramping too fast causes slip from thermal stress.",
+          "Stabilize the temperature. Wait until the profile thermocouple settles at the setpoint.",
+          "Introduce the ambient. Dry oxidation feeds O2 directly; wet oxidation feeds steam produced by burning H2 with O2. The film grows during this stage.",
+          "Cut off the oxidizing species, purge/anneal with N2, then ramp down the temperature.",
+          "Lower the boat to unload it, then measure the thickness slot by slot."
+        ]
+      },
+      {
+        "type": "note",
+        "tone": "info",
+        "text": "Thin gate oxides are sometimes grown not in a batch but by Rapid Thermal Oxidation (RTO), which heats a single wafer with lamp radiation. This method heats one wafer almost instantaneously, reducing its thermal history."
+      }
+    ]
+  },
+  "equipment": {
+    "title": "Equipment Structure",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "The diagram is a vertical cross-section of a vertical batch oxidation furnace. Fixing a reading order keeps things clear — start at the outer shell and move inward to the reaction space, then within that space move from top to bottom."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Outer Shell — the Heat-Containing Layers"
+      },
+      {
+        "type": "p",
+        "text": "The outermost layer is the insulating jacket and metal shell. Ceramic insulation keeps the heat inside the furnace from leaking out. If the insulation degrades, heat escapes first near the furnace door, tilting the temperature along the tube's axial direction — and that tilt shows up as a slot-by-slot thickness difference."
+      },
+      {
+        "type": "p",
+        "text": "Inside that, a resistive heating element surrounds the quartz tube. Rather than being one solid block, it is divided into zones controlled independently, and these zones must support one another for the temperature to stay flat across the height range where the wafers sit. Even if just one zone's output drifts, the thickness at the top and bottom of the boat splits into distinct layers."
+      },
+      {
+        "type": "p",
+        "text": "The eyes that measure temperature are split between two locations. The spike thermocouple is attached between the heating element and the quartz tube and watches the heater-side temperature, while the profile thermocouple has contact points arranged vertically inside the quartz tube to measure the actual zone-by-zone temperature the wafers experience."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "A common misconception is to take the spike thermocouple reading directly as the wafer temperature. Being close to the heater gives it a fast response, but it diverges from the actual temperature inside the furnace — and correcting for that divergence is exactly what the profile thermocouple inside the tube does. If the profile thermocouple is off, the heater output correction goes off along with it."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Two Quartz Tube Layers and the Gas Path"
+      },
+      {
+        "type": "p",
+        "text": "A transparent quartz cylinder encloses the reaction space. The outer tube is closed at the top and open at the bottom, and quartz is used because it does not introduce metal contamination at high temperature. If it cracks or becomes contaminated, outside air and impurities get in and the film quality deteriorates."
+      },
+      {
+        "type": "p",
+        "text": "Inside it, one more layer — the inner tube — defines the gas path. The structure makes gas that rises turn back at the top of the tube and flow back down through the gap between the inner and outer tubes. If this circulation breaks down, the amount of gas reaching each wafer varies."
+      },
+      {
+        "type": "p",
+        "text": "A slender quartz tube runs upward along the inside of the inner tube. This is the gas injector, and it sprays the oxidizing gas across multiple levels through nozzles opened at different heights. If a nozzle clogs, only the side the gas reaches first grows thicker. Its base connects to the gas supply line, which carries oxygen, nitrogen, and HCl through mass flow controllers; if the flow rate fluctuates or moisture leaks into the piping, the oxidation rate itself changes."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Inside and Below the Tube — Support, Sealing, and Exhaust"
+      },
+      {
+        "type": "p",
+        "text": "A quartz wafer boat stands in the middle of the tube. Wafers rest horizontally, one per slot, in grooves cut into the boat's posts at a fixed pitch; if the grooves wear down and the pitch becomes uneven, gas no longer flows well between the wafers. The multi-tier stack held in the boat is the wafer stack, and 5 non-product dummy wafers are placed at each end so the end-slot conditions match those in the interior."
+      },
+      {
+        "type": "p",
+        "text": "The insulating pedestal directly beneath the boat both supports the boat and blocks heat from escaping toward the furnace door. If it is deficient, the bottom wafers' temperature sags and only the lower film grows thin. Below that, the boat elevator pushes the boat up into the furnace, and a cap seals the door airtight."
+      },
+      {
+        "type": "p",
+        "text": "The manifold flange at the bottom is the joint that seals the quartz tube airtight and the point where the gas inlet line, exhaust line, and cap all converge. If the seal leaks, outside air and moisture get in. Gas that has flowed back down exits through the lower side exhaust port toward the pressure regulator and pump; if this clogs, unreacted gas and byproducts linger inside the furnace and cause particles."
+      },
+      {
+        "type": "note",
+        "tone": "info",
+        "text": "The combustion unit that generates steam for wet oxidation and the load port that brings wafers in are equipment mounted outside the tube, so they do not appear in this cross-section."
+      }
+    ]
+  },
+  "principle": {
+    "title": "Operating Principle",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "If Equipment Structure dealt with space, Operating Principle deals with time. An oxidation furnace is not equipment that wafers simply pass through — it loads a batch, changes temperature and ambient in sequence to grow the film, and then unloads it. The sequence is the result, and whichever step goes wrong shows up as a specific, recognizable defect pattern."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "The Eight Steps a Batch Goes Through"
+      },
+      {
+        "type": "list",
+        "ordered": true,
+        "items": [
+          "Transfer wafers onto the boat. Stack them in this order: 5 bottom dummy wafers, the product wafers, then 5 top dummy wafers.",
+          "Raise the boat to seal the tube, then purge with N2 to drive out residual oxygen and moisture.",
+          "Ramp up to the set temperature. The zone heaters come up in sequence, establishing the flat-temperature zone.",
+          "Stabilize the temperature. Wait until the profile thermocouple reading is within ±1 °C of the setpoint.",
+          "Introduce the ambient. Dry oxidation feeds O2 as is; wet oxidation feeds steam produced by burning H2 with O2.",
+          "The film grows. The oxidizing species crosses the gas boundary layer, diffuses through the oxide, and reacts at the interface.",
+          "Cut off the oxidizing species, anneal/purge with N2, then ramp down the temperature under an inert ambient.",
+          "Lower the boat to unload it, then measure the thickness slot by slot."
+        ]
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "Why This Order"
+      },
+      {
+        "type": "p",
+        "text": "The reason purging comes before ramp-up is clear. Right after the tube is closed, outside air remains inside; raising the temperature in that state would start an oxidation the recipe never specified. Deciding when to introduce the oxidizing species is the same as deciding the thickness, so the tube interior must be clear of it beforehand."
+      },
+      {
+        "type": "p",
+        "text": "Ramping up faster seems better, but it is not. A wafer heats from the edge inward, with the interior following, so ramping too quickly leaves behind slip — dislocation lines caused by differential thermal expansion within a single wafer. This is why the advanced lab exposes ramp rate R as a control: at 13 °C/min or above, rapid-ramp slip is triggered, and reversing a temperature-gradient disturbance requires bringing the rate down to 6 °C/min or below."
+      },
+      {
+        "type": "p",
+        "text": "Stabilization occupies its own separate step because reaching the setpoint temperature and having the furnace interior evenly heated are not the same thing. Even when the heater-side thermocouple already reads the setpoint, the temperature along the tube's axial direction may still be tilted, so the judgment is left to the profile thermocouple, which measures at the wafer location."
+      },
+      {
+        "type": "note",
+        "tone": "warn",
+        "text": "If the oxidizing species is introduced before waiting for stabilization, the axial temperature tilt at that moment freezes into a slot-by-slot thickness difference. Even if the temperature is corrected afterward, the film already grown does not go back."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "What Happens Over Time During the Growth Stage"
+      },
+      {
+        "type": "p",
+        "text": "The three gates seen in Theory operate simultaneously throughout the growth stage. What matters on the time axis is that the balance of power among the three shifts partway through. When the film is thin, the interface reaction is the slowest step, so thickness grows nearly in proportion to time; as the film thickens, the path the oxidizing species must cross grows longer and diffusion becomes the bottleneck. So the thickness gained per unit time keeps shrinking as growth proceeds."
+      },
+      {
+        "type": "formula",
+        "latex": "x_ox ≈ A",
+        "sourceId": "S120",
+        "caption": "The transition thickness from the linear to the parabolic regime. This value is drawn as a dotted line on the basic lab's growth curve."
+      },
+      {
+        "type": "p",
+        "text": "In this same stage, the interface does not stay still either. Because the oxide grows by consuming silicon, the interface moves down while the surface moves up. The ratio of the amount that moves down to the amount that moves up stays at 0.44 to 0.56 throughout growth."
+      },
+      {
+        "type": "p",
+        "text": "Something also happens on the gas side as time passes. The oxidizing gas leaving the injector is consumed as it passes between the wafers, so the side it reaches first uses more of it and the side it reaches later uses less. This difference showing up as a top-to-bottom thickness difference is the load effect, and the dummy wafers at the ends are a measure to push that difference outside the product wafers."
+      },
+      {
+        "type": "h",
+        "level": 2,
+        "text": "How the Process Ends Determines Film Quality"
+      },
+      {
+        "type": "p",
+        "text": "Once the target thickness is reached, the oxidizing species is cut off, but the tube is not opened right away — it is annealed/purged with N2 and then cooled under an inert ambient. If it cools while oxidizing species remains, growth continues beyond what was planned, and cooling too fast, just like ramping up too fast, leaves behind thermal stress. Finally, unloading and measuring the thickness slot by slot reveals, in the shape of the thickness profile, which of the preceding eight steps went wrong."
+      },
+      {
+        "type": "p",
+        "text": "The advanced lab exposing ramp rate, stabilization time, dummy wafer count, and leak check/N2 purge side by side is a direct mapping of these eight steps. Knowing which control belongs to which step lets you trace the cause step back from the thickness profile alone."
+      }
+    ]
+  },
+  "labels": {
+    "oxidation.equipment.heatInsulatingJacket": "Wraps the outside of the heater with ceramic insulation and a metal shell to keep the heat inside the furnace from leaking out. If the insulation degrades, heat loss near the furnace door increases, creating an axial temperature gradient and splitting the slot-by-slot thickness.",
+    "oxidation.equipment.multiZoneHeater": "The resistive heating element wrapped around the outside of the quartz tube is divided into zones and controlled independently to create a flat-temperature zone. If even one zone's output drifts, the oxide thickness of wafers at the top and bottom of the boat splits into distinct layers.",
+    "oxidation.equipment.spikeThermocouple": "Measures the heater's own temperature between the heating element and the quartz tube; its fast response makes it useful for ramp control. Trusting this value directly as the wafer temperature diverges from the actual furnace temperature and causes the thickness to miss its target.",
+    "oxidation.equipment.quartzOuterTube": "A transparent quartz cylinder closed at the top and open at the bottom that encloses the reaction space and prevents metal contamination. If it cracks or becomes contaminated, outside air and impurities get in and the oxide film quality deteriorates.",
+    "oxidation.equipment.quartzInnerTube": "An additional layer inside the outer tube that makes gas that has risen turn back at the top and flow down between the inner and outer tubes. If this circulation breaks down, the amount of gas reaching each wafer varies and the thickness spread widens.",
+    "oxidation.equipment.gasInjector": "A slender quartz tube running upward along the inside of the inner tube that sprays the oxidizing gas evenly through nozzles at different heights. If a nozzle clogs, the load effect — where only the side the gas reaches first grows thicker — breaks down wafer-to-wafer uniformity.",
+    "oxidation.equipment.gasSupplyLine": "Piping that regulates oxygen, nitrogen, HCl, and other gases from the gas cabinet through mass flow controllers and delivers them to the injector. If the flow rate fluctuates or moisture leaks into the piping, the oxidation rate changes and the thickness misses its target.",
+    "oxidation.equipment.boatElevator": "Pushes the boat up from below into the furnace, and the cap seals the furnace door airtight. If the elevator moves too fast, the wafers undergo an abrupt temperature change, producing slip — dislocation lines caused by thermal stress.",
+    "oxidation.equipment.quartzWaferBoat": "Wafers rest horizontally, one per slot, in grooves cut into the quartz posts, loaded at a fixed pitch. If the grooves wear down and the pitch becomes uneven, gas no longer flows well between the wafers and the thickness becomes uneven.",
+    "oxidation.equipment.waferStack": "The multi-tier stack of wafers held in the boat, oxidizing 100 to 150 wafers together at once. As the wafer count increases, the side the gas reaches first consumes more of the oxidizing gas, growing the load effect that splits the top-to-bottom thickness.",
+    "oxidation.equipment.profileThermocouple": "Has contact points arranged vertically inside the quartz tube to measure the actual zone-by-zone temperature the wafers experience. If this value is off, the heater output correction goes wrong, the flat-temperature zone breaks down, and the thickness spread widens.",
+    "oxidation.equipment.heatInsulatingPedestal": "Supports the boat from directly below while blocking heat from escaping toward the furnace door. If this part is deficient, the bottom wafers' temperature sags and only the lower oxide grows thin.",
+    "oxidation.equipment.exhaustPort": "The lower side outlet through which gas that has flowed back between the inner and outer tubes exits, leading to the pressure regulator and pump. If it clogs, unreacted gas and byproducts linger inside the furnace, causing particles and thickness anomalies.",
+    "oxidation.equipment.manifoldFlange": "The joint that seals the bottom of the quartz tube airtight, where the gas inlet line, exhaust line, and cap all converge. If the seal leaks, outside air and moisture get in, changing the oxidation rate and causing the thickness to miss its target."
+  }
+}

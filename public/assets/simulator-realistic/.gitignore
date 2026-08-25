@@ -1,0 +1,3 @@
+# Built-in image generation 원본은 ~/.codex/generated_images에 보존한다.
+# 앱에는 1600 px 최적화 JPEG만 포함한다.
+*.png

@@ -1,0 +1,17 @@
+{
+  "lab-basic": {
+    "intro": "A cell where you get the probe needles to land on the pads correctly.",
+    "goal": "Move “Overdrive OD” (10–150 µm), “Needle material” (0 = W · 1 = W-Re · 2 = BeCu), and “Measured scrub-mark major axis Dm” (10–90 µm) and watch how the practical overdrive-window margin, the nominal contact resistance, and the passivation-opening margin diverge. Pad size is fixed at 60 × 60 µm and is the baseline the mark verdict is measured against.",
+    "passHint": "All three verdicts must be satisfied at once. Keep OD within 25–76 µm for a window margin of 0 µm or more; keep the mark's major axis within the 60 µm opening for an opening margin of 0 µm or more; keep nominal contact resistance at 200 µΩ or less."
+  },
+  "lab-applied": {
+    "intro": "A cell where you decide how thoroughly to test, balancing quality, time, and cost together.",
+    "goal": "Move “Test coverage T” (0.500–0.999), “Die area A” (10–400 mm²), “Guard-band G” (0–15%), and “Redundancy spare lines R” (0–16) and watch the outgoing defect level, per-wafer test time, and cost per good die. Defect density D₀ is fixed at 0.50 ea/cm² and parallel site count P is fixed at 1.",
+    "passHint": "All three verdicts must be satisfied at once. Outgoing defect level 2,000 ppm or less, per-wafer test time 10.0 min or less, cost per good die 100 KRW or less."
+  },
+  "lab-advanced": {
+    "intro": "You start with needle contamination (disturbance DS-1) already active. Find the cause and bring all six verdicts back at once.",
+    "goal": "Use “(a) Run immediate needle cleaning” (0 = don't run · 1 = run) to clear the contamination. Then set contact quality with “Overdrive OD” (20–150 µm), “Needle material,” and “Measured scrub-mark major axis Dm” (10–90 µm), and set yield/throughput with “Test coverage T,” “Die area A,” “Defect density D₀,” “Guard-band G,” “Redundancy spare lines R,” and “Parallel site count P.”",
+    "passHint": "All six verdicts must be satisfied at once: practical overdrive-window margin 0 µm or more, passivation-opening margin 0 µm or more, contact resistance 200 µΩ or less, outgoing defect level 1,500 ppm or less, observed yield 0.800 or higher, wafer throughput 8.00 wafers/h or higher."
+  }
+}
