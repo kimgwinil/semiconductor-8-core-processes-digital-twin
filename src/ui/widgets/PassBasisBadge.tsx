@@ -48,7 +48,7 @@ function PassBasisBadge({ basis }: { basis: PassBasis }): React.ReactElement {
 
   // 🔴 근거 서술은 사전 키가 아니라 **원장 데이터**에 실려 온다(항목마다 다른 문장이라 키로 못 쪼갠다).
   //    랩 명세가 `ko`/`en` 을 나란히 들고 다니는 것과 같은 관례다(`LabOutput.ko`/`.en`).
-  const note = getLang() === 'en' ? (basis.en ?? basis.ko) : (basis.ko ?? basis.en);
+  const note = getLang() !== 'ko' ? (basis.en ?? basis.ko) : (basis.ko ?? basis.en);
   const title = note !== undefined
     ? t('passBasis.titleWithNote', { what: idLabel, note })
     : t('passBasis.title', { what: idLabel });

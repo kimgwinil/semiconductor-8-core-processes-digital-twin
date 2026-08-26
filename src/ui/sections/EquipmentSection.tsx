@@ -9,6 +9,25 @@ import { EquipmentMotionOverlay } from '@/viz/equipment/EquipmentMotionOverlay';
 
 interface Props { processId: string; sectionId: ProseSectionId; content: ProcessContent | null }
 
+interface EquipmentPairFigure {
+  src: string;
+  title: string;
+  detail: string;
+}
+
+const EQUIPMENT_PAIR_FIGURES: Record<string, Record<'ko' | 'en', EquipmentPairFigure[]>> = {
+  deposition: {
+    en: [
+      { src: 'assets/simulator-realistic/deposition/ald-reactor-v2.jpg', title: 'Deposition tool — ALD reactor', detail: 'Precursor pulses enter the reaction chamber and form the film on the wafer.' },
+      { src: 'assets/simulator-realistic/deposition/ion-implanter-v2.jpg', title: 'Ion implantation tool — beamline', detail: 'Ions travel from the source through mass analysis and acceleration to the tilted wafer.' },
+    ],
+    ko: [
+      { src: 'assets/simulator-realistic/deposition/ald-reactor-v2.jpg', title: '증착 장비 — ALD 반응기', detail: '전구체가 반응 챔버에 교대로 주입되어 웨이퍼 위에 막을 형성합니다.' },
+      { src: 'assets/simulator-realistic/deposition/ion-implanter-v2.jpg', title: '이온주입 장비 — 빔라인', detail: '이온원에서 생성된 이온이 질량 분석과 가속을 거쳐 기울여진 웨이퍼에 도달합니다.' },
+    ],
+  },
+};
+
 /**
  * 🔴 제작 고지(A13) 렌더 비활성 — CEO 지시 2026-08-23. **표시만 끈다. 데이터는 보존.**
  *
@@ -135,24 +154,17 @@ export function EquipmentSection({ processId, sectionId, content }: Props): Reac
 function RealisticEquipmentFigure({ processId, lang }: {
   processId: string; lang: string;
 }): React.ReactElement | null {
-  if (processId === 'deposition') {
+  const pair = EQUIPMENT_PAIR_FIGURES[processId];
+  if (pair) {
     const base = import.meta.env?.BASE_URL ?? '/';
-    const figures = lang === 'en'
-      ? [
-          { src: `${base}assets/simulator-realistic/deposition/ald-reactor-v2.jpg`, title: 'Deposition tool — ALD reactor', detail: 'Precursor pulses enter the reaction chamber and form the film on the wafer.' },
-          { src: `${base}assets/simulator-realistic/deposition/ion-implanter-v2.jpg`, title: 'Ion implantation tool — beamline', detail: 'Ions travel from the source through mass analysis and acceleration to the tilted wafer.' },
-        ]
-      : [
-          { src: `${base}assets/simulator-realistic/deposition/ald-reactor-v2.jpg`, title: '증착 장비 — ALD 반응기', detail: '전구체가 반응 챔버에 교대로 주입되어 웨이퍼 위에 막을 형성합니다.' },
-          { src: `${base}assets/simulator-realistic/deposition/ion-implanter-v2.jpg`, title: '이온주입 장비 — 빔라인', detail: '이온원에서 생성된 이온이 질량 분석과 가속을 거쳐 기울여진 웨이퍼에 도달합니다.' },
-        ];
+    const figures = pair[lang === 'ko' ? 'ko' : 'en'];
     return (
-      <div className="equipmentRealisticPair" aria-label={lang === 'en' ? 'Deposition and ion implantation equipment' : '증착과 이온주입 장비'}>
+      <div className="equipmentRealisticPair" aria-label={lang !== 'ko' ? 'Deposition and ion implantation equipment' : '증착과 이온주입 장비'}>
         {figures.map((figure) => (
           <figure className="fig equipmentRealistic equipmentRealistic--split" key={figure.title}>
             <h3 className="equipmentRealistic__title">{figure.title}</h3>
             <div className="equipmentRealistic__image">
-              <img src={figure.src} alt={figure.title} loading="eager" decoding="async" />
+              <img src={`${base}${figure.src}`} alt={figure.title} loading="eager" decoding="async" />
             </div>
             <figcaption className="equipmentRealistic__caption">{figure.detail}</figcaption>
           </figure>
@@ -162,7 +174,7 @@ function RealisticEquipmentFigure({ processId, lang }: {
   }
   const src = realisticBackdropUrl(processId);
   if (!src) return null;
-  const caption = lang === 'en'
+  const caption = lang !== 'ko'
     ? 'Photorealistic training visualization — use the labelled engineering diagram below for exact component locations and internal flow.'
     : '실사풍 교육용 시각화 — 정확한 부품 위치와 내부 흐름은 아래 정밀 도면을 기준으로 확인하세요.';
   return (
@@ -213,10 +225,10 @@ function activeDescKey(file: EquipmentLabelFile | null | undefined, id: string):
 function labelName(file: EquipmentLabelFile | null | undefined, id: string, lang: string): string {
   const l = file?.labels.find((x) => x.id === id);
   if (!l) return id;
-  return lang === 'en' ? l.en : l.ko;
+  return lang !== 'ko' ? l.en : l.ko;
 }
 function noteText(note: EquipmentNote, lang: string): string {
-  return lang === 'en' ? note.en : note.ko;
+  return lang !== 'ko' ? note.en : note.ko;
 }
 
 /**
@@ -283,7 +295,7 @@ function LabelledFigure({ file, lang, active, onSelect, notes, showInfo, activeN
             //          덤으로 폭이 넘칠 때 넘치는 방향이 **이미지 위 → 여백 바깥**으로 바뀐다.
             //          이미지를 덮는 것보다 여백을 넘는 쪽이 낫다(A4 「부위 라벨이 장비를 가리지 않는다」).
             const tx = l.side === 'left' ? -TEXT_PAD : w + TEXT_PAD;
-            const name = lang === 'en' ? l.en : l.ko;
+            const name = lang !== 'ko' ? l.en : l.ko;
             const [head, tail] = splitLabel(name);
             return (
               <g

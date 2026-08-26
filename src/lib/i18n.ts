@@ -7,7 +7,7 @@ let current: Lang = 'ko';
 let dict: Dict = {};
 const listeners = new Set<() => void>();
 
-export const LANGS: Lang[] = ['ko', 'en'];
+export const LANGS: Lang[] = ['ko', 'en', 'ja'];
 
 export function getLang(): Lang {
   return current;
@@ -17,7 +17,9 @@ export async function setLang(lang: Lang): Promise<void> {
   if (!loaded.has(lang)) {
     const mod = lang === 'en'
       ? await import('@/locales/en.json')
-      : await import('@/locales/ko.json');
+      : lang === 'ja'
+        ? await import('@/locales/ja.json')
+        : await import('@/locales/ko.json');
     loaded.set(lang, (mod as { default: Dict }).default);
   }
   current = lang;
@@ -29,7 +31,7 @@ export async function setLang(lang: Lang): Promise<void> {
 export function initialLang(): Lang {
   try {
     const saved = localStorage.getItem('cjh.lang');
-    if (saved === 'ko' || saved === 'en') return saved;
+    if (saved === 'ko' || saved === 'en' || saved === 'ja') return saved;
   } catch { /* noop */ }
   return 'ko';
 }

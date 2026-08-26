@@ -97,7 +97,7 @@ export function EquipmentMotionOverlay({ processId, labels }: {
       {drawable.map(({ route, d, end }) => {
         const color = COLOR[route.tone];
         return (
-          <g key={route.id} aria-label={lang === 'en' ? route.labelEn : route.labelKo}>
+          <g key={route.id} aria-label={lang !== 'ko' ? route.labelEn : route.labelKo}>
             <path d={d} fill="none" stroke={color} strokeWidth="4" strokeOpacity="0.58" strokeDasharray="10 10" />
             {reduced ? (
               <circle cx={end[0]} cy={end[1]} r="7" fill={color} opacity="0.9" />

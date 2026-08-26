@@ -7,12 +7,13 @@ export type SectionId =
   | 'lab-basic' | 'lab-applied' | 'lab-advanced'
   | 'test' | 'result';
 
-export type Lang = 'ko' | 'en';
+export type Lang = 'ko' | 'en' | 'ja';
 
 export interface TrackDef {
   id: string;
   ko: string;
   en: string;
+  ja?: string;
   order: number;
   processes: string[];
 }
@@ -20,6 +21,7 @@ export interface TrackDef {
 export interface ProcessDef {
   ko: string;
   en: string;
+  ja?: string;
   order: number;
   status: 'active' | 'draft';
   sections: SectionId[];

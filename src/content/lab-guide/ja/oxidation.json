@@ -1,0 +1,17 @@
+{
+  "lab-basic": {
+    "intro": "ドライ酸化膜を成長させ、その厚さを目標ウィンドウ内に正確に収める応用実習です。",
+    "goal": "「Oxidation temperature」（920 · 1000 · 1100 °C の3択）と「Oxidation time」（10–300 min）の2つのスライダーのみを動かして、「Oxide thickness x_ox」の目標を達成します。乾燥 O₂ 雰囲気、1 atm 圧力、12 slm 流量、10 °C/min のランプレート、⟨100⟩ 方位は固定条件です。Si consumed、surface rise、instantaneous growth rate は参考表示のみです。",
+    "passHint": "合格条件は「Oxide thickness x_ox」が 95 nm 以上 105 nm 以下であることです。酸化は取り消せません。105 nm を超えて過成長した場合は、条件を下げてレシピ全体を最初からやり直す必要があります。"
+  },
+  "lab-applied": {
+    "intro": "単一バッチの field oxide について、厚さ、均一性、スループットを同時に設定する実践実習です。",
+    "goal": "「Oxidation temperature T」（920–1100 °C）、「Oxidation ambient M」（0 = dry O₂ / 1 = wet H₂O）、「Oxidation time t」（10–300 min）、「Oxidant flow Q」（2–20 slm）を調整し、平均厚さ、ばらつき σ、スループット TP がどのように連動して変化するかを確認します。供給制限係数 f_Q と gas/exhaust load index は観測値であり、判定には含まれません。",
+    "passHint": "3つの判定をすべて同時に満たす必要があります — 「Average oxide thickness x̄」 380–420 nm、「Wafer-to-wafer thickness spread σ (1σ/mean)」 1.5% 以下、「Batch throughput TP」 18 wafer/h 以上。"
+  },
+  "lab-advanced": {
+    "intro": "隠れた要因を診断し、その原因を取り除いて、5つの指標を一度にすべて戻す応用実習です。",
+    "goal": "「Fault scenario」を選び、次の組み合わせで 5 つの判定出力をすべて回復させます。oxidation temperature T、ambient M、「Oxidation time t」（10–300 min）、「Oxidant flow Q」（2–20 slm）、「Ramp rate R」（2–15 °C/min）、「HCl addition concentration C」（0–5 vol%）、「Line leak check / N₂ purge」、「Dummy wafers, top and bottom」（5–10 wafers）、「Temperature stabilization time」（10–30 min）。",
+    "passHint": "5つの判定をすべて同時に満たす必要があります — average thickness x̄ 385–415 nm、spread σ 1.5% 以下、relative dielectric-breakdown field index 0.90 以上、OISF density D_sf 100 ea/cm² 以下、batch throughput TP 18 wafer/h 以上。"
+  }
+}

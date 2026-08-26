@@ -14,6 +14,7 @@ const SRC_DIR = path.join(APP_ROOT, 'src');
 const LOCALES_DIR = path.join(SRC_DIR, 'locales');
 const KO_FILE = path.join(LOCALES_DIR, 'ko.json');
 const EN_FILE = path.join(LOCALES_DIR, 'en.json');
+const JA_FILE = path.join(LOCALES_DIR, 'ja.json');
 
 if (!existsSync(KO_FILE) || !existsSync(EN_FILE)) {
   console.warn('⚠️  src/locales/ko.json 또는 en.json 이 없습니다. i18n 검사를 건너뜁니다.');
@@ -42,23 +43,33 @@ function flatten(obj, prefix = '', out = {}) {
 
 const koRaw = JSON.parse(readFileSync(KO_FILE, 'utf8'));
 const enRaw = JSON.parse(readFileSync(EN_FILE, 'utf8'));
+const jaRaw = JSON.parse(readFileSync(JA_FILE, 'utf8'));
 const ko = flatten(koRaw);
 const en = flatten(enRaw);
+const ja = flatten(jaRaw);
 
 const koKeys = new Set(Object.keys(ko));
 const enKeys = new Set(Object.keys(en));
+const jaKeys = new Set(Object.keys(ja));
 
 const onlyInKo = [...koKeys].filter((k) => !enKeys.has(k));
 const onlyInEn = [...enKeys].filter((k) => !koKeys.has(k));
 
 if (onlyInKo.length > 0) fail(`ko 에만 있는 키: ${onlyInKo.join(', ')}`);
 if (onlyInEn.length > 0) fail(`en 에만 있는 키: ${onlyInEn.join(', ')}`);
+const onlyOutsideJa = [...koKeys].filter((k) => !jaKeys.has(k));
+const onlyInJa = [...jaKeys].filter((k) => !koKeys.has(k));
+if (onlyOutsideJa.length > 0) fail(`ja 에 없는 키: ${onlyOutsideJa.join(', ')}`);
+if (onlyInJa.length > 0) fail(`ja 에만 있는 키: ${onlyInJa.join(', ')}`);
 
 for (const [k, v] of Object.entries(ko)) {
   if (typeof v === 'string' && v.trim() === '') fail(`ko.json 의 '${k}' 값이 빈 문자열입니다.`);
 }
 for (const [k, v] of Object.entries(en)) {
   if (typeof v === 'string' && v.trim() === '') fail(`en.json 의 '${k}' 값이 빈 문자열입니다.`);
+}
+for (const [k, v] of Object.entries(ja)) {
+  if (typeof v === 'string' && v.trim() === '') fail(`ja.json 의 '${k}' 값이 빈 문자열입니다.`);
 }
 
 // ---------- 소스의 t('...') 키가 ko.json 에 있는지 ----------
@@ -110,5 +121,5 @@ if (hasError) {
   process.exit(1);
 }
 
-console.log(`✅ check-i18n 통과 — ko/en 키 ${koKeys.size}개, 스캔한 소스 ${srcFiles.length}개`);
+console.log(`✅ check-i18n 통과 — ko/en/ja 키 ${koKeys.size}개, 스캔한 소스 ${srcFiles.length}개`);
 process.exit(0);

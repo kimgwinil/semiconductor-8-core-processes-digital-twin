@@ -6,18 +6,19 @@
       "id": "fe",
       "ko": "전공정",
       "en": "Front-End",
+      "ja": "前工程",
       "order": 1,
       "processes": ["wafer","oxidation","photo","etch","deposition","metal","eds","packaging"]
     }
   ],
   "processes": {
-    "wafer":      { "ko": "웨이퍼 제조",     "en": "Wafer Manufacturing",            "order": 1, "status": "active", "sections": ["theory","overview","equipment","principle","lab-basic","lab-applied","lab-advanced","test","result"] },
-    "oxidation":  { "ko": "산화",             "en": "Thermal Oxidation",              "order": 2, "status": "active", "sections": ["theory","overview","equipment","principle","lab-basic","lab-applied","lab-advanced","test","result"] },
-    "photo":      { "ko": "포토리소그래피",   "en": "Photolithography",               "order": 3, "status": "active", "sections": ["theory","overview","equipment","principle","lab-basic","lab-applied","lab-advanced","test","result"] },
-    "etch":       { "ko": "식각",             "en": "Etching",                        "order": 4, "status": "active", "sections": ["theory","overview","equipment","principle","lab-basic","lab-applied","lab-advanced","test","result"] },
-    "deposition": { "ko": "증착·이온주입",    "en": "Deposition & Ion Implantation",  "order": 5, "status": "active", "sections": ["theory","overview","equipment","principle","lab-basic","lab-applied","lab-advanced","test","result"] },
-    "metal":      { "ko": "금속배선·CMP",     "en": "Metallization & CMP",            "order": 6, "status": "active", "sections": ["theory","overview","equipment","principle","lab-basic","lab-applied","lab-advanced","test","result"] },
-    "eds":        { "ko": "EDS(웨이퍼 테스트)","en": "Electrical Die Sorting",        "order": 7, "status": "active", "sections": ["theory","overview","equipment","principle","lab-basic","lab-applied","lab-advanced","test","result"] },
-    "packaging":  { "ko": "패키징",           "en": "Packaging",                      "order": 8, "status": "active", "sections": ["theory","overview","equipment","principle","lab-basic","lab-applied","lab-advanced","test","result"] }
+    "wafer":      { "ko": "웨이퍼 제조",     "en": "Wafer Manufacturing",            "ja": "ウェーハ製造", "order": 1, "status": "active", "sections": ["theory","overview","equipment","principle","lab-basic","lab-applied","lab-advanced","test","result"] },
+    "oxidation":  { "ko": "산화",             "en": "Thermal Oxidation",              "ja": "熱酸化", "order": 2, "status": "active", "sections": ["theory","overview","equipment","principle","lab-basic","lab-applied","lab-advanced","test","result"] },
+    "photo":      { "ko": "포토리소그래피",   "en": "Photolithography",               "ja": "フォトリソグラフィ", "order": 3, "status": "active", "sections": ["theory","overview","equipment","principle","lab-basic","lab-applied","lab-advanced","test","result"] },
+    "etch":       { "ko": "식각",             "en": "Etching",                        "ja": "エッチング", "order": 4, "status": "active", "sections": ["theory","overview","equipment","principle","lab-basic","lab-applied","lab-advanced","test","result"] },
+    "deposition": { "ko": "증착·이온주입",    "en": "Deposition & Ion Implantation",  "ja": "成膜・イオン注入", "order": 5, "status": "active", "sections": ["theory","overview","equipment","principle","lab-basic","lab-applied","lab-advanced","test","result"] },
+    "metal":      { "ko": "금속배선·CMP",     "en": "Metallization & CMP",            "ja": "金属配線・CMP", "order": 6, "status": "active", "sections": ["theory","overview","equipment","principle","lab-basic","lab-applied","lab-advanced","test","result"] },
+    "eds":        { "ko": "EDS(웨이퍼 테스트)","en": "Electrical Die Sorting",        "ja": "EDS（ウェーハ検査）", "order": 7, "status": "active", "sections": ["theory","overview","equipment","principle","lab-basic","lab-applied","lab-advanced","test","result"] },
+    "packaging":  { "ko": "패키징",           "en": "Packaging",                      "ja": "パッケージング", "order": 8, "status": "active", "sections": ["theory","overview","equipment","principle","lab-basic","lab-applied","lab-advanced","test","result"] }
   }
 }

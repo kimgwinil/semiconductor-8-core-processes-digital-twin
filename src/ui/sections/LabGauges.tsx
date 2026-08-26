@@ -76,7 +76,7 @@ function Gauge({ spec, output, q, lang }: {
   const pass = output.pass;
   const scale = gaugeScale(pass, q.value, output.domain ?? q.validRange);
   const ok = pass ? inPassWindow(pass, q.value) : null;
-  const name = lang === 'en' ? output.en : output.ko;
+  const name = lang !== 'ko' ? output.en : output.ko;
 
   const px = (v: number): number => {
     const span = scale[1] - scale[0];
@@ -102,7 +102,7 @@ function Gauge({ spec, output, q, lang }: {
       <figcaption className="gauge__head">
         <span className="gauge__name">{name}</span>
         <span className="gauge__value">
-          {formatQuantity(q.value, output.digits)} <em>{lang === 'en' ? (q.unitEn ?? q.unit) : q.unit}</em>
+          {formatQuantity(q.value, output.digits)} <em>{lang !== 'ko' ? (q.unitEn ?? q.unit) : q.unit}</em>
         </span>
         {/* 🔴 기호 + 글자. 색이 안 보여도 판정이 읽힌다. */}
         {ok !== null && (
@@ -119,7 +119,7 @@ function Gauge({ spec, output, q, lang }: {
         role="img"
         aria-label={t('lab.gaugeAria', {
           name,
-          value: `${formatQuantity(q.value, output.digits)} ${lang === 'en' ? (q.unitEn ?? q.unit) : q.unit}`,
+          value: `${formatQuantity(q.value, output.digits)} ${lang !== 'ko' ? (q.unitEn ?? q.unit) : q.unit}`,
           spec: windowText(pass, output.digits),
           verdict: ok === null ? '' : (ok ? t('lab.pass') : t('lab.fail')),
         })}

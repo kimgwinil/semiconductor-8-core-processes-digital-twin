@@ -39,11 +39,11 @@ export function sectionsOf(processId: string): SectionId[] {
 export function processName(processId: string, lang: Lang): string {
   const p = getProcess(processId);
   if (!p) return processId;
-  return lang === 'en' ? p.en : p.ko;
+  return lang === 'ko' ? p.ko : lang === 'ja' ? (p.ja ?? p.en) : p.en;
 }
 
 export function trackName(track: TrackDef, lang: Lang): string {
-  return lang === 'en' ? track.en : track.ko;
+  return lang === 'ko' ? track.ko : lang === 'ja' ? (track.ja ?? track.en) : track.en;
 }
 
 /** 전체 절 수 — 진도율 분모. 상수가 아니다(§11-3). */

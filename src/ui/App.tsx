@@ -30,10 +30,11 @@ export function App(): React.ReactElement {
   useEffect(() => {
     if (route.kind === 'section') {
       mark(route.processId, route.sectionId, 'visited');
-      document.title = `${processName(route.processId, getLang() as 'ko' | 'en')} · ${t('app.title')}`;
+      document.title = `${processName(route.processId, getLang())} · ${t('app.title')}`;
     } else {
       document.title = t('app.title');
     }
+    document.documentElement.lang = getLang();
   }, [route, lang]);
 
   return (

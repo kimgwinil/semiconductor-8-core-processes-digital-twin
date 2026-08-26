@@ -104,12 +104,12 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
       <div className="lab__chartGrid">
       {charts.map((c) => {
         const series = c.build(inputs, values);
-        const title = say(lang === 'en' ? c.en : c.ko);
-        const caption = lang === 'en' ? c.captionEn : c.captionKo;
-        const xLabel = lang === 'en' ? c.xEn : c.xKo;
-        const yLabel = lang === 'en' ? c.yEn : c.yKo;
-        const xUnit = lang === 'en' ? (c.xUnitEn ?? c.xUnit) : c.xUnit;
-        const yUnit = lang === 'en' ? (c.yUnitEn ?? c.yUnit) : c.yUnit;
+        const title = say(lang !== 'ko' ? c.en : c.ko);
+        const caption = lang !== 'ko' ? c.captionEn : c.captionKo;
+        const xLabel = lang !== 'ko' ? c.xEn : c.xKo;
+        const yLabel = lang !== 'ko' ? c.yEn : c.yKo;
+        const xUnit = lang !== 'ko' ? (c.xUnitEn ?? c.xUnit) : c.xUnit;
+        const yUnit = lang !== 'ko' ? (c.yUnitEn ?? c.yUnit) : c.yUnit;
 
         // 🔴 규격선은 계열로 합쳐 그린다 — 차트 컴포넌트에 별도 API 를 만들지 않는다.
         //    도메인을 모르면 선을 그릴 수 없으므로 x 범위는 계열에서 취한다.
@@ -124,7 +124,7 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
         //    「참고선일 뿐」이라고 말하려면 데이터 쪽에서 `tone: 'info'` 를 **명시**해야 한다.
         const refSeries = (c.refLines ?? []).map((r) => ({
           id: `ref-${r.value}`,
-          label: say(lang === 'en' ? r.en : r.ko),
+          label: say(lang !== 'ko' ? r.en : r.ko),
           points: [{ x: xLo, y: r.value }, { x: xHi, y: r.value }],
           dashed: true,
           tone: r.tone ?? ('spec' as const),
@@ -133,7 +133,7 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
         const judged = (c.judgesOutputs ?? [])
           .map((id) => spec.outputs.find((o) => o.id === id))
           .filter((o): o is NonNullable<typeof o> => Boolean(o))
-          .map((o) => say(lang === 'en' ? o.en : o.ko));
+          .map((o) => say(lang !== 'ko' ? o.en : o.ko));
 
         return (
           <figure className="labChart" key={c.id} data-chart-id={c.id} data-chart-kind={c.kind}>
@@ -156,7 +156,7 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
                     width={w} height={h}
                     series={[...series, ...refSeries].map((sr) => ({
                       id: sr.id,
-                      label: say('label' in sr ? sr.label : (lang === 'en' ? sr.en : sr.ko)),
+                      label: say('label' in sr ? sr.label : (lang !== 'ko' ? sr.en : sr.ko)),
                       points: sr.points.map((pt) => ({ depth: pt.x, value: pt.y })),
                       dashed: sr.dashed,
                       tone: 'tone' in sr ? sr.tone : undefined,
@@ -172,7 +172,7 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
                     <BarChart
                       width={w} height={h}
                       groups={series.map((sr) => ({
-                        category: say(lang === 'en' ? sr.en : sr.ko),
+                        category: say(lang !== 'ko' ? sr.en : sr.ko),
                         values: sr.points.map((pt) => pt.y),
                       }))}
                       yLabel={yLabel} yUnit={yUnit} xLabel={xLabel}
@@ -184,7 +184,7 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
                       width={w} height={h}
                       series={[...series, ...refSeries].map((sr) => ({
                         id: sr.id,
-                        label: say('label' in sr ? sr.label : (lang === 'en' ? sr.en : sr.ko)),
+                        label: say('label' in sr ? sr.label : (lang !== 'ko' ? sr.en : sr.ko)),
                         points: sr.points,
                         dashed: sr.dashed,
                         tone: 'tone' in sr ? sr.tone : undefined,
@@ -197,8 +197,8 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
                   )} />}
 
             {caption && <p className="labChart__caption">{caption}</p>}
-            {(lang === 'en' ? c.noteEn : c.note) && (
-              <p className="labChart__note">{say((lang === 'en' ? c.noteEn : c.note) ?? '')}</p>
+            {(lang !== 'ko' ? c.noteEn : c.note) && (
+              <p className="labChart__note">{say((lang !== 'ko' ? c.noteEn : c.note) ?? '')}</p>
             )}
           </figure>
         );

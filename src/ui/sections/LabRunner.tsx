@@ -78,7 +78,7 @@ export function LabRunner({ spec }: { spec: LabSpec }): React.ReactElement {
           q: null,
           stop: {
             conditions: e.conditions,
-            reason: lang === 'en' ? e.reasonEn : e.reasonKo,
+            reason: lang !== 'ko' ? e.reasonEn : e.reasonKo,
           },
         };
       }
@@ -218,7 +218,7 @@ export function LabRunner({ spec }: { spec: LabSpec }): React.ReactElement {
               : (
                 <label className="slider" key={p.id}>
                   <span className="slider__name">
-                    {lang === 'en' ? p.en : p.ko}
+                    {lang !== 'ko' ? p.en : p.ko}
                     {p.sourceId && <SourceBadge sourceId={p.sourceId} compact />}
                   </span>
                   {/* 🔴 입력을 래퍼로 감싼다 — `<input>` 에는 자식을 넣을 수 없어 띠를 트랙 위에
@@ -232,7 +232,7 @@ export function LabRunner({ spec }: { spec: LabSpec }): React.ReactElement {
                       onChange={(e) => set(p.id, Number(e.target.value))}
                       onPointerDown={() => setActiveParamId(p.id)}
                       onFocus={() => setActiveParamId(p.id)}
-                      aria-label={lang === 'en' ? p.en : p.ko}
+                      aria-label={lang !== 'ko' ? p.en : p.ko}
                     />
                     <PassRangeBand
                       param={p}
@@ -241,7 +241,7 @@ export function LabRunner({ spec }: { spec: LabSpec }): React.ReactElement {
                     />
                   </span>
                   <span className="slider__value">
-                    {formatQuantity(inputs[p.id] ?? p.initial)} <em>{lang === 'en' ? (p.unitEn ?? p.unit) : p.unit}</em>
+                    {formatQuantity(inputs[p.id] ?? p.initial)} <em>{lang !== 'ko' ? (p.unitEn ?? p.unit) : p.unit}</em>
                   </span>
                   <span className="slider__range">{p.min} – {p.max}</span>
                   <PassRangeText
@@ -266,12 +266,12 @@ export function LabRunner({ spec }: { spec: LabSpec }): React.ReactElement {
               <p className="fixedCard__lead">{t('lab.fixedLead')}</p>
               <dl className="fixedCard__list">
                 {spec.fixedConditions.map((f) => {
-                  const fUnit = lang === 'en' ? (f.unitEn ?? f.unit) : f.unit;
-                  const fValue = lang === 'en' ? (f.valueEn ?? f.value) : f.value;
+                  const fUnit = lang !== 'ko' ? (f.unitEn ?? f.unit) : f.unit;
+                  const fValue = lang !== 'ko' ? (f.valueEn ?? f.value) : f.value;
                   return (
                   <div className="fixedCard__row" key={f.id}>
                     <dt>
-                      {lang === 'en' ? f.en : f.ko}
+                      {lang !== 'ko' ? f.en : f.ko}
                       {f.sourceId && <SourceBadge sourceId={f.sourceId} compact />}
                     </dt>
                     <dd>
@@ -352,7 +352,7 @@ export function LabRunner({ spec }: { spec: LabSpec }): React.ReactElement {
                 key={o.id}
                 q={q}
                 outputId={o.id}
-                label={lang === 'en' ? o.en : o.ko}
+                label={lang !== 'ko' ? o.en : o.ko}
                 valueText={judgedText(q, o)}
                 specNote={o.role === 'judge' && o.pass ? specLabel(o.pass, o.digits) : undefined}
                 /* 🔴 합격창 근거 — 세 표시 지점(여기 · 계측기 · 스코프 범례)이 **같은 함수**를 부른다.
@@ -397,7 +397,7 @@ export function LabRunner({ spec }: { spec: LabSpec }): React.ReactElement {
         <section className="lab__feedback">
           {fired.map((f) => (
             <p className={`fb fb--${f.tone}`} key={f.id} role={f.tone === 'stop' ? 'alert' : 'status'}>
-              {say(lang === 'en' ? f.en : f.ko)}
+              {say(lang !== 'ko' ? f.en : f.ko)}
             </p>
           ))}
         </section>
@@ -413,7 +413,7 @@ export function LabRunner({ spec }: { spec: LabSpec }): React.ReactElement {
                 {/* 상충 표식. 종전 `⇄` 글리프를 인라인 SVG 로 바꿨다(설계서 §6-6).
                     흐름 밖(`position: absolute`)이라 폭 기여가 0 이다. */}
                 <SwapIcon className="lab__tradeoffIcon" />
-                {say(lang === 'en' ? x.en : x.ko)}
+                {say(lang !== 'ko' ? x.en : x.ko)}
               </li>
             ))}
           </ul>
@@ -469,7 +469,7 @@ function ChoiceParam({ spec, param, value, lang, range, stale, onPick, onFocus }
 }): React.ReactElement {
   const opts = paramOptions(param);
   const name = `${spec.processId}-${spec.stage}-${param.id}`;
-  const label = lang === 'en' ? param.en : param.ko;
+  const label = lang !== 'ko' ? param.en : param.ko;
   return (
     <fieldset className="choice" data-param={param.id} data-options={opts.length}>
       <legend className="choice__name">
@@ -495,7 +495,7 @@ function ChoiceParam({ spec, param, value, lang, range, stale, onPick, onFocus }
         ))}
       </div>
       <span className="choice__value">
-        {formatQuantity(value)} <em>{lang === 'en' ? (param.unitEn ?? param.unit) : param.unit}</em>
+        {formatQuantity(value)} <em>{lang !== 'ko' ? (param.unitEn ?? param.unit) : param.unit}</em>
       </span>
       {/* 🔴 「몇 개뿐인가」를 글자로도 못박는다. 버튼을 세지 않아도 읽힌다. */}
       <span className="choice__count">{t('lab.choiceCount', { n: opts.length })}</span>
@@ -513,7 +513,7 @@ function ChoiceParam({ spec, param, value, lang, range, stale, onPick, onFocus }
  */
 function conditionText(c: LimitCondition, spec: LabSpec, lang: string): string {
   const p = spec.params.find((x) => x.id === c.parameter);
-  const label = p ? (lang === 'en' ? p.en : p.ko) : c.parameter;
+  const label = p ? (lang !== 'ko' ? p.en : p.ko) : c.parameter;
   const unit = c.unit ? ` ${c.unit}` : '';
   const [lo, hi] = c.limit;
   // 어느 쪽으로 넘었는지에 따라 **넘은 쪽 한계만** 적는다. 양쪽을 다 적으면
@@ -604,26 +604,63 @@ function renderJudged(r: JudgedDisplay): string {
 
 /* ---------------- 씬 캔버스 ---------------- */
 
+const SCENE_TITLES: Record<string, { ko: string; en: string; ja: string }> = {
+  filmGrowth: { ko: '실리콘 산화막 성장', en: 'Silicon oxide film growth', ja: 'シリコン酸化膜の成長' },
+  plasma: { ko: '플라즈마 식각과 이온 운동', en: 'Plasma etching and ion motion', ja: 'プラズマエッチングとイオン運動' },
+  ionTrajectory: { ko: '이온주입 빔 수송과 농도 분포', en: 'Ion-beam transport and concentration profile', ja: 'イオンビーム輸送と濃度分布' },
+  polishProfile: { ko: 'CMP 연마 형상과 배선 신뢰성', en: 'CMP profile and interconnect reliability', ja: 'CMP研磨形状と配線信頼性' },
+  aldCycle: { ko: 'ALD 반응 주기와 막 성장', en: 'ALD reaction cycle and film growth', ja: 'ALD反応サイクルと膜成長' },
+  crystalGrowth: { ko: '단결정 인상과 직경 제어', en: 'Single-crystal pulling and diameter control', ja: '単結晶引き上げと直径制御' },
+  ingotSlicing: { ko: '다중 와이어 슬라이싱 4D', en: 'Multi-wire slicing 4D', ja: 'マルチワイヤスライス 4D' },
+  aerialImage: { ko: '노광 공중상과 포커스', en: 'Lithography aerial image and focus', ja: 'リソグラフィ空中像とフォーカス' },
+  probeScrub: { ko: '프로브 접촉과 스크럽', en: 'Probe contact and scrub motion', ja: 'プローブ接触とスクラブ動作' },
+  waferMap: { ko: '웨이퍼 맵과 수율 분포', en: 'Wafer map and yield distribution', ja: 'ウェーハマップと歩留まり分布' },
+  packageThermal: { ko: '패키지 열 전달', en: 'Package heat transfer', ja: 'パッケージ熱伝達' },
+  moistureSoak: { ko: '패키지 수분 흡수', en: 'Package moisture absorption', ja: 'パッケージ吸湿' },
+  shearTest: { ko: '솔더 접합 전단 시험', en: 'Solder-joint shear test', ja: 'はんだ接合部のせん断試験' },
+};
+
+function sceneTitle(sceneId: string): string {
+  const lang = getLang();
+  const title = SCENE_TITLES[sceneId];
+  return title?.[lang] ?? title?.en ?? sceneId;
+}
+
+type SceneExplanation = { title: string; observes: string; reacts: string; excludes: string };
+const OXIDATION_EXPLANATIONS: Record<string, Record<'ko' | 'en' | 'ja', SceneExplanation>> = {
+  'lab-basic': {
+    ko: { title: '산화막 성장 단면', observes: '원래 Si 표면 아래에서 Si가 소모되고 위로 SiO₂ 표면이 올라오는 과정입니다.', reacts: '온도와 시간을 올리면 막·Si 소모·표면 융기가 함께 커집니다.', excludes: '합격은 장면의 눈대가 아니라 두께–시간 차트의 95~105 nm 규격선으로 판정합니다.' },
+    en: { title: 'Oxide-growth cross-section', observes: 'Silicon is consumed below the original surface while the SiO₂ surface rises above it.', reacts: 'Higher temperature or longer time increases oxide thickness, silicon consumption and surface rise together.', excludes: 'Use the 95–105 nm limits on the thickness–time chart for pass/fail; the scene itself is not a ruler.' },
+    ja: { title: '酸化膜成長の断面', observes: '元のSi表面より下でSiが消費され、上にSiO₂表面が成長する過程です。', reacts: '温度または時間を増やすと、膜厚・Si消費・表面上昇が同時に増えます。', excludes: '合否は映像の縮尺ではなく、膜厚–時間チャートの95〜105 nm規格線で判定します。' },
+  },
+  'lab-applied': {
+    ko: { title: '배치 산화막 두께·균일도', observes: '막의 평균 두께와 웨이퍼 간 두께 산포를 시각화합니다.', reacts: '온도·건식/습식·시간·유량이 두께와 산포를 바꾸며, 온도와 시간은 처리량도 바꿉니다.', excludes: '처리량 TP는 이 단면에 나오지 않습니다. 계기의 두께·산포·TP를 같이 보세요.' },
+    en: { title: 'Batch oxide thickness and uniformity', observes: 'Visualises mean film thickness and wafer-to-wafer thickness spread.', reacts: 'Temperature, dry/wet ambient, time and flow change thickness and spread; temperature and time also affect throughput.', excludes: 'Throughput TP is not drawn here. Read thickness, spread and TP together in the instrument panel.' },
+    ja: { title: 'バッチ酸化膜の膜厚・均一性', observes: '平均膜厚とウェーハ間の膜厚ばらつきを可視化します。', reacts: '温度・乾式/湿式・時間・流量が膜厚とばらつきを変え、温度と時間はスループットにも影響します。', excludes: 'スループットTPはこの断面には出ません。計器で膜厚・ばらつき・TPを同時に確認します。' },
+  },
+  'lab-advanced': {
+    ko: { title: '외란 복구 후 두께·균일도', observes: '외란 조치 후 회복되는 평균 두께와 균일도만 이 장면에 보여줍니다.', reacts: '온도·분위기·시간·유량은 두께를, 승온율·더미·안정화는 균일도를 주로 바꿉니다.', excludes: '절연 지수·OISF·처리량은 장면에 없습니다. 리크/퍼지·HCl 조작 후 5개 계기 판정을 모두 읽으세요.' },
+    en: { title: 'Thickness and uniformity after disturbance recovery', observes: 'This scene shows only mean thickness and uniformity after corrective actions.', reacts: 'Temperature, ambient, time and flow mainly change thickness; ramp rate, dummy wafers and stabilisation mainly change uniformity.', excludes: 'Insulation index, OISF and throughput are not visualised here. Read all five instrument verdicts after leak/purge and HCl changes.' },
+    ja: { title: '外乱回復後の膜厚・均一性', observes: '是正操作後の平均膜厚と均一性だけをこの映像に示します。', reacts: '温度・雰囲気・時間・流量は主に膜厚を、昇温速度・ダミー・安定化は主に均一性を変えます。', excludes: '絶縁指数・OISF・スループットは映像には出ません。リーク/パージ・HCl操作後、5つの計器判定を確認します。' },
+  },
+};
+
 function SceneCanvas({ sceneId, stage, params, note }: {
   sceneId: string; stage: string; params: Record<string, number>; note?: string;
 }): React.ReactElement {
   const lang = getLang();
-  const slicingTitle = lang === 'en' ? 'Multi-wire slicing 4D' : '다중 와이어 슬라이싱 4D';
-  const slicingParts = lang === 'en'
+  const slicingParts = lang !== 'ko'
     ? ['① Single-crystal silicon ingot', '② Parallel wire web', '③ Cutting interface', '④ Sliced wafers and transfer rail']
     : ['① 단결정 실리콘 잉곳', '② 평행 다중 와이어 웹', '③ 절단 계면', '④ 절단 웨이퍼·이송 레일'];
-  const slicingStage = lang === 'en'
+  const slicingStage = lang !== 'ko'
     ? (stage === 'lab-basic' ? 'The ingot diameter follows the basic-lab result.'
       : stage === 'lab-applied' ? 'Diameter deviation changes wafer wobble and the good-wafer fraction.'
         : 'The advanced-lab yield changes the proportion of normal and warning wafers.')
     : (stage === 'lab-basic' ? '기초 실습의 결정 직경 결과가 잉곳과 웨이퍼 크기에 반영됩니다.'
       : stage === 'lab-applied' ? '직경 편차가 웨이퍼 흔들림과 정상 웨이퍼 비율에 반영됩니다.'
         : '심화 실습의 수율이 정상·경고 웨이퍼 비율에 반영됩니다.');
-  const processTitle = sceneId === 'aldCycle'
-    ? (lang === 'en' ? 'Deposition — ALD reactor interior' : '증착 — ALD 반응기 내부')
-    : sceneId === 'ionTrajectory'
-      ? (lang === 'en' ? 'Ion implantation — beam transport and wafer profile' : '이온주입 — 빔 수송과 웨이퍼 농도 분포')
-      : null;
+  const processTitle = sceneTitle(sceneId);
+  const explanation = sceneId === 'filmGrowth' ? OXIDATION_EXPLANATIONS[stage]?.[lang] : undefined;
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const paramsRef = useRef(params);
   paramsRef.current = params;
@@ -707,18 +744,21 @@ function SceneCanvas({ sceneId, stage, params, note }: {
   }, [sceneId, stage]);
 
   return (
-    <figure className={`sceneBox${sceneId === 'ingotSlicing' ? ' sceneBox--slicing' : ''}`} aria-label={sceneId === 'ingotSlicing' ? slicingTitle : undefined}>
-      {(sceneId === 'ingotSlicing' || processTitle) && (
-        <div className="sceneBox__titlebar">
-          <strong>{processTitle ?? slicingTitle}</strong>
+    <figure className={`sceneBox${sceneId === 'ingotSlicing' ? ' sceneBox--slicing' : ''}`} aria-label={processTitle}>
+      <div className="sceneBox__titlebar">
+          <strong>{explanation?.title ?? processTitle}</strong>
           <span>{sceneId === 'aldCycle'
-            ? (lang === 'en' ? 'Film growth' : '막 성장')
+            ? (lang !== 'ko' ? 'Film growth' : '막 성장')
             : sceneId === 'ionTrajectory'
-              ? (lang === 'en' ? 'Ion beam' : '이온 빔')
-              : (lang === 'en' ? 'Ingot → wafer' : '잉곳 → 웨이퍼')}</span>
-        </div>
-      )}
-      <canvas ref={canvasRef} className="sceneBox__canvas" aria-label={sceneId === 'ingotSlicing' ? slicingTitle : undefined} />
+              ? (lang !== 'ko' ? 'Ion beam' : '이온 빔')
+              : (lang !== 'ko' ? 'Live process response' : '실시간 공정 반응')}</span>
+      </div>
+      <canvas ref={canvasRef} className="sceneBox__canvas" aria-label={processTitle} />
+      {explanation && <section className="sceneBox__explanation" aria-label={explanation.title}>
+        <p><strong>{t('lab.scene.observes')}</strong><span>{explanation.observes}</span></p>
+        <p><strong>{t('lab.scene.reacts')}</strong><span>{explanation.reacts}</span></p>
+        <p><strong>{t('lab.scene.excludes')}</strong><span>{explanation.excludes}</span></p>
+      </section>}
       <figcaption>
         <span className={`sceneBox__mode sceneBox__mode--${mode}`}>{t(`lab.scene.${mode}`)}</span>
         {sceneId === 'ingotSlicing' && (

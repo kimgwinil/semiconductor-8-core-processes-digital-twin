@@ -1,4 +1,4 @@
-import type { LabChartBinding, LabSpec } from './spec';
+import type { LabChartBinding, LabSceneBinding, LabSpec } from './spec';
 import { coefficientsAt, oxideThickness, siliconConsumed } from '../physics/oxidation/dealGrove';
 import { assertWithin, quantity, withSource } from '../contract';
 import { MINUTES_PER_HOUR, NM_PER_UM } from '../physics/units';
@@ -421,6 +421,11 @@ function advState(inputs: Readonly<Record<string, number>>): AdvState {
     scenario: Math.round(inputs['faultScenario'] ?? SC_BOTH),
   };
 }
+
+const mapAdvancedOxidationScene: LabSceneBinding['map'] = (_inputs, out) => ({
+  thickness: clamp01((out['thicknessNm'] ?? 0) / 600),
+  uniformity: clamp01(1 - (out['spreadPct'] ?? 0) / 3),
+});
 
 const hasGradient = (s: AdvState): boolean => s.scenario === SC_GRADIENT;
 const hasMoisture = (s: AdvState): boolean => s.scenario === SC_MOISTURE || s.scenario === SC_BOTH;
@@ -998,10 +1003,7 @@ export const OXIDATION_LABS: LabSpec[] = [
       sceneId: 'filmGrowth',
       // 🔴 응용(S6)과 같은 매핑이다. `roughness`(§4-1 공백 4) 미매핑 · `tint`(공백 5) 보류.
       //    습식막에 기공을 그리게 하는 파라미터는 넘기지 않는다.
-      map: (_inputs, out) => ({
-        thickness: clamp01((out['thicknessNm'] ?? 0) / 600),
-        uniformity: clamp01(1 - (out['spreadPct'] ?? 0) / 3),
-      }),
+      map: mapAdvancedOxidationScene,
       note: 'thickness = x̄/600 nm · uniformity = 1 − σ/3 %(1 = 균일, DEV 정의 — DSN §4-1 공백 3). roughness·tint 는 근거 미확보로 매핑하지 않음.',
     },
     feedback: [

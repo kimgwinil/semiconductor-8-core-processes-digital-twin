@@ -63,5 +63,6 @@ const table: Map<string, Map<string, Map<string, LabGuide>>> = (() => {
 
 /** 이 칸의 안내문. 없으면 `undefined` — 화면은 안내 영역을 그리지 않는다. */
 export function labGuide(processId: string, stage: LabStage, lang: Lang): LabGuide | undefined {
-  return table.get(lang)?.get(processId)?.get(stage);
+  return table.get(lang)?.get(processId)?.get(stage)
+    ?? (lang === 'ja' ? table.get('en')?.get(processId)?.get(stage) : undefined);
 }

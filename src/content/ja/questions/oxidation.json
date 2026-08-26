@@ -1,0 +1,183 @@
+{
+  "processId": "oxidation",
+  "items": [
+    {
+      "id": "oxidation-q01",
+      "type": "single",
+      "difficulty": "low",
+      "objectiveId": "LO-P2-01",
+      "stem": "同じ温度・同じ時間において、dry oxidation (O2) と wet oxidation (H2O) の比較として正しい記述はどれか?",
+      "choices": [
+        "Wet の方が成長は遅いが膜はより緻密なので、ゲート酸化膜に用いられる",
+        "Dry の方が成長が速いので、絶縁用の厚いフィールド酸化膜に用いられる",
+        "Wet の方が成長が速く、厚いフィールド酸化膜に用いられる。dry は遅いがより緻密で、薄いゲート酸化膜に用いられる",
+        "2つの成長速度は同じで、反応副生成物だけが異なる"
+      ],
+      "answer": 2,
+      "explanation": "Wet oxidation (Si + 2H2O -> SiO2 + 2H2) は、同じ条件では dry oxidation (Si + O2 -> SiO2) よりもはるかに速く成長するが、得られる膜は比較的密度が低く、誘電破壊特性も弱い。したがって、絶縁用の厚いフィールド酸化膜は wet で成長させ、薄く電気的に重要なゲート酸化膜は dry で成長させる。なお、熱成長酸化膜はどちらの場合も多孔質ではない。",
+      "sourceId": "S127",
+      "weakTopic": "dry-wet-oxidation-comparison"
+    },
+    {
+      "id": "oxidation-q02",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P2-01",
+      "stem": "Deal-Grove model x_ox^2 + A*x_ox = B(t+tau) において、酸化膜が十分に厚くなった後、成長速度を支配するのはどの段階か?",
+      "choices": [
+        "Si/SiO2 界面での化学反応速度",
+        "すでに成長した酸化膜を通って酸化種が拡散輸送されること",
+        "ウェーハ上方の静止気体境界層を越える物質移動",
+        "酸化膜表面で利用可能な吸着 साइटの数"
+      ],
+      "answer": 1,
+      "explanation": "酸化膜が厚くなると、線形項 A*x_ox は二次項 x_ox^2 に比べて無視できるようになり、x_ox^2 ~= B(t+tau) となる。すなわち放物線領域では厚さは sqrt(t) に従って成長する。放物線成長速度定数 B は酸化膜内の酸化種の拡散係数に比例するため、この場合の律速段階は膜を通る拡散輸送である。膜が薄いときは、代わりに界面反応が律速となり、線形領域となる。",
+      "sourceId": "S120",
+      "weakTopic": "deal-grove-parabolic-regime"
+    },
+    {
+      "id": "oxidation-q03",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P2-02",
+      "stem": "縦型バッチ酸化炉の部品とその機能の組み合わせで、誤っているものはどれか?",
+      "choices": [
+        "Pyrogenic torch — H2 を O2 と燃焼させて wet oxidation 用の蒸気を生成する",
+        "Profile thermocouple — プロセスチューブの内側温度をゾーンごとに読み取り、ヒーター出力補正に用いる",
+        "Quartz boat — ウェーハを等間隔で載せ、均一なガス流と放射熱を受けるようにする",
+        "Mass flow controller (MFC) — 排気バルブ開度を制御してプロセスチューブを大気圧に保つ"
+      ],
+      "answer": 3,
+      "explanation": "MFC (mass flow controller) は各ガスラインの流量を目標値に設定する装置であり、チューブ圧力を維持することは排気ラインの圧力制御バルブが担当する別機能である。Pyrogenic torch は H2 を O2 と燃焼させて高純度蒸気を生成し、profile thermocouple はヒーター補正のためにゾーン温度を読み取り、boat のウェーハ間隔は膜厚均一性に直接影響する。したがって他の3つの記述はすべて正しい。",
+      "sourceId": "S127",
+      "weakTopic": "vertical-furnace-components"
+    },
+    {
+      "id": "oxidation-q04",
+      "type": "short",
+      "difficulty": "low",
+      "objectiveId": "LO-P2-02",
+      "stem": "多数のウェーハをバッチ炉に入れて長時間加熱する代わりに、1枚のウェーハをハロゲンランプ放射で数秒から数十秒加熱して薄いゲート酸化膜を成長させる方法がある。この方法の3文字の英語略称を書け。",
+      "answer": {
+        "accept": [
+          "RTO",
+          "rto",
+          "Rapid Thermal Oxidation",
+          "rapid thermal oxidation",
+          "급속열산화",
+          "급속 열산화",
+          "급속열 산화"
+        ]
+      },
+      "explanation": "RTO (Rapid Thermal Oxidation) はランプアレイで単一ウェーハを放射加熱する。熱容量が小さいため立ち上がりを高速にでき、バッチ炉では制御が難しい超薄膜ゲート酸化膜に適している。RTA は同じランプ装置を用いるが酸化ではなくアニール用であり、RTP は一般にランプ加熱による高速熱プロセス全般を指す包括的な用語なので、この特定の酸化工程の名称ではない。",
+      "sourceId": "S121",
+      "weakTopic": "rapid-thermal-oxidation"
+    },
+    {
+      "id": "oxidation-q05",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P2-03",
+      "stem": "dry oxidation では他の条件がすべて同じとき、温度を 900 degC から 1050 degC に上げる。正しい結果はどれか?",
+      "choices": [
+        "酸化膜は厚くなり、消費される Si も増え、酸化膜厚の約 0.44 倍になる",
+        "酸化膜は厚くなるが Si は消費されないので、基板表面位置は固定のままである",
+        "酸化膜は厚くなり、消費される Si は酸化膜厚の約 2.27 倍になる",
+        "酸化膜厚は温度に依存せず、酸化時間のみに依存する"
+      ],
+      "answer": 0,
+      "explanation": "線形成長速度定数と放物線成長速度定数の両方は、Arrhenius 形式に従って温度とともに増加するため、温度が高いほど同じ時間でより厚い膜が成長する。熱酸化では基板 Si が消費され、消費される Si は常に成長した酸化膜厚の 0.44 倍である。これは SiO2 と Si の原子密度に基づく材料固有の比であり、温度では変化しない。2.27 (=1/0.44) という値は、この比を逆向きに適用したものである。",
+      "sourceId": "S127",
+      "weakTopic": "oxidation-temperature-si-consumption"
+    },
+    {
+      "id": "oxidation-q06",
+      "type": "numeric",
+      "difficulty": "mid",
+      "objectiveId": "LO-P2-03",
+      "stem": "マスクなしで、(100) ウェーハの全面フロントサイドに対して blanket thermal oxidation により SiO2 を 250 nm 成長させる。消費されるシリコンは何 nm か? (消費 Si : 成長酸化膜 = 0.44 : 1 を用い、単位を付けよ。)",
+      "answer": {
+        "value": 110,
+        "unit": "nm",
+        "tolerance": 0.05
+      },
+      "explanation": "x_Si = 0.44 * x_ox = 0.44 * 250 nm = 110 nm。確認: 酸化膜の上面は元の表面より 250 - 110 = 140 nm (= 0.56*250) 上昇し、界面は元の表面より 110 nm 下がるので、両者を合わせると合計の 250 nm 厚さになる。0.56*250 = 140 と答えるのは、表面の上昇量と消費された Si の厚さを混同しているため誤りである。",
+      "sourceId": "S127",
+      "weakTopic": "si-consumption-calc"
+    },
+    {
+      "id": "oxidation-q07",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P2-04",
+      "stem": "応用実習では3条件を同時に満たす必要がある。(a) フィールド酸化膜厚さ 400 +/- 20 nm、(b) ウェーハ間の厚さばらつき 1 sigma <= 1.5%、(c) バッチのスループットが少なくとも 18 wafer/h。デフォルト（dry O2, 1000 degC, 150 min）から始める場合、最も適切な調整はどれか?",
+      "choices": [
+        "dry O2のまま温度を1150 degCに上げ、成長時間を短縮する",
+        "wet H2Oに切り替え、温度を1000 degC近傍に保ち、時間を約65 minに設定する",
+        "dry O2のまま酸化時間を300 minまで延長する",
+        "wet H2Oに切り替え、温度も1150 degCに上げる"
+      ],
+      "answer": 1,
+      "explanation": "現実的な時間で400 nmに到達することはdry酸化では非現実的なので、厚さとスループットの両方を満たすにはwetへの切り替えが唯一の方法である。均一性は温度に敏感なので、温度は1000 degC近傍に保つべきである。切り替えと同時に温度を上げると厚さとスループットは満たせても均一性を損ない、dryのまま時間を延ばすとスループットが大きく低下する。",
+      "sourceId": "S127",
+      "weakTopic": "oxidation-recipe-tradeoff"
+    },
+    {
+      "id": "oxidation-q08",
+      "type": "numeric",
+      "difficulty": "high",
+      "objectiveId": "LO-P2-04",
+      "stem": "Deal-Groveの関係式 x_ox^2 + A*x_ox = B(t+tau), tau = (x_i^2 + A*x_i)/B を用いる。与えられた酸化条件で、A = 0.165 um、B = 0.0117 um^2/h である。すでに x_i = 0.020 um の酸化膜を持つウェーハで酸化を開始する場合、最終膜厚 x_ox = 0.100 um に達するにはどれだけの時間 t が必要か？（単位：hours）",
+      "answer": {
+        "value": 1.95,
+        "unit": "h",
+        "tolerance": 0.05
+      },
+      "explanation": "tau = (0.020^2 + 0.165*0.020)/0.0117 = 0.0037/0.0117 = 0.3162 h. (t+tau) = (0.100^2 + 0.165*0.100)/0.0117 = 0.0265/0.0117 = 2.2650 h. t = 2.2650 - 0.3162 = 1.95 h. tau の差し引きを省略すると 2.26 h になるが、tau は裸のウェーハから既存酸化膜が成長するのに要したはずの仮想時間なので、必ず差し引かなければならない。",
+      "sourceId": "S120",
+      "weakTopic": "deal-grove-time-calc"
+    },
+    {
+      "id": "oxidation-q09",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P2-05",
+      "stem": "応用実習のバッチ後、スロットごとの酸化膜厚さ測定では、扉側のスロット1からガス入口側のスロット50に向かって単調に増加する直線的なプロファイルが示され、1 sigma は 3.2% であった。平均膜厚は規格内である。最もあり得る原因は何か?",
+      "choices": [
+        "配管継手のリークにより湿気がdryレシピに混入した",
+        "ゾーンヒーターの校正がずれたため、一部のスロットがフラットゾーンの温度範囲外になった",
+        "エリプソメータの酸化膜屈折率設定が誤って入力された",
+        "ボートに載せたウェーハの結晶方位がスロットごとに異なっていた"
+      ],
+      "answer": 1,
+      "explanation": "重要な手がかりは、平均は正常である一方、偏差がスロット位置に対して単調である点である。酸化速度は温度に対して指数関数的に敏感なので、管の軸方向温度プロファイルがフラットゾーン外にずれて一端が低く他端が高くなると、その勾配はスロット全体の厚さ勾配として直接現れる。湿気汚染ならバッチ全体の平均が規格外にずれ、測定設定エラーなら全スロットが同じだけ偏るので、どちらも位置依存の傾きを生じない。",
+      "sourceId": "S121",
+      "weakTopic": "furnace-temperature-uniformity"
+    },
+    {
+      "id": "oxidation-q10",
+      "type": "short",
+      "difficulty": "high",
+      "objectiveId": "LO-P2-05",
+      "stem": "高温酸化中、Si/SiO2界面でシリコンの自己格子間原子が結晶中に注入され、成長する欠陥を形成する。酸化雰囲気にHClのようなハロゲンを加える、またはより高温・高圧で酸化することで、その密度を低減できる。この欠陥の英語略称、または正式な韓国語名を答えよ。",
+      "answer": {
+        "accept": [
+          "OISF",
+          "oisf",
+          "OSF",
+          "osf",
+          "산화유기적층결함",
+          "산화 유기 적층결함",
+          "산화유도적층결함",
+          "산화 유도 적층결함",
+          "oxidation induced stacking fault",
+          "oxidation-induced stacking fault",
+          "Oxidation Induced Stacking Fault"
+        ]
+      },
+      "explanation": "熱酸化ではシリコンは完全には消費されず、一部のシリコン原子が自己格子間原子として結晶中に押し込まれ、既存の欠陥核に集まって酸化によって生じる積層欠陥へと成長する。したがって OISF (Oxidation-Induced Stacking Fault) である。HCl を加えると金属不純物をゲッターし、核生成サイトを減らし、より高い温度または圧力でも密度は低下する。酸化誘起の修飾語を伴わずに単に 'stacking fault' と書いても、特定の原因を識別していないため認められない。",
+      "sourceId": "S127",
+      "weakTopic": "oxidation-induced-stacking-fault"
+    }
+  ]
+}

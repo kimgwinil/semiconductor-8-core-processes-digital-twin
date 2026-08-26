@@ -31,9 +31,9 @@ export function Header(): React.ReactElement {
           <span className="sr-only">{t('nav.language')}</span>
           <select
             value={lang}
-            onChange={(e) => { void setLang(e.target.value as 'ko' | 'en'); }}
+            onChange={(e) => { void setLang(e.target.value as (typeof LANGS)[number]); }}
           >
-            {LANGS.map((l) => <option key={l} value={l}>{l === 'ko' ? '한국어' : 'English'}</option>)}
+            {LANGS.map((l) => <option key={l} value={l}>{l === 'ko' ? '한국어' : l === 'ja' ? '日本語' : 'English'}</option>)}
           </select>
         </label>
       </nav>

@@ -1,0 +1,17 @@
+{
+  "lab-basic": {
+    "intro": "プローブ針をパッドに正しく着地させるセルです。",
+    "goal": "「Overdrive OD」(10–150 µm)、「Needle material」(0 = W · 1 = W-Re · 2 = BeCu)、および「Measured scrub-mark major axis Dm」(10–90 µm) を動かして、実用オーバードライブ・ウィンドウ余裕、名目接触抵抗、パッシベーション開口余裕がどのように分岐するかを確認してください。パッドサイズは 60 × 60 µm に固定されており、マーク判定の基準です。",
+    "passHint": "3つの判定はすべて同時に満たす必要があります。ウィンドウ余裕が 0 µm 以上となるよう OD を 25–76 µm に保ち、開口余裕が 0 µm 以上となるようマークの長軸を 60 µm 開口内に保ち、名目接触抵抗を 200 µΩ 以下に保ってください。"
+  },
+  "lab-applied": {
+    "intro": "品質、時間、コストのバランスを取りながら、どこまで試験するかを決めるセルです。",
+    "goal": "「Test coverage T」(0.500–0.999)、「Die area A」(10–400 mm²)、「Guard-band G」(0–15%)、および「Redundancy spare lines R」(0–16) を動かして、流出欠陥レベル、ウェーハ当たり試験時間、良品ダイ当たりコストを確認してください。欠陥密度 D₀ は 0.50 ea/cm² に固定され、並列サイト数 P は 1 に固定されています。",
+    "passHint": "3つの判定はすべて同時に満たす必要があります。流出欠陥レベル 2,000 ppm 以下、ウェーハ当たり試験時間 10.0 min 以下、良品ダイ当たりコスト 100 KRW 以下。"
+  },
+  "lab-advanced": {
+    "intro": "プローブ針汚染（disturbance DS-1）がすでに有効な状態から始まります。原因を見つけて、6つの判定をすべて同時に戻してください。",
+    "goal": "「(a) Run immediate needle cleaning」(0 = don't run · 1 = run) を使って汚染を除去してください。その後、「Overdrive OD」(20–150 µm)、「Needle material」、および「Measured scrub-mark major axis Dm」(10–90 µm) で接触品質を設定し、「Test coverage T」、「Die area A」、「Defect density D₀」、「Guard-band G」、「Redundancy spare lines R」、および「Parallel site count P」で歩留まり/スループットを設定してください。",
+    "passHint": "6つの判定はすべて同時に満たす必要があります。実用オーバードライブ・ウィンドウ余裕 0 µm 以上、パッシベーション開口余裕 0 µm 以上、接触抵抗 200 µΩ 以下、流出欠陥レベル 1,500 ppm 以下、観測歩留まり 0.800 以上、ウェーハスループット 8.00 wafers/h 以上。"
+  }
+}

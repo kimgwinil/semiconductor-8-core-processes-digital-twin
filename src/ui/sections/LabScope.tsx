@@ -136,7 +136,7 @@ export function LabScope(props: LabScopeProps): React.ReactElement | null {
 
   const series = runs.map((pts, i) => ({
     id: `scope-run-${i}`,
-    label: lang === 'en' ? output.en : output.ko,
+    label: lang !== 'ko' ? output.en : output.ko,
     points: pts,
     color: SCOPE_COLOR,
   }));
@@ -155,9 +155,9 @@ export function LabScope(props: LabScopeProps): React.ReactElement | null {
     tone: 'spec' as const,
   }));
 
-  const paramName = lang === 'en' ? param.en : param.ko;
-  const paramUnit = lang === 'en' ? (param.unitEn ?? param.unit) : param.unit;
-  const outputName = lang === 'en' ? output.en : output.ko;
+  const paramName = lang !== 'ko' ? param.en : param.ko;
+  const paramUnit = lang !== 'ko' ? (param.unitEn ?? param.unit) : param.unit;
+  const outputName = lang !== 'ko' ? output.en : output.ko;
   const curPass = cur && pass ? inPassWindow(pass, cur.value) : null;
 
   return (
@@ -176,7 +176,7 @@ export function LabScope(props: LabScopeProps): React.ReactElement | null {
               aria-label={t('lab.scopeAxis')}
             >
               {candidates.map((o) => (
-                <option key={o.id} value={o.id}>{lang === 'en' ? o.en : o.ko}</option>
+                <option key={o.id} value={o.id}>{lang !== 'ko' ? o.en : o.ko}</option>
               ))}
             </select>
           </label>
@@ -194,7 +194,7 @@ export function LabScope(props: LabScopeProps): React.ReactElement | null {
           width={SCOPE_VB_W}
           height={SCOPE_VB_H}
           xLabel={paramName} xUnit={paramUnit}
-          yLabel={outputName} yUnit={cur ? (lang === 'en' ? (cur.unitEn ?? cur.unit) : cur.unit) : undefined}
+          yLabel={outputName} yUnit={cur ? (lang !== 'ko' ? (cur.unitEn ?? cur.unit) : cur.unit) : undefined}
           xDomain={xDomain} yDomain={yDomain}
           showLegend={false}
           ariaLabel={t('lab.scopeLead', { param: paramName, output: outputName })}
@@ -227,7 +227,7 @@ export function LabScope(props: LabScopeProps): React.ReactElement | null {
         <strong>{paramName} = {formatQuantity(curX, undefined)} {paramUnit}</strong>
         {cur && (
           <span className={curPass === false ? 'scope__now scope__now--fail' : 'scope__now'}>
-            {outputName} = {formatQuantity(cur.value, output.digits)} {lang === 'en' ? (cur.unitEn ?? cur.unit) : cur.unit}
+            {outputName} = {formatQuantity(cur.value, output.digits)} {lang !== 'ko' ? (cur.unitEn ?? cur.unit) : cur.unit}
             {curPass !== null && ` · ${curPass ? t('lab.pass') : t('lab.fail')}`}
           </span>
         )}

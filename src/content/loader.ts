@@ -9,7 +9,8 @@ const questionModules = import.meta.glob('./??/questions/*.json');
 
 export async function loadContent(lang: Lang, processId: string): Promise<ProcessContent | null> {
   const key = `./${lang}/${processId}.json`;
-  const loader = contentModules[key];
+  // 일본어 전문 원고가 아직 없는 공정은 한국어가 새지 않도록 영문 정본으로 안전하게 내린다.
+  const loader = contentModules[key] ?? (lang === 'ja' ? contentModules[`./en/${processId}.json`] : undefined);
   if (!loader) return null;
   const mod = await loader() as { default: ProcessContent };
   return mod.default;
@@ -17,7 +18,7 @@ export async function loadContent(lang: Lang, processId: string): Promise<Proces
 
 export async function loadQuestions(lang: Lang, processId: string): Promise<QuestionSet | null> {
   const key = `./${lang}/questions/${processId}.json`;
-  const loader = questionModules[key];
+  const loader = questionModules[key] ?? (lang === 'ja' ? questionModules[`./en/questions/${processId}.json`] : undefined);
   if (!loader) return null;
   const mod = await loader() as { default: QuestionSet };
   return mod.default;

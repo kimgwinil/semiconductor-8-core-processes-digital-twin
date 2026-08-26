@@ -80,6 +80,11 @@ function ensureStyle(doc:Document):void{
 .sceneBox[data-motion=em] .scene4d__particle{left:calc(18% + var(--dx));top:calc(41% + var(--dy));background:#ffd19a;box-shadow:0 0 6px 1px #ff8a3d;animation-name:s4-em-flow}
 .sceneBox[data-scene=plasma][data-stage=advanced] .scene4d__particle{width:calc(var(--s) + 1px);height:calc(var(--s) + 3px);border-radius:45%;background:#efe4ff;box-shadow:0 0 9px 2px #a76bff}
 .sceneBox[data-scene=waferMap][data-stage=applied] .scene4d__core,.sceneBox[data-scene=waferMap][data-stage=advanced] .scene4d__core{opacity:.22;animation-duration:3.8s}.sceneBox[data-scene=waferMap][data-stage=applied] .scene4d__particle,.sceneBox[data-scene=waferMap][data-stage=advanced] .scene4d__particle{opacity:.35}
+/* 실사 배경은 맥락, 물리 캔버스는 학습 대상이다. 신호가 배경에 묻히지 않게 전 씬의 최소 불투명도를 보장한다. */
+.sceneBox[data-four-d=true] .scene4d__equipment{filter:contrast(1.08) saturate(.82) brightness(.48)!important}
+.sceneBox[data-four-d=true] .scene4d__depth{background:radial-gradient(circle at var(--fx) var(--fy),rgba(2,7,16,.12) 0 16%,rgba(2,7,16,.48) 44%,rgba(2,7,16,.82) 100%),linear-gradient(110deg,rgba(255,255,255,.04),transparent 28% 72%,rgba(80,180,255,.06))!important}
+.sceneBox[data-four-d=true] .sceneBox__canvas{opacity:.74!important;filter:saturate(1.28) contrast(1.22) drop-shadow(0 0 7px rgba(90,210,255,.22))!important}
+.sceneBox[data-four-d=true] .sceneBox__titlebar{background:rgba(5,12,24,.92)!important;color:#eef8ff!important;border:1px solid rgba(126,211,255,.28);box-shadow:0 5px 18px rgba(0,0,0,.32)}
 @keyframes s4-breathe{to{filter:contrast(1.2) saturate(1.2) brightness(.96)}}
 @keyframes s4-core{0%,100%{opacity:.35;transform:scale(.84)}50%{opacity:.92;transform:scale(1.16)}}
 @keyframes s4-scan{0%,100%{transform:translateY(-105px);opacity:0}15%,85%{opacity:.8}50%{transform:translateY(105px)}}

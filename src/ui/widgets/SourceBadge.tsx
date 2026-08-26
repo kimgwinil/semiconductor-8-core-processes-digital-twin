@@ -163,7 +163,7 @@ export function QuantityView({ q, label, outputId, valueText, specNote, specBasi
           S247 ↔ S255 로 바뀐다」). 배지를 꺼도 라벨은 남으므로 여기서 함께 거른다. */}
       <span className="qty__label">{SHOW_PROVENANCE ? label : redactProvenance(label)}</span>
       <span className="qty__value">{valueText ?? formatQuantity(q.value)}</span>
-      <span className="qty__unit">{getLang() === 'en' ? (q.unitEn ?? q.unit) : q.unit}</span>
+      <span className="qty__unit">{getLang() !== 'ko' ? (q.unitEn ?? q.unit) : q.unit}</span>
       <SourceBadge sourceId={q.sourceId} grade={q.grade} notice={q.notice} kind={q.kind} l2Pending={q.l2Pending} />
       {specNote !== undefined && (
         // 🔴 배지를 `qty__spec` **안**에 넣는다. `.qty` 는 flex-wrap 이라 밖에 두면 좁은 화면에서

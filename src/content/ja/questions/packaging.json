@@ -1,0 +1,200 @@
+{
+  "processId": "packaging",
+  "items": [
+    {
+      "id": "packaging-q01",
+      "type": "single",
+      "difficulty": "low",
+      "objectiveId": "LO-P8-01",
+      "stem": "完成したシリコンダイは基板に直接実装されるのではなく、パッケージ内に入って出荷されます。パッケージングの4つの基本機能を正しく列挙している組み合わせはどれですか?",
+      "choices": [
+        "電気接続、機械的保護、放熱、標準フォームファクタ",
+        "電気接続、機械的保護、光学アライメント、磁気シールド",
+        "放熱、標準フォームファクタ、真空保持、光学アライメント",
+        "機械的保護、磁気シールド、真空保持、電気絶縁"
+      ],
+      "answer": 0,
+      "explanation": "Packagingは、電気接続、すなわち数十マイクロメートルのダイパッドピッチを基板実装可能なピッチへ拡張すること、機械的/化学的保護、すなわちダイを取り扱い応力、湿気、イオン汚染から隔離すること、放熱、すなわちモールド上方およびダイアタッチ/基板/外部端子下方を通じて熱を逃がすこと、そして標準フォームファクタ、すなわち異なるベンダーの部品を同じ基板フットプリントに実装できるようにすること、を提供します。光学アライメント、磁気シールド、真空保持は、イメージセンサ、RF、MEMSなど特定のパッケージタイプにのみ必要な追加要件であり、Packagingの4つの基本機能ではありません。",
+      "sourceId": "S55",
+      "weakTopic": "packaging-four-functions"
+    },
+    {
+      "id": "packaging-q02",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P8-01",
+      "stem": "ストリップ単位で組み立てられる基板ベースのワイヤボンドBGAについて、ウェーハ受領後のバックエンド工程の正しい順序はどれですか?",
+      "choices": [
+        "ダイシング -> バックグラインディング -> ダイアタッチ -> ワイヤボンディング -> モールディング -> マーキング -> はんだボールアタッチ -> シングulation -> 最終テスト",
+        "バックグラインディング -> ダイシング -> ワイヤボンディング -> ダイアタッチ -> モールディング -> はんだボールアタッチ -> マーキング -> シングulation -> 最終テスト",
+        "バックグラインディング -> ダイシング -> ダイアタッチ -> ワイヤボンディング -> モールディング -> マーキング -> はんだボールアタッチ -> シングulation -> 最終テスト",
+        "バックグラインディング -> ダイシング -> ダイアタッチ -> ワイヤボンディング -> モールディング -> シングulation -> はんだボールアタッチ -> マーキング -> 最終テスト"
+      ],
+      "answer": 2,
+      "explanation": "フローを決めるのはユニットの変化です。ウェーハを薄化するバックグラインディングは、まだウェーハである間にしか実行できないため、ダイシングより前でなければならず、ダイシングはウェーハを個々のダイに分割する工程です。ダイをワイヤがループできるようにする前にダイを基板へ固定する必要があるため、ダイアタッチが先で、その後にワイヤボンディングが続きます。モールディングは配線完了後にのみ封止でき、マーキングはモールド上面に施すためモールディングの後に行われます。はんだボールアタッチはストリップ下面で行われ、シングulationはストリップを個別ユニットに切り分ける工程なので、それとマーキングの後でなければなりません。先にシングulateするとユニットごとの取り扱いが必要になり、スループットが低下します。完全にダイシングされたウェーハはその後に均一に研削できないため、標準的なグラインドしてからダイシングするフローでは、ダイシングがワイヤボンディングより前に来ることはありません。1つ留意点があります。マーキングと、はんだボールアタッチとの前後関係はサプライヤーやラインによって異なり、実際の工程文書では、先にボールをアタッチしてリフローし、その後にマーキングとシングulationをまとめて行うフローも示されています。この設問で正誤を分けるのは、バックグラインディングとダイシングの順序、およびダイアタッチとワイヤボンディングの順序であり、マーキングの位置ではありません。",
+      "sourceId": "S58",
+      "weakTopic": "assembly-process-flow-order"
+    },
+    {
+      "id": "packaging-q03",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P8-02",
+      "stem": "ワイヤボンドBGAパッケージの断面において、部品とその主な機能の組み合わせとして誤っているのはどれですか?",
+      "choices": [
+        "EMCモールドコンパウンド — ダイとボンディングワイヤを機械的/化学的に保護し、さらに上向きの熱経路を兼ねる",
+        "ソルダーレジスト — 基板表面配線を絶縁・保護し、はんだの広がりを防ぐためにボールランド開口を規定する",
+        "ボンディングワイヤ — ダイパッドを基板のボンドフィンガーに電気接続する",
+        "ソルダーボール — 基板内部の異なる配線層を垂直に接続する"
+      ],
+      "answer": 3,
+      "explanation": "ソルダーボールはパッケージの外部端子であり、基板下面のボールランドに接続され、電気接続と、パッケージとPCBの間のスタンドオフ高さを提供し、下向きの熱経路を終端します。基板内部の異なる配線層を垂直に接続するのはビアの役割であり、位置（パッケージ外部か基板内部か）と機能（外部接続か層間接続か）の両方が異なります。EMC、ソルダーレジスト、ボンディングワイヤに関する他の3つの説明はすべて正しいです。",
+      "sourceId": "S57",
+      "weakTopic": "package-cross-section-parts"
+    },
+    {
+      "id": "packaging-q04",
+      "type": "short",
+      "difficulty": "mid",
+      "objectiveId": "LO-P8-02",
+      "stem": "ワイヤボンドパッケージにおいて、ダイとすべてのボンディングワイヤを覆い、(1) 機械的/化学的保護、(2) 湿気バリア、(3) 上向きの熱経路を同時に提供する封止材の名称を答えてください。（英語の略語可）",
+      "answer": {
+        "accept": [
+          "에폭시몰딩컴파운드",
+          "에폭시몰드컴파운드",
+          "에폭시몰딩컴파운드EMC",
+          "몰딩컴파운드",
+          "몰드컴파운드",
+          "emc",
+          "epoxymoldingcompound",
+          "epoxymouldingcompound",
+          "epoxymoldcompound"
+        ]
+      },
+      "explanation": "この材料は、シリカを高充填したエポキシ熱硬化樹脂で、トランスファーモールドにより注入され、ダイとワイヤを完全に包み込んで取り扱い応力、湿気、イオン汚染を遮断すると同時に、ダイ上面からモールド上面を経て周囲空気へ至る上向きの熱経路を形成します。設問ですでに一般名として用いられている 'Encapsulant' は材料カテゴリのみを指し、正式な材料名ではないため受理されません。'underfill' はフリップチップパッケージでダイと基板の隙間を充填するものであり、ワイヤボンドパッケージの封止材ではありません。'die-attach film' はダイの下にのみ位置する接着層であり、別物です。",
+      "sourceId": "S47",
+      "weakTopic": "epoxy-molding-compound"
+    },
+    {
+      "id": "packaging-q05",
+      "type": "single",
+      "difficulty": "low",
+      "objectiveId": "LO-P8-03",
+      "stem": "junction-to-ambient thermal resistance theta-JA の正しい定義はどれですか?（Tj = junction temperature, Tc = case temperature, Ta = ambient temperature, P = power dissipation）",
+      "choices": [
+        "theta-JA = (Tj - Ta) / P",
+        "theta-JA = (Tj - Tc) / P",
+        "theta-JA = (Tc - Ta) / P",
+        "theta-JA = P / (Tj - Ta)"
+      ],
+      "answer": 0,
+      "explanation": "熱抵抗は、単位消費電力あたりに2点間で生じる温度差として定義され、theta-JA は junction (J) と ambient (A) の間の値なので、分子は (Tj-Ta)、分母は P です。単位は degC/W (=K/W) であり、これを逆にすると設計式 Tj = Ta + theta-JA*P になります。(Tj-Tc)/P は junction-to-case resistance theta-JC を定義し、(Tc-Ta)/P は case-to-ambient resistance theta-CA を定義します。分子と分母を入れ替えると熱抵抗ではなく熱コンダクタンスになり、意味が反転して大きい値ほど熱が逃げやすいことを示します。",
+      "sourceId": "S247",
+      "weakTopic": "thermal-resistance-theta-ja"
+    },
+    {
+      "id": "packaging-q06",
+      "type": "numeric",
+      "difficulty": "mid",
+      "objectiveId": "LO-P8-03",
+      "stem": "あるパッケージの junction-to-case thermal resistance theta-JC = 4.5 degC/W、case-to-ambient theta-CA = 24.0 degC/W が直列に接続されています。消費電力 P = 3.2 W、周囲温度 Ta = 45 degC のとき、junction temperature Tj を求めてください。（単位も付けてください。）",
+      "answer": {
+        "value": 136.2,
+        "unit": "°C",
+        "tolerance": 0.02
+      },
+      "explanation": "直列合成より theta-JA = theta-JC + theta-CA = 4.5+24.0 = 28.5 degC/W。温度上昇 delta-T = theta-JA*P = 28.5*3.2 = 91.2 degC。junction temperature Tj = Ta+delta-T = 45+91.2 = 136.2 degC。delta-T を求めた後に Ta を加え忘れると 91.2 になって誤りです。theta-CA のみを用いて theta-JC を落とすと 121.8 になって誤りです。また、直列ではなく並列で合成すると 57.1 になって誤りです。これら2つの熱抵抗は、同じ熱流束が順番に通過するため直列でなければなりません。",
+      "sourceId": "S247",
+      "weakTopic": "series-thermal-resistance-calc"
+    },
+    {
+      "id": "packaging-q07",
+      "type": "single",
+      "difficulty": "mid",
+      "objectiveId": "LO-P8-04",
+      "stem": "ダイ、基板、ピン数、および冷却条件をすべて固定したまま、モールドコンパウンド厚だけを0.3 mmから1.0 mmへ増加させる。期待される変化の組合せとして正しいものはどれか?",
+      "choices": [
+        "機械保護余裕増加、上方向熱抵抗増加、パッケージ厚さ増加、反り傾向増加",
+        "機械保護余裕増加、上方向熱抵抗低下、パッケージ厚さ増加、反り傾向低下",
+        "機械保護余裕低下、上方向熱抵抗増加、パッケージ厚さ低下、反り傾向増加",
+        "機械保護余裕増加、上方向熱抵抗不変、パッケージ厚さ不変、反り不変"
+      ],
+      "answer": 0,
+      "explanation": "厚いモールドとは、ダイとワイヤを覆う樹脂層が厚くなることを意味し、機械的保護とループクリアランスを増加させる。伝導熱抵抗 R = thickness/(thermal conductivity * area) なので、上方向熱抵抗は厚さに比例して増加する。総パッケージ厚さ T_pkg = t_m + t_die + t_da + t_sub + t_ball は t_m 項が増えるため増加する。また、シリコン、EMC、有機基板の間の CTE ミスマッチによる反りは、片側により厚い樹脂層が載るほど増加する傾向がある。したがって保護は向上する一方、熱性能、厚さ、平坦性はすべて悪化する。上方向熱抵抗が低下する、あるいは4つの指標がすべて不変だという主張は、伝導抵抗が厚さに比例するという基本物理に反する。",
+      "sourceId": "S61",
+      "weakTopic": "mold-thickness-tradeoff"
+    },
+    {
+      "id": "packaging-q08",
+      "type": "numeric",
+      "difficulty": "high",
+      "objectiveId": "LO-P8-04",
+      "stem": "あるパッケージには2つの並列熱経路がある。上方向経路（die -> mold -> ambient）の theta-top = 34.0 degC/W、下方向経路（die -> die attach -> substrate -> solder ball -> PCB）の theta-bot = 28.0 degC/W である。P = 4.0 W、Ta = 40 degC のとき、(a) 合成熱抵抗 theta-JA、(b) 接合温度 Tj、(c) 総熱量のうち下方向経路が担う割合を求めよ。",
+      "answer": {
+        "parts": [
+          {
+            "label": "a",
+            "value": 15.4,
+            "unit": "°C/W",
+            "tolerance": 0.03
+          },
+          {
+            "label": "b",
+            "value": 101.4,
+            "unit": "°C",
+            "tolerance": 0.03
+          },
+          {
+            "label": "c",
+            "value": 54.8,
+            "unit": "%",
+            "tolerance": 0.03
+          }
+        ]
+      },
+      "explanation": "並列合成: 1/theta-JA = 1/theta-top + 1/theta-bot -> theta-JA = theta-top*theta-bot/(theta-top+theta-bot) = (34.0*28.0)/62.0 = 15.355 ~= 15.4 degC/W (a). delta-T = 15.355*4.0 = 61.42 degC, Tj = 40+61.42 ~= 101.4 degC (b). 温度降下は両経路で同じなので、熱流は抵抗に反比例して分かれる。したがって下方向の割合 = theta-top/(theta-top+theta-bot) = 34.0/62.0 ~= 54.8% (c) となる。抵抗の低い経路ほど常により多くの熱を運ぶ。3つの部分 (a)(b)(c) はすべて正しい必要がある。並列の代わりに直列として合成すると 62.0 となってしまい、並列合成は個々の抵抗のいずれよりも小さくならなければならないという नियमに反する。",
+      "sourceId": "S247",
+      "weakTopic": "parallel-thermal-path-calc"
+    },
+    {
+      "id": "packaging-q09",
+      "type": "short",
+      "difficulty": "mid",
+      "objectiveId": "LO-P8-05",
+      "stem": "非気密のプラスチックパッケージが、吸湿防止袋を開封した後に MSL 規定 floor life を超えて放置され、そのままベーキングなしでリフロー（peak ~260 degC）に送られる。モールドコンパウンドに吸収された水分が急速に気化・膨張し、界面デルミネーションとパッケージ割れを引き起こす。この現象の名称は何か。",
+      "answer": {
+        "accept": [
+          "팝콘크랙",
+          "팝콘균열",
+          "팝콘현상",
+          "팝코닝",
+          "팝콘크래킹",
+          "popcorncrack",
+          "popcorncracking",
+          "popcorning",
+          "popcorneffect"
+        ]
+      },
+      "explanation": "吸収された水分は、mold-to-die-paddle interface のような最も弱い界面に集まり、リフロー昇温中に蒸気圧を構築する。ピーク温度付近で、この蒸気圧が界面接着力と樹脂強度を超えると、まず界面がデルミネーションし、その後モールドが破裂的に開く。この現象は、はじけるコーンに似ていることから popcorn cracking と呼ばれる。対策は floor life を守り、超過した場合はベーキングすることである。'Delamination' は popcorn cracking に伴う界面現象にすぎず、クラックを含む現象全体の名称ではない。また、'Kirkendall voiding' と 'warpage' は、それぞれ拡散速度差および CTE ミスマッチに起因する別の欠陥である。",
+      "sourceId": "S248",
+      "weakTopic": "popcorn-cracking"
+    },
+    {
+      "id": "packaging-q10",
+      "type": "single",
+      "difficulty": "high",
+      "objectiveId": "LO-P8-05",
+      "stem": "パッケージの bond-integrity test とその規格に関する記述として正しいものはどれか?",
+      "choices": [
+        "wire-bond pull test と wire-bond (ball) shear test は同じ対象を同じ荷重方向で測定するので、どちらの規格値も互換的に使える",
+        "die shear test はダイ面積の区分ごとに要求値の導出が異なり、その要求値の単位は力 (kg) である",
+        "JEDEC JESD22-B116B (wire bond shear test method) は、自身の表で ball-bond の合否限界値を数値で直接規定している",
+        "wire-bond pull test の gf 単位の要求値を、そのまま die shear test の合否限界として使える"
+      ],
+      "answer": 1,
+      "explanation": "die shear test の要求値（MIL-STD-883 Method 2019）は単一の固定値ではなく、ダイ面積の区分ごとに異なる方法で導出され、その単位は力 (kg) である。対して wire-bond pull test の要求値（Method 2011）は gf であり、shear test（JESD22-B116B）は shear-per-unit-area の概念を用いる。pull test はワイヤループを上方に引っ張り、shear test は接合ボールを横方向に押すため、荷重方向も破壊モードも異なり、規格値を入れ替えることはできない。JESD22-B116B が規定するのは試験方法（area formula、failure codes など）のみであり、ball-bond の数値合否限界は JESD47 に移されていて、この文書には含まれていない。gf 単位の wire-bond 要求値を kg 単位の die-attach 要求値に持ち込むことも、対象、単位、試験 प्रकारを混同しているため誤りである。",
+      "sourceId": "S53",
+      "weakTopic": "bond-test-standard-mismatch"
+    }
+  ]
+}
