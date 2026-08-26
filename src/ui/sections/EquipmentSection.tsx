@@ -135,6 +135,31 @@ export function EquipmentSection({ processId, sectionId, content }: Props): Reac
 function RealisticEquipmentFigure({ processId, lang }: {
   processId: string; lang: string;
 }): React.ReactElement | null {
+  if (processId === 'deposition') {
+    const base = import.meta.env?.BASE_URL ?? '/';
+    const figures = lang === 'en'
+      ? [
+          { src: `${base}assets/simulator-realistic/deposition/ald-reactor-v2.jpg`, title: 'Deposition tool — ALD reactor', detail: 'Precursor pulses enter the reaction chamber and form the film on the wafer.' },
+          { src: `${base}assets/simulator-realistic/deposition/ion-implanter-v2.jpg`, title: 'Ion implantation tool — beamline', detail: 'Ions travel from the source through mass analysis and acceleration to the tilted wafer.' },
+        ]
+      : [
+          { src: `${base}assets/simulator-realistic/deposition/ald-reactor-v2.jpg`, title: '증착 장비 — ALD 반응기', detail: '전구체가 반응 챔버에 교대로 주입되어 웨이퍼 위에 막을 형성합니다.' },
+          { src: `${base}assets/simulator-realistic/deposition/ion-implanter-v2.jpg`, title: '이온주입 장비 — 빔라인', detail: '이온원에서 생성된 이온이 질량 분석과 가속을 거쳐 기울여진 웨이퍼에 도달합니다.' },
+        ];
+    return (
+      <div className="equipmentRealisticPair" aria-label={lang === 'en' ? 'Deposition and ion implantation equipment' : '증착과 이온주입 장비'}>
+        {figures.map((figure) => (
+          <figure className="fig equipmentRealistic equipmentRealistic--split" key={figure.title}>
+            <h3 className="equipmentRealistic__title">{figure.title}</h3>
+            <div className="equipmentRealistic__image">
+              <img src={figure.src} alt={figure.title} loading="eager" decoding="async" />
+            </div>
+            <figcaption className="equipmentRealistic__caption">{figure.detail}</figcaption>
+          </figure>
+        ))}
+      </div>
+    );
+  }
   const src = realisticBackdropUrl(processId);
   if (!src) return null;
   const caption = lang === 'en'

@@ -410,7 +410,7 @@ function aldThicknessChart(args: { id: string; outputId: string }): LabChartBind
     en: 'Film thickness vs. ALD cycles',
     // 🔴 이 칸에서 두께 합격창(23–25 nm)을 그리는 유일한 화면이다.
     judgesOutputs: [args.outputId],
-    xKo: 'ALD 사이클 수 N', xEn: 'ALD cycles', xUnit: '사이클',
+    xKo: 'ALD 사이클 수 N', xEn: 'ALD cycles', xUnit: '사이클', xUnitEn: 'cycles',
     yKo: '막 두께 d', yEn: 'Film thickness', yUnit: 'nm',
     xDomain: [0, ALD_CYCLES_MAX],
     refLines: [
@@ -841,7 +841,7 @@ export const DEPOSITION_LABS: LabSpec[] = [
     fixedConditions: [
       {
         id: 'ionSpecies', ko: '이온종', en: 'Ion species',
-        value: `¹¹B⁺ (${CHARGE_STATE}가)`, sourceId: 'S181',
+        value: `¹¹B⁺ (${CHARGE_STATE}가)`, valueEn: '¹¹B⁺ (monovalent)', sourceId: 'S181',
         note: '1가이므로 주입 시간 식의 전하수 n = 1 이다. 🔴 수가 아닌 조건이라 문자열이다.',
       },
       {
@@ -1057,7 +1057,7 @@ export const DEPOSITION_LABS: LabSpec[] = [
       },
       {
         id: 'ionSpecies', ko: '이온종', en: 'Ion species',
-        value: `¹¹B⁺ (${CHARGE_STATE}가)`, sourceId: 'S181',
+        value: `¹¹B⁺ (${CHARGE_STATE}가)`, valueEn: '¹¹B⁺ (monovalent)', sourceId: 'S181',
         note: '1가. 어닐 확산계수도 붕소 세트(S188)를 쓴다 — 이온종이 바뀌면 D 도 바뀐다.',
       },
       {

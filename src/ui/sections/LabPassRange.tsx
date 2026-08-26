@@ -315,7 +315,8 @@ export function FailDirectionList({ spec, verdict, q, lang }: {
           if (!o) return null;
           const quantity = q[r.outputId];
           const name = lang === 'en' ? o.en : o.ko;
-          const unit = quantity?.unit ? ` ${quantity.unit}` : '';
+          const shownUnit = lang === 'en' ? (quantity?.unitEn ?? quantity?.unit) : quantity?.unit;
+          const unit = shownUnit ? ` ${shownUnit}` : '';
           // 🔴 값 서식은 출력 지표와 **같은 자릿수**를 쓴다. 규격선이 값보다 굵거나 가늘게
           //    찍히면 학습자가 넘었는지를 눈으로 셀 수 없다(R-DISP-1 과 같은 이유).
           const valueText = `${formatLimit(quantity?.value ?? Number.NaN, o.digits)}${unit}`;

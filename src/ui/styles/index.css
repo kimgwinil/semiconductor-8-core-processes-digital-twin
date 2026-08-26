@@ -447,6 +447,13 @@
   .sceneBox { margin: 0; }
   .sceneBox__titlebar { position: relative; z-index: 4; display: flex; justify-content: space-between; gap: 8px; align-items: center; margin-block-end: 7px; padding: 6px 8px; border-radius: 6px; background: var(--surface); color: var(--ink); }
   .sceneBox__titlebar span { color: var(--accent); font-size: 12px; font-weight: 700; }
+  .equipmentRealisticPair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-block-end: 12px; }
+  .equipmentRealistic--split { min-inline-size: 0; margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+  .equipmentRealistic--split .equipmentRealistic__title { margin: 0; padding: 9px 11px; font-size: 14px; border-block-end: 1px solid var(--line); }
+  .equipmentRealistic--split .equipmentRealistic__image { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #050914; }
+  .equipmentRealistic--split .equipmentRealistic__image img { inline-size: 100%; block-size: 100%; display: block; object-fit: cover; }
+  .equipmentRealistic--split .equipmentRealistic__caption { display: block; margin: 0; padding: 8px 11px; color: var(--ink-2); font-size: 12px; line-height: 1.5; }
+  @media (max-width: 760px) { .equipmentRealisticPair { grid-template-columns: minmax(0, 1fr); } }
   .sceneBox__canvas { inline-size: 100%; aspect-ratio: 16 / 10; display: block; background: var(--surface-2); border-radius: 8px; }
   .sceneBox--slicing .sceneBox__canvas { background: radial-gradient(circle at 48% 50%, #173047 0, #0b1725 46%, #040911 100%); box-shadow: inset 0 0 0 1px rgba(126, 211, 255, .20), inset 0 -52px 80px rgba(0, 0, 0, .28); }
   .sceneBox figcaption { display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; margin-block-start: 8px; font-size: 12px; color: var(--ink-2); }

@@ -20,6 +20,7 @@
   "equip.notes.warnCount": "주의 {count}건",
   "equip.notes.warnLabel": "주의",
   "equip.overlay": "장비 부위 라벨",
+  "equip.motionPaths": "장비 내부 동작 경로",
   "grade.literature": "문헌식",
   "grade.operational": "운영규약",
   "grade.preL2Notice": "현업 검증(L2) 전입니다. 값의 크기를 실측값으로 신뢰하지 마십시오.",

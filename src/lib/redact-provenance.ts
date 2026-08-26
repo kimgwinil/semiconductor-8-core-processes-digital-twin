@@ -126,6 +126,7 @@ function dropDisclosureSentences(text: string): string {
 }
 
 export function redactProvenance(text: string): string {
+  const koreanSentence = /[가-힣]/.test(text);
   let out = dropDisclosureSentences(text);
   for (const [re, to] of PHRASE_RULES) out = out.replace(re, to);
   if (!S_TOKEN.test(out)) return out === text ? text : tidy(out);
@@ -142,13 +143,18 @@ export function redactProvenance(text: string): string {
   });
 
   // R3 — 문장 성분으로 쓰인 S번호는 「문헌」으로 갈아끼우고 조사를 맞춘다.
-  out = out.replace(
-    /S\d{2,3}(?:\s*[·,]\s*S\d{2,3})*\s*(으로|에서|의|가|이|는|은|를|을|와|과|도|만|에)(?=\s|$)/g,
-    (_m, particle: string) => `문헌${PARTICLE_AFTER_CONSONANT[particle] ?? particle}`,
-  );
+  if (koreanSentence) {
+    out = out.replace(
+      /S\d{2,3}(?:\s*[·,]\s*S\d{2,3})*\s*(으로|에서|의|가|이|는|은|를|을|와|과|도|만|에)(?=\s|$)/g,
+      (_m, particle: string) => `문헌${PARTICLE_AFTER_CONSONANT[particle] ?? particle}`,
+    );
+  }
   // R3-b — 조사 없이 locator 를 끌고 다니는 인용(`S101 Table 4 …`)도 「문헌」으로 갈아끼운다.
   //         토큰만 지우면 주어가 사라져 「무결함 창은 Table 4 … 기준」처럼 뜬금없어진다.
-  out = out.replace(/S\d{2,3}(?=\s+(?:Tables?|Tbl\.?|Figs?\.?|Figure|Eqs?\.?|§|Sec\.?|Ch\.?)\b)/g, '문헌');
+  out = out.replace(
+    /S\d{2,3}(?=\s+(?:Tables?|Tbl\.?|Figs?\.?|Figure|Eqs?\.?|§|Sec\.?|Ch\.?)\b)/g,
+    koreanSentence ? '문헌' : 'the literature',
+  );
 
   // R4 — 남은 토큰은 지운다.
   out = out.replace(/\s*[·,]?\s*S\d{2,3}/g, '');

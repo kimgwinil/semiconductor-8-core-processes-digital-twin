@@ -86,10 +86,7 @@ export function LabSection({ processId, sectionId }: Props): React.ReactElement 
   // 🔴 실습 명세가 있으면 배선된 실습 화면을 띄운다. 방향성 규칙은 그 아래 근거로 남긴다.
   if (spec) {
     return (
-      <>
-        <LabRunner spec={spec} />
-        {rules.length > 0 && <RulesPanel rules={rules} />}
-      </>
+      <LabRunner spec={spec} />
     );
   }
 

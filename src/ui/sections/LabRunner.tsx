@@ -619,6 +619,11 @@ function SceneCanvas({ sceneId, stage, params, note }: {
     : (stage === 'lab-basic' ? '기초 실습의 결정 직경 결과가 잉곳과 웨이퍼 크기에 반영됩니다.'
       : stage === 'lab-applied' ? '직경 편차가 웨이퍼 흔들림과 정상 웨이퍼 비율에 반영됩니다.'
         : '심화 실습의 수율이 정상·경고 웨이퍼 비율에 반영됩니다.');
+  const processTitle = sceneId === 'aldCycle'
+    ? (lang === 'en' ? 'Deposition — ALD reactor interior' : '증착 — ALD 반응기 내부')
+    : sceneId === 'ionTrajectory'
+      ? (lang === 'en' ? 'Ion implantation — beam transport and wafer profile' : '이온주입 — 빔 수송과 웨이퍼 농도 분포')
+      : null;
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const paramsRef = useRef(params);
   paramsRef.current = params;
@@ -703,10 +708,14 @@ function SceneCanvas({ sceneId, stage, params, note }: {
 
   return (
     <figure className={`sceneBox${sceneId === 'ingotSlicing' ? ' sceneBox--slicing' : ''}`} aria-label={sceneId === 'ingotSlicing' ? slicingTitle : undefined}>
-      {sceneId === 'ingotSlicing' && (
+      {(sceneId === 'ingotSlicing' || processTitle) && (
         <div className="sceneBox__titlebar">
-          <strong>{slicingTitle}</strong>
-          <span>{lang === 'en' ? 'Ingot → wafer' : '잉곳 → 웨이퍼'}</span>
+          <strong>{processTitle ?? slicingTitle}</strong>
+          <span>{sceneId === 'aldCycle'
+            ? (lang === 'en' ? 'Film growth' : '막 성장')
+            : sceneId === 'ionTrajectory'
+              ? (lang === 'en' ? 'Ion beam' : '이온 빔')
+              : (lang === 'en' ? 'Ingot → wafer' : '잉곳 → 웨이퍼')}</span>
         </div>
       )}
       <canvas ref={canvasRef} className="sceneBox__canvas" aria-label={sceneId === 'ingotSlicing' ? slicingTitle : undefined} />

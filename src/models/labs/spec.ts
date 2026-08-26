@@ -230,8 +230,8 @@ export interface LabChartBinding {
   /** PLN 이 문구까지 지정한 캡션이 있으면 그대로 옮긴다. */
   captionKo?: string;
   captionEn?: string;
-  xKo: string; xEn: string; xUnit?: string;
-  yKo: string; yEn: string; yUnit?: string;
+  xKo: string; xEn: string; xUnit?: string; xUnitEn?: string;
+  yKo: string; yEn: string; yUnit?: string; yUnitEn?: string;
   /** 🔴 확대 축. PLN 426 「세로축 200 ± 3 mm 만 확대」처럼 **판정이 보이게** 하는 핵심 값. */
   yDomain?: [number, number];
   xDomain?: [number, number];
@@ -240,6 +240,8 @@ export interface LabChartBinding {
   build(inputs: Readonly<Record<string, number>>, outputs: Readonly<Record<string, number>>): LabChartSeries[];
   /** 왜 이 축·이 확대인지. 화면 「근거」에 노출된다. */
   note?: string;
+  /** 영문 화면용 설명. 없으면 한국어 note를 영문 화면에 노출하지 않는다. */
+  noteEn?: string;
 }
 
 /**

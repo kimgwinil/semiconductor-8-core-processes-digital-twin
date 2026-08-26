@@ -20,6 +20,7 @@
   "equip.notes.warnCount": "{count} caution notes",
   "equip.notes.warnLabel": "Caution",
   "equip.overlay": "Equipment part labels",
+  "equip.motionPaths": "Internal equipment motion paths",
   "grade.literature": "Literature",
   "grade.operational": "Operational",
   "grade.preL2Notice": "Field verification (L2) is pending. Do not treat this magnitude as a measured value.",

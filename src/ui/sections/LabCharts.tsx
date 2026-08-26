@@ -108,6 +108,8 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
         const caption = lang === 'en' ? c.captionEn : c.captionKo;
         const xLabel = lang === 'en' ? c.xEn : c.xKo;
         const yLabel = lang === 'en' ? c.yEn : c.yKo;
+        const xUnit = lang === 'en' ? (c.xUnitEn ?? c.xUnit) : c.xUnit;
+        const yUnit = lang === 'en' ? (c.yUnitEn ?? c.yUnit) : c.yUnit;
 
         // 🔴 규격선은 계열로 합쳐 그린다 — 차트 컴포넌트에 별도 API 를 만들지 않는다.
         //    도메인을 모르면 선을 그릴 수 없으므로 x 범위는 계열에서 취한다.
@@ -159,8 +161,8 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
                       dashed: sr.dashed,
                       tone: 'tone' in sr ? sr.tone : undefined,
                     }))}
-                    depthLabel={xLabel} depthUnit={c.xUnit}
-                    valueLabel={yLabel} valueUnit={c.yUnit}
+                    depthLabel={xLabel} depthUnit={xUnit}
+                    valueLabel={yLabel} valueUnit={yUnit}
                     depthDomain={c.xDomain} valueDomain={c.yDomain}
                     ariaLabel={title}
                   />
@@ -173,7 +175,7 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
                         category: say(lang === 'en' ? sr.en : sr.ko),
                         values: sr.points.map((pt) => pt.y),
                       }))}
-                      yLabel={yLabel} yUnit={c.yUnit} xLabel={xLabel}
+                      yLabel={yLabel} yUnit={yUnit} xLabel={xLabel}
                       ariaLabel={title}
                     />
                   )} />
@@ -187,15 +189,17 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
                         dashed: sr.dashed,
                         tone: 'tone' in sr ? sr.tone : undefined,
                       }))}
-                      xLabel={xLabel} xUnit={c.xUnit}
-                      yLabel={yLabel} yUnit={c.yUnit}
+                      xLabel={xLabel} xUnit={xUnit}
+                      yLabel={yLabel} yUnit={yUnit}
                       xDomain={c.xDomain} yDomain={c.yDomain}
                       ariaLabel={title}
                     />
                   )} />}
 
             {caption && <p className="labChart__caption">{caption}</p>}
-            {c.note && <p className="labChart__note">{say(c.note)}</p>}
+            {(lang === 'en' ? c.noteEn : c.note) && (
+              <p className="labChart__note">{say((lang === 'en' ? c.noteEn : c.note) ?? '')}</p>
+            )}
           </figure>
         );
       })}
