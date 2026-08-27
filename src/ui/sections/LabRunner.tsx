@@ -766,6 +766,14 @@ function SceneCanvas({ sceneId, stage, params, note }: {
               : (lang === 'ko' ? '실시간 공정 반응' : lang === 'ja' ? 'リアルタイム工程応答' : 'Live process response')}</span>
       </div>
       <div className="sceneBox__canvasWrap">
+        {sceneId === 'ingotSlicing' && (
+          <img
+            className="sceneBox__slicingMachine"
+            src="/assets/viz/wafer/multi-wire-saw-4d-bg.png"
+            alt=""
+            aria-hidden="true"
+          />
+        )}
         <canvas ref={canvasRef} className="sceneBox__canvas" aria-label={processTitle} />
         {sceneId === 'ingotSlicing' && (
           <div className="sceneBox__partMarkers" aria-hidden="true">

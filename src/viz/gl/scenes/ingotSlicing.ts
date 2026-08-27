@@ -7,11 +7,8 @@ import type { GLContext, Scene, SceneParams } from '../renderer';
 import { FULLSCREEN_VS, FRAG_HEAD, clear, setCommonUniforms } from './common';
 import { readVizPalette } from './theme';
 import {
-  IS_AXIS_Y, IS_INGOT_X0, IS_INGOT_X1, IS_OUTPUT_COUNT, IS_OUTPUT_X0, IS_OUTPUT_X1,
-  IS_WIRE_COUNT, IS_WIRE_X0, IS_WIRE_X1, ingotSlicingModel, type IngotSlicingModel,
+  IS_OUTPUT_COUNT, ingotSlicingModel, type IngotSlicingModel,
 } from './models/ingotSlicing.model';
-
-const f = (v: number): string => Number.isInteger(v) ? v.toFixed(1) : String(v);
 
 export const INGOT_SLICING_FS = `${FRAG_HEAD}
 uniform vec3 uInk;
@@ -22,78 +19,54 @@ uniform float uRadius;
 uniform float uWobble;
 uniform float uQuality;
 
-float aa(float d){return 1.0-smoothstep(-fwidth(d),fwidth(d),d);}
-float box(vec2 p,vec2 c,vec2 h){vec2 d=abs(p-c)-h;return aa(max(d.x,d.y));}
 float line(float d,float w){return 1.0-smoothstep(w,w+fwidth(d),abs(d));}
-float ring(vec2 p,vec2 c,vec2 r,float w){vec2 q=(p-c)/r;return line(length(q)-1.0,w);}
-float circle(vec2 p,vec2 c,float r){return aa(length(p-c)-r);}
+float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float capsule(vec2 p,vec2 a,vec2 b,float r){
+  vec2 pa=p-a,ba=b-a;
+  float h=clamp(dot(pa,ba)/dot(ba,ba),0.0,1.0);
+  return 1.0-smoothstep(r,r+fwidth(length(pa-ba*h)),length(pa-ba*h));
+}
 void paint(inout vec3 c,inout float a,vec3 s,float m){m=clamp(m,0.0,1.0);c=c*(1.0-m)+s*m;a=a*(1.0-m)+m;}
 
 void main(){
   vec2 p=vUv; vec3 col=vec3(0.0); float alpha=0.0;
-  float phase=fract(uTime*0.12);
-  /* 0~62%: 잉곳이 와이어 면으로 하강, 62~82%: 완전 절단, 82~100%: 리셋. */
-  float cut=smoothstep(0.05,0.62,phase)*(1.0-smoothstep(0.82,1.0,phase));
-  float release=smoothstep(0.62,0.82,phase)*(1.0-smoothstep(0.90,1.0,phase));
-  float axis=${f(IS_AXIS_Y)}+mix(0.105,-0.015,cut);
-  float wirePlane=${f(IS_AXIS_Y)}-uRadius+0.018;
+  float cycle=fract(uTime*0.10);
+  float cut=smoothstep(0.04,0.68,cycle)*(1.0-smoothstep(0.88,1.0,cycle));
+  float release=smoothstep(0.62,0.84,cycle)*(1.0-smoothstep(0.92,1.0,cycle));
 
-  /* 설비 프레임·가이드 롤러. 와이어가 돌아가는 다중 와이어 쏘임을 먼저 보여준다. */
-  paint(col,alpha,uInk,box(p,vec2(0.38,0.11),vec2(0.31,0.010))*.55);
-  paint(col,alpha,uInk,box(p,vec2(0.38,0.92),vec2(0.31,0.010))*.55);
-  paint(col,alpha,uS2,ring(p,vec2(0.12,0.16),vec2(0.042,0.065),0.045));
-  paint(col,alpha,uS2,ring(p,vec2(0.66,0.16),vec2(0.042,0.065),0.045));
-  paint(col,alpha,uS2,ring(p,vec2(0.12,0.87),vec2(0.042,0.065),0.045));
-  paint(col,alpha,uS2,ring(p,vec2(0.66,0.87),vec2(0.042,0.065),0.045));
+  /* 사진 속 실제 와이어 위치에만 이동 광점이 흐른다. */
+  float wireU=(p.x-0.245)/0.31;
+  float wireCell=fract(wireU*22.0);
+  float web=step(0.0,wireU)*step(wireU,1.0)*step(0.26,p.y)*step(p.y,0.77);
+  float wires=line(wireCell-0.5,0.032)*web;
+  float runner=pow(0.5+0.5*sin((p.y+uTime*0.54)*68.0),10.0);
+  paint(col,alpha,uS2,wires*(0.06+0.70*runner));
 
-  /* 원통형 단결정 잉곳: 와이어 면으로 수직 하강하는 이송을 직접 보여준다. */
-  float wob=uWobble*sin((p.x-${f(IS_INGOT_X0)})*32.0+uTime*2.2);
-  float body=box(vec2(p.x,p.y-wob),vec2(${f((IS_INGOT_X0+IS_INGOT_X1)/2)},axis),vec2(${f((IS_INGOT_X1-IS_INGOT_X0)/2)},uRadius));
-  float shade=0.20+0.30*smoothstep(axis-uRadius,axis+uRadius,p.y);
-  paint(col,alpha,uS1,body*shade);
-  paint(col,alpha,uInk,line(abs(p.y-axis-wob)-uRadius,0.002)*step(${f(IS_INGOT_X0)},p.x)*step(p.x,${f(IS_INGOT_X1)}));
-  paint(col,alpha,uInfo,ring(p,vec2(${f(IS_INGOT_X0)},axis),vec2(0.030,uRadius),0.035));
-  paint(col,alpha,uInfo,line(p.x-${f(IS_INGOT_X0)},0.002)*step(abs(p.y-axis),uRadius));
+  /* 절단 깊이는 조작값에 따른 잉곳 흔들림과 함께 실제 접촉부에서 진행한다. */
+  float wob=uWobble*sin(uTime*2.2);
+  float kerfY=mix(0.66,0.43,cut)+wob;
+  float contact=line(p.y-kerfY,0.006)*step(0.29,p.x)*step(p.x,0.57);
+  paint(col,alpha,uInfo,contact*(0.18+0.62*cut));
 
-  /* 다중 와이어 웹: 상·하 롤러 사이를 빠르게 주행하는 평행 와이어. */
-  float web=step(0.17,p.y)*step(p.y,0.86);
-  float wireU=(p.x-${f(IS_WIRE_X0)})/${f(IS_WIRE_X1-IS_WIRE_X0)};
-  float wireCell=fract(wireU*${f(IS_WIRE_COUNT)});
-  float wires=line(wireCell-0.5,0.042)*step(0.0,wireU)*step(wireU,1.0)*web;
-  float travelling=0.52+0.48*sin((p.y+phase*2.0)*52.0)*sin((p.y+phase*2.0)*52.0);
-  /* 잉곳 앞을 와이어 전체가 관통하는 격자처럼 보이지 않게 한다.
-     잉곳 밖의 주행 와이어와 내부의 절단 커프를 별개 형상으로 분리한다. */
-  paint(col,alpha,uS2,wires*travelling*(1.0-body));
-  /* 절단 홈은 와이어 접촉면에서 잉곳 위쪽으로 진행한다. 잉곳 전체에
-     선을 겹치지 않고, 현재 절단 깊이까지만 콤프를 열어 실제 절단으로 읽힌다. */
-  float kerfTop=mix(axis+uRadius,axis-uRadius-0.006,cut);
-  float kerfMask=body*step(kerfTop,p.y);
-  float kerfs=wires*kerfMask;
-  paint(col,alpha,vec3(0.01),kerfs*.96);
-  float contact=wires*line(p.y-kerfTop,0.010)*body;
-  paint(col,alpha,uS2,contact*(0.55+0.45*sin(uTime*7.0)*sin(uTime*7.0)));
+  /* 노즐에서 절단 계면으로 향하는 슬러리 입자. */
+  vec2 cell=floor(p*vec2(92.0,70.0));
+  float rnd=hash(cell);
+  float fall=fract(rnd+uTime*(0.32+0.26*hash(cell+4.0)));
+  vec2 particle=vec2((rnd-0.5)*0.12,fall*0.23);
+  float jetA=capsule(p,vec2(0.565,0.69)-particle,vec2(0.535,0.53)-particle,0.0022);
+  float jetB=capsule(p,vec2(0.615,0.67)-particle,vec2(0.565,0.52)-particle,0.0022);
+  paint(col,alpha,uS2,(jetA+jetB)*step(0.70,rnd)*0.55);
 
-  /* 이송 방향 화살표: 내려가는 잉곳과 양방향 와이어 주행을 구분. */
-  float feedArrow=line(p.x-0.035,0.002)*step(0.25,p.y)*step(p.y,0.48)
-    +line(abs(p.x-0.035)-(p.y-0.25)*0.20,0.002)*step(0.25,p.y)*step(p.y,0.30);
-  paint(col,alpha,uInfo,feedArrow*.85);
-  float wireArrow=line(p.y-0.20,0.002)*step(0.23,p.x)*step(p.x,0.55)
-    +line(abs(p.y-0.20)-(0.55-p.x)*0.15,0.002)*step(0.50,p.x)*step(p.x,0.56);
-  paint(col,alpha,uS2,wireArrow*.85);
-
-  /* 완전 절단 후: 각 웨이퍼가 잉곳 축 방향으로 간격을 벌리며 분리된다. */
+  /* 배출 웨이퍼는 순서대로 점등되어 절단→분리→이송 흐름을 보여준다. */
   for(int k=0;k<${IS_OUTPUT_COUNT};k++){
     float fk=float(k)/float(${IS_OUTPUT_COUNT-1});
-    float x=mix(${f(IS_OUTPUT_X0)},${f(IS_OUTPUT_X1)},fk)+release*0.025*float(k);
-    float yy=${f(IS_AXIS_Y)}+(fk-0.5)*0.025;
-    float disc=ring(p,vec2(x,yy),vec2(0.016,uRadius*0.92),0.065);
+    vec2 c=vec2(mix(0.635,0.815,fk)+release*0.006*float(k),0.535-fk*0.015);
+    vec2 q=(p-c)/vec2(0.010,0.142);
+    float ring=line(length(q)-1.0,0.040);
     float good=step(fk,uQuality);
-    /* 이전 주기에서 생성된 웨이퍼를 항상 남겨 입력→절단→출력을
-       한 화면에서 읽게 한다. 현재 주기의 분리 시점에만 밝기와 간격이 커진다. */
-    paint(col,alpha,mix(uInfo,uS1,good),disc*(0.34+0.66*release)*(0.55+0.45*good));
+    float chase=1.0-smoothstep(0.0,0.20,abs(fract(cycle*1.3)-fk));
+    paint(col,alpha,mix(uInfo,uS1,good),ring*(0.05+0.30*release+0.48*chase));
   }
-  /* 이송 레일 */
-  paint(col,alpha,uInk,line(p.y-(axis-uRadius-0.055),0.002)*step(${f(IS_OUTPUT_X0-0.04)},p.x)*step(p.x,${f(IS_OUTPUT_X1+0.02)}));
   fragColor=vec4(col,alpha);
 }`;
 
