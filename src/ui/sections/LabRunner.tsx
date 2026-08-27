@@ -677,6 +677,7 @@ function SceneCanvas({ sceneId, stage, params, note }: {
   const paramsRef = useRef(params);
   paramsRef.current = params;
   const [mode, setMode] = useState<'loading' | 'webgl' | 'fallback' | 'error'>('loading');
+  const [slicingReady, setSlicingReady] = useState(sceneId !== 'ingotSlicing');
 
   /* 🔴🔴 2026-08-21 — **폴백 경로에서 슬라이더가 화면을 전혀 안 바꾸고 있었다(11칸 · 0.000 %).**
    *
@@ -775,14 +776,19 @@ function SceneCanvas({ sceneId, stage, params, note }: {
               ? (lang === 'ko' ? '이온 빔' : lang === 'ja' ? 'イオンビーム' : 'Ion beam')
               : (lang === 'ko' ? '실시간 공정 반응' : lang === 'ja' ? 'リアルタイム工程応答' : 'Live process response')}</span>
       </div>
-      <div className="sceneBox__canvasWrap">
+      <div className="sceneBox__canvasWrap" data-image-ready={sceneId !== 'ingotSlicing' || slicingReady ? 'true' : 'false'}>
         {sceneId === 'ingotSlicing' && (
           <img
             className="sceneBox__slicingMachine"
             src={`${import.meta.env.BASE_URL ?? '/'}assets/viz/wafer/multi-wire-saw-4d-bg.png`}
             alt=""
             aria-hidden="true"
+            onLoad={() => setSlicingReady(true)}
+            onError={() => setSlicingReady(true)}
           />
+        )}
+        {sceneId === 'ingotSlicing' && !slicingReady && (
+          <span className="sceneBox__imageLoading" role="status">{t('app.loading')}</span>
         )}
         <canvas ref={canvasRef} className="sceneBox__canvas" aria-label={processTitle} />
         {sceneId === 'ingotSlicing' && (

@@ -85,6 +85,8 @@ function ensureStyle(doc:Document):void{
 .sceneBox[data-four-d=true] .scene4d__depth{background:radial-gradient(circle at var(--fx) var(--fy),rgba(2,7,16,.12) 0 16%,rgba(2,7,16,.48) 44%,rgba(2,7,16,.82) 100%),linear-gradient(110deg,rgba(255,255,255,.04),transparent 28% 72%,rgba(80,180,255,.06))!important}
 .sceneBox[data-four-d=true] .sceneBox__canvas{opacity:.74!important;filter:saturate(1.28) contrast(1.22) drop-shadow(0 0 7px rgba(90,210,255,.22))!important}
 .sceneBox[data-four-d=true] .sceneBox__titlebar{background:rgba(5,12,24,.92)!important;color:#eef8ff!important;border:1px solid rgba(126,211,255,.28);box-shadow:0 5px 18px rgba(0,0,0,.32)}
+.sceneBox[data-four-d=true][data-backdrop-ready=false] .scene4d,
+.sceneBox[data-four-d=true][data-backdrop-ready=false] .sceneBox__canvas{opacity:0!important}
 @keyframes s4-breathe{to{filter:contrast(1.2) saturate(1.2) brightness(.96)}}
 @keyframes s4-core{0%,100%{opacity:.35;transform:scale(.84)}50%{opacity:.92;transform:scale(1.16)}}
 @keyframes s4-scan{0%,100%{transform:translateY(-105px);opacity:0}15%,85%{opacity:.8}50%{transform:translateY(105px)}}
@@ -114,6 +116,7 @@ export function applyRealisticBackdrop(canvas:HTMLCanvasElement,sceneId:string,s
   const focus=p.stageFocus?.[stageKey]??p;
   const host=canvas.parentElement,doc=canvas.ownerDocument; if(!host||!doc?.head)return; ensureStyle(doc);
   host.dataset.fourD='true'; host.dataset.motion=p.stageMotion?.[stageKey]??p.motion; host.dataset.stage=stageKey; host.dataset.scene=sceneId;
+  host.dataset.backdropReady='false';
   host.style.setProperty('--fx',`${focus.x}%`); host.style.setProperty('--fy',`${focus.y}%`); host.style.setProperty('--hue',p.hue);
   let layer=host.querySelector<HTMLElement>(':scope > .scene4d');
   if(!layer){
@@ -125,6 +128,14 @@ export function applyRealisticBackdrop(canvas:HTMLCanvasElement,sceneId:string,s
     host.addEventListener('pointermove',event=>{const box=host.getBoundingClientRect();host.style.setProperty('--px',`${(.5-(event.clientX-box.left)/box.width)*10}px`);host.style.setProperty('--py',`${(.5-(event.clientY-box.top)/box.height)*7}px`)},{passive:true});
     host.addEventListener('pointerleave',()=>{host.style.setProperty('--px','0px');host.style.setProperty('--py','0px')},{passive:true});
   }
-  const img=layer.querySelector<HTMLImageElement>('.scene4d__equipment'); if(img&&img.src!==new URL(url,doc.baseURI).href)img.src=url;
+  const img=layer.querySelector<HTMLImageElement>('.scene4d__equipment');
+  if(img){
+    const expected=new URL(url,doc.baseURI).href;
+    const reveal=():void=>{if(img.src===expected)host.dataset.backdropReady='true'};
+    img.onload=reveal;
+    img.onerror=()=>{if(img.src===expected)host.dataset.backdropReady='error'};
+    if(img.src!==expected)img.src=url;
+    if(img.complete&&img.naturalWidth>0)reveal();
+  }
   layer.dataset.scene=sceneId;
 }

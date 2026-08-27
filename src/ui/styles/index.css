@@ -508,6 +508,13 @@
   .sceneBox__canvas { inline-size: 100%; aspect-ratio: 16 / 10; display: block; background: var(--surface-2); border-radius: 8px; }
   .sceneBox__canvasWrap { position: relative; inline-size: 100%; }
   .sceneBox__slicingMachine { position: absolute; inset: 0; z-index: 0; inline-size: 100%; block-size: 100%; display: block; border-radius: 10px; object-fit: cover; }
+  .sceneBox--slicing .sceneBox__canvasWrap[data-image-ready="false"] .sceneBox__slicingMachine,
+  .sceneBox--slicing .sceneBox__canvasWrap[data-image-ready="false"] .sceneBox__canvas,
+  .sceneBox--slicing .sceneBox__canvasWrap[data-image-ready="false"] .sceneBox__partMarkers { opacity: 0 !important; }
+  .sceneBox__imageLoading {
+    position: absolute; z-index: 3; inset: 0; display: grid; place-items: center;
+    color: #b9c9d8; background: #040911; font-size: 13px; font-weight: 700;
+  }
   .sceneBox--slicing .sceneBox__canvas { position: relative; z-index: 1; }
   .sceneBox__partMarkers { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
   .sceneBox__partMarker { position: absolute; display: grid; place-items: center; inline-size: 24px; block-size: 24px; border: 2px solid #fff; border-radius: 50%; color: #06111d; font-size: 12px; font-weight: 900; line-height: 1; box-shadow: 0 2px 8px rgb(0 0 0 / .65), 0 0 0 2px rgb(4 12 22 / .5); transform: translate(-50%, -50%); }
