@@ -769,7 +769,7 @@ function SceneCanvas({ sceneId, stage, params, note }: {
         {sceneId === 'ingotSlicing' && (
           <img
             className="sceneBox__slicingMachine"
-            src="/assets/viz/wafer/multi-wire-saw-4d-bg.png"
+            src={`${import.meta.env.BASE_URL ?? '/'}assets/viz/wafer/multi-wire-saw-4d-bg.png`}
             alt=""
             aria-hidden="true"
           />
