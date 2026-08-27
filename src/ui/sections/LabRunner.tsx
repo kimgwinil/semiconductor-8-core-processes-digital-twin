@@ -652,6 +652,7 @@ function SceneCanvas({ sceneId, stage, params, note }: {
   const slicingParts = lang !== 'ko'
     ? ['① Single-crystal silicon ingot', '② Parallel wire web', '③ Cutting interface', '④ Sliced wafers and transfer rail']
     : ['① 단결정 실리콘 잉곳', '② 평행 다중 와이어 웹', '③ 절단 계면', '④ 절단 웨이퍼·이송 레일'];
+  const slicingLegendTitle = lang === 'ko' ? '4D 화면 번호 안내' : lang === 'ja' ? '4D画面の番号案内' : '4D scene number guide';
   const slicingStage = lang !== 'ko'
     ? (stage === 'lab-basic' ? 'The ingot diameter follows the basic-lab result.'
       : stage === 'lab-applied' ? 'Diameter deviation changes wafer wobble and the good-wafer fraction.'
@@ -753,7 +754,14 @@ function SceneCanvas({ sceneId, stage, params, note }: {
               ? (lang !== 'ko' ? 'Ion beam' : '이온 빔')
               : (lang !== 'ko' ? 'Live process response' : '실시간 공정 반응')}</span>
       </div>
-      <canvas ref={canvasRef} className="sceneBox__canvas" aria-label={processTitle} />
+      <div className="sceneBox__canvasWrap">
+        <canvas ref={canvasRef} className="sceneBox__canvas" aria-label={processTitle} />
+        {sceneId === 'ingotSlicing' && (
+          <div className="sceneBox__partMarkers" aria-hidden="true">
+            {[1, 2, 3, 4].map((n) => <span className={`sceneBox__partMarker sceneBox__partMarker--${n}`} key={n}>{n}</span>)}
+          </div>
+        )}
+      </div>
       {explanation && <section className="sceneBox__explanation" aria-label={explanation.title}>
         <p><strong>{t('lab.scene.observes')}</strong><span>{explanation.observes}</span></p>
         <p><strong>{t('lab.scene.reacts')}</strong><span>{explanation.reacts}</span></p>
@@ -763,7 +771,8 @@ function SceneCanvas({ sceneId, stage, params, note }: {
         <span className={`sceneBox__mode sceneBox__mode--${mode}`}>{t(`lab.scene.${mode}`)}</span>
         {sceneId === 'ingotSlicing' && (
           <div className="sceneBox__processLegend">
-            <ol>{slicingParts.map((part) => <li key={part}>{part}</li>)}</ol>
+            <strong className="sceneBox__processLegendTitle">{slicingLegendTitle}</strong>
+            <ol>{slicingParts.map((part, i) => <li data-part={i + 1} key={part}>{part}</li>)}</ol>
             <p>{slicingStage}</p>
           </div>
         )}
