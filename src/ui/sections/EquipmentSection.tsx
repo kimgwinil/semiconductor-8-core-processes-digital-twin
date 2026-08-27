@@ -156,6 +156,9 @@ export function EquipmentSection({ processId, sectionId, content }: Props): Reac
   }, [processId]);
 
   const notes = useMemo(() => prepareNotes(labels), [labels]);
+  // 공정 전환 직후에는 이전 공정의 비동기 응답이 한 프레임 남을 수 있다.
+  // processId가 일치하는 자료만 렌더해 이전 장비 이미지가 잠깐 보이는 현상을 막는다.
+  const visibleLabels = labels && labels.processId === processId ? labels : labels === null ? null : undefined;
 
   // 🔴 tone 누락은 조용히 넘기지 않는다 — warn 으로 올려 표시하되 개발자에게 알린다.
   useEffect(() => {
@@ -174,13 +177,13 @@ export function EquipmentSection({ processId, sectionId, content }: Props): Reac
   return (
     <div className="equip">
       <div className="equip__viz">
-        {labels === undefined && <div className="loading">{t('app.loading')}</div>}
-        {labels === null && <EmptySlot processId={processId} sectionId={sectionId} owner="DSN" />}
-        {labels && (
+        {visibleLabels === undefined && <div className="loading">{t('app.loading')}</div>}
+        {visibleLabels === null && <EmptySlot processId={processId} sectionId={sectionId} owner="DSN" />}
+        {visibleLabels && (
           <>
             <RealisticEquipmentFigure processId={processId} lang={lang} />
             <LabelledFigure
-              file={labels} lang={lang} active={active} onSelect={setActive}
+              file={visibleLabels} lang={lang} active={active} onSelect={setActive}
               notes={notes} showInfo={showInfo} activeNote={activeNote} onSelectNote={setActiveNote}
             />
           </>
@@ -196,13 +199,13 @@ export function EquipmentSection({ processId, sectionId, content }: Props): Reac
           `scrollIntoView` 로 끌어오는 방법을 먼저 시도했으나 현재 셸에서 뷰포트가
           움직이지 않았다(실측 `moved: false`). **위치를 옮겨 스크롤 자체를 없앴다.**
         */}
-        {labels && active && (
+        {visibleLabels && active && (
           <LabelDesc
-            name={labelName(labels, active, lang)}
-            text={content?.labels?.[activeDescKey(labels, active)]}
+            name={labelName(visibleLabels, active, lang)}
+            text={content?.labels?.[activeDescKey(visibleLabels, active)]}
           />
         )}
-        {SHOW_DIAGRAM_NOTICES && labels && notes.length > 0 && (
+        {SHOW_DIAGRAM_NOTICES && visibleLabels && notes.length > 0 && (
           <NoteList
             notes={notes} lang={lang} showInfo={showInfo} onToggleInfo={() => setShowInfo((v) => !v)}
             activeNote={activeNote} onSelectNote={setActiveNote}

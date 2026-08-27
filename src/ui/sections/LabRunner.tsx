@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import type { LabParam, LabSpec } from '@/models/labs/spec';
 import { evaluate, isDiscreteParam, labSceneBindings, paramOptions } from '@/models/labs/spec';
 import type { Quantity } from '@/models/contract';
@@ -709,6 +709,16 @@ function SceneCanvas({ sceneId, stage, params, note }: {
     () => Object.keys(params).sort().map((k) => `${k}:${params[k]}`).join('|'),
     [params],
   );
+
+  // 공정/실습 단계가 바뀌면 새 씬 모듈이 로드되기 전까지 이전 .scene4d 이미지가
+  // DOM에 남아 있었다. 페인트 전에 제거해 이전 단계 이미지가 잠깐 보이지 않게 한다.
+  useLayoutEffect(() => {
+    const host = canvasRef.current?.parentElement;
+    host?.querySelector(':scope > .scene4d')?.remove();
+    return () => {
+      host?.querySelector(':scope > .scene4d')?.remove();
+    };
+  }, [sceneId, stage]);
 
   useEffect(() => {
     /* 🔴 폴백일 때만 의미가 있다. WebGL 경로는 rAF 가 이미 당겨 읽는다.
