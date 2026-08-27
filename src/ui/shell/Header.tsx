@@ -20,6 +20,11 @@ function Clock(): React.ReactElement {
 
 export function Header(): React.ReactElement {
   const lang = getLang();
+  const rights = lang === 'ko'
+    ? '© 2026 GIKIM · 무단 복제·재배포 금지'
+    : lang === 'ja'
+      ? '© 2026 GIKIM · 無断複製・再配布禁止'
+      : '© 2026 GIKIM · Unauthorized copying and redistribution prohibited';
   return (
     <header className="hdr">
       <nav className="hdr__nav">
@@ -39,7 +44,7 @@ export function Header(): React.ReactElement {
       </nav>
       <div className="hdr__meta">
         <Clock />
-        <span className="hdr__by">Design by gikim</span>
+        <span className="hdr__by">Design by gikim · {rights}</span>
       </div>
     </header>
   );
