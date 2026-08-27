@@ -7,6 +7,7 @@ const ROOT = path.resolve(import.meta.dirname, '..');
 const ALL_PROCESSES = ['wafer', 'oxidation', 'photo', 'etch', 'deposition', 'metal', 'eds', 'packaging'];
 const requested = (process.env.TRANSLATION_PROCESSES ?? '').split(',').map((x) => x.trim()).filter(Boolean);
 const PROCESSES = requested.length ? requested : ALL_PROCESSES;
+const SCOPE = process.env.TRANSLATION_SCOPE ?? 'all';
 const unknown = PROCESSES.filter((x) => !ALL_PROCESSES.includes(x));
 if (unknown.length) throw new Error(`Unknown process id: ${unknown.join(', ')}`);
 const MODEL = process.env.TRANSLATION_MODEL || 'gpt-5.4-mini';
@@ -67,7 +68,7 @@ async function translateBatch(batch, label, attempt = 1) {
     properties: { translations: { type: 'array', items: { type: 'object', additionalProperties: false, properties: { i: { type: 'integer' }, ja: { type: 'string' } }, required: ['i', 'ja'] } } },
     required: ['translations'],
   };
-  const instruction = `Translate semiconductor training content from English to natural, technically precise Japanese. Preserve every number, unit, symbol, formula fragment, placeholder such as {count}, source id, and quoted control name. Do not summarize, omit, explain, or add claims. Use consistent Japanese engineering terminology. Glossary: ${GLOSSARY}`;
+  const instruction = `Translate semiconductor training content from English to natural, technically precise Japanese. Translate ordinary quoted control names and metric names into Japanese while preserving their variables and symbols. Preserve every number, unit, formula fragment, placeholder such as {count}, source id, and abbreviation. Do not summarize, omit, explain, or add claims. Use consistent Japanese engineering terminology. Glossary: ${GLOSSARY}`;
   if (GEMINI_API_KEY) {
     const geminiSchema = JSON.parse(JSON.stringify(schema, (k, v) => k === 'additionalProperties' ? undefined : v));
     const response = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent', {
@@ -132,7 +133,9 @@ async function translateFile(src, dest) {
 }
 
 for (const processId of PROCESSES) {
-  await translateFile(path.join(ROOT, 'src/content/en', `${processId}.json`), path.join(ROOT, 'src/content/ja', `${processId}.json`));
-  await translateFile(path.join(ROOT, 'src/content/en/questions', `${processId}.json`), path.join(ROOT, 'src/content/ja/questions', `${processId}.json`));
+  if (SCOPE === 'all') {
+    await translateFile(path.join(ROOT, 'src/content/en', `${processId}.json`), path.join(ROOT, 'src/content/ja', `${processId}.json`));
+    await translateFile(path.join(ROOT, 'src/content/en/questions', `${processId}.json`), path.join(ROOT, 'src/content/ja/questions', `${processId}.json`));
+  }
   await translateFile(path.join(ROOT, 'src/content/lab-guide/en', `${processId}.json`), path.join(ROOT, 'src/content/lab-guide/ja', `${processId}.json`));
 }

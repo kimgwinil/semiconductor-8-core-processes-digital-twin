@@ -5,10 +5,11 @@ import { failDirections, labPassRanges, paramNudgeDirection } from '@/models/lab
 import type { Quantity } from '@/models/contract';
 import { NON_FINITE_LABEL, formatLimit, formatQuantity } from '@/lib/format';
 import { t } from '@/lib/i18n';
+import { labText } from '@/lib/lab-i18n';
 import '@/ui/styles/passrange.css';
 
 function localizedLabel(lang: string, item: { ko: string; en: string; ja?: string }): string {
-  return lang === 'ko' ? item.ko : lang === 'ja' ? (item.ja ?? item.en) : item.en;
+  return labText(lang, item);
 }
 
 /**

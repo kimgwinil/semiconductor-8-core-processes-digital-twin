@@ -174,9 +174,11 @@ function RealisticEquipmentFigure({ processId, lang }: {
   }
   const src = realisticBackdropUrl(processId);
   if (!src) return null;
-  const caption = lang !== 'ko'
-    ? 'Photorealistic training visualization — use the labelled engineering diagram below for exact component locations and internal flow.'
-    : '실사풍 교육용 시각화 — 정확한 부품 위치와 내부 흐름은 아래 정밀 도면을 기준으로 확인하세요.';
+  const caption = lang === 'ko'
+    ? '실사풍 교육용 시각화 — 정확한 부품 위치와 내부 흐름은 아래 정밀 도면을 기준으로 확인하세요.'
+    : lang === 'ja'
+      ? 'フォトリアルな教育用可視化 — 正確な部品位置と内部の流れは、下のラベル付き技術図を基準に確認してください。'
+      : 'Photorealistic training visualization — use the labelled engineering diagram below for exact component locations and internal flow.';
   return (
     <figure className="fig equipmentRealistic">
       <div className="equipmentRealistic__layout">

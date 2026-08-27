@@ -2,11 +2,12 @@ import type { LabSpec } from '@/models/labs/spec';
 import type { Quantity } from '@/models/contract';
 import { formatLimit, formatQuantity, inPassWindow } from '@/lib/format';
 import { t } from '@/lib/i18n';
+import { labText } from '@/lib/lab-i18n';
 import { passBasisNode } from '@/ui/widgets/PassBasisBadge';
 import '@/ui/styles/instruments.css';
 
 function localizedLabel(lang: string, item: { ko: string; en: string; ja?: string }): string {
-  return lang === 'ko' ? item.ko : lang === 'ja' ? (item.ja ?? item.en) : item.en;
+  return labText(lang, item);
 }
 
 /**

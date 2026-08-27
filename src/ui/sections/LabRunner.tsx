@@ -5,6 +5,7 @@ import type { Quantity } from '@/models/contract';
 import type { LimitCondition } from '@/models/contract';
 import { OutOfLimitError } from '@/models/contract';
 import { getLang, t } from '@/lib/i18n';
+import { labText } from '@/lib/lab-i18n';
 import { SHOW_PROVENANCE } from '@/config/provenance-display';
 import { redactProvenance } from '@/lib/redact-provenance';
 import { SourceBadge, QuantityView, formatQuantity } from '@/ui/widgets/SourceBadge';
@@ -42,7 +43,7 @@ function say(text: string): string {
 }
 
 function localizedLabel(lang: string, item: { ko: string; en: string; ja?: string }): string {
-  return lang === 'ko' ? item.ko : lang === 'ja' ? (item.ja ?? item.en) : item.en;
+  return labText(lang, item);
 }
 
 
@@ -653,15 +654,21 @@ function SceneCanvas({ sceneId, stage, params, note }: {
   sceneId: string; stage: string; params: Record<string, number>; note?: string;
 }): React.ReactElement {
   const lang = getLang();
-  const slicingParts = lang !== 'ko'
-    ? ['① Single-crystal silicon ingot', '② Parallel wire web', '③ Cutting interface', '④ Sliced wafers and transfer rail']
-    : ['① 단결정 실리콘 잉곳', '② 평행 다중 와이어 웹', '③ 절단 계면', '④ 절단 웨이퍼·이송 레일'];
+  const slicingParts = lang === 'ko'
+    ? ['① 단결정 실리콘 잉곳', '② 평행 다중 와이어 웹', '③ 절단 계면', '④ 절단 웨이퍼·이송 레일']
+    : lang === 'ja'
+      ? ['① 単結晶シリコンインゴット', '② 平行マルチワイヤウェブ', '③ 切断界面', '④ 切断ウェーハと搬送レール']
+      : ['① Single-crystal silicon ingot', '② Parallel wire web', '③ Cutting interface', '④ Sliced wafers and transfer rail'];
   const slicingLegendTitle = lang === 'ko' ? '4D 화면 번호 안내' : lang === 'ja' ? '4D画面の番号案内' : '4D scene number guide';
-  const slicingStage = lang !== 'ko'
-    ? (stage === 'lab-basic' ? 'The ingot diameter follows the basic-lab result.'
+  const slicingStage = lang === 'ja'
+    ? (stage === 'lab-basic' ? 'インゴット径に基礎実習の結果を反映します。'
+      : stage === 'lab-applied' ? '直径偏差をウェーハのぶれと良品ウェーハ比率に反映します。'
+        : '応用実習の歩留まりを正常・警告ウェーハの比率に反映します。')
+    : lang === 'en'
+      ? (stage === 'lab-basic' ? 'The ingot diameter follows the basic-lab result.'
       : stage === 'lab-applied' ? 'Diameter deviation changes wafer wobble and the good-wafer fraction.'
         : 'The advanced-lab yield changes the proportion of normal and warning wafers.')
-    : (stage === 'lab-basic' ? '기초 실습의 결정 직경 결과가 잉곳과 웨이퍼 크기에 반영됩니다.'
+      : (stage === 'lab-basic' ? '기초 실습의 결정 직경 결과가 잉곳과 웨이퍼 크기에 반영됩니다.'
       : stage === 'lab-applied' ? '직경 편차가 웨이퍼 흔들림과 정상 웨이퍼 비율에 반영됩니다.'
         : '심화 실습의 수율이 정상·경고 웨이퍼 비율에 반영됩니다.');
   const processTitle = sceneTitle(sceneId);
@@ -753,10 +760,10 @@ function SceneCanvas({ sceneId, stage, params, note }: {
       <div className="sceneBox__titlebar">
           <strong>{explanation?.title ?? processTitle}</strong>
           <span>{sceneId === 'aldCycle'
-            ? (lang !== 'ko' ? 'Film growth' : '막 성장')
+            ? (lang === 'ko' ? '막 성장' : lang === 'ja' ? '膜成長' : 'Film growth')
             : sceneId === 'ionTrajectory'
-              ? (lang !== 'ko' ? 'Ion beam' : '이온 빔')
-              : (lang !== 'ko' ? 'Live process response' : '실시간 공정 반응')}</span>
+              ? (lang === 'ko' ? '이온 빔' : lang === 'ja' ? 'イオンビーム' : 'Ion beam')
+              : (lang === 'ko' ? '실시간 공정 반응' : lang === 'ja' ? 'リアルタイム工程応答' : 'Live process response')}</span>
       </div>
       <div className="sceneBox__canvasWrap">
         <canvas ref={canvasRef} className="sceneBox__canvas" aria-label={processTitle} />

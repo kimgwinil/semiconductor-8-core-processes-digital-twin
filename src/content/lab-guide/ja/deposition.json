@@ -1,17 +1,17 @@
 {
   "lab-basic": {
-    "intro": "目標膜厚にALDを用いて到達する応用実習です。",
-    "goal": "「ALD cycle count」(10–500 cycles) と「Substrate temperature」(80–250 °C) を動かして、「Film thickness d」を確認します。平坦な基板と 1.0 Torr のチャンバー圧力は固定で、150–250 °C のALD window 内では温度を上げても膜厚は変化しません。したがって、cycle count で目標に合わせてください。",
-    "passHint": "「Film thickness d」が 23.00–25.00 nm の範囲に入ると合格です。"
+    "intro": "ターゲット膜厚を達成するためにALDを用いる実践実習。",
+    "goal": "“ALDサイクル数” (10–500 cycles) と “基板温度” (80–250 °C) を動かし、“膜厚 d” を観察します。平坦な基板と 1.0 Torr のチャンバー圧力は固定で、150–250 °C の ALD ウィンドウ内では温度を上げても膜厚は変化しません。したがって、ターゲット達成はサイクル数で行います。",
+    "passHint": "“膜厚 d” が 23.00–25.00 nm の範囲に入れば合格です。"
   },
   "lab-applied": {
-    "intro": "イオン注入で接合深さと注入時間を同時に達成する実践実習です。",
-    "goal": "「Projected range R_p (as-given)」(50–400 nm)、「Longitudinal straggle ΔR_p (as-given)」(10–120 nm)、「Dose Q」(0.1–50 ×10¹⁴ cm⁻²)、「Beam current I」(0.1–5.0 mA) を動かして、「Junction depth x_j (deep side)」と「Implant time t」を確認します。基板の背景濃度 N_B は 1×10¹⁷ cm⁻³ に固定されており、x_j はプロファイルがこの濃度に達する深さです。",
-    "passHint": "「Junction depth x_j (deep side)」が 180.0–220.0 nm であり、かつ「Implant time t」が 35.0 s 以下であること — 合格するには両方を同時に満たす必要があります。"
+    "intro": "イオン注入で接合深さと注入時間を同時に達成する実践実習。",
+    "goal": "“投影レンジ R_p (as-given)” (50–400 nm)、“縦方向ストラグル ΔR_p (as-given)” (10–120 nm)、“ドーズ Q” (0.1–50 ×10¹⁴ cm⁻²)、および “ビーム電流 I” (0.1–5.0 mA) を動かし、“接合深さ x_j (deep side)” と “注入時間 t” を観察します。基板の背景濃度 N_B は 1×10¹⁷ cm⁻³ に固定されており、x_j はプロファイルがこの濃度に達する深さです。",
+    "passHint": "“接合深さ x_j (deep side)” 180.0–220.0 nm かつ “注入時間 t” 35.0 s 以下 — 合格には両方を同時に満たす必要があります。"
   },
   "lab-advanced": {
-    "intro": "成膜、イオン注入、活性化アニールを一度の実行でまとめて調整する応用実習です。",
-    "goal": "誘電体膜は「ALD cycle count」(10–500 cycles) と「Substrate temperature」(80–250 °C) で、注入は「Projected range R_p (as-given)」(50–400 nm)、「Longitudinal straggle ΔR_p (as-given)」(10–120 nm)、「Dose Q」(0.1–50 ×10¹⁴ cm⁻²)、「Beam current I」(0.1–5.0 mA) で、アニールは「Activation anneal temperature」(1173–1373 K) と「Activation anneal time」(1–120 s) で制御します。",
-    "passHint": "「Dielectric film thickness d」23.00–25.00 nm、「Post-anneal junction depth x_j」180.0–220.0 nm、「Post-anneal effective straggle σ′」40.0 nm 以下、「Implant time t」35.0 s 以下 — 合格するにはこの4つをすべて同時に満たす必要があります。"
+    "intro": "成膜、イオン注入、活性化アニールを一度に調整する実践実習。",
+    "goal": "“ALDサイクル数” (10–500 cycles) と “基板温度” (80–250 °C) で誘電体膜を制御し、“投影レンジ R_p (as-given)” (50–400 nm)、“縦方向ストラグル ΔR_p (as-given)” (10–120 nm)、“ドーズ Q” (0.1–50 ×10¹⁴ cm⁻²)、および “ビーム電流 I” (0.1–5.0 mA) で注入を制御し、さらに “活性化アニール温度” (1173–1373 K) と “活性化アニール時間” (1–120 s) でアニールを制御します。",
+    "passHint": "“誘電体膜厚 d” 23.00–25.00 nm、“アニール後接合深さ x_j” 180.0–220.0 nm、“アニール後有効ストラグル σ′” 40.0 nm 以下、“注入時間 t” 35.0 s 以下 — 合格にはこの4つをすべて同時に満たす必要があります。"
   }
 }

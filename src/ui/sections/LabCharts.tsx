@@ -3,6 +3,7 @@ import type { LabChartBinding, LabSpec } from '@/models/labs/spec';
 import type { Quantity } from '@/models/contract';
 import { LineChart, ProfileChart, BarChart } from '@/viz';
 import { t } from '@/lib/i18n';
+import { labEnglishText, labText } from '@/lib/lab-i18n';
 import { SHOW_PROVENANCE } from '@/config/provenance-display';
 import { redactProvenance } from '@/lib/redact-provenance';
 import '@/ui/styles/charts.css';
@@ -16,7 +17,7 @@ function say(text: string): string {
 }
 
 function localizedLabel(lang: string, item: { ko: string; en: string; ja?: string }): string {
-  return lang === 'ko' ? item.ko : lang === 'ja' ? (item.ja ?? item.en) : item.en;
+  return labText(lang, item);
 }
 
 
@@ -109,9 +110,9 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
       {charts.map((c) => {
         const series = c.build(inputs, values);
         const title = say(localizedLabel(lang, c));
-        const caption = lang === 'ko' ? c.captionKo : lang === 'ja' ? (c.captionJa ?? c.captionEn) : c.captionEn;
-        const xLabel = lang === 'ko' ? c.xKo : lang === 'ja' ? (c.xJa ?? c.xEn) : c.xEn;
-        const yLabel = lang === 'ko' ? c.yKo : lang === 'ja' ? (c.yJa ?? c.yEn) : c.yEn;
+        const caption = lang === 'ko' ? c.captionKo : lang === 'ja' ? (c.captionJa ?? labEnglishText(lang, c.captionEn)) : c.captionEn;
+        const xLabel = lang === 'ko' ? c.xKo : lang === 'ja' ? (c.xJa ?? labEnglishText(lang, c.xEn) ?? c.xEn) : c.xEn;
+        const yLabel = lang === 'ko' ? c.yKo : lang === 'ja' ? (c.yJa ?? labEnglishText(lang, c.yEn) ?? c.yEn) : c.yEn;
         const xUnit = lang !== 'ko' ? (c.xUnitEn ?? c.xUnit) : c.xUnit;
         const yUnit = lang !== 'ko' ? (c.yUnitEn ?? c.yUnit) : c.yUnit;
 
@@ -202,7 +203,7 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
 
             {caption && <p className="labChart__caption">{caption}</p>}
             {(lang !== 'ko' ? c.noteEn : c.note) && (
-              <p className="labChart__note">{say((lang !== 'ko' ? c.noteEn : c.note) ?? '')}</p>
+              <p className="labChart__note">{say((lang === 'ja' ? labEnglishText(lang, c.noteEn) : lang !== 'ko' ? c.noteEn : c.note) ?? '')}</p>
             )}
           </figure>
         );

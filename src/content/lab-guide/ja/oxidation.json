@@ -1,17 +1,17 @@
 {
   "lab-basic": {
-    "intro": "ドライ酸化膜を成長させ、その厚さを目標ウィンドウ内に正確に収める応用実習です。",
-    "goal": "「Oxidation temperature」（920 · 1000 · 1100 °C の3択）と「Oxidation time」（10–300 min）の2つのスライダーのみを動かして、「Oxide thickness x_ox」の目標を達成します。乾燥 O₂ 雰囲気、1 atm 圧力、12 slm 流量、10 °C/min のランプレート、⟨100⟩ 方位は固定条件です。Si consumed、surface rise、instantaneous growth rate は参考表示のみです。",
-    "passHint": "合格条件は「Oxide thickness x_ox」が 95 nm 以上 105 nm 以下であることです。酸化は取り消せません。105 nm を超えて過成長した場合は、条件を下げてレシピ全体を最初からやり直す必要があります。"
+    "intro": "乾燥酸化膜を成長させ、その膜厚を目標範囲内に正確に収める実習です。",
+    "goal": "『酸化温度』(920 · 1000 · 1100 °C の3択) と『酸化時間』(10–300 min) の2つのスライダーのみを動かして、『酸化膜厚 x_ox』の目標を達成してください。乾燥 O₂ 雰囲気、1 atm 圧力、12 slm 流量、10 °C/min のランプレート、および ⟨100⟩ 方位は固定条件です。Si 消費量、表面上昇量、瞬時成長速度は参考表示のみです。",
+    "passHint": "合格条件は、『酸化膜厚 x_ox』が95 nm以上かつ105 nm以下であることです。酸化は元に戻せません。105 nm を超えてしまった場合は、条件を下げてレシピ全体を最初からやり直す必要があります。"
   },
   "lab-applied": {
-    "intro": "単一バッチの field oxide について、厚さ、均一性、スループットを同時に設定する実践実習です。",
-    "goal": "「Oxidation temperature T」（920–1100 °C）、「Oxidation ambient M」（0 = dry O₂ / 1 = wet H₂O）、「Oxidation time t」（10–300 min）、「Oxidant flow Q」（2–20 slm）を調整し、平均厚さ、ばらつき σ、スループット TP がどのように連動して変化するかを確認します。供給制限係数 f_Q と gas/exhaust load index は観測値であり、判定には含まれません。",
-    "passHint": "3つの判定をすべて同時に満たす必要があります — 「Average oxide thickness x̄」 380–420 nm、「Wafer-to-wafer thickness spread σ (1σ/mean)」 1.5% 以下、「Batch throughput TP」 18 wafer/h 以上。"
+    "intro": "単一バッチのフィールド酸化について、膜厚、均一性、スループットを同時に設定する実習です。",
+    "goal": "『酸化温度 T』(920–1100 °C)、『酸化雰囲気 M』(0 = 乾燥 O₂ / 1 = 湿潤 H₂O)、『酸化時間 t』(10–300 min)、および『酸化剤流量 Q』(2–20 slm) を調整し、平均膜厚、ばらつき σ、スループット TP がどのように連動して変化するかを確認してください。供給律速因子 f_Q とガス/排気負荷指標は観測値であり、判定には含まれません。",
+    "passHint": "3つの判定をすべて同時に満たす必要があります — 『平均酸化膜厚 x̄』380–420 nm、『ウェーハ間膜厚ばらつき σ (1σ/mean)』1.5%以下、『バッチスループット TP』18 wafer/h 以上。"
   },
   "lab-advanced": {
-    "intro": "隠れた要因を診断し、その原因を取り除いて、5つの指標を一度にすべて戻す応用実習です。",
-    "goal": "「Fault scenario」を選び、次の組み合わせで 5 つの判定出力をすべて回復させます。oxidation temperature T、ambient M、「Oxidation time t」（10–300 min）、「Oxidant flow Q」（2–20 slm）、「Ramp rate R」（2–15 °C/min）、「HCl addition concentration C」（0–5 vol%）、「Line leak check / N₂ purge」、「Dummy wafers, top and bottom」（5–10 wafers）、「Temperature stabilization time」（10–30 min）。",
-    "passHint": "5つの判定をすべて同時に満たす必要があります — average thickness x̄ 385–415 nm、spread σ 1.5% 以下、relative dielectric-breakdown field index 0.90 以上、OISF density D_sf 100 ea/cm² 以下、batch throughput TP 18 wafer/h 以上。"
+    "intro": "隠れた異常要因を診断し、その原因を取り除いて、5つの指標を一度にすべて回復させる実習です。",
+    "goal": "まず『故障シナリオ』を選び、次に酸化温度 T、雰囲気 M、『酸化時間 t』(10–300 min)、『酸化剤流量 Q』(2–20 slm)、『ランプレート R』(2–15 °C/min)、『HCl 添加濃度 C』(0–5 vol%)、『ライン漏れ確認 / N₂ パージ』、『ダミーウェーハ、上側および下側』(5–10 wafers)、および『温度安定化時間』(10–30 min) を組み合わせて、5つの判定出力をすべて回復させてください。",
+    "passHint": "5つの判定をすべて同時に満たす必要があります — 平均膜厚 x̄ 385–415 nm、ばらつき σ 1.5%以下、相対絶縁破壊電界指数 0.90以上、OISF 密度 D_sf 100 ea/cm²以下、バッチスループット TP 18 wafer/h以上。"
   }
 }
