@@ -15,7 +15,7 @@ interface EquipmentPairFigure {
   detail: string;
 }
 
-const EQUIPMENT_PAIR_FIGURES: Record<string, Record<'ko' | 'en', EquipmentPairFigure[]>> = {
+const EQUIPMENT_PAIR_FIGURES: Record<string, Record<'ko' | 'en' | 'ja', EquipmentPairFigure[]>> = {
   deposition: {
     en: [
       { src: 'assets/simulator-realistic/deposition/ald-reactor-v2.jpg', title: 'Deposition tool — ALD reactor', detail: 'Precursor pulses enter the reaction chamber and form the film on the wafer.' },
@@ -25,6 +25,75 @@ const EQUIPMENT_PAIR_FIGURES: Record<string, Record<'ko' | 'en', EquipmentPairFi
       { src: 'assets/simulator-realistic/deposition/ald-reactor-v2.jpg', title: '증착 장비 — ALD 반응기', detail: '전구체가 반응 챔버에 교대로 주입되어 웨이퍼 위에 막을 형성합니다.' },
       { src: 'assets/simulator-realistic/deposition/ion-implanter-v2.jpg', title: '이온주입 장비 — 빔라인', detail: '이온원에서 생성된 이온이 질량 분석과 가속을 거쳐 기울여진 웨이퍼에 도달합니다.' },
     ],
+    ja: [
+      { src: 'assets/simulator-realistic/deposition/ald-reactor-v2.jpg', title: '成膜装置 — ALD反応器', detail: '前駆体を反応チャンバーへ交互に供給し、ウェーハ上に膜を形成します。' },
+      { src: 'assets/simulator-realistic/deposition/ion-implanter-v2.jpg', title: 'イオン注入装置 — ビームライン', detail: 'イオン源で生成したイオンが質量分析と加速を経て、傾斜したウェーハへ到達します。' },
+    ],
+  },
+};
+
+const EQUIPMENT_LABELS_JA: Readonly<Record<string, Readonly<Record<string, string>>>> = {
+  wafer: {
+    'heat-shield': '熱遮蔽板', 'quartz-crucible': '石英るつぼ', 'graphite-heater': '黒鉛ヒーター',
+    'carbon-insulation': '炭素断熱材', 'exhaust-port': '下部排気口', 'seed-chuck': '種結晶チャック',
+    'optical-gauge': '光学測定窓', neck: 'ダッシュネック', 'argon-flow': 'アルゴンパージ流',
+    'crystal-body': '結晶本体／クラウン', meniscus: 'メニスカス', 'silicon-melt': 'シリコン融液表面',
+    'graphite-susceptor': '黒鉛サセプタ', 'crucible-shaft': 'るつぼ回転軸',
+  },
+  oxidation: {
+    'heat-insulating-jacket': '炉本体', 'multi-zone-heater': 'ゾーンヒーター', 'spike-thermocouple': 'スパイク熱電対',
+    'quartz-outer-tube': '外管', 'quartz-inner-tube': '内管', 'gas-injector': 'ガスインジェクター',
+    'gas-supply-line': 'ガス供給管', 'boat-elevator': 'ボートエレベーター', 'quartz-wafer-boat': '石英ウェーハボート',
+    'wafer-stack': 'ウェーハスタック', 'profile-thermocouple': 'プロファイル熱電対',
+    'heat-insulating-pedestal': '断熱台', 'exhaust-port': '排気口', 'manifold-flange': 'マニホールドフランジ',
+  },
+  photo: {
+    'excimer-laser': 'ArFエキシマレーザー', 'beam-delivery': 'ビーム伝送系', illuminator: '照明光学系',
+    'exposure-slit': '露光スリット', 'reticle-stage': 'レチクルステージ', reticle: 'レチクル（マスク）',
+    pellicle: 'ペリクル', 'projection-lens': '投影レンズ', 'leveling-sensor': 'レベリングセンサー',
+    'final-lens': '最終レンズ素子', 'immersion-hood': '液浸フード', 'water-gap': '超純水ギャップ',
+    'second-stage': '第2ステージ', 'wafer-stage': 'ウェーハステージ', 'track-interface': 'スキャナー接続部',
+    'hmds-prime': 'HMDS気相処理', 'spin-coater': 'スピンコーター', 'soft-bake': 'ソフトベーク用ホットプレート',
+    'peb-plate': 'PEB用ホットプレート', 'chill-plate': '冷却プレート', developer: '現像モジュール',
+  },
+  etch: {
+    'rf-source': 'RFソース電源', showerhead: 'シャワーヘッド', 'match-source': 'ソース整合回路',
+    'bulk-plasma': 'バルクプラズマ（発光領域）', sheath: 'シース', 'backside-he': 'ヘリウム冷却溝',
+    'match-bias': 'バイアス整合回路', 'rf-bias': 'RFバイアス電源', 'oes-viewport': 'OES観測窓',
+    'ion-trajectory': 'イオン軌道', 'focus-ring': 'フォーカスリング', esc: '静電チャック',
+    'pump-port': '排気ポート', 'turbo-pump': 'ターボ分子ポンプ',
+  },
+  deposition: {
+    overhang: 'トレンチオーバーハング', void: 'ボイド', 'magnet-array': 'マグネトロン磁石配列',
+    'cathode-power': 'DCカソード電源', 'backing-plate': 'バッキングプレート', 'erosion-track': 'エロージョントラック',
+    'sputter-target': 'スパッタターゲット', 'plasma-torus': '高密度プラズマ', 'wafer-pedestal': 'ペデスタル電極',
+    'vacuum-pump': '真空排気系', 'angle-corrector': '平行化磁石', 'beam-scanner': 'ビームスキャナー',
+    'resolving-slit': '質量分離スリット', 'tilted-wafer': '7°傾斜ウェーハ', 'analyzer-magnet': '質量分析磁石',
+    'accel-column': '加速／減速管', 'neutral-trap': '中性粒子トラップ', 'flood-gun': '電子フラッドガン',
+    'extraction-electrode': '引出し電極', 'ion-source': 'アークイオン源',
+  },
+  metal: {
+    'dc-power-supply': 'DC電源', 'spindle-rotation': '回転スピンドル', 'clamshell-holder': 'クラムシェルホルダー',
+    'wafer-face-down': 'ウェーハ（フェースダウン）', 'contact-ring': 'コンタクトリング', 'plating-bath': '電解めっき槽',
+    'field-shield': '電界整形シールド', 'anode-membrane': 'アノード隔膜', 'anode-cu': '可溶性銅アノード',
+    'carrier-head': 'キャリアヘッド', 'slurry-arm': 'スラリー供給アーム', 'zone-chambers': 'ゾーン圧力室',
+    'pad-conditioner': 'パッドコンディショナー', 'flexible-membrane': '柔軟膜',
+    'wafer-face-down-cmp': 'ウェーハ（フェースダウン）', 'retaining-ring': 'リテーニングリング',
+    'polishing-pad': '研磨パッド', platen: 'プラテン',
+  },
+  eds: {
+    'test-head': 'テストヘッド', 'pogo-pin-unit': 'ポゴピンユニット', 'probe-card-pcb': 'プローブカードPCB',
+    'space-transformer': 'スペーストランスフォーマー', 'upper-guide-plate': '上部ガイドプレート',
+    'probe-needle': 'プローブニードル', 'lower-guide-plate': '下部ガイドプレート', 'wafer-chuck': 'ウェーハチャック',
+    'scrub-mark': 'スクラブ痕', overdrive: 'オーバードライブ',
+  },
+  packaging: {
+    'wire-clamp': 'ワイヤクランプ', 'ultrasonic-transducer': '超音波トランスデューサホーン', 'bond-head': 'ボンドヘッド',
+    capillary: 'キャピラリ（ボンディングツール）', 'efo-electrode': 'EFOトーチ電極', 'die-bond-pad': 'ダイ／ボンドパッド',
+    'heater-block': 'ヒーターブロック（ワークホルダー）', 'capillary-hole': 'キャピラリ穴（H）',
+    'capillary-cone-angle': 'キャピラリ円すい角（CA）', 'capillary-face-angle': 'キャピラリ端面角（FA）',
+    'capillary-tip-geometry': 'キャピラリ先端形状', 'free-air-ball': 'フリーエアボール（FAB）',
+    'capillary-chamfer': '面取り径CD', 'ball-bond': 'ボールボンド（第1ボンド）', 'stitch-bond': 'ステッチ／ウェッジボンド',
   },
 };
 
@@ -157,9 +226,10 @@ function RealisticEquipmentFigure({ processId, lang }: {
   const pair = EQUIPMENT_PAIR_FIGURES[processId];
   if (pair) {
     const base = import.meta.env?.BASE_URL ?? '/';
-    const figures = pair[lang === 'ko' ? 'ko' : 'en'];
+    const language: 'ko' | 'en' | 'ja' = lang === 'ko' || lang === 'ja' ? lang : 'en';
+    const figures = pair[language];
     return (
-      <div className="equipmentRealisticPair" aria-label={lang !== 'ko' ? 'Deposition and ion implantation equipment' : '증착과 이온주입 장비'}>
+      <div className="equipmentRealisticPair" aria-label={lang === 'ko' ? '증착과 이온주입 장비' : lang === 'ja' ? '成膜・イオン注入装置' : 'Deposition and ion implantation equipment'}>
         {figures.map((figure) => (
           <figure className="fig equipmentRealistic equipmentRealistic--split" key={figure.title}>
             <h3 className="equipmentRealistic__title">{figure.title}</h3>
@@ -227,7 +297,9 @@ function activeDescKey(file: EquipmentLabelFile | null | undefined, id: string):
 function labelName(file: EquipmentLabelFile | null | undefined, id: string, lang: string): string {
   const l = file?.labels.find((x) => x.id === id);
   if (!l) return id;
-  return lang !== 'ko' ? l.en : l.ko;
+  if (lang === 'ko') return l.ko;
+  if (lang === 'ja') return EQUIPMENT_LABELS_JA[file?.processId ?? '']?.[id] ?? l.en;
+  return l.en;
 }
 function noteText(note: EquipmentNote, lang: string): string {
   return lang !== 'ko' ? note.en : note.ko;
@@ -330,7 +402,7 @@ function LabelledFigure({ file, lang, active, onSelect, notes, showInfo, activeN
             //          덤으로 폭이 넘칠 때 넘치는 방향이 **이미지 위 → 여백 바깥**으로 바뀐다.
             //          이미지를 덮는 것보다 여백을 넘는 쪽이 낫다(A4 「부위 라벨이 장비를 가리지 않는다」).
             const tx = l.side === 'left' ? -TEXT_PAD : w + TEXT_PAD;
-            const name = lang !== 'ko' ? l.en : l.ko;
+            const name = labelName(file, l.id, lang);
             const [head, tail] = splitLabel(name);
             return (
               <g
