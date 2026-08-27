@@ -5,6 +5,10 @@ import { t } from '@/lib/i18n';
 import { passBasisNode } from '@/ui/widgets/PassBasisBadge';
 import '@/ui/styles/instruments.css';
 
+function localizedLabel(lang: string, item: { ko: string; en: string; ja?: string }): string {
+  return lang === 'ko' ? item.ko : lang === 'ja' ? (item.ja ?? item.en) : item.en;
+}
+
 /**
  * 🔴 **계측기 패널** — 판정 출력을 「게이지」로 보인다.
  *
@@ -76,7 +80,7 @@ function Gauge({ spec, output, q, lang }: {
   const pass = output.pass;
   const scale = gaugeScale(pass, q.value, output.domain ?? q.validRange);
   const ok = pass ? inPassWindow(pass, q.value) : null;
-  const name = lang !== 'ko' ? output.en : output.ko;
+  const name = localizedLabel(lang, output);
 
   const px = (v: number): number => {
     const span = scale[1] - scale[0];

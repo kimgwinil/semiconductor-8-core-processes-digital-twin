@@ -205,25 +205,25 @@
       {
         "type": "table",
         "head": [
-          "Part that degrades",
-          "Symptom that appears"
+          "劣化する部位",
+          "現れる症状"
         ],
         "rows": [
           [
-            "Insufficient pogo-pin press",
-            "Only the channel assigned to that pin loses signal"
+            "ポゴピンの押し込み不足",
+            "そのピンに割り当てられたチャネルだけ信号が失われる"
           ],
           [
-            "Card board tilt",
-            "Only the needles on one side touch while the other side lifts off, and that region reads as open"
+            "カード基板の傾き",
+            "片側のニードルだけが接触し、反対側が浮いて、その領域がオープンとして読まれる"
           ],
           [
-            "Residue buildup on needle tip",
-            "Contact resistance rises and good dice are judged bad"
+            "ニードル先端の残渣堆積",
+            "接触抵抗が上がり、良品ダイが不良と判定される"
           ],
           [
-            "Chuck temperature drift",
-            "The map looks normal but temperature-margin failures go undetected"
+            "チャック温度のドリフト",
+            "マップは正常に見えるが、温度マージン不良を検出できない"
           ]
         ]
       },

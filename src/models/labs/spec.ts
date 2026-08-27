@@ -19,6 +19,7 @@ export interface LabParam {
   id: string;
   ko: string;
   en: string;
+  ja?: string;
   unit: string;
   /**
    * 🔴 `unit` 이 기호(`nm`·`°C`·`mTorr`)가 아니라 **한글 단어**(`사이클`·`개`)일 때만 채운다.
@@ -68,6 +69,7 @@ export interface LabOutput {
   id: string;
   ko: string;
   en: string;
+  ja?: string;
   /** 🔴 `judge` 만 합격/불합격을 가른다. `display` 는 표시만 하고 판정에 넣지 않는다. */
   role: 'judge' | 'display';
   /** 합격 구간. `judge` 면 필수. */
@@ -130,6 +132,7 @@ export interface LabFixedCondition {
   /** 기호·이름. 예: `'개구수 NA'`. */
   ko: string;
   en: string;
+  ja?: string;
   /**
    * 값. 🔴 **문자열이다** — 명세의 고정 조건에는 수가 아닌 것이 섞여 있다
    * (면방위 `⟨100⟩` · 분위기 `건식 O₂` · 프로브 카드 `캔틸레버형`).
@@ -160,12 +163,13 @@ export interface LabFeedback {
   tone: FeedbackTone;
   ko: string;
   en: string;
+  ja?: string;
   /** 트리거 조건. 입력·출력 실값을 받는다. */
   when(inputs: Readonly<Record<string, number>>, outputs: Readonly<Record<string, number>>): boolean;
 }
 
 /** 상충 관계 — PLN 「6) 상충 관계」. 화면에 그대로 노출한다(슬라이더 장난감 방지 규칙 1). */
-export interface LabTradeoff { ko: string; en: string }
+export interface LabTradeoff { ko: string; en: string; ja?: string }
 
 /**
  * 씬 연결. **없으면 「내부 시각화 준비 중」을 정직하게 표시**한다.
@@ -203,6 +207,7 @@ export interface LabChartSeries {
   id: string;
   ko: string;
   en: string;
+  ja?: string;
   points: Array<{ x: number; y: number }>;
   /** 규격선·참조선처럼 점선으로 그릴 계열. */
   dashed?: boolean;
@@ -213,6 +218,7 @@ export interface LabChartRefLine {
   value: number;
   ko: string;
   en: string;
+  ja?: string;
   tone?: 'spec' | 'info';
 }
 
@@ -222,6 +228,7 @@ export interface LabChartBinding {
   /** 패널 제목. */
   ko: string;
   en: string;
+  ja?: string;
   /**
    * 🔴 이 차트가 **판정을 보여주는** 출력 id 들. 비어 있지 않으면 화면에
    *    「판정은 이 차트에서 합니다」를 명시한다(PLN 427). `check-labs` 가 id 실재를 검사한다.
@@ -230,8 +237,9 @@ export interface LabChartBinding {
   /** PLN 이 문구까지 지정한 캡션이 있으면 그대로 옮긴다. */
   captionKo?: string;
   captionEn?: string;
-  xKo: string; xEn: string; xUnit?: string; xUnitEn?: string;
-  yKo: string; yEn: string; yUnit?: string; yUnitEn?: string;
+  captionJa?: string;
+  xKo: string; xEn: string; xJa?: string; xUnit?: string; xUnitEn?: string;
+  yKo: string; yEn: string; yJa?: string; yUnit?: string; yUnitEn?: string;
   /** 🔴 확대 축. PLN 426 「세로축 200 ± 3 mm 만 확대」처럼 **판정이 보이게** 하는 핵심 값. */
   yDomain?: [number, number];
   xDomain?: [number, number];
@@ -273,6 +281,7 @@ export interface LabSpec {
   objectiveId: string;
   titleKo: string;
   titleEn: string;
+  titleJa?: string;
   params: LabParam[];
   /**
    * 🔴 **고정 조건 카드.** 조작할 수 없지만 결과를 정하는 값들 — 명세가 「고정값」·「고정 조건」으로

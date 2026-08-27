@@ -79,8 +79,8 @@
         "type": "table",
         "head": [
           "MSL",
-          "Floor Life",
-          "Standard Soak"
+          "開封後許容時間",
+          "標準吸湿条件"
         ],
         "rows": [
           [

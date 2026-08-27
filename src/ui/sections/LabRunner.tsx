@@ -41,6 +41,10 @@ function say(text: string): string {
   return SHOW_PROVENANCE ? text : redactProvenance(text);
 }
 
+function localizedLabel(lang: string, item: { ko: string; en: string; ja?: string }): string {
+  return lang === 'ko' ? item.ko : lang === 'ja' ? (item.ja ?? item.en) : item.en;
+}
+
 
 /**
  * 실습 하네스 — **공정×단계 24칸이 전부 이 한 컴포넌트를 쓴다.**
@@ -218,7 +222,7 @@ export function LabRunner({ spec }: { spec: LabSpec }): React.ReactElement {
               : (
                 <label className="slider" key={p.id}>
                   <span className="slider__name">
-                    {lang !== 'ko' ? p.en : p.ko}
+                    {localizedLabel(lang, p)}
                     {p.sourceId && <SourceBadge sourceId={p.sourceId} compact />}
                   </span>
                   {/* 🔴 입력을 래퍼로 감싼다 — `<input>` 에는 자식을 넣을 수 없어 띠를 트랙 위에
@@ -232,7 +236,7 @@ export function LabRunner({ spec }: { spec: LabSpec }): React.ReactElement {
                       onChange={(e) => set(p.id, Number(e.target.value))}
                       onPointerDown={() => setActiveParamId(p.id)}
                       onFocus={() => setActiveParamId(p.id)}
-                      aria-label={lang !== 'ko' ? p.en : p.ko}
+                      aria-label={localizedLabel(lang, p)}
                     />
                     <PassRangeBand
                       param={p}
@@ -271,7 +275,7 @@ export function LabRunner({ spec }: { spec: LabSpec }): React.ReactElement {
                   return (
                   <div className="fixedCard__row" key={f.id}>
                     <dt>
-                      {lang !== 'ko' ? f.en : f.ko}
+                      {localizedLabel(lang, f)}
                       {f.sourceId && <SourceBadge sourceId={f.sourceId} compact />}
                     </dt>
                     <dd>
@@ -352,7 +356,7 @@ export function LabRunner({ spec }: { spec: LabSpec }): React.ReactElement {
                 key={o.id}
                 q={q}
                 outputId={o.id}
-                label={lang !== 'ko' ? o.en : o.ko}
+                label={localizedLabel(lang, o)}
                 valueText={judgedText(q, o)}
                 specNote={o.role === 'judge' && o.pass ? specLabel(o.pass, o.digits) : undefined}
                 /* 🔴 합격창 근거 — 세 표시 지점(여기 · 계측기 · 스코프 범례)이 **같은 함수**를 부른다.
@@ -397,7 +401,7 @@ export function LabRunner({ spec }: { spec: LabSpec }): React.ReactElement {
         <section className="lab__feedback">
           {fired.map((f) => (
             <p className={`fb fb--${f.tone}`} key={f.id} role={f.tone === 'stop' ? 'alert' : 'status'}>
-              {say(lang !== 'ko' ? f.en : f.ko)}
+              {say(localizedLabel(lang, f))}
             </p>
           ))}
         </section>
@@ -413,7 +417,7 @@ export function LabRunner({ spec }: { spec: LabSpec }): React.ReactElement {
                 {/* 상충 표식. 종전 `⇄` 글리프를 인라인 SVG 로 바꿨다(설계서 §6-6).
                     흐름 밖(`position: absolute`)이라 폭 기여가 0 이다. */}
                 <SwapIcon className="lab__tradeoffIcon" />
-                {say(lang !== 'ko' ? x.en : x.ko)}
+                {say(localizedLabel(lang, x))}
               </li>
             ))}
           </ul>
@@ -469,7 +473,7 @@ function ChoiceParam({ spec, param, value, lang, range, stale, onPick, onFocus }
 }): React.ReactElement {
   const opts = paramOptions(param);
   const name = `${spec.processId}-${spec.stage}-${param.id}`;
-  const label = lang !== 'ko' ? param.en : param.ko;
+  const label = localizedLabel(lang, param);
   return (
     <fieldset className="choice" data-param={param.id} data-options={opts.length}>
       <legend className="choice__name">
@@ -513,7 +517,7 @@ function ChoiceParam({ spec, param, value, lang, range, stale, onPick, onFocus }
  */
 function conditionText(c: LimitCondition, spec: LabSpec, lang: string): string {
   const p = spec.params.find((x) => x.id === c.parameter);
-  const label = p ? (lang !== 'ko' ? p.en : p.ko) : c.parameter;
+  const label = p ? localizedLabel(lang, p) : c.parameter;
   const unit = c.unit ? ` ${c.unit}` : '';
   const [lo, hi] = c.limit;
   // 어느 쪽으로 넘었는지에 따라 **넘은 쪽 한계만** 적는다. 양쪽을 다 적으면

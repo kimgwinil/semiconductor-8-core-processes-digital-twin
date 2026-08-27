@@ -748,22 +748,22 @@ export const WAFER_LABS: LabSpec[] = [
     titleEn: 'Hit the target crystal diameter with pull rate',
     params: params([
       {
-        id: 'pullRateMmPerMin', ko: '인상속도 V', en: 'Pull rate V', unit: 'mm/min',
+        id: 'pullRateMmPerMin', ko: '인상속도 V', en: 'Pull rate V', ja: '引き上げ速度 V', unit: 'mm/min',
         min: PULL_RANGE_MM_PER_MIN[0], max: PULL_RANGE_MM_PER_MIN[1], step: 0.1, initial: PULL_NOMINAL_MM_PER_MIN, sourceId: 'S106',
         note: '상한 3.0 mm/min 은 ⌀20 cm 에서의 문헌 V_max 띠(2.58~3.87 mm/min = 20~30 cm/h·r^(−1/2), S106 §A.1·Fig.3) 안에 있다.',
       },
       {
-        id: 'topDopantE15', ko: '결정 상단 도펀트 농도(붕소)', en: 'Top dopant density (boron)', unit: '×10¹⁵ cm⁻³',
+        id: 'topDopantE15', ko: '결정 상단 도펀트 농도(붕소)', en: 'Top dopant density (boron)', ja: '結晶上部のドーパント濃度（ホウ素）', unit: '×10¹⁵ cm⁻³',
         min: 0.5, max: 10, step: 0.1, initial: 3, sourceId: 'S100',
         note: 'S100 붕소 피팅 유효구간(ρ 0.00085~100 Ω·cm ⇒ N ≳ 1.3×10¹⁴ cm⁻³) 안쪽으로 잡았다. 전 구간에서 역산이 수렴한다.',
       },
     ]),
     outputs: [
-      { id: 'diameterMm', ko: '결정 직경 D', en: 'Crystal diameter', role: 'judge',
+      { id: 'diameterMm', ko: '결정 직경 D', en: 'Crystal diameter', ja: '結晶直径 D', role: 'judge',
         pass: { min: DIAMETER_PASS_MIN_MM, max: DIAMETER_PASS_MAX_MM }, digits: 1 },
-      { id: 'throughputMmPerMin', ko: '처리량 R', en: 'Throughput', role: 'display', digits: 2 },
-      { id: 'topResistivityOhmCm', ko: '상단 저항률 ρ_T', en: 'Top resistivity', role: 'display', digits: 2 },
-      { id: 'pullRateLimitMmPerMin', ko: '이 직경의 문헌 최대 인상속도', en: 'Literature max pull rate at this diameter', role: 'display', digits: 2 },
+      { id: 'throughputMmPerMin', ko: '처리량 R', en: 'Throughput', ja: 'スループット R', role: 'display', digits: 2 },
+      { id: 'topResistivityOhmCm', ko: '상단 저항률 ρ_T', en: 'Top resistivity', ja: '上部抵抗率 ρ_T', role: 'display', digits: 2 },
+      { id: 'pullRateLimitMmPerMin', ko: '이 직경의 문헌 최대 인상속도', en: 'Literature max pull rate at this diameter', ja: 'この直径における文献上の最大引き上げ速度', role: 'display', digits: 2 },
     ],
     compute(inputs) {
       const v = num(inputs, 'pullRateMmPerMin', 1.5);
@@ -880,22 +880,22 @@ export const WAFER_LABS: LabSpec[] = [
     titleEn: 'Satisfy V/G, oxygen and diameter deviation at once',
     params: params([
       {
-        id: 'pullRateMmPerMin', ko: '인상속도 V', en: 'Pull rate V', unit: 'mm/min',
+        id: 'pullRateMmPerMin', ko: '인상속도 V', en: 'Pull rate V', ja: '引き上げ速度 V', unit: 'mm/min',
         min: PULL_RANGE_MM_PER_MIN[0], max: PULL_RANGE_MM_PER_MIN[1], step: 0.1, initial: PULL_NOMINAL_MM_PER_MIN, sourceId: 'S106',
         note: 'S5 와 같은 창. ⌀20 cm 문헌 V_max 띠 안쪽이다(S106 §A.1).',
       },
       {
-        id: 'gradientKPerCm', ko: '고액계면 축방향 온도구배 G', en: 'Axial temperature gradient G', unit: 'K/cm',
+        id: 'gradientKPerCm', ko: '고액계면 축방향 온도구배 G', en: 'Axial temperature gradient G', ja: '固液界面の軸方向温度勾配 G', unit: 'K/cm',
         min: GRADIENT_RANGE_K_PER_CM[0], max: GRADIENT_RANGE_K_PER_CM[1], step: 1, initial: GRADIENT_NOMINAL_K_PER_CM, sourceId: 'S101',
         note: 'G 자체의 문헌 상·하한은 원장에 없다(§3-1 · pointDefect.ts 도 양수성만 검사한다). 이 창은 V 범위(0.5~3.0 mm/min)에서 ξ = V/G 가 S101 Table 4 의 임계 창을 가로지르도록 역산한 것이다 — 지어낸 것이 아니라 S101 에서 파생시킨 것이다.',
       },
       {
-        id: 'crystalRpm', ko: '결정(시드) 회전수 ω_c', en: 'Crystal (seed) rotation', unit: 'rpm',
+        id: 'crystalRpm', ko: '결정(시드) 회전수 ω_c', en: 'Crystal (seed) rotation', ja: '結晶（シード）回転数 ω_c', unit: 'rpm',
         min: CRYSTAL_RPM_RANGE[0], max: CRYSTAL_RPM_RANGE[1], step: 1, initial: CRYSTAL_RPM_NOMINAL,
         basis: '공칭 시드 18 rpm 은 PLN 명세(SP-P1-02)의 값이나 우리 원장에 그 출처가 없다. 회전수 범위를 뒷받침하는 S번호가 없으므로 가짜 배지를 달지 않고 교육용 설정임을 여기 남긴다(원장 규칙 10 — 화면에는 경향모델 배지와 미검증 고지가 나간다).',
       },
       {
-        id: 'crucibleRpm', ko: '도가니 회전수 ω_cr(역방향·절댓값)', en: 'Crucible rotation (counter, abs)', unit: 'rpm',
+        id: 'crucibleRpm', ko: '도가니 회전수 ω_cr(역방향·절댓값)', en: 'Crucible rotation (counter, abs)', ja: 'るつぼ回転数 ω_cr（逆回転・絶対値）', unit: 'rpm',
         min: CRUCIBLE_RPM_RANGE[0], max: CRUCIBLE_RPM_RANGE[1], step: 1, initial: CRUCIBLE_RPM_NOMINAL,
         basis: '공칭 도가니 12 rpm 도 같은 사정이다 — PLN 명세(SP-P1-02) 값이고 우리 원장에 출처가 없다. 교육용 설정.',
       },
@@ -1050,7 +1050,7 @@ export const WAFER_LABS: LabSpec[] = [
     titleEn: 'Protect dislocation-free yield under two disturbances',
     params: params([
       {
-        id: 'pullRateMmPerMin', ko: '인상속도 V', en: 'Pull rate V', unit: 'mm/min',
+        id: 'pullRateMmPerMin', ko: '인상속도 V', en: 'Pull rate V', ja: '引き上げ速度 V', unit: 'mm/min',
         min: PULL_RANGE_ADV_MM_PER_MIN[0], max: PULL_RANGE_ADV_MM_PER_MIN[1], step: 0.02, initial: PULL_NOMINAL_MM_PER_MIN, sourceId: 'S106',
         note: '스텝 0.02 — 외란 B(G → 18 K/cm) 복구 해가 격자 위에 있어야 한다. 새 상한 0.150 기준 V ≤ 0.27 mm/min, 격자에서 0.26 (PLN 의 0.28 은 옛 상한 0.16 기준이라 문헌 밖이다).',
       },

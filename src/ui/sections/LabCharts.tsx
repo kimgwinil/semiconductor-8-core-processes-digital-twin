@@ -15,6 +15,10 @@ function say(text: string): string {
   return SHOW_PROVENANCE ? text : redactProvenance(text);
 }
 
+function localizedLabel(lang: string, item: { ko: string; en: string; ja?: string }): string {
+  return lang === 'ko' ? item.ko : lang === 'ja' ? (item.ja ?? item.en) : item.en;
+}
+
 
 /* ══════════════════════════════════════════════════════════════════════════════
  * 🔴 ChartFrame — **viewBox 를 렌더 폭에 맞춘다.** (2026-08-24 · CEO 「불필요하게 큽니다」)
@@ -104,10 +108,10 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
       <div className="lab__chartGrid">
       {charts.map((c) => {
         const series = c.build(inputs, values);
-        const title = say(lang !== 'ko' ? c.en : c.ko);
-        const caption = lang !== 'ko' ? c.captionEn : c.captionKo;
-        const xLabel = lang !== 'ko' ? c.xEn : c.xKo;
-        const yLabel = lang !== 'ko' ? c.yEn : c.yKo;
+        const title = say(localizedLabel(lang, c));
+        const caption = lang === 'ko' ? c.captionKo : lang === 'ja' ? (c.captionJa ?? c.captionEn) : c.captionEn;
+        const xLabel = lang === 'ko' ? c.xKo : lang === 'ja' ? (c.xJa ?? c.xEn) : c.xEn;
+        const yLabel = lang === 'ko' ? c.yKo : lang === 'ja' ? (c.yJa ?? c.yEn) : c.yEn;
         const xUnit = lang !== 'ko' ? (c.xUnitEn ?? c.xUnit) : c.xUnit;
         const yUnit = lang !== 'ko' ? (c.yUnitEn ?? c.yUnit) : c.yUnit;
 
@@ -124,7 +128,7 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
         //    「참고선일 뿐」이라고 말하려면 데이터 쪽에서 `tone: 'info'` 를 **명시**해야 한다.
         const refSeries = (c.refLines ?? []).map((r) => ({
           id: `ref-${r.value}`,
-          label: say(lang !== 'ko' ? r.en : r.ko),
+          label: say(localizedLabel(lang, r)),
           points: [{ x: xLo, y: r.value }, { x: xHi, y: r.value }],
           dashed: true,
           tone: r.tone ?? ('spec' as const),
@@ -133,7 +137,7 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
         const judged = (c.judgesOutputs ?? [])
           .map((id) => spec.outputs.find((o) => o.id === id))
           .filter((o): o is NonNullable<typeof o> => Boolean(o))
-          .map((o) => say(lang !== 'ko' ? o.en : o.ko));
+          .map((o) => say(localizedLabel(lang, o)));
 
         return (
           <figure className="labChart" key={c.id} data-chart-id={c.id} data-chart-kind={c.kind}>
@@ -156,7 +160,7 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
                     width={w} height={h}
                     series={[...series, ...refSeries].map((sr) => ({
                       id: sr.id,
-                      label: say('label' in sr ? sr.label : (lang !== 'ko' ? sr.en : sr.ko)),
+                      label: say('label' in sr ? sr.label : localizedLabel(lang, sr)),
                       points: sr.points.map((pt) => ({ depth: pt.x, value: pt.y })),
                       dashed: sr.dashed,
                       tone: 'tone' in sr ? sr.tone : undefined,
@@ -172,7 +176,7 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
                     <BarChart
                       width={w} height={h}
                       groups={series.map((sr) => ({
-                        category: say(lang !== 'ko' ? sr.en : sr.ko),
+                        category: say(localizedLabel(lang, sr)),
                         values: sr.points.map((pt) => pt.y),
                       }))}
                       yLabel={yLabel} yUnit={yUnit} xLabel={xLabel}
@@ -184,7 +188,7 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
                       width={w} height={h}
                       series={[...series, ...refSeries].map((sr) => ({
                         id: sr.id,
-                        label: say('label' in sr ? sr.label : (lang !== 'ko' ? sr.en : sr.ko)),
+                        label: say('label' in sr ? sr.label : localizedLabel(lang, sr)),
                         points: sr.points,
                         dashed: sr.dashed,
                         tone: 'tone' in sr ? sr.tone : undefined,

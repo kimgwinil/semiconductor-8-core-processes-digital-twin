@@ -7,6 +7,10 @@ import { NON_FINITE_LABEL, formatLimit, formatQuantity } from '@/lib/format';
 import { t } from '@/lib/i18n';
 import '@/ui/styles/passrange.css';
 
+function localizedLabel(lang: string, item: { ko: string; en: string; ja?: string }): string {
+  return lang === 'ko' ? item.ko : lang === 'ja' ? (item.ja ?? item.en) : item.en;
+}
+
 /**
  * 🔴 **합격 구간 안내** — CEO 지시 2026-08-24:
  * 「조작하는 부분에서 **합격을 위한 가이드라인을 최소/최대로 구분하여 제공**하는 것도 방법임」
@@ -314,7 +318,7 @@ export function FailDirectionList({ spec, verdict, q, lang }: {
           const o = spec.outputs.find((x) => x.id === r.outputId);
           if (!o) return null;
           const quantity = q[r.outputId];
-          const name = lang !== 'ko' ? o.en : o.ko;
+          const name = localizedLabel(lang, o);
           const shownUnit = lang !== 'ko' ? (quantity?.unitEn ?? quantity?.unit) : quantity?.unit;
           const unit = shownUnit ? ` ${shownUnit}` : '';
           // 🔴 값 서식은 출력 지표와 **같은 자릿수**를 쓴다. 규격선이 값보다 굵거나 가늘게
@@ -380,7 +384,7 @@ export function ParamNudgeHints({ spec, inputs, verdict, lang }: {
         : (
           <ul className="nudgeDir__list">
             {hints.map(({ param, direction }) => {
-              const name = lang !== 'ko' ? param.en : param.ko;
+              const name = localizedLabel(lang, param);
               return (
                 <li className="nudgeDir__row" data-nudge-dir={direction} key={param.id}>
                   {direction === 'up'

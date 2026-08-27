@@ -9,6 +9,10 @@ import { t } from '@/lib/i18n';
 import { passBasisNode } from '@/ui/widgets/PassBasisBadge';
 import '@/ui/styles/instruments.css';
 
+function localizedLabel(lang: string, item: { ko: string; en: string; ja?: string }): string {
+  return lang === 'ko' ? item.ko : lang === 'ja' ? (item.ja ?? item.en) : item.en;
+}
+
 /**
  * 🔴 **스코프 패널** — 「지금 만지고 있는 입력을 축으로, 판정 출력이 어떻게 변하는가」.
  *
@@ -136,7 +140,7 @@ export function LabScope(props: LabScopeProps): React.ReactElement | null {
 
   const series = runs.map((pts, i) => ({
     id: `scope-run-${i}`,
-    label: lang !== 'ko' ? output.en : output.ko,
+    label: localizedLabel(lang, output),
     points: pts,
     color: SCOPE_COLOR,
   }));
@@ -155,9 +159,9 @@ export function LabScope(props: LabScopeProps): React.ReactElement | null {
     tone: 'spec' as const,
   }));
 
-  const paramName = lang !== 'ko' ? param.en : param.ko;
+  const paramName = localizedLabel(lang, param);
   const paramUnit = lang !== 'ko' ? (param.unitEn ?? param.unit) : param.unit;
-  const outputName = lang !== 'ko' ? output.en : output.ko;
+  const outputName = localizedLabel(lang, output);
   const curPass = cur && pass ? inPassWindow(pass, cur.value) : null;
 
   return (
@@ -176,7 +180,7 @@ export function LabScope(props: LabScopeProps): React.ReactElement | null {
               aria-label={t('lab.scopeAxis')}
             >
               {candidates.map((o) => (
-                <option key={o.id} value={o.id}>{lang !== 'ko' ? o.en : o.ko}</option>
+                <option key={o.id} value={o.id}>{localizedLabel(lang, o)}</option>
               ))}
             </select>
           </label>
