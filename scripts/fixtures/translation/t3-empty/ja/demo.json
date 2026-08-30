@@ -1,0 +1,21 @@
+{
+  "processId": "demo",
+  "theory": {
+    "title": "理論学習",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "乾式酸化は 1000 °C で成長する。銅の比抵抗は 1.68 µΩ·cm、ばらつきは σ ≤ 1.5 % である。"
+      },
+      {
+        "type": "formula",
+        "latex": "x^2 + A x = B(t + \\tau)",
+        "sourceId": "S120",
+        "caption": "膜厚は 400 ± 20 nm の窓に収まる。"
+      }
+    ]
+  },
+  "labels": {
+    "tube": "石英プロセスチューブ"
+  }
+}

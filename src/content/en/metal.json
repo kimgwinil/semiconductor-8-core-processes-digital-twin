@@ -19,7 +19,7 @@
       },
       {
         "type": "p",
-        "text": "The move from aluminum to copper rests on two grounds. Resistivity is lower for copper: 1.68 microohm*cm at 300 K (S210), versus 2.65-2.82 microohm*cm for aluminum (the latter figure is a widely agreed physical constant the design ledger accepts). Electromigration lifetime also favors copper — the activation energy of the dominant diffusion path is 0.70 eV for aluminum grain-boundary diffusion, but 0.80 eV for copper surface diffusion (S201)."
+        "text": "The move from aluminum to copper rests on two grounds. Resistivity is lower for copper: 1.68 µΩ·cm at 300 K (S210), versus 2.65-2.82 µΩ·cm for aluminum (the latter figure is a widely agreed physical constant the design ledger accepts). Electromigration lifetime also favors copper — the activation energy of the dominant diffusion path is 0.70 eV for aluminum grain-boundary diffusion, but 0.80 eV for copper surface diffusion (S201)."
       },
       {
         "type": "p",
@@ -49,11 +49,11 @@
         "type": "formula",
         "latex": "\\rho_{\\mathrm{eff}} = \\rho_0\\left[1 + \\frac{C(k)\\,(1-p)}{k}\\right], \\quad k\\lambda = \\frac{4A}{P}",
         "sourceId": "S216",
-        "caption": "The characteristic length is \"4 x cross-sectional area / perimeter,\" and the dimensionless k expresses how many mean free paths thick the wire is. The coefficient is 0.375 when k > 4, and 0.474 when 0.5 < k <= 4. Across the lab slider range (width 20-200 nm, thickness 117 nm), k runs 0.854-3.691, so the entire range falls on the 0.474 side."
+        "caption": "The characteristic length is \"4 x cross-sectional area / perimeter,\" and the dimensionless k expresses how many mean free paths thick the wire is. The coefficient is 0.375 when k > 4, and 0.474 when 0.5 < k ≤ 4. Across the lab slider range (width 20-200 nm, thickness 117 nm), k runs 0.854-3.691, so the entire range falls on the 0.474 side."
       },
       {
         "type": "p",
-        "text": "The calculation uses copper's bulk resistivity of 1.68 microohm*cm and a 300 K mean free path of 40 nm, with specular reflectance set to 0 (S210). Only surface scattering is included and grain-boundary scattering is left out, so this value should be read as a lower bound on the actual resistivity of fine wiring. Narrowing the width pushes cross-section and resistivity in the same direction, so resistance grows faster than 1/W."
+        "text": "The calculation uses copper's bulk resistivity of 1.68 µΩ·cm and a 300 K mean free path of 40 nm, with specular reflectance set to 0 (S210). Only surface scattering is included and grain-boundary scattering is left out, so this value should be read as a lower bound on the actual resistivity of fine wiring. Narrowing the width pushes cross-section and resistivity in the same direction, so resistance grows faster than 1/W."
       },
       {
         "type": "formula",
@@ -78,13 +78,13 @@
       },
       {
         "type": "p",
-        "text": "The dominant diffusion path in copper wiring is the surface, with an activation energy of 0.80 eV (S201 Table 2.1). The exponent n is set by the failure mode — 1 when void growth governs the rate, 2 when nucleation governs, and copper falls at 1.1-1.3 (S201). Below a current density of 10^4 A/cm^2 the phenomenon is not even under discussion (S201). Temperature is a far steeper factor than current density — raising it just 10 K, from 378 K to 388 K, drops lifetime to about 53%."
+        "text": "The dominant diffusion path in copper wiring is the surface, with an activation energy of 0.80 eV (S201 Table 2.1). The exponent n is set by the failure mode — 1 when void growth governs the rate, 2 when nucleation governs, and copper falls at 1.1-1.3 (S201). Below a current density of 10⁴ A/cm² the phenomenon is not even under discussion (S201). Temperature is a far steeper factor than current density — raising it just 10 K, from 378 K to 388 K, drops lifetime to about 53%."
       },
       {
         "type": "formula",
         "latex": "(j\\cdot l)_{\\mathrm{crit}} = \\frac{2\\,\\sigma_{\\mathrm{crit}}\\,\\Omega}{e\\,z^{*}\\rho}",
         "sourceId": "S206",
-        "caption": "As electron wind pushes atoms, stress builds up at both ends of the wire, and once that back-stress offsets the electron wind, the wire does not fail — the immortality condition. Plugging in the copper dual-damascene values (critical stress 41 MPa, atomic volume 1.18e-29 m^3, effective valence 1, resistivity 2.25e-8 ohm*m) gives a critical product of 0.268 A/um; if a wire's j*l is below this, it satisfies the immortality condition."
+        "caption": "As electron wind pushes atoms, stress builds up at both ends of the wire, and once that back-stress offsets the electron wind, the wire does not fail — the immortality condition. Plugging in the copper dual-damascene values (critical stress 41 MPa, atomic volume 1.18×10⁻²⁹ m³, effective valence 1, resistivity 2.25×10⁻⁸ Ω·m) gives a critical product of 0.268 A/µm; if a wire's j*l is below this, it satisfies the immortality condition."
       },
       {
         "type": "note",
@@ -100,7 +100,7 @@
         "type": "formula",
         "latex": "\\mathrm{MRR} = k_p \\cdot P \\cdot V",
         "sourceId": "S204",
-        "caption": "CMP removal rate depends only on the product of load and relative velocity — raising either one reaches the same removal rate. When the platen and head rotate at the same speed, relative velocity is set by V = omega*d, and the head-pad center distance is fixed at 130 mm (S200). As the pad flattens and its grooves shallow, k_p falls, so the pad conditioner, which uses a diamond disc to restore the pad surface, keeps the removal rate constant."
+        "caption": "CMP removal rate depends only on the product of load and relative velocity — raising either one reaches the same removal rate. When the platen and head rotate at the same speed, relative velocity is set by V = ω*d, and the head-pad center distance is fixed at 130 mm (S200). As the pad flattens and its grooves shallow, k_p falls, so the pad conditioner, which uses a diamond disc to restore the pad surface, keeps the removal rate constant."
       },
       {
         "type": "list",
@@ -108,9 +108,9 @@
         "items": [
           "Basic — move only \"CMP load pressure\" (kPa) and \"platen/head rotation speed\" (rpm) to bring the \"removal rate MRR\" into the 302.5-350.1 nm/min window.",
           "Applied — \"wire width W\" (nm) is added, and MRR, \"overburden polish time\" (2.25 min or less), \"wire resistance ratio R / R(baseline combination)\" (0.75 or less), and \"wire pitch 2W\" (170 nm or less) must all be satisfied at once.",
-          "Advanced — \"ILD permittivity k,\" \"evaluation wire length L\" (um), \"wire operating temperature\" (K), and \"wire current I\" (mA) are added. A resistance ratio of 0.68 or less must be met together with an \"RC delay ratio\" of 0.45 or less, an \"EM lifetime ratio\" of 2.5 or more, and a \"Blech margin\" of 1 or less.",
+          "Advanced — \"ILD permittivity k,\" \"evaluation wire length L\" (µm), \"wire operating temperature\" (K), and \"wire current I\" (mA) are added. A resistance ratio of 0.68 or less must be met together with an \"RC delay ratio\" of 0.45 or less, an \"EM lifetime ratio\" of 2.5 or more, and a \"Blech margin\" of 1 or less.",
           "Because spacing is tied to wire width (S = W, pitch = 2W), widening the wire to lower resistance pushes down density with the same hand.",
-          "Judging is done on the ratio against the baseline combination, not on absolute resistance — the on-screen \"wire resistance R\" value in ohms is display-only.",
+          "Judging is done on the ratio against the baseline combination, not on absolute resistance — the on-screen \"wire resistance R\" value in Ω is display-only.",
           "The \"10-year benchmark achievement rate\" is also a standing display, not a pass criterion — even when all seven criteria are met, it shows that the result still falls short of the industry's 10-year benchmark."
         ]
       }
@@ -270,7 +270,7 @@
         "type": "formula",
         "latex": "m = \\frac{M \\cdot I \\cdot t}{n \\cdot F}",
         "sourceId": "S212",
-        "caption": "The amount of copper deposited is proportional to the charge passed, I*t. F is the Faraday constant, an exact value of 96,485.33212 C/mol, and for Cu2+ plating the charge number n is 2. This equation is the basis for the relationship that plating time is directly copper quantity."
+        "caption": "The amount of copper deposited is proportional to the charge passed, I*t. F is the Faraday constant, an exact value of 96,485.33212 C/mol, and for Cu²⁺ plating the charge number n is 2. This equation is the basis for the relationship that plating time is directly copper quantity."
       },
       {
         "type": "p",

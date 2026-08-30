@@ -1,0 +1,15 @@
+{
+  "processId": "demo",
+  "theory": {
+    "title": "Theory",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "Dry oxidation grows at 1000 °C. Copper resistivity is 1.68 µΩ·cm and the spread is σ ≤ 1.5 %."
+      }
+    ]
+  },
+  "labels": {
+    "tube": "Quartz process tube"
+  }
+}

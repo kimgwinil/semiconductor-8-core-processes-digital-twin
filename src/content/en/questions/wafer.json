@@ -57,7 +57,7 @@
         "Viewport"
       ],
       "answer": 0,
-      "explanation": "The quartz crucible softens above about 1400 degC and cannot hold its own shape, so a graphite susceptor supports it from outside and conducts the heater's radiant and conductive heat evenly to the crucible. The seed chuck instead holds the seed at the ingot end, the heat shield sets the temperature gradient near the melt interface, and the viewport is only an observation window with no structural role.",
+      "explanation": "The quartz crucible softens above about 1400 °C and cannot hold its own shape, so a graphite susceptor supports it from outside and conducts the heater's radiant and conductive heat evenly to the crucible. The seed chuck instead holds the seed at the ingot end, the heat shield sets the temperature gradient near the melt interface, and the viewport is only an observation window with no structural role.",
       "sourceId": "S106",
       "weakTopic": "crucible-graphite-susceptor"
     },
@@ -74,7 +74,7 @@
         "To keep the wafer thickness variation (TTV) within spec"
       ],
       "answer": 1,
-      "explanation": "The moment a room-temperature seed touches the 1414 degC melt, thermal shock generates many dislocations. Because dislocations in silicon propagate at an angle to the crystal axis, pulling a long enough thin neck lets them exit through the side surface and die out, so dislocation-free growth begins below the neck. Oxygen concentration is set by crucible erosion and convection, the segregation coefficient by the dopant species, and TTV by later slicing, lapping, and polishing, none of which necking directly controls.",
+      "explanation": "The moment a room-temperature seed touches the 1414 °C melt, thermal shock generates many dislocations. Because dislocations in silicon propagate at an angle to the crystal axis, pulling a long enough thin neck lets them exit through the side surface and die out, so dislocation-free growth begins below the neck. Oxygen concentration is set by crucible erosion and convection, the segregation coefficient by the dopant species, and TTV by later slicing, lapping, and polishing, none of which necking directly controls.",
       "sourceId": "S107",
       "weakTopic": "necking-dislocation-release"
     },
@@ -100,13 +100,13 @@
       "type": "numeric",
       "difficulty": "mid",
       "objectiveId": "LO-P1-03",
-      "stem": "An n-type silicon wafer is uniformly doped with phosphorus. The donor concentration is N_D = 1.0e15 cm^-3 and is assumed fully ionized at room temperature. Using electron mobility mu_n = 1350 cm^2/(V*s) and elementary charge q = 1.602e-19 C at this concentration, find the resistivity considering only majority carriers.",
+      "stem": "An n-type silicon wafer is uniformly doped with phosphorus. The donor concentration is N_D = 1.0×10¹⁵ cm⁻³ and is assumed fully ionized at room temperature. Using electron mobility mu_n = 1350 cm²/(V*s) and elementary charge q = 1.602×10⁻¹⁹ C at this concentration, find the resistivity considering only majority carriers.",
       "answer": {
         "value": 4.6,
         "unit": "Ω·cm",
         "tolerance": 0.05
       },
-      "explanation": "Majority-carrier conductivity is sigma = q*n*mu_n = (1.602e-19)(1.0e15)(1350) = 0.2163 (Ω·cm)^-1, and resistivity is its reciprocal, rho = 1/sigma ~= 4.6 Ω·cm. Forgetting to invert conductivity gives 0.216, and computing in SI units but mislabeling the result as Ω·cm gives a value 100 times too small (0.046), so unit handling matters here.",
+      "explanation": "Majority-carrier conductivity is sigma = q*n*mu_n = (1.602e-19)(1.0e15)(1350) = 0.2163 (Ω·cm)^-1, and resistivity is its reciprocal, rho = 1/sigma ≈ 4.6 Ω·cm. Forgetting to invert conductivity gives 0.216, and computing in SI units but mislabeling the result as Ω·cm gives a value 100 times too small (0.046), so unit handling matters here.",
       "sourceId": "S100",
       "weakTopic": "resistivity-doping-relation"
     },
@@ -115,13 +115,13 @@
       "type": "numeric",
       "difficulty": "high",
       "objectiveId": "LO-P1-04",
-      "stem": "A boron-doped CZ silicon ingot is grown. The resistivity at the top of the ingot (solidified fraction g = 0) is rho_T = 10.0 Ω·cm, and boron's effective segregation coefficient is k_eff = 0.85. Using the normal-freezing relation rho(g) = rho_T*(1-g)^(1-k_eff), find the resistivity at solidified fraction g = 0.85. (Ignore complete mixing and solid-state diffusion.)",
+      "stem": "A boron-doped CZ silicon ingot is grown. The resistivity at the top of the ingot (solidified fraction g = 0) is ρ_T = 10.0 Ω·cm, and boron's effective segregation coefficient is k_eff = 0.85. Using the normal-freezing relation ρ(g) = ρ_T*(1-g)^(1-k_eff), find the resistivity at solidified fraction g = 0.85. (Ignore complete mixing and solid-state diffusion.)",
       "answer": {
         "value": 7.5,
         "unit": "Ω·cm",
         "tolerance": 0.05
       },
-      "explanation": "With 1-k_eff = 0.15 and 1-g = 0.15, 0.15^0.15 = exp(0.15*ln0.15) ~= 0.7523, so rho(0.85) = 10.0 * 0.7523 ~= 7.5 Ω·cm. Because k_eff < 1, the dopant prefers to stay in the liquid, so the remaining melt becomes more concentrated as growth proceeds and resistivity drops further down the ingot. Flipping the sign of the exponent gives 13.3, which reverses the physical direction and is therefore wrong.",
+      "explanation": "With 1-k_eff = 0.15 and 1-g = 0.15, 0.15^0.15 = exp(0.15*ln0.15) ≈ 0.7523, so rho(0.85) = 10.0 * 0.7523 ≈ 7.5 Ω·cm. Because k_eff < 1, the dopant prefers to stay in the liquid, so the remaining melt becomes more concentrated as growth proceeds and resistivity drops further down the ingot. Flipping the sign of the exponent gives 13.3, which reverses the physical direction and is therefore wrong.",
       "sourceId": "S107",
       "weakTopic": "normal-freezing-axial-resistivity"
     },

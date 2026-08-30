@@ -1,0 +1,21 @@
+{
+  "processId": "demo",
+  "theory": {
+    "title": "理論学習",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "膜厚は x^2 ~= B(t+tau) で成長し、sqrt(t) に従う。"
+      },
+      {
+        "type": "formula",
+        "latex": "x^2 + A x = B(t + \\tau)",
+        "sourceId": "S120",
+        "caption": "膜厚は 400 ± 20 nm の窓に収まる。"
+      }
+    ]
+  },
+  "labels": {
+    "tube": "石英プロセスチューブ"
+  }
+}

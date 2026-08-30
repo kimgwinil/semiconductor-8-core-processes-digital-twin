@@ -23,7 +23,7 @@
       "type": "single",
       "difficulty": "mid",
       "objectiveId": "LO-P2-01",
-      "stem": "In the Deal-Grove model x_ox^2 + A*x_ox = B(t+tau), which step controls the growth rate once the oxide is sufficiently thick?",
+      "stem": "In the Deal-Grove model x_ox² + A*x_ox = B(t+τ), which step controls the growth rate once the oxide is sufficiently thick?",
       "choices": [
         "The rate of the chemical reaction at the Si/SiO2 interface",
         "Diffusive transport of the oxidizing species through the already-grown oxide",
@@ -31,7 +31,7 @@
         "The number of adsorption sites available on the oxide surface"
       ],
       "answer": 1,
-      "explanation": "As the oxide thickens, the linear term A*x_ox becomes negligible compared with the quadratic term x_ox^2, giving x_ox^2 ~= B(t+tau), i.e. thickness growing with sqrt(t) in the parabolic regime. The parabolic rate constant B is proportional to the diffusion coefficient of the oxidizing species inside the oxide, so diffusive transport across the film is the rate-limiting step here. When the film is thin, the interface reaction is instead rate-limiting, giving the linear regime.",
+      "explanation": "As the oxide thickens, the linear term A*x_ox becomes negligible compared with the quadratic term x_ox², giving x_ox² ~= B(t+τ), i.e. thickness growing with sqrt(t) in the parabolic regime. The parabolic rate constant B is proportional to the diffusion coefficient of the oxidizing species inside the oxide, so diffusive transport across the film is the rate-limiting step here. When the film is thin, the interface reaction is instead rate-limiting, giving the linear regime.",
       "sourceId": "S120",
       "weakTopic": "deal-grove-parabolic-regime"
     },
@@ -78,7 +78,7 @@
       "type": "single",
       "difficulty": "mid",
       "objectiveId": "LO-P2-03",
-      "stem": "Under dry oxidation, all else fixed, temperature is raised from 900 degC to 1050 degC. Which outcome is correct?",
+      "stem": "Under dry oxidation, all else fixed, temperature is raised from 900 °C to 1050 °C. Which outcome is correct?",
       "choices": [
         "The oxide thickens and the Si consumed also grows, staying about 0.44 times the oxide thickness",
         "The oxide thickens but no Si is consumed, so the substrate surface position stays fixed",
@@ -110,15 +110,15 @@
       "type": "single",
       "difficulty": "mid",
       "objectiveId": "LO-P2-04",
-      "stem": "An applied lab must satisfy three conditions at once: (a) field oxide thickness 400 +/- 20 nm, (b) wafer-to-wafer thickness spread 1 sigma <= 1.5%, (c) batch throughput at least 18 wafer/h. Starting from the default (dry O2, 1000 degC, 150 min), what adjustment is most appropriate?",
+      "stem": "An applied lab must satisfy three conditions at once: (a) field oxide thickness 400 ± 20 nm, (b) wafer-to-wafer thickness spread 1 σ ≤ 1.5%, (c) batch throughput at least 18 wafer/h. Starting from the default (dry O2, 1000 °C, 150 min), what adjustment is most appropriate?",
       "choices": [
-        "Keep dry O2 and raise the temperature to 1150 degC to shorten the growth time",
-        "Switch to wet H2O, keep the temperature near 1000 degC, and target a time of about 65 min",
+        "Keep dry O2 and raise the temperature to 1150 °C to shorten the growth time",
+        "Switch to wet H2O, keep the temperature near 1000 °C, and target a time of about 65 min",
         "Keep dry O2 and extend the oxidation time to 300 min",
-        "Switch to wet H2O and also raise the temperature to 1150 degC"
+        "Switch to wet H2O and also raise the temperature to 1150 °C"
       ],
       "answer": 1,
-      "explanation": "Reaching 400 nm in a realistic time is impractical with dry oxidation, so switching to wet is the only way to satisfy both thickness and throughput. Because uniformity is sensitive to temperature, temperature should stay near 1000 degC. Raising temperature together with the switch meets thickness and throughput but breaks uniformity, and staying dry while extending time collapses throughput.",
+      "explanation": "Reaching 400 nm in a realistic time is impractical with dry oxidation, so switching to wet is the only way to satisfy both thickness and throughput. Because uniformity is sensitive to temperature, temperature should stay near 1000 °C. Raising temperature together with the switch meets thickness and throughput but breaks uniformity, and staying dry while extending time collapses throughput.",
       "sourceId": "S127",
       "weakTopic": "oxidation-recipe-tradeoff"
     },
@@ -127,13 +127,13 @@
       "type": "numeric",
       "difficulty": "high",
       "objectiveId": "LO-P2-04",
-      "stem": "Use the Deal-Grove relation x_ox^2 + A*x_ox = B(t+tau), tau = (x_i^2 + A*x_i)/B. For a given oxidation condition, A = 0.165 um and B = 0.0117 um^2/h. Starting oxidation on a wafer that already has x_i = 0.020 um of oxide, how much time t is needed to reach a final thickness x_ox = 0.100 um? (Unit: hours)",
+      "stem": "Use the Deal-Grove relation x_ox² + A*x_ox = B(t+τ), τ = (x_i² + A*x_i)/B. For a given oxidation condition, A = 0.165 µm and B = 0.0117 µm²/h. Starting oxidation on a wafer that already has x_i = 0.020 µm of oxide, how much time t is needed to reach a final thickness x_ox = 0.100 µm? (Unit: hours)",
       "answer": {
         "value": 1.95,
         "unit": "h",
         "tolerance": 0.05
       },
-      "explanation": "tau = (0.020^2 + 0.165*0.020)/0.0117 = 0.0037/0.0117 = 0.3162 h. (t+tau) = (0.100^2 + 0.165*0.100)/0.0117 = 0.0265/0.0117 = 2.2650 h. t = 2.2650 - 0.3162 = 1.95 h. Skipping the subtraction of tau gives 2.26 h, but tau is the fictitious time it would have taken to grow the pre-existing oxide from a bare wafer, so it must always be subtracted.",
+      "explanation": "tau = (0.020² + 0.165*0.020)/0.0117 = 0.0037/0.0117 = 0.3162 h. (t+tau) = (0.100² + 0.165*0.100)/0.0117 = 0.0265/0.0117 = 2.2650 h. t = 2.2650 - 0.3162 = 1.95 h. Skipping the subtraction of tau gives 2.26 h, but tau is the fictitious time it would have taken to grow the pre-existing oxide from a bare wafer, so it must always be subtracted.",
       "sourceId": "S120",
       "weakTopic": "deal-grove-time-calc"
     },
@@ -142,7 +142,7 @@
       "type": "single",
       "difficulty": "mid",
       "objectiveId": "LO-P2-05",
-      "stem": "After an advanced lab batch, slot-by-slot oxide thickness measurements show a monotonically increasing straight-line profile from door-side slot 1 to gas-inlet-side slot 50, with 1 sigma of 3.2%. The average thickness is within spec. What is the most likely cause?",
+      "stem": "After an advanced lab batch, slot-by-slot oxide thickness measurements show a monotonically increasing straight-line profile from door-side slot 1 to gas-inlet-side slot 50, with 1 σ of 3.2%. The average thickness is within spec. What is the most likely cause?",
       "choices": [
         "Piping-fitting leaks let moisture into the dry recipe",
         "Zone heater calibration drifted, so some slots fell outside the flat-zone temperature",

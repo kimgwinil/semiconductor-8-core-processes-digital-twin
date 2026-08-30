@@ -1,0 +1,21 @@
+{
+  "processId": "demo",
+  "theory": {
+    "title": "Theory",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "Thickness grows as x^2 ~= B(t+tau), following sqrt(t)."
+      },
+      {
+        "type": "formula",
+        "latex": "x^2 + A x = B(t + \\tau)",
+        "sourceId": "S120",
+        "caption": "Thickness lands inside the 400 ± 20 nm window."
+      }
+    ]
+  },
+  "labels": {
+    "tube": "Quartz process tube"
+  }
+}

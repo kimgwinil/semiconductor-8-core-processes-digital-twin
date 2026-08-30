@@ -100,7 +100,7 @@
         "unit": "nm",
         "tolerance": 0.05
       },
-      "explanation": "Main etch time = 300/250 = 1.20 min. Overetch time = 0.30*1.20 = 0.36 min. SiO2 etch rate = 250/25 = 10.0 nm/min. Since SiO2 is exposed only during overetch, loss = 10.0*0.36 = 3.60 nm. The check formula delta-d = (OE%/100)*d/S = 0.30*300/25 = 3.60 confirms this. Using 250 nm/min directly without dividing by selectivity gives the wrong answer 90, and applying the SiO2 rate over the full etch time instead of only overetch gives the wrong answer 15.6.",
+      "explanation": "Main etch time = 300/250 = 1.20 min. Overetch time = 0.30*1.20 = 0.36 min. SiO2 etch rate = 250/25 = 10.0 nm/min. Since SiO2 is exposed only during overetch, loss = 10.0*0.36 = 3.60 nm. The check formula Δd = (OE%/100)*d/S = 0.30*300/25 = 3.60 confirms this. Using 250 nm/min directly without dividing by selectivity gives the wrong answer 90, and applying the SiO2 rate over the full etch time instead of only overetch gives the wrong answer 15.6.",
       "sourceId": "S256",
       "weakTopic": "overetch-underlayer-loss-calc"
     },

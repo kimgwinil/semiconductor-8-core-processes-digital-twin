@@ -4,7 +4,7 @@
 // check-guard-naming → check-labs → check-grades → check-wiring → check-chart-series → check-fallback-purity →
 // check-passwindow →
 // check-live-judgment → check-constants → check-scene-constants → check-glsl-compile → check-test-formulas →
-// check-i18n → check-questions → check-coverage → check-ledger-parity → check-assets → check-direction → check-a12c →
+// check-i18n → check-translation → check-questions → check-coverage → check-ledger-parity → check-assets → check-direction → check-a12c →
 // tsc --noEmit → vitest run → check-bundle(dist 있을 때만) →
 // check-overflow(하드 게이트 — playwright-core + 시스템 Chrome) → check-collision(계측 전용) → check-a6b.
 // --skip-build 로 tsc/vitest 를 건너뛴다(스크립트만 빠르게 확인할 때 사용).
@@ -95,6 +95,11 @@ const skipBuild = process.argv.includes('--skip-build');
  *   │                        │              │    대문자 SKIP + 「0개」를 반드시 찍음│
  *   │ check-test-formulas    │ 0 1          │ CODES.BINARY                        │
  *   │ check-i18n             │ 0 1          │ CODES.BINARY                        │
+ *   │ check-translation      │ 0 1 2        │ CODES.WITH_ERROR  ← 2 = 계측기 고장  │
+ *   │                        │              │ 🔴 2026-08-30 신설. **차단 게이트** — │
+ *   │                        │              │    en/ja 콘텐츠가 ko 정본과 구조·정답 │
+ *   │                        │              │    ·과학 표기에서 갈라지면 1.         │
+ *   │                        │              │    2 = 콘텐츠 JSON 을 못 읽음.        │
  *   │ check-questions        │ 0 1          │ CODES.BINARY                        │
  *   │ check-coverage         │ 0 1 2        │ CODES.WITH_ERROR  ← 2 = 계측 실패    │
  *   │                        │              │ 🔴 2026-08-22 신설. **차단 게이트** — │
@@ -318,6 +323,14 @@ step('check-scene-constants', () => runNode('check-scene-constants.mjs')); // �
 step('check-glsl-compile', () => runNode('check-glsl-compile.mjs', CODES.WITH_ERROR));
 step('check-test-formulas', () => runNode('check-test-formulas.mjs')); // 🔴 G-E 테스트가 구현식을 복붙(구현을 베낀 테스트는 아무것도 막지 못한다)
 step('check-i18n', () => runNode('check-i18n.mjs'));
+/* 🔴 **번역본이 정본과 같은 것을 말하는가.** (2026-08-30 신설 · 차단)
+ *   `check-i18n` 바로 뒤에 둔다 — 둘은 같은 「번역」을 보되 **보는 곳이 다르다**:
+ *     · check-i18n        : UI 사전(`src/locales/*.json`)의 **키 집합**
+ *     · check-translation : 콘텐츠 JSON(`src/content/{ko,en,ja}/**`)의 **문장과 표기**
+ *   화면 글자의 대부분은 사전이 아니라 콘텐츠에서 온다. 그 자리에 게이트가 없어
+ *   `1400 degC`·`theta-JA`·`1.18e-29 m^3` 가 배포된 채 남아 있었다(2026-08-30 실측 183곳).
+ *   판정 기준은 **한국어 정본이 그 자리에서 무엇을 썼는가**다 — 집안 표기 규칙을 새로 만들지 않는다. */
+step('check-translation', () => runNode('check-translation.mjs'));
 step('check-questions', () => runNode('check-questions.mjs'));
 /* 🔴 **「없는 것」을 보는 유일한 게이트.** (2026-08-22 신설 · 차단)
  *   `check-questions` 바로 뒤에 둔다 — 둘은 같은 문항 파일을 보되 **묻는 것이 정반대**다:
