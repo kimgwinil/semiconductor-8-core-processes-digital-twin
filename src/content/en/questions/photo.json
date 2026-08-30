@@ -48,15 +48,15 @@
       "type": "single",
       "difficulty": "mid",
       "objectiveId": "LO-P3-02",
-      "stem": "An ArF immersion scanner scans with the narrow gap between the final lens surface and the wafer filled with ultrapure water (refractive index n ~= 1.44 at 193 nm). What is the direct purpose of filling this water layer?",
+      "stem": "An ArF immersion scanner scans with the narrow gap between the final lens surface and the wafer filled with ultrapure water (refractive index n ≈ 1.44 at 193 nm). What is the direct purpose of filling this water layer?",
       "choices": [
         "To cool the wafer during exposure and reduce overlay error from thermal expansion",
-        "To raise n in NA = n*sin(theta) from 1.00 to 1.44 and widen the achievable numerical aperture ceiling",
+        "To raise n in NA = n*sin(θ) from 1.00 to 1.44 and widen the achievable numerical aperture ceiling",
         "To develop the exposed resist in place",
         "To wash particles off the lens surface"
       ],
       "answer": 1,
-      "explanation": "Numerical aperture is defined as NA = n*sin(theta), and since sin(theta) < 1, NA can never exceed the medium's refractive index n. In air (n = 1.00) the practical NA ceiling is about 0.93, but filling the gap with ultrapure water (n = 1.44) raises the achievable NA to 1.35, improving resolution R = k1*lambda/NA proportionally. Overlay is handled by stage alignment sensors, development by a separate track module, and particle control by the pellicle and cleanroom, so none of these is the purpose of introducing immersion.",
+      "explanation": "Numerical aperture is defined as NA = n*sin(θ), and since sin(θ) < 1, NA can never exceed the medium's refractive index n. In air (n = 1.00) the practical NA ceiling is about 0.93, but filling the gap with ultrapure water (n = 1.44) raises the achievable NA to 1.35, improving resolution R = k1*λ/NA proportionally. Overlay is handled by stage alignment sensors, development by a separate track module, and particle control by the pellicle and cleanroom, so none of these is the purpose of introducing immersion.",
       "sourceId": "S141",
       "weakTopic": "immersion-lithography-na"
     },
@@ -65,7 +65,7 @@
       "type": "single",
       "difficulty": "low",
       "objectiveId": "LO-P3-02",
-      "stem": "One photo-process cycle proceeds as follows. Choose the bake steps for (a) and (b) in order: spin coating -> (a) -> exposure scan -> (b) -> development -> hard bake",
+      "stem": "One photo-process cycle proceeds as follows. Choose the bake steps for (a) and (b) in order: spin coating → (a) → exposure scan → (b) → development → hard bake",
       "choices": [
         "(a) Soft bake, (b) PEB (post-exposure bake)",
         "(a) Hard bake, (b) Soft bake",
@@ -82,13 +82,13 @@
       "type": "numeric",
       "difficulty": "mid",
       "objectiveId": "LO-P3-03",
-      "stem": "A dry (air) ArF scanner operates with wavelength lambda = 193 nm, numerical aperture NA = 0.93, and process factor k1 = 0.35. Using the Rayleigh resolution equation R = k1*lambda/NA, find the minimum resolvable half-pitch R. (Give the unit.)",
+      "stem": "A dry (air) ArF scanner operates with wavelength λ = 193 nm, numerical aperture NA = 0.93, and process factor k1 = 0.35. Using the Rayleigh resolution equation R = k1*λ/NA, find the minimum resolvable half-pitch R. (Give the unit.)",
       "answer": {
         "value": 72.6,
         "unit": "nm",
         "tolerance": 0.03
       },
-      "explanation": "R = k1*lambda/NA = (0.35*193)/0.93 = 67.55/0.93 ~= 72.6 nm. Since NA is in the denominator, a larger NA shrinks R (better resolution), and since lambda is in the numerator, a shorter wavelength helps. Multiplying instead of dividing by NA gives 62.8, omitting k1 gives 207.5, and squaring NA in the denominator confuses this with the depth-of-focus formula and gives 78.1 — all incorrect.",
+      "explanation": "R = k1*λ/NA = (0.35*193)/0.93 = 67.55/0.93 ≈ 72.6 nm. Since NA is in the denominator, a larger NA shrinks R (better resolution), and since λ is in the numerator, a shorter wavelength helps. Multiplying instead of dividing by NA gives 62.8, omitting k1 gives 207.5, and squaring NA in the denominator confuses this with the depth-of-focus formula and gives 78.1 — all incorrect.",
       "sourceId": "S141",
       "weakTopic": "rayleigh-resolution-calc"
     },
@@ -114,13 +114,13 @@
       "type": "numeric",
       "difficulty": "high",
       "objectiveId": "LO-P3-04",
-      "stem": "The same ArF tool (lambda = 193 nm, k1 = 0.35) is converted to ultrapure-water immersion, raising NA from 0.93 to 1.35. Depth of focus follows the paraxial Rayleigh formula DOF = k2*lambda/NA^2 with k2 = 0.745. Find the DOF after the conversion. (Give the unit.)",
+      "stem": "The same ArF tool (λ = 193 nm, k1 = 0.35) is converted to ultrapure-water immersion, raising NA from 0.93 to 1.35. Depth of focus follows the paraxial Rayleigh formula DOF = k2*λ/NA² with k2 = 0.745. Find the DOF after the conversion. (Give the unit.)",
       "answer": {
         "value": 78.9,
         "unit": "nm",
         "tolerance": 0.03
       },
-      "explanation": "DOF = k2*lambda/NA^2 = (0.745*193)/1.35^2 = 143.785/1.8225 ~= 78.9 nm. Before conversion, DOF was 143.785/0.93^2 = 166.2 nm, so DOF drops by 52.5%, matching (0.93/1.35)^2 exactly. The same conversion improves resolution by 1/NA, a 31.1% gain, so raising NA improves resolution linearly while worsening depth of focus quadratically. Forgetting to square NA in the denominator gives the common wrong answer 106.5.",
+      "explanation": "DOF = k2*λ/NA² = (0.745*193)/1.35² = 143.785/1.8225 ≈ 78.9 nm. Before conversion, DOF was 143.785/0.93² = 166.2 nm, so DOF drops by 52.5%, matching (0.93/1.35)² exactly. The same conversion improves resolution by 1/NA, a 31.1% gain, so raising NA improves resolution linearly while worsening depth of focus quadratically. Forgetting to square NA in the denominator gives the common wrong answer 106.5.",
       "sourceId": "S141",
       "weakTopic": "depth-of-focus-calc"
     },
@@ -129,7 +129,7 @@
       "type": "single",
       "difficulty": "mid",
       "objectiveId": "LO-P3-04",
-      "stem": "Assuming an infinite-contrast resist, aerial-image quality and CD dose sensitivity are related by d(lnCD)/d(lnE) = 2/NILS (NILS = normalized image log slope). An illumination change raises NILS from 2.0 to 4.0. If dose fluctuates +/-2% from nominal, how does the resulting CD variation change?",
+      "stem": "Assuming an infinite-contrast resist, aerial-image quality and CD dose sensitivity are related by d(lnCD)/d(lnE) = 2/NILS (NILS = normalized image log slope). An illumination change raises NILS from 2.0 to 4.0. If dose fluctuates ±2% from nominal, how does the resulting CD variation change?",
       "choices": [
         "From 4% to 2%, halved",
         "From 2% to 1%, halved",
@@ -146,7 +146,7 @@
       "type": "short",
       "difficulty": "mid",
       "objectiveId": "LO-P3-05",
-      "stem": "Resist coated on a highly reflective substrate is exposed and developed, and the SEM cross-section shows a regular ripple pattern up and down the resist sidewall. The cause is interference between the incoming light and light reflected off the substrate, creating intensity peaks and troughs in depth inside the resist, with period lambda/(2*n2) (n2 = resist refractive index). Name this phenomenon.",
+      "stem": "Resist coated on a highly reflective substrate is exposed and developed, and the SEM cross-section shows a regular ripple pattern up and down the resist sidewall. The cause is interference between the incoming light and light reflected off the substrate, creating intensity peaks and troughs in depth inside the resist, with period λ/(2*n2) (n2 = resist refractive index). Name this phenomenon.",
       "answer": {
         "accept": [
           "정재파",
@@ -159,7 +159,7 @@
           "standing wave effect"
         ]
       },
-      "explanation": "When incident light interferes with light reflected off the substrate, a standing intensity pattern forms in the depth direction inside the resist, with a period equal to half the wavelength inside the resist, lambda/(2*n2). Standing waves produce sidewall scalloping, and the best countermeasure is a bottom anti-reflective coating (BARC) to lower substrate reflectivity. A swing curve shares the same root cause but refers to the oscillation seen in linewidth as resist thickness is varied, so it is a different concept from the ripple pattern itself seen in cross-section.",
+      "explanation": "When incident light interferes with light reflected off the substrate, a standing intensity pattern forms in the depth direction inside the resist, with a period equal to half the wavelength inside the resist, λ/(2*n2). Standing waves produce sidewall scalloping, and the best countermeasure is a bottom anti-reflective coating (BARC) to lower substrate reflectivity. A swing curve shares the same root cause but refers to the oscillation seen in linewidth as resist thickness is varied, so it is a different concept from the ripple pattern itself seen in cross-section.",
       "sourceId": "S141",
       "weakTopic": "standing-wave-effect"
     },

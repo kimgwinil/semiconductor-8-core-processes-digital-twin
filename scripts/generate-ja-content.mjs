@@ -1,4 +1,12 @@
 #!/usr/bin/env node
+/**
+ * 🔴 **일본어 원고는 `src/content/en/**` 에서 번역한다 — 한국어 정본에서가 아니다.**
+ *    그래서 en 이 정본과 갈라지면 그 오류가 ja 로 **그대로 복제된다.**
+ *    2026-08-30 실측: `1400 degC`·`theta-JA`·`microohm*cm` 같은 ASCII 퇴화 표기가
+ *    en 과 ja 에서 **개수까지 같았다**(29/29 · 105/105). 두 번 난 사고가 아니라 한 번 난 사고다.
+ *    → 돌리기 전에 `npm run check:translation` 으로 en 이 ko 정본과 같은 표기를 쓰는지 먼저 확인하라.
+ *      돌린 뒤에도 같은 게이트로 ja 를 확인하라(단위 기호가 무너지면 물리 표기의 오류다).
+ */
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';

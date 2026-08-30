@@ -1,0 +1,21 @@
+{
+  "processId": "demo",
+  "theory": {
+    "title": "이론학습",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "건식 산화는 1000 °C 에서 자란다. 구리 저항률은 1.68 µΩ·cm 이고 산포는 σ ≤ 1.5 % 다."
+      },
+      {
+        "type": "formula",
+        "latex": "x^2 + A x = B(t + \\tau)",
+        "sourceId": "S120",
+        "caption": "두께는 400 ± 20 nm 창 안에 든다."
+      }
+    ]
+  },
+  "labels": {
+    "tube": "석영 공정관"
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "processId": "demo",
+  "theory": {
+    "title": "이론학습",
+    "blocks": [
+      {
+        "type": "p",
+        "text": "두께는 x^2 ~= B(t+tau) 로 자라고 sqrt(t) 를 따른다."
+      },
+      {
+        "type": "formula",
+        "latex": "x^2 + A x = B(t + \\tau)",
+        "sourceId": "S120",
+        "caption": "두께는 400 ± 20 nm 창 안에 든다."
+      }
+    ]
+  },
+  "labels": {
+    "tube": "석영 공정관"
+  }
+}

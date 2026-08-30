@@ -25,10 +25,10 @@
       "objectiveId": "LO-P8-01",
       "stem": "ストリップ単位で組み立てられる基板ベースのワイヤボンドBGAについて、ウェーハ受領後のバックエンド工程の正しい順序はどれですか?",
       "choices": [
-        "ダイシング -> バックグラインディング -> ダイアタッチ -> ワイヤボンディング -> モールディング -> マーキング -> はんだボールアタッチ -> シングulation -> 最終テスト",
-        "バックグラインディング -> ダイシング -> ワイヤボンディング -> ダイアタッチ -> モールディング -> はんだボールアタッチ -> マーキング -> シングulation -> 最終テスト",
-        "バックグラインディング -> ダイシング -> ダイアタッチ -> ワイヤボンディング -> モールディング -> マーキング -> はんだボールアタッチ -> シングulation -> 最終テスト",
-        "バックグラインディング -> ダイシング -> ダイアタッチ -> ワイヤボンディング -> モールディング -> シングulation -> はんだボールアタッチ -> マーキング -> 最終テスト"
+        "ダイシング → バックグラインディング → ダイアタッチ → ワイヤボンディング → モールディング → マーキング → はんだボールアタッチ → シングulation → 最終テスト",
+        "バックグラインディング → ダイシング → ワイヤボンディング → ダイアタッチ → モールディング → はんだボールアタッチ → マーキング → シングulation → 最終テスト",
+        "バックグラインディング → ダイシング → ダイアタッチ → ワイヤボンディング → モールディング → マーキング → はんだボールアタッチ → シングulation → 最終テスト",
+        "バックグラインディング → ダイシング → ダイアタッチ → ワイヤボンディング → モールディング → シングulation → はんだボールアタッチ → マーキング → 最終テスト"
       ],
       "answer": 2,
       "explanation": "フローを決めるのはユニットの変化です。ウェーハを薄化するバックグラインディングは、まだウェーハである間にしか実行できないため、ダイシングより前でなければならず、ダイシングはウェーハを個々のダイに分割する工程です。ダイをワイヤがループできるようにする前にダイを基板へ固定する必要があるため、ダイアタッチが先で、その後にワイヤボンディングが続きます。モールディングは配線完了後にのみ封止でき、マーキングはモールド上面に施すためモールディングの後に行われます。はんだボールアタッチはストリップ下面で行われ、シングulationはストリップを個別ユニットに切り分ける工程なので、それとマーキングの後でなければなりません。先にシングulateするとユニットごとの取り扱いが必要になり、スループットが低下します。完全にダイシングされたウェーハはその後に均一に研削できないため、標準的なグラインドしてからダイシングするフローでは、ダイシングがワイヤボンディングより前に来ることはありません。1つ留意点があります。マーキングと、はんだボールアタッチとの前後関係はサプライヤーやラインによって異なり、実際の工程文書では、先にボールをアタッチしてリフローし、その後にマーキングとシングulationをまとめて行うフローも示されています。この設問で正誤を分けるのは、バックグラインディングとダイシングの順序、およびダイアタッチとワイヤボンディングの順序であり、マーキングの位置ではありません。",
@@ -80,15 +80,15 @@
       "type": "single",
       "difficulty": "low",
       "objectiveId": "LO-P8-03",
-      "stem": "junction-to-ambient thermal resistance theta-JA の正しい定義はどれですか?（Tj = junction temperature, Tc = case temperature, Ta = ambient temperature, P = power dissipation）",
+      "stem": "junction-to-ambient thermal resistance θJA の正しい定義はどれですか?（Tj = junction temperature, Tc = case temperature, Ta = ambient temperature, P = power dissipation）",
       "choices": [
-        "theta-JA = (Tj - Ta) / P",
-        "theta-JA = (Tj - Tc) / P",
-        "theta-JA = (Tc - Ta) / P",
-        "theta-JA = P / (Tj - Ta)"
+        "θJA = (Tj - Ta) / P",
+        "θJA = (Tj - Tc) / P",
+        "θJA = (Tc - Ta) / P",
+        "θJA = P / (Tj - Ta)"
       ],
       "answer": 0,
-      "explanation": "熱抵抗は、単位消費電力あたりに2点間で生じる温度差として定義され、theta-JA は junction (J) と ambient (A) の間の値なので、分子は (Tj-Ta)、分母は P です。単位は degC/W (=K/W) であり、これを逆にすると設計式 Tj = Ta + theta-JA*P になります。(Tj-Tc)/P は junction-to-case resistance theta-JC を定義し、(Tc-Ta)/P は case-to-ambient resistance theta-CA を定義します。分子と分母を入れ替えると熱抵抗ではなく熱コンダクタンスになり、意味が反転して大きい値ほど熱が逃げやすいことを示します。",
+      "explanation": "熱抵抗は、単位消費電力あたりに2点間で生じる温度差として定義され、θJA は junction (J) と ambient (A) の間の値なので、分子は (Tj-Ta)、分母は P です。単位は °C/W (=K/W) であり、これを逆にすると設計式 Tj = Ta + θJA*P になります。(Tj-Tc)/P は junction-to-case resistance θJC を定義し、(Tc-Ta)/P は case-to-ambient resistance θCA を定義します。分子と分母を入れ替えると熱抵抗ではなく熱コンダクタンスになり、意味が反転して大きい値ほど熱が逃げやすいことを示します。",
       "sourceId": "S247",
       "weakTopic": "thermal-resistance-theta-ja"
     },
@@ -97,13 +97,13 @@
       "type": "numeric",
       "difficulty": "mid",
       "objectiveId": "LO-P8-03",
-      "stem": "あるパッケージの junction-to-case thermal resistance theta-JC = 4.5 degC/W、case-to-ambient theta-CA = 24.0 degC/W が直列に接続されています。消費電力 P = 3.2 W、周囲温度 Ta = 45 degC のとき、junction temperature Tj を求めてください。（単位も付けてください。）",
+      "stem": "あるパッケージの junction-to-case thermal resistance θJC = 4.5 °C/W、case-to-ambient θCA = 24.0 °C/W が直列に接続されています。消費電力 P = 3.2 W、周囲温度 Ta = 45 °C のとき、junction temperature Tj を求めてください。（単位も付けてください。）",
       "answer": {
         "value": 136.2,
         "unit": "°C",
         "tolerance": 0.02
       },
-      "explanation": "直列合成より theta-JA = theta-JC + theta-CA = 4.5+24.0 = 28.5 degC/W。温度上昇 delta-T = theta-JA*P = 28.5*3.2 = 91.2 degC。junction temperature Tj = Ta+delta-T = 45+91.2 = 136.2 degC。delta-T を求めた後に Ta を加え忘れると 91.2 になって誤りです。theta-CA のみを用いて theta-JC を落とすと 121.8 になって誤りです。また、直列ではなく並列で合成すると 57.1 になって誤りです。これら2つの熱抵抗は、同じ熱流束が順番に通過するため直列でなければなりません。",
+      "explanation": "直列合成より θJA = θJC + θCA = 4.5+24.0 = 28.5 °C/W。温度上昇 ΔT = θJA*P = 28.5*3.2 = 91.2 °C。junction temperature Tj = Ta+ΔT = 45+91.2 = 136.2 °C。ΔT を求めた後に Ta を加え忘れると 91.2 になって誤りです。θCA のみを用いて θJC を落とすと 121.8 になって誤りです。また、直列ではなく並列で合成すると 57.1 になって誤りです。これら2つの熱抵抗は、同じ熱流束が順番に通過するため直列でなければなりません。",
       "sourceId": "S247",
       "weakTopic": "series-thermal-resistance-calc"
     },
@@ -129,7 +129,7 @@
       "type": "numeric",
       "difficulty": "high",
       "objectiveId": "LO-P8-04",
-      "stem": "あるパッケージには2つの並列熱経路がある。上方向経路（die -> mold -> ambient）の theta-top = 34.0 degC/W、下方向経路（die -> die attach -> substrate -> solder ball -> PCB）の theta-bot = 28.0 degC/W である。P = 4.0 W、Ta = 40 degC のとき、(a) 合成熱抵抗 theta-JA、(b) 接合温度 Tj、(c) 総熱量のうち下方向経路が担う割合を求めよ。",
+      "stem": "あるパッケージには2つの並列熱経路がある。上方向経路（die → mold → ambient）の θ_top = 34.0 °C/W、下方向経路（die → die attach → substrate → solder ball → PCB）の θ_bot = 28.0 °C/W である。P = 4.0 W、Ta = 40 °C のとき、(a) 合成熱抵抗 θJA、(b) 接合温度 Tj、(c) 総熱量のうち下方向経路が担う割合を求めよ。",
       "answer": {
         "parts": [
           {
@@ -152,7 +152,7 @@
           }
         ]
       },
-      "explanation": "並列合成: 1/theta-JA = 1/theta-top + 1/theta-bot -> theta-JA = theta-top*theta-bot/(theta-top+theta-bot) = (34.0*28.0)/62.0 = 15.355 ~= 15.4 degC/W (a). delta-T = 15.355*4.0 = 61.42 degC, Tj = 40+61.42 ~= 101.4 degC (b). 温度降下は両経路で同じなので、熱流は抵抗に反比例して分かれる。したがって下方向の割合 = theta-top/(theta-top+theta-bot) = 34.0/62.0 ~= 54.8% (c) となる。抵抗の低い経路ほど常により多くの熱を運ぶ。3つの部分 (a)(b)(c) はすべて正しい必要がある。並列の代わりに直列として合成すると 62.0 となってしまい、並列合成は個々の抵抗のいずれよりも小さくならなければならないという नियमに反する。",
+      "explanation": "並列合成: 1/θJA = 1/θ_top + 1/θ_bot → θJA = θ_top*θ_bot/(θ_top+θ_bot) = (34.0*28.0)/62.0 = 15.355 ≈ 15.4 °C/W (a). ΔT = 15.355*4.0 = 61.42 °C, Tj = 40+61.42 ≈ 101.4 °C (b). 温度降下は両経路で同じなので、熱流は抵抗に反比例して分かれる。したがって下方向の割合 = θ_top/(θ_top+θ_bot) = 34.0/62.0 ≈ 54.8% (c) となる。抵抗の低い経路ほど常により多くの熱を運ぶ。3つの部分 (a)(b)(c) はすべて正しい必要がある。並列の代わりに直列として合成すると 62.0 となってしまい、並列合成は個々の抵抗のいずれよりも小さくならなければならないという नियमに反する。",
       "sourceId": "S247",
       "weakTopic": "parallel-thermal-path-calc"
     },
@@ -161,7 +161,7 @@
       "type": "short",
       "difficulty": "mid",
       "objectiveId": "LO-P8-05",
-      "stem": "非気密のプラスチックパッケージが、吸湿防止袋を開封した後に MSL 規定 floor life を超えて放置され、そのままベーキングなしでリフロー（peak ~260 degC）に送られる。モールドコンパウンドに吸収された水分が急速に気化・膨張し、界面デルミネーションとパッケージ割れを引き起こす。この現象の名称は何か。",
+      "stem": "非気密のプラスチックパッケージが、吸湿防止袋を開封した後に MSL 規定 floor life を超えて放置され、そのままベーキングなしでリフロー（peak ~260 °C）に送られる。モールドコンパウンドに吸収された水分が急速に気化・膨張し、界面デルミネーションとパッケージ割れを引き起こす。この現象の名称は何か。",
       "answer": {
         "accept": [
           "팝콘크랙",

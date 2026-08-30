@@ -15,6 +15,8 @@
     "check:catalog": "node scripts/check-catalog.mjs",
     "check:layering": "node scripts/check-layering.mjs",
     "check:i18n": "node scripts/check-i18n.mjs",
+    "check:translation": "node scripts/check-translation.mjs",
+    "check:translation:selftest": "node scripts/check-translation.selftest.mjs",
     "check:questions": "node scripts/check-questions.mjs",
     "check:assets": "node scripts/check-assets.mjs",
     "check:direction": "node scripts/check-direction.mjs",

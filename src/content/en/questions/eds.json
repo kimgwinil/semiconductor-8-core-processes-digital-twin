@@ -45,7 +45,7 @@
         "Removes wafers from the cassette (FOUP) and moves them onto the chuck with vacuum hold",
         "Pulls the test head to a fixed position atop the prober and mechanically locks it, so the pin electronics and probe card become electrically connected",
         "Scrapes aluminum residue off needle tips with an abrasive to restore contact resistance",
-        "Keeps the chuck at -25 to 125 degC so device margin can be measured across temperature"
+        "Keeps the chuck at -25 to 125 °C so device margin can be measured across temperature"
       ],
       "answer": 1,
       "explanation": "A docker is a mechanism that aligns and couples the heavy test head to the prober. Only after docking is complete are the pin electronics inside the test head and the probe-card PCB brought into electrical contact at the specified pressure, letting signals travel through the probe needles to the die pads. Wafer transport is handled by the cassette and robot, needle cleaning by the needle-cleaning pad, and temperature control by the temperature-controlled chuck.",
@@ -57,7 +57,7 @@
       "type": "short",
       "difficulty": "mid",
       "objectiveId": "LO-P7-02",
-      "stem": "In the EDS contact step, what is the term for the additional distance the chuck is pushed up in the Z direction after the probe needle first touches the die pad? (Managed in micrometers; a larger value lowers contact resistance but enlarges the probe mark.)",
+      "stem": "In the EDS contact step, what is the term for the additional distance the chuck is pushed up in the Z direction after the probe needle first touches the die pad? (Managed in µm; a larger value lowers contact resistance but enlarges the probe mark.)",
       "answer": {
         "accept": [
           "오버드라이브",
@@ -81,7 +81,7 @@
       "type": "single",
       "difficulty": "low",
       "objectiveId": "LO-P7-03",
-      "stem": "With all else equal, overdrive alone is raised from 75 um to 110 um. Which pairing of resulting changes is correct?",
+      "stem": "With all else equal, overdrive alone is raised from 75 µm to 110 µm. Which pairing of resulting changes is correct?",
       "choices": [
         "Contact resistance decreases; probe-mark diameter increases",
         "Contact resistance increases; probe-mark diameter decreases",
@@ -98,13 +98,13 @@
       "type": "numeric",
       "difficulty": "mid",
       "objectiveId": "LO-P7-03",
-      "stem": "A product's die area is 50 mm^2, and the fab's defect density is D0 = 0.80 defects/cm^2 (both are educational example values). Using the Poisson yield model Y = exp(-A*D0), find the yield as a percentage. (One decimal place, with the % unit.)",
+      "stem": "A product's die area is 50 mm², and the fab's defect density is D0 = 0.80 defects/cm² (both are educational example values). Using the Poisson yield model Y = exp(-A*D0), find the yield as a percentage. (One decimal place, with the % unit.)",
       "answer": {
         "value": 67.0,
         "unit": "%",
         "tolerance": 0.02
       },
-      "explanation": "A = 50 mm^2 / 100 = 0.50 cm^2. A*D0 = 0.50*0.80 = 0.40. Y = exp(-0.40) = 0.67032, i.e. 67.0%. Failing to convert mm^2 to cm^2 gives a near-zero result close to exp(-40); using the first-order approximation Y ~= 1 - A*D0 gives the wrong 60.0%; and dropping the sign to compute exp(+0.40) gives a physically impossible 149.2%, over 100%.",
+      "explanation": "A = 50 mm² / 100 = 0.50 cm². A*D0 = 0.50*0.80 = 0.40. Y = exp(-0.40) = 0.67032, i.e. 67.0%. Failing to convert mm² to cm² gives a near-zero result close to exp(-40); using the first-order approximation Y ≈ 1 - A*D0 gives the wrong 60.0%; and dropping the sign to compute exp(+0.40) gives a physically impossible 149.2%, over 100%.",
       "sourceId": "S220",
       "weakTopic": "poisson-yield-calc"
     },
@@ -130,13 +130,13 @@
       "type": "numeric",
       "difficulty": "high",
       "objectiveId": "LO-P7-04",
-      "stem": "A product has die area 25 mm^2, defect density D0 = 1.0 defect/cm^2, and test coverage T = 0.90 (all educational example values). Yield follows the Poisson model Y = exp(-A*D0), and shipped defect level follows the Williams-Brown equation DL = 1 - Y^(1-T). Find DL in ppm. (Round to an integer, with the ppm unit.)",
+      "stem": "A product has die area 25 mm², defect density D0 = 1.0 defect/cm², and test coverage T = 0.90 (all educational example values). Yield follows the Poisson model Y = exp(-A*D0), and shipped defect level follows the Williams-Brown equation DL = 1 - Y^(1-T). Find DL in ppm. (Round to an integer, with the ppm unit.)",
       "answer": {
         "value": 24690,
         "unit": "ppm",
         "tolerance": 0.03
       },
-      "explanation": "A = 25 mm^2/100 = 0.25 cm^2. A*D0 = 0.25. Y = exp(-0.25) = 0.778801. 1-T = 0.10. Y^0.10 = exp(-0.25*0.10) = exp(-0.025) = 0.975310. DL = 1-0.975310 = 0.0246901, i.e. 24,690 ppm. Putting T instead of 1-T in the exponent gives the wrong 201,484 ppm; checking the limit T=1 (perfect detection), where DL must equal 0, immediately shows the exponent has to be 1-T. Failing to convert mm^2 to cm^2 gives the nonsensical wrong answer 917,915 ppm, where yield is effectively 0 but DL is claimed to be 92%.",
+      "explanation": "A = 25 mm²/100 = 0.25 cm². A*D0 = 0.25. Y = exp(-0.25) = 0.778801. 1-T = 0.10. Y^0.10 = exp(-0.25*0.10) = exp(-0.025) = 0.975310. DL = 1-0.975310 = 0.0246901, i.e. 24,690 ppm. Putting T instead of 1-T in the exponent gives the wrong 201,484 ppm; checking the limit T=1 (perfect detection), where DL must equal 0, immediately shows the exponent has to be 1-T. Failing to convert mm² to cm² gives the nonsensical wrong answer 917,915 ppm, where yield is effectively 0 but DL is claimed to be 92%.",
       "sourceId": "S227",
       "weakTopic": "williams-brown-defect-level-calc"
     },
@@ -171,7 +171,7 @@
       "type": "single",
       "difficulty": "high",
       "objectiveId": "LO-P7-05",
-      "stem": "During EDS on a lot, the following was observed: (a) starting mid-lot, orange (parametric fail) dice surged in a band along the indexing direction on the wafer map; (b) the contact-resistance monitor jumped from 0.8 to 3.4 ohm; (c) re-testing the same wafer with a different probe card returned most of those dice as good. What is the most likely cause and first-line fix?",
+      "stem": "During EDS on a lot, the following was observed: (a) starting mid-lot, orange (parametric fail) dice surged in a band along the indexing direction on the wafer map; (b) the contact-resistance monitor jumped from 0.8 to 3.4 Ω; (c) re-testing the same wafer with a different probe card returned most of those dice as good. What is the most likely cause and first-line fix?",
       "choices": [
         "The line's defect density D0 itself rose — inspect cleanliness/tool particles and recompute defect density",
         "Aluminum residue accumulated on needle tips, sharply raising contact resistance — run needle cleaning immediately, shorten the cleaning interval, and re-test the affected wafer",

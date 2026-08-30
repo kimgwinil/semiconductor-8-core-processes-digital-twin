@@ -8,10 +8,10 @@
       "objectiveId": "LO-P5-01",
       "stem": "What is the correct order of the four steps in one atomic layer deposition (ALD) cycle?",
       "choices": [
-        "Precursor pulse -> reactant pulse -> purge -> pump-out",
-        "Precursor pulse -> purge -> reactant pulse -> purge",
-        "Simultaneous precursor and reactant injection -> purge -> plasma discharge -> purge",
-        "Purge -> reactant pulse -> precursor pulse -> ramp-up"
+        "Precursor pulse → reactant pulse → purge → pump-out",
+        "Precursor pulse → purge → reactant pulse → purge",
+        "Simultaneous precursor and reactant injection → purge → plasma discharge → purge",
+        "Purge → reactant pulse → precursor pulse → ramp-up"
       ],
       "answer": 1,
       "explanation": "The essence of ALD is separating two half-reactions in time. The precursor pulse saturates surface reaction sites, a purge removes unreacted precursor and byproducts, the reactant pulse exchanges surface ligands, and another purge follows. A purge must sit between the two pulses to preserve self-limiting behavior; without it, the two pulses would meet in the gas phase and react like CVD, breaking self-limitation.",
@@ -42,10 +42,10 @@
       "objectiveId": "LO-P5-02",
       "stem": "In a medium-current ion implanter, what is the correct order of the ion path from the ion source to the wafer?",
       "choices": [
-        "Ion source -> acceleration column -> mass-analyzing magnet -> resolving aperture -> scanner -> end station",
-        "Ion source -> extraction electrode -> mass-analyzing magnet -> resolving aperture -> acceleration column -> scanner -> end station",
-        "Ion source -> scanner -> extraction electrode -> acceleration column -> mass-analyzing magnet -> end station",
-        "Extraction electrode -> ion source -> resolving aperture -> mass-analyzing magnet -> acceleration column -> end station"
+        "Ion source → acceleration column → mass-analyzing magnet → resolving aperture → scanner → end station",
+        "Ion source → extraction electrode → mass-analyzing magnet → resolving aperture → acceleration column → scanner → end station",
+        "Ion source → scanner → extraction electrode → acceleration column → mass-analyzing magnet → end station",
+        "Extraction electrode → ion source → resolving aperture → mass-analyzing magnet → acceleration column → end station"
       ],
       "answer": 1,
       "explanation": "Ions are generated at the ion source, extracted by the extraction electrode into a beam, split by trajectory according to mass-to-charge ratio at the mass-analyzing magnet, filtered to only the target species at the resolving aperture, accelerated or decelerated to the target energy in the acceleration column, scanned across the wafer by the scanner, and finally reach the wafer at the end station. Mass analysis must happen right after extraction (bending a beam after it is accelerated would need an unrealistically large magnet), and the resolving aperture must sit right after the magnet since its job is to filter the trajectories the magnet just separated.",
@@ -96,11 +96,11 @@
       "choices": [
         "Film thickness doubles and GPC is halved",
         "Film thickness doubles and GPC is unchanged",
-        "Film thickness scales by sqrt(2) and GPC is unchanged",
+        "Film thickness scales by √2 and GPC is unchanged",
         "Film thickness is unchanged and only film density doubles"
       ],
       "answer": 1,
-      "explanation": "Under saturated ALD, GPC (growth per cycle) is a constant independent of cycle count, because every cycle repeats the same self-limiting reaction. This gives film thickness = cycle count * GPC, a strict proportionality, so doubling cycle count exactly doubles thickness. A sqrt-scaling slowdown is instead the signature of diffusion-limited growth and does not apply to ALD, whose reaction terminates at the surface.",
+      "explanation": "Under saturated ALD, GPC (growth per cycle) is a constant independent of cycle count, because every cycle repeats the same self-limiting reaction. This gives film thickness = cycle count * GPC, a strict proportionality, so doubling cycle count exactly doubles thickness. A square-root scaling slowdown is instead the signature of diffusion-limited growth and does not apply to ALD, whose reaction terminates at the surface.",
       "sourceId": "S186",
       "weakTopic": "ald-cycle-thickness-linearity"
     },
@@ -109,13 +109,13 @@
       "type": "numeric",
       "difficulty": "mid",
       "objectiveId": "LO-P5-03",
-      "stem": "A saturated ALD process runs at GPC = 1.20 angstrom/cycle. One cycle consists of 0.20 s precursor pulse + 2.00 s purge + 0.30 s reactant pulse + 2.50 s purge. How many seconds of net deposition time are needed to obtain a 24.0 nm thick film? (Ignore overhead such as ramp-up and loading. 1 nm = 10 angstrom.)",
+      "stem": "A saturated ALD process runs at GPC = 1.20 Å/cycle. One cycle consists of 0.20 s precursor pulse + 2.00 s purge + 0.30 s reactant pulse + 2.50 s purge. How many seconds of net deposition time are needed to obtain a 24.0 nm thick film? (Ignore overhead such as ramp-up and loading. 1 nm = 10 Å.)",
       "answer": {
         "value": 1000,
         "unit": "s",
         "tolerance": 0.05
       },
-      "explanation": "Target thickness 24.0 nm = 240 angstrom. Required cycles N = 240/1.20 = 200 cycles. Cycle time = 0.20+2.00+0.30+2.50 = 5.00 s. Net deposition time = 200*5.00 = 1000 s. Answering just the cycle count 200, or the minutes value 16.7 without converting, is wrong, and misapplying GPC to get 240 cycles gives the wrong answer 1200.",
+      "explanation": "Target thickness 24.0 nm = 240 Å. Required cycles N = 240/1.20 = 200 cycles. Cycle time = 0.20+2.00+0.30+2.50 = 5.00 s. Net deposition time = 200*5.00 = 1000 s. Answering just the cycle count 200, or the minutes value 16.7 without converting, is wrong, and misapplying GPC to get 240 cycles gives the wrong answer 1200.",
       "sourceId": "S186",
       "weakTopic": "ald-deposition-time-calc"
     },
@@ -141,13 +141,13 @@
       "type": "numeric",
       "difficulty": "high",
       "objectiveId": "LO-P5-04",
-      "stem": "Singly charged boron ions (11B+) are implanted into silicon. Beam current I = 2.0 mA, scan area A = 400 cm^2, implant time t = 40 s, and the straggle at this energy is delta-R_p = 40 nm. If the implant profile follows the Gaussian N(x) = N_p*exp(-(x-R_p)^2/2*delta-R_p^2), find the peak concentration N_p. (q = 1.602e-19 C, sqrt(2*pi) = 2.5066, 1 nm = 1e-7 cm)",
+      "stem": "Singly charged boron ions (11B+) are implanted into silicon. Beam current I = 2.0 mA, scan area A = 400 cm², implant time t = 40 s, and the straggle at this energy is ΔR_p = 40 nm. If the implant profile follows the Gaussian N(x) = N_p*exp(-(x-R_p)²/2*ΔR_p²), find the peak concentration N_p. (q = 1.602×10⁻¹⁹ C, √2*pi = 2.5066, 1 nm = 1×10⁻⁷ cm)",
       "answer": {
         "value": 1.25e+20,
         "unit": "cm⁻³",
         "tolerance": 0.05
       },
-      "explanation": "Dose Q = I*t/(q*A) = (2.0e-3*40)/(1.602e-19*400) = 0.080/(6.408e-17) ~= 1.248e15 ions/cm^2. delta-R_p = 40 nm = 4.0e-6 cm. Since the area under the Gaussian equals the dose, N_p = Q/(sqrt(2*pi)*delta-R_p) = 1.248e15/(2.5066*4.0e-6) ~= 1.25e20 cm⁻³. Stopping at the dose gives the dimensionally wrong 1.25e15 cm^-2, and omitting sqrt(2*pi) to compute Q/delta-R_p only overestimates by about 2.5x, giving 3.12e20.",
+      "explanation": "Dose Q = I*t/(q*A) = (2.0×10⁻³*40)/(1.602×10⁻¹⁹*400) = 0.080/(6.408×10⁻¹⁷) ≈ 1.248×10¹⁵ ions/cm². ΔR_p = 40 nm = 4.0×10⁻⁶ cm. Since the area under the Gaussian equals the dose, N_p = Q/(√2*pi*ΔR_p) = 1.248×10¹⁵/(2.5066*4.0×10⁻⁶) ≈ 1.25×10²⁰ cm⁻³. Stopping at the dose gives the dimensionally wrong 1.25×10¹⁵ cm⁻², and omitting √2*pi to compute Q/ΔR_p only overestimates by about 2.5x, giving 3.12×10²⁰.",
       "sourceId": "S181",
       "weakTopic": "implant-peak-concentration-calc"
     },
@@ -183,12 +183,12 @@
       "type": "single",
       "difficulty": "high",
       "objectiveId": "LO-P5-05",
-      "stem": "A trench 50 nm wide and 750 nm deep (aspect ratio 15) is coated with an ALD dielectric, implanted with boron, and annealed for activation. Three things are observed at once: (a) top film thickness 20.0 nm, bottom film thickness 8.0 nm (40% step coverage); (b) overhang at the trench opening with a sealed void below it; (c) sheet resistance about 2.5x the target (450 ohm/sq). Substrate temperature was 250 degC (within the ALD window), and junction depth and doping-profile peak position were normal. Which cause-and-fix combination is most plausible?",
+      "stem": "A trench 50 nm wide and 750 nm deep (aspect ratio 15) is coated with an ALD dielectric, implanted with boron, and annealed for activation. Three things are observed at once: (a) top film thickness 20.0 nm, bottom film thickness 8.0 nm (40% step coverage); (b) overhang at the trench opening with a sealed void below it; (c) sheet resistance about 2.5x the target (450 Ω/sq). Substrate temperature was 250 °C (within the ALD window), and junction depth and doping-profile peak position were normal. Which cause-and-fix combination is most plausible?",
       "choices": [
-        "The precursor pulse and purge fell short of the saturation exposure needed at aspect ratio 15, starving deep-trench exposure; separately, the activation anneal's thermal budget was insufficient -> lengthen the precursor pulse and purge to secure saturation, and raise anneal temperature to spec",
-        "Substrate temperature dropped below the ALD window and the precursor condensed -> raise substrate temperature into the decomposition region above the window",
-        "Low implant energy giving a shallow R_p is the root cause -> double the implant energy",
-        "Insufficient ALD cycle count is the cause -> simply double the cycle count"
+        "The precursor pulse and purge fell short of the saturation exposure needed at aspect ratio 15, starving deep-trench exposure; separately, the activation anneal's thermal budget was insufficient → lengthen the precursor pulse and purge to secure saturation, and raise anneal temperature to spec",
+        "Substrate temperature dropped below the ALD window and the precursor condensed → raise substrate temperature into the decomposition region above the window",
+        "Low implant energy giving a shallow R_p is the root cause → double the implant energy",
+        "Insufficient ALD cycle count is the cause → simply double the cycle count"
       ],
       "answer": 0,
       "explanation": "A 40% step coverage together with overhang and a void is a classic signature of insufficient exposure. As aspect ratio grows, the exposure (pulse time times pressure) needed to saturate deep locations rises sharply, so when exposure falls short the opening saturates first, forming an overhang that seals a void beneath it. Meanwhile, normal junction depth and profile peak but 2.5x sheet resistance means the dopant landed in the right place but was not electrically activated, pointing to an insufficient thermal budget in the activation anneal. This is an independent overlap of a deposition-side cause and an anneal-side cause; simply doubling cycle count would scale top and bottom thickness by the same factor without changing the ratio that defines step coverage, and it would not explain the sheet-resistance anomaly at all. One clarification. The roughly 2.5x ratio of sheet resistance to target is a condition posed by this item, not a value reported in any particular reference. What the literature supports is the direction only, that insufficient activation raises sheet resistance; the actual multiple depends on process, material, and measurement conditions.",

@@ -25,10 +25,10 @@
       "objectiveId": "LO-P8-01",
       "stem": "For a substrate-based wire-bond BGA assembled in strip units, what is the correct order of back-end steps after wafer receipt?",
       "choices": [
-        "Dicing -> backgrinding -> die attach -> wire bonding -> molding -> marking -> solder ball attach -> singulation -> final test",
-        "Backgrinding -> dicing -> wire bonding -> die attach -> molding -> solder ball attach -> marking -> singulation -> final test",
-        "Backgrinding -> dicing -> die attach -> wire bonding -> molding -> marking -> solder ball attach -> singulation -> final test",
-        "Backgrinding -> dicing -> die attach -> wire bonding -> molding -> singulation -> solder ball attach -> marking -> final test"
+        "Dicing → backgrinding → die attach → wire bonding → molding → marking → solder ball attach → singulation → final test",
+        "Backgrinding → dicing → wire bonding → die attach → molding → solder ball attach → marking → singulation → final test",
+        "Backgrinding → dicing → die attach → wire bonding → molding → marking → solder ball attach → singulation → final test",
+        "Backgrinding → dicing → die attach → wire bonding → molding → singulation → solder ball attach → marking → final test"
       ],
       "answer": 2,
       "explanation": "What determines the flow is the change of unit. Backgrinding, which thins the wafer, is only possible while it is still a wafer, so it must precede dicing, and dicing is what splits the wafer into individual dice. The die must be fixed to the substrate (die attach) before wire can be looped, so wire bonding follows, molding can encapsulate only after wiring is complete, and marking is done on the top of the mold so it comes after molding. Solder ball attach happens on the underside of the strip, and singulation, which cuts the strip into individual units, must come after it and after marking, since singulating first would force per-unit handling and collapse throughput. Because a fully diced wafer cannot be ground uniformly afterward, in the standard grind-then-dice flow, dicing cannot precede wire bonding. One caveat is worth attaching. The order of marking relative to solder ball attach varies by supplier and by line, and real process documentation also shows flows where balls are attached and reflowed first, with marking and singulation carried out together afterwards. What decides right from wrong in this item is the order of backgrinding versus dicing and of die attach versus wire bonding, not where marking sits.",
@@ -80,15 +80,15 @@
       "type": "single",
       "difficulty": "low",
       "objectiveId": "LO-P8-03",
-      "stem": "Which is the correct definition of junction-to-ambient thermal resistance theta-JA? (Tj = junction temperature, Tc = case temperature, Ta = ambient temperature, P = power dissipation)",
+      "stem": "Which is the correct definition of junction-to-ambient thermal resistance θJA? (Tj = junction temperature, Tc = case temperature, Ta = ambient temperature, P = power dissipation)",
       "choices": [
-        "theta-JA = (Tj - Ta) / P",
-        "theta-JA = (Tj - Tc) / P",
-        "theta-JA = (Tc - Ta) / P",
-        "theta-JA = P / (Tj - Ta)"
+        "θJA = (Tj - Ta) / P",
+        "θJA = (Tj - Tc) / P",
+        "θJA = (Tc - Ta) / P",
+        "θJA = P / (Tj - Ta)"
       ],
       "answer": 0,
-      "explanation": "Thermal resistance is defined as the temperature difference produced between two points per unit power dissipated, and theta-JA is the value between the junction (J) and ambient (A), so the numerator is (Tj-Ta) and the denominator is P. Its unit is degC/W (=K/W), and inverting it gives the design equation Tj = Ta + theta-JA*P. (Tj-Tc)/P instead defines junction-to-case resistance theta-JC, and (Tc-Ta)/P defines case-to-ambient resistance theta-CA; flipping numerator and denominator gives thermal conductance rather than resistance, reversing the meaning so a larger value implies better heat escape.",
+      "explanation": "Thermal resistance is defined as the temperature difference produced between two points per unit power dissipated, and θJA is the value between the junction (J) and ambient (A), so the numerator is (Tj-Ta) and the denominator is P. Its unit is °C/W (=K/W), and inverting it gives the design equation Tj = Ta + θJA*P. (Tj-Tc)/P instead defines junction-to-case resistance θJC, and (Tc-Ta)/P defines case-to-ambient resistance θCA; flipping numerator and denominator gives thermal conductance rather than resistance, reversing the meaning so a larger value implies better heat escape.",
       "sourceId": "S247",
       "weakTopic": "thermal-resistance-theta-ja"
     },
@@ -97,13 +97,13 @@
       "type": "numeric",
       "difficulty": "mid",
       "objectiveId": "LO-P8-03",
-      "stem": "A package has junction-to-case thermal resistance theta-JC = 4.5 degC/W and case-to-ambient theta-CA = 24.0 degC/W, connected in series. With power dissipation P = 3.2 W and ambient temperature Ta = 45 degC, find junction temperature Tj. (Give the unit.)",
+      "stem": "A package has junction-to-case thermal resistance θJC = 4.5 °C/W and case-to-ambient θCA = 24.0 °C/W, connected in series. With power dissipation P = 3.2 W and ambient temperature Ta = 45 °C, find junction temperature Tj. (Give the unit.)",
       "answer": {
         "value": 136.2,
         "unit": "°C",
         "tolerance": 0.02
       },
-      "explanation": "Series combination theta-JA = theta-JC + theta-CA = 4.5+24.0 = 28.5 degC/W. Temperature rise delta-T = theta-JA*P = 28.5*3.2 = 91.2 degC. Junction temperature Tj = Ta+delta-T = 45+91.2 = 136.2 degC. Forgetting to add Ta after computing delta-T gives the wrong 91.2; using only theta-CA while dropping theta-JC gives the wrong 121.8; and combining in parallel instead of series gives the wrong 57.1 — the two resistances must be in series since the same heat flux passes through them one after the other.",
+      "explanation": "Series combination θJA = θJC + θCA = 4.5+24.0 = 28.5 °C/W. Temperature rise ΔT = θJA*P = 28.5*3.2 = 91.2 °C. Junction temperature Tj = Ta+ΔT = 45+91.2 = 136.2 °C. Forgetting to add Ta after computing ΔT gives the wrong 91.2; using only θCA while dropping θJC gives the wrong 121.8; and combining in parallel instead of series gives the wrong 57.1 — the two resistances must be in series since the same heat flux passes through them one after the other.",
       "sourceId": "S247",
       "weakTopic": "series-thermal-resistance-calc"
     },
@@ -129,7 +129,7 @@
       "type": "numeric",
       "difficulty": "high",
       "objectiveId": "LO-P8-04",
-      "stem": "A package has two parallel thermal paths. The upward path (die -> mold -> ambient) has theta-top = 34.0 degC/W, and the downward path (die -> die attach -> substrate -> solder ball -> PCB) has theta-bot = 28.0 degC/W. With P = 4.0 W and Ta = 40 degC, find (a) the combined thermal resistance theta-JA, (b) junction temperature Tj, and (c) the fraction of total heat carried by the downward path.",
+      "stem": "A package has two parallel thermal paths. The upward path (die → mold → ambient) has θ_top = 34.0 °C/W, and the downward path (die → die attach → substrate → solder ball → PCB) has θ_bot = 28.0 °C/W. With P = 4.0 W and Ta = 40 °C, find (a) the combined thermal resistance θJA, (b) junction temperature Tj, and (c) the fraction of total heat carried by the downward path.",
       "answer": {
         "parts": [
           { "label": "a", "value": 15.4, "unit": "°C/W", "tolerance": 0.03 },
@@ -137,7 +137,7 @@
           { "label": "c", "value": 54.8, "unit": "%", "tolerance": 0.03 }
         ]
       },
-      "explanation": "Parallel combination: 1/theta-JA = 1/theta-top + 1/theta-bot -> theta-JA = theta-top*theta-bot/(theta-top+theta-bot) = (34.0*28.0)/62.0 = 15.355 ~= 15.4 degC/W (a). delta-T = 15.355*4.0 = 61.42 degC, Tj = 40+61.42 ~= 101.4 degC (b). Since the temperature drop is the same across both paths, heat flux splits inversely with resistance, so the downward share = theta-top/(theta-top+theta-bot) = 34.0/62.0 ~= 54.8% (c) — the path with lower resistance always carries more heat. All three parts (a)(b)(c) must be correct. Combining in series instead of parallel gives the wrong 62.0, which violates the rule that a parallel combination must be smaller than either individual resistance.",
+      "explanation": "Parallel combination: 1/θJA = 1/θ_top + 1/θ_bot → θJA = θ_top*θ_bot/(θ_top+θ_bot) = (34.0*28.0)/62.0 = 15.355 ≈ 15.4 °C/W (a). ΔT = 15.355*4.0 = 61.42 °C, Tj = 40+61.42 ≈ 101.4 °C (b). Since the temperature drop is the same across both paths, heat flux splits inversely with resistance, so the downward share = θ_top/(θ_top+θ_bot) = 34.0/62.0 ≈ 54.8% (c) — the path with lower resistance always carries more heat. All three parts (a)(b)(c) must be correct. Combining in series instead of parallel gives the wrong 62.0, which violates the rule that a parallel combination must be smaller than either individual resistance.",
       "sourceId": "S247",
       "weakTopic": "parallel-thermal-path-calc"
     },
@@ -146,7 +146,7 @@
       "type": "short",
       "difficulty": "mid",
       "objectiveId": "LO-P8-05",
-      "stem": "A non-hermetic plastic package, left exposed beyond the MSL-rated floor life after its moisture-barrier bag was opened, is sent through reflow (peak ~260 degC) without baking. Moisture absorbed in the mold compound rapidly vaporizes and expands, causing interfacial delamination and package cracking. Name this phenomenon.",
+      "stem": "A non-hermetic plastic package, left exposed beyond the MSL-rated floor life after its moisture-barrier bag was opened, is sent through reflow (peak ~260 °C) without baking. Moisture absorbed in the mold compound rapidly vaporizes and expands, causing interfacial delamination and package cracking. Name this phenomenon.",
       "answer": {
         "accept": [
           "팝콘크랙",
