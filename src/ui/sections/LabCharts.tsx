@@ -79,10 +79,11 @@ function ChartFrame({ ratio, minH, maxH, render }: {
 /**
  * 🔴 실습 차트 패널 — **판정 경로**다. 장식이 아니다.
  *
- * PLN `03_실습3단계명세.md` 427행: **「판정은 이 차트에서 한다.」**
+ * PLN `03_실습3단계명세.md` **「판정은 이 차트에서 한다.」**
  * 허용치가 너무 작아 GL 씬에서 서브픽셀이 되는 판정을 여기로 옮긴다.
  * 예) P1 웨이퍼 심화 직경 편차 σ_D — 허용치 1 mm 미만 → 잉곳 단면 씬에서 **±0.34 px**.
- *     세로축을 200 ± 3 mm 로 확대하면 **0.71 mm 가 28 px** 로 또렷해진다(명세 426).
+ *     세로축을 200 ± 3 mm 로 확대하면 **0.71 mm 가 28 px** 로 또렷해진다
+ *     — PLN 명세 「세로축 200 ± 3 mm 만 확대」.
  *
  * 🔴 이 컴포넌트가 존재해야 `viz` 의 차트 3종이 **실제 호출부**를 갖는다.
  *    2026-08-20 에 차트가 배럴에만 있어 사용자에게 전송되면서 아무 화면에도 안 떴다 —
@@ -145,7 +146,8 @@ export function LabCharts({ charts, spec, inputs, q, lang }: {
             <figcaption className="labChart__head">
               <strong>{title}</strong>
               {judged.length > 0 && (
-                // 🔴 「이 차트가 판정한다」를 화면에 명시한다(PLN 427). 안 적으면 학습자가 장식으로 본다.
+                // 🔴 「이 차트가 판정한다」를 화면에 명시한다 — PLN 명세 「판정은 이 차트에서 한다」.
+                //    안 적으면 학습자가 장식으로 본다.
                 <span className="labChart__judges" data-judges={(c.judgesOutputs ?? []).join(',')}>
                   {t('lab.chartJudges', { items: judged.join(', ') })}
                 </span>

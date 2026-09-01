@@ -232,17 +232,17 @@ const SIGMA_PASS_MAX_MM = 1;
  */
 const SIGMA_DOMAIN_MM: [number, number] = [0, 10];
 
-/* ══════════════ 🔴 직경 편차 확대 차트 (PLN 명세 426·427·431·489) ══════════════
+/* ══════════════ 🔴 직경 편차 확대 차트 (PLN 명세 §P1 웨이퍼 심화) ══════════════
  * 오케스트레이터 판정으로 **GL 씬에서 σ_D 를 빼고 차트로 이관**한 건이다.
  * 이유: 200 mm 잉곳에서 σ_D = ±0.71 mm 는 단면 씬에서 **±0.34 px(서브픽셀)** 이라 관찰 불가다.
  * 세로축을 200 ± 3 mm 로 확대하면 **1 mm = 40 px → 0.71 mm 가 28 px** 로 또렷해진다.
- * 🔴 명세 427: **「판정은 이 차트에서 한다.」** 씬은 직경의 절대 크기 변화만 보여준다.
+ * 🔴 PLN 명세 **「판정은 이 차트에서 한다.」** 씬은 직경의 절대 크기 변화만 보여준다.
  *
  * 🔴 지어내지 않은 것: 모델은 길이방향 직경 **프로파일**을 만들지 않는다. σ_D 는 편차 한 값이다.
  *    그래서 길이축을 따라 **포락선**(200 ± σ_D)과 공칭선만 그린다. 없는 프로파일을 그리지 않는다.
  */
 const DIAMETER_NOMINAL_MM = 200;
-const DIAMETER_ZOOM_HALF_MM = 3;      // 명세 426 「세로축 200 ± 3 mm 만 확대」
+const DIAMETER_ZOOM_HALF_MM = 3;      // PLN 명세 「세로축 200 ± 3 mm 만 확대」
 const INGOT_G_START = 0;
 const INGOT_G_END = 1;
 
@@ -281,10 +281,10 @@ function diameterZoomChart(judged: boolean): LabChartBinding {
   };
 }
 
-/* ══════════ 🔴 축방향 저항률 프로파일 차트 (PLN 명세 476 · 494) ══════════
- * 명세 476: 「도펀트를 인(P) → 붕소(B)로 바꾸면 … 규격 하한선(수평 빨간 파선, 상단값의 70 %)과의
+/* ══════════ 🔴 축방향 저항률 프로파일 차트 (PLN 명세 §P1 웨이퍼 심화) ══════════
+ * PLN 명세 「도펀트를 인(P) → 붕소(B)로 바꾸면 … 규격 하한선(수평 빨간 파선, 상단값의 70 %)과의
  *            교차점이 **g = 0.48 에서 g = 0.91 로** 이동한다.」
- * 명세 494: Δρ 불합격으로 종료하려 하면 「저항률 프로파일 그래프에 규격 하한 교차점 g = 0.48 강조」.
+ * Δρ 불합격으로 종료하려 하면 — PLN 명세 「저항률 프로파일 그래프에 규격 하한 교차점 g = 0.48 강조」.
  *
  * 🔴 **식을 새로 쓰지 않았다.** 곡선의 모든 점은 물리층 호출 2개의 합성이다:
  *    ① `czochralski.scheilAxialConcentration` — C_s(g) = k₀·C₀·(1−g)^(k₀−1) (Scheil)
@@ -307,7 +307,7 @@ function diameterZoomChart(judged: boolean): LabChartBinding {
  */
 const KEFF_PHOSPHORUS = 0.45;
 const KEFF_BORON = 0.85;
-/** 규격 하한선 = 상단값의 70 % (명세 476 원문). */
+/** 규격 하한선 — PLN 명세 「규격 하한선(수평 빨간 파선, 상단값의 70 %)」. */
 const RESISTIVITY_SPEC_FLOOR_RATIO = 0.7;
 /** 붕소 교차점 g = 0.91 이 축 안에 들어와야 하므로 0.85(사용 구간)보다 넓게 훑는다. */
 const PROFILE_G_MAX = 0.95;
@@ -610,6 +610,21 @@ const WAFER_SLICING_SCENE_NOTE = '성장 완료 잉곳이 다중 와이어 웹�
   + '현재 성장 실습의 직경·직경편차·수율만 장면에 연결합니다. 성장 처리량을 와이어 절입속도로 바꾸어 읽지 않으며, '
   + '와이어 속도·장력·kerf·TTV는 별도 문헌 기반 물리모델이 없으므로 고정 동작으로 표시합니다.';
 
+/** 기초(S5) CZ 성장 씬 설명. 🔴 `scenes[0]` 과 `scene` 두 곳이 같은 문장을 써야 해서 상수로 뺐다
+ *  (2026-09-01 PLN §27-5 B안 — 순서 교환). 문장을 두 벌 적으면 갈라진다. */
+const WAFER_BASIC_GROWTH_NOTE = '기초에서 조작 대상은 pullRate 하나다 — 바디 폭·메니스커스 링 2개(같은 방향·같은 크기)· '
+  + '계면 볼록도·성장 파셋 스크롤 속도가 여기 반응한다. '
+  + 'thermalGradient(0.2222=G 25 K/cm)·crystalRotation(0.5200=18 rpm)·crucibleRotation(0.5556=12 rpm)· '
+  + 'argonFlow(0.2000=40 slm)·chamberPressure(0.2537=30 torr)는 전부 각 파라미터의 initial 값을 상수로 넘긴다 '
+  + '— 「이 단계에서는 저것들이 안 변한다」를 화면이 그대로 보여주는 것이 학습 의도다. '
+  + '🔴 V–I 경계선은 G=25 고정 때문에 ξ=10V/25 가 이 칸의 실제 슬라이더 구간 V 0.5~3.0 전체에서 '
+  + '0.2~1.2 로 ξ_hi(0.150) 를 항상 넘는다(DSN §2-3 D-5) — 경계선이 바디 외곽선과 항상 겹쳐 소멸 '
+  + '상태다(영구히 안 보인다, 결함 아님). 🔴 씬 앵커 자체는 V 0.2 까지 열려 있어 ξ 가 0.08 까지 내려가고 '
+  + '거기서는 경계선이 축으로 모여 다시 나타나지만, **기초 슬라이더는 V 0.5 아래로 못 내려가 이 구간에 '
+  + '닿지 않는다.** '
+  + '🔴 도펀트 농도 슬라이더는 화면을 바꾸지 않는다 — 씬 키가 없다(의도된 결과, 위 공통 사유 참조). '
+  + CRYSTAL_GROWTH_NOTE_COMMON;
+
 /* ══════════ 🔴 V/G 무결함 창 차트 — **판정 차트다** (PLN PD-41-2 · PD-42 확정) ══════════
  *
  * ── 왜 새로 만들었나 ────────────────────────────────────────────────────────────
@@ -802,22 +817,29 @@ export const WAFER_LABS: LabSpec[] = [
         }),
       };
     },
-    scenes: [{ sceneId: 'ingotSlicing', map: waferSlicingBasicSceneMap, note: WAFER_SLICING_SCENE_NOTE }],
+    /* 🔴 2026-09-01 — **PLN §27-5 B안(순서 교환) 채택.** 오케스트레이터 판정(CEO 승인 하).
+     *
+     * 무엇이 문제였나: `labSceneBindings()`(`spec.ts:346`)는 **`scenes[]` 를 먼저, `scene` 을 뒤에**
+     * 놓는다. 그래서 `ingotSlicing`(후속 단계 인계 장면)이 **첫 칸**을 차지해 제목바·배경 PNG·
+     * 번호 마커를 독점했고, 정작 이 칸의 학습 대상인 **CZ 인상(`crystalGrowth`)이 뒤로 밀렸다**
+     * (PLN §27-2 관찰). 명세에 이 배선을 지시한 문장은 검색 44건 대조에서 **0건**이다(§27-5 ①).
+     *
+     * 🔴 **삭제가 아니라 순서 교환이다.** D-045 3단 확인에서 ②(다른 공정도 씬 병치를 쓴다 —
+     *    `eds.ts:1221`·`deposition.ts:1171`)와 ③(`wafer.ts:586-590` 주석이 인계 의도를 명시)이
+     *    걸렸으므로 **「고쳐라」가 아니라 「판정하라」** 였고, 판정 결과가 B(가장 싼 반증 실험)다.
+     *    슬라이싱 장면은 **그대로 남는다** — 학습 순서만 CZ → 슬라이싱으로 바로잡는다.
+     *
+     * 구현: 두 씬을 `scenes[]` 에 **원하는 순서로** 넣는다. `scene` 은 지우지 않는다 —
+     * `labSceneBindings` 가 `seen` 집합으로 중복을 걸러 `crystalGrowth` 를 두 번 그리지 않고,
+     * `spec.scene` 을 읽는 다른 경로(게이트 포함)가 종전대로 동작한다. */
+    scenes: [
+      { sceneId: 'crystalGrowth', map: waferBasicSceneMap, note: WAFER_BASIC_GROWTH_NOTE },
+      { sceneId: 'ingotSlicing', map: waferSlicingBasicSceneMap, note: WAFER_SLICING_SCENE_NOTE },
+    ],
     scene: {
       sceneId: 'crystalGrowth',
       map: waferBasicSceneMap,
-      note: '기초에서 조작 대상은 pullRate 하나다 — 바디 폭·메니스커스 링 2개(같은 방향·같은 크기)· '
-        + '계면 볼록도·성장 파셋 스크롤 속도가 여기 반응한다. '
-        + 'thermalGradient(0.2222=G 25 K/cm)·crystalRotation(0.5200=18 rpm)·crucibleRotation(0.5556=12 rpm)· '
-        + 'argonFlow(0.2000=40 slm)·chamberPressure(0.2537=30 torr)는 전부 각 파라미터의 initial 값을 상수로 넘긴다 '
-        + '— 「이 단계에서는 저것들이 안 변한다」를 화면이 그대로 보여주는 것이 학습 의도다. '
-        + '🔴 V–I 경계선은 G=25 고정 때문에 ξ=10V/25 가 이 칸의 실제 슬라이더 구간 V 0.5~3.0 전체에서 '
-        + '0.2~1.2 로 ξ_hi(0.150) 를 항상 넘는다(DSN §2-3 D-5) — 경계선이 바디 외곽선과 항상 겹쳐 소멸 '
-        + '상태다(영구히 안 보인다, 결함 아님). 🔴 씬 앵커 자체는 V 0.2 까지 열려 있어 ξ 가 0.08 까지 내려가고 '
-        + '거기서는 경계선이 축으로 모여 다시 나타나지만, **기초 슬라이더는 V 0.5 아래로 못 내려가 이 구간에 '
-        + '닿지 않는다.** '
-        + '🔴 도펀트 농도 슬라이더는 화면을 바꾸지 않는다 — 씬 키가 없다(의도된 결과, 위 공통 사유 참조). '
-        + CRYSTAL_GROWTH_NOTE_COMMON,
+      note: WAFER_BASIC_GROWTH_NOTE,
     },
     feedback: [
       {
@@ -1177,7 +1199,7 @@ export const WAFER_LABS: LabSpec[] = [
         }),
       };
     },
-    // 심화에서 σ_D 는 display — 판정은 피드백이 한다. 저항률 프로파일은 PLN 476·494 의 학습 그림이다.
+    // 심화에서 σ_D 는 display — 판정은 피드백이 한다. 저항률 프로파일은 PLN 명세 §P1 심화의 학습 그림이다.
     /* 🔴 PLN PD-41-2 · PD-42 확정 — 앞의 두 차트는 **도해**(판정 선언 없음)이고,
      *    이 칸의 판정을 그리는 것은 `wafer.vgWindow` 하나다. 사유는 각 차트 머리주석 참조:
      *    diameterZoom = σ_D 가 이 칸에서 display · axialResistivity = Δρ 판정이 M-1 로 삭제됨. */

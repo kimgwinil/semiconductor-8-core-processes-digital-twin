@@ -98,9 +98,9 @@ const CORNER_ROUND_ZONE = 0.42;
  *    좌상단 퓨필 인셋은 NA/NA_max 만큼 채워진다.
  */
 export const AERIAL_IMAGE_FS = `${FRAG_HEAD}
-/* 🔴 테마 토큰 — CSS(\`--bg\`·\`--ink\`·\`--viz-spec\`·\`--viz-series-1\`)에서 읽어 매 draw 마다 올린다.
-   재료색([B])은 모델 상수 그대로이고, 여기 유니폼은 **지시선·표식([A])과 베이스 배경**만 담당한다. */
-uniform vec3 uBg;
+/* 🔴 테마 토큰 — CSS(\`--ink\`·\`--viz-spec\`·\`--viz-series-1\`)에서 읽어 매 draw 마다 올린다.
+   재료색([B])은 모델 상수 그대로이고, 여기 유니폼은 **지시선·표식([A])** 만 담당한다.
+   🔴 2026-09-01 \`uBg\` 삭제 — 배경을 셰이더가 칠하지 않게 되면서 쓰는 곳이 사라졌다(main 머리말 참조). */
 uniform vec3 uInk;
 uniform vec3 uSpec;
 uniform vec3 uS1;
@@ -194,7 +194,23 @@ void main() {
   vec2 uv = vUv;
   float t = uTime;
   float arf = uRes.x / max(uRes.y, 1.0);
-  vec3 col = uBg;
+
+  /* 🔴 **배경을 칠하지 않는다 — 뒤에 실사 장비 사진이 깔린다.**
+     (2026-09-01 · DSN 스레드 §S8-3 · 선례: \`filmGrowth.ts\` 160~215행, 2026-08-22)
+     종전에는 \`vec3 col = uBg;\` 로 **화면 전체**를 페이지 바탕색으로 칠하고 \`vec4(col, 1.0)\` 으로
+     내보냈다. 그래서 도해가 아무것도 그리지 않은 빈 자리까지 불투명해져 사진을 통째로 덮었고,
+     CSS \`opacity\` 로 낮추면 「겹침」이 아니라 **「사진↔도해 크로스페이드」**가 됐다.
+     🔴 **무엇을 배경으로 봤는가:** \`uBg\` **하나뿐**이다. 광 원뿔·모서리 광선·물막·노즐·기체 실·
+        최종 렌즈면·배럴·웨이퍼·레지스트 라인·초점 허용 띠·초점면 선·스캔 화살표·퓨필 인셋은
+        전부 남겼고 **알파만 줬다.** 공중상 강도 분포에 해당하는 광 원뿔은 종전과 같은 세기
+        (\`inCone * 0.20\`)로 그대로 있다 — 세기를 커버리지로 읽는 것뿐이다.
+     🔴 컨텍스트는 premultipliedAlpha: true (context.ts:121)다. 아래 누적은 대부분
+        \`col = mix(col, X, m)\` 인데, col 이 프리멀티플라이드일 때 이 식은 \`X*m + col*(1-m)\`
+        즉 **프리멀티플라이드 source-over 그대로**다. 알파만 짝을 맞춰 \`alpha = mix(alpha, 1.0, m)\`
+        로 올린다. 가산으로 얹는 모서리 광선만 \`alpha = clamp(alpha + 세기, 0, 1)\` 이다.
+        **색은 한 성분도 바꾸지 않았다.** */
+  vec3 col = vec3(0.0);   // 색 × 커버리지(프리멀티플라이드) 누적
+  float alpha = 0.0;      // 커버리지 누적
 
   /* ── 1. 광 원뿔 — 최종 렌즈면에서 초점면으로 모인다. 반각 θ = asin(NA/n) (SD §3-3 P-2) ── */
   float sinTheta = clamp(uNaValue / N_IMMERSION, 0.0, 0.999);
@@ -202,10 +218,13 @@ void main() {
   // 초점면에서 위로 올라갈수록 반경이 tanθ 로 벌어진다 — 정점이 초점인 원뿔이다.
   float coneHalf = tanTheta * max(uv.y - uFocusY, 0.0);
   float inCone = bandMask(uv.y, uFocusY, lensSurfaceY(uv.x)) * step(ax(uv.x), coneHalf);
-  col = mix(col, C_LIGHT, inCone * 0.20);
+  float coneA = clamp(inCone * 0.20, 0.0, 1.0);
+  col = mix(col, C_LIGHT, coneA);
+  alpha = mix(alpha, 1.0, coneA);
   // 원뿔 모서리 광선 2가닥
   float edge = bandMask(uv.y, uFocusY, LENS_BOTTOM + LENS_SAG) * lineMask(ax(uv.x) - coneHalf, 0.0022);
   col += C_LIGHT * edge * 0.75;
+  alpha = clamp(alpha + edge * 0.75, 0.0, 1.0);
 
   /* ── 2. 국소 갭 — 물막 · 노즐 · 기체 실 (🔴 수조가 아니다) ── */
   float resistTop = SUBSTRATE_TOP + uResistH;
@@ -213,19 +232,33 @@ void main() {
   float inWater = gapBand * step(ax(uv.x), GAP_HALF);
   // 물 순환 — 공급(좌) → 회수(우) 방향으로 흐르는 결
   float flow = 0.5 + 0.5 * sin((uv.x * 44.0) - t * WATER_FLOW_SPEED * 6.0);
-  col = mix(col, C_WATER * (0.82 + 0.18 * flow), inWater * 0.72);
-  col = mix(col, C_NOZZLE, gapBand * bandMask(ax(uv.x), NOZZLE_HALF_IN, NOZZLE_HALF_OUT));
-  col = mix(col, C_GAS, gapBand * bandMask(ax(uv.x), NOZZLE_HALF_OUT, GAS_SEAL_OUT) * 0.7);
+  float waterA = clamp(inWater * 0.72, 0.0, 1.0);
+  col = mix(col, C_WATER * (0.82 + 0.18 * flow), waterA);
+  alpha = mix(alpha, 1.0, waterA);
+  float nozzleA = gapBand * bandMask(ax(uv.x), NOZZLE_HALF_IN, NOZZLE_HALF_OUT);
+  col = mix(col, C_NOZZLE, nozzleA);
+  alpha = mix(alpha, 1.0, nozzleA);
+  float gasA = clamp(gapBand * bandMask(ax(uv.x), NOZZLE_HALF_OUT, GAS_SEAL_OUT) * 0.7, 0.0, 1.0);
+  col = mix(col, C_GAS, gasA);
+  alpha = mix(alpha, 1.0, gasA);
 
   /* ── 3. 최종 렌즈면 · 배럴 ── */
   float lensY = lensSurfaceY(uv.x);
   float inLens = step(ax(uv.x), BARREL_HALF) * bandMask(uv.y, lensY, LENS_TOP);
-  col = mix(col, C_LENS, inLens * 0.55);
-  col = mix(col, C_BARREL, step(ax(uv.x), BARREL_HALF) * bandMask(uv.y, LENS_TOP, LENS_TOP + 0.06));
-  col = mix(col, uInk, clamp(inLens * lineMask(uv.y - lensY, 0.0022) * 0.9, 0.0, 1.0));
+  float lensA = clamp(inLens * 0.55, 0.0, 1.0);
+  col = mix(col, C_LENS, lensA);
+  alpha = mix(alpha, 1.0, lensA);
+  float barrelA = step(ax(uv.x), BARREL_HALF) * bandMask(uv.y, LENS_TOP, LENS_TOP + 0.06);
+  col = mix(col, C_BARREL, barrelA);
+  alpha = mix(alpha, 1.0, barrelA);
+  float lensEdgeA = clamp(inLens * lineMask(uv.y - lensY, 0.0022) * 0.9, 0.0, 1.0);
+  col = mix(col, uInk, lensEdgeA);
+  alpha = mix(alpha, 1.0, lensEdgeA);
 
   /* ── 4. 웨이퍼 기판 ── */
-  col = mix(col, C_SUB, step(uv.y, SUBSTRATE_TOP));
+  float subA = step(uv.y, SUBSTRATE_TOP);
+  col = mix(col, C_SUB, subA);
+  alpha = mix(alpha, 1.0, subA);
 
   /* ── 5. 레지스트 라인 3개 (사다리꼴 + 정재파 줄무늬) ── */
   float inResistY = bandMask(uv.y, SUBSTRATE_TOP, resistTop);
@@ -243,20 +276,31 @@ void main() {
     float ph = fract((uv.y - SUBSTRATE_TOP) / SW_SPACING);
     resist *= 1.0 + SW_CONTRAST_BASE * uFringeAmp * (cos(ph * 6.2831853) * 0.5);
     col = mix(col, resist, inLine);
+    alpha = mix(alpha, 1.0, inLine);
   }
 
   /* ── 6. 초점 허용 띠 + 초점면 선 ── */
   float band = bandMask(uv.y, uFocusY - uBandHalf, uFocusY + uBandHalf);
-  col = mix(col, uSpec, band * 0.16);
-  col = mix(col, uSpec, clamp(lineMask(uv.y - (uFocusY + uBandHalf), 0.0013) * 0.55, 0.0, 1.0));
-  col = mix(col, uSpec, clamp(lineMask(uv.y - (uFocusY - uBandHalf), 0.0013) * 0.55, 0.0, 1.0));
+  float bandA = clamp(band * 0.16, 0.0, 1.0);
+  col = mix(col, uSpec, bandA);
+  alpha = mix(alpha, 1.0, bandA);
+  float bandHiA = clamp(lineMask(uv.y - (uFocusY + uBandHalf), 0.0013) * 0.55, 0.0, 1.0);
+  col = mix(col, uSpec, bandHiA);
+  alpha = mix(alpha, 1.0, bandHiA);
+  float bandLoA = clamp(lineMask(uv.y - (uFocusY - uBandHalf), 0.0013) * 0.55, 0.0, 1.0);
+  col = mix(col, uSpec, bandLoA);
+  alpha = mix(alpha, 1.0, bandLoA);
   float dash = step(0.45, fract(uv.x * 60.0));
-  col = mix(col, uInk, clamp(lineMask(uv.y - uFocusY, 0.0014) * dash * 0.65, 0.0, 1.0));
+  float focusA = clamp(lineMask(uv.y - uFocusY, 0.0014) * dash * 0.65, 0.0, 1.0);
+  col = mix(col, uInk, focusA);
+  alpha = mix(alpha, 1.0, focusA);
 
   /* ── 7. 슬릿 스캔 화살표(좌향 1개, SD §3-2 요소 12) — 도즈↑ → 길이↓(SD §3-3 P-4) ── */
   float sy = lineMask(uv.y - SCAN_ARROW_Y, SCAN_BAR);
   float sx = bandMask(uv.x, AXIS_X - uScanLen, AXIS_X);
-  col = mix(col, uInk, clamp(sy * sx * 0.75, 0.0, 1.0));
+  float scanA = clamp(sy * sx * 0.75, 0.0, 1.0);
+  col = mix(col, uInk, scanA);
+  alpha = mix(alpha, 1.0, scanA);
   /* 화살촉 1개(좌측 끝 — 좌향). 🔴 **촉은 막대 안쪽(오른쪽)으로만 뻗는다.**
      종전의 원형 글로우는 촉 끝 **바깥**으로도 반지름만큼 번져 화면 길이를 늘렸다(P-3g 위반).
      좌표계: 촉 끝을 원점으로 두고 가로를 화면비로 환산해 **등방(화면 높이 = 1)** 으로 만든다. */
@@ -269,27 +313,32 @@ void main() {
   float tipHalf = SCAN_TIP_STROKE_HALF_PX / max(uRes.y, 1.0);  // 폴백 lineWidth 2 의 절반
   float tipAA = 0.5 / max(uRes.y, 1.0);                    // 안티에일리어싱 전이폭 ≈ 1 px
   float tipL = 1.0 - smoothstep(tipHalf - tipAA, tipHalf + tipAA, tipD);
-  col = mix(col, uInk, clamp(tipL * 0.9, 0.0, 1.0));   // 0.9 = 폴백 화살촉 획의 알파와 같다
+  float tipA = clamp(tipL * 0.9, 0.0, 1.0);            // 0.9 = 폴백 화살촉 획의 알파와 같다
+  col = mix(col, uInk, tipA);
+  alpha = mix(alpha, 1.0, tipA);
 
   /* ── 8. 퓨필 정면 인셋 — 바깥 원이 NA 상한, 채워진 원이 현재 NA ── */
   vec2 pd = vec2((uv.x - PUPIL_CX) * arf, uv.y - PUPIL_CY);
   float pr = length(pd);
-  col = mix(col, uInk, clamp(lineMask(pr - PUPIL_R, 0.0022) * 0.7, 0.0, 1.0));
+  float pupilRingA = clamp(lineMask(pr - PUPIL_R, 0.0022) * 0.7, 0.0, 1.0);
+  col = mix(col, uInk, pupilRingA);
+  alpha = mix(alpha, 1.0, pupilRingA);
   float fill = PUPIL_R * clamp(uNaValue / NA_MAX, 0.0, 1.0);
-  col = mix(col, uS1, smoothstep(fill, fill - 0.006, pr) * 0.65);
+  float pupilFillA = clamp(smoothstep(fill, fill - 0.006, pr) * 0.65, 0.0, 1.0);
+  col = mix(col, uS1, pupilFillA);
+  alpha = mix(alpha, 1.0, pupilFillA);
 
-  /* ── 9. 비네팅 ── */
+  /* ── 9. 비네팅 — 🔴 **그려진 것에만** 건다(배경을 어둡게 만들지 않는다). ── */
   float vig = smoothstep(1.15, 0.35, length((uv - 0.5) * vec2(arf, 1.0)));
   col *= 0.80 + 0.20 * vig;
 
-  fragColor = vec4(col, 1.0);
+  fragColor = vec4(col, alpha);
 }
 `;
 
 interface Uniforms {
   res: WebGLUniformLocation | null;
   time: WebGLUniformLocation | null;
-  bg: WebGLUniformLocation | null;
   ink: WebGLUniformLocation | null;
   spec: WebGLUniformLocation | null;
   s1: WebGLUniformLocation | null;
@@ -326,7 +375,6 @@ export function createScene(): Scene {
       u = {
         res: gl.uniform(prog, 'uRes'),
         time: gl.uniform(prog, 'uTime'),
-        bg: gl.uniform(prog, 'uBg'),
         ink: gl.uniform(prog, 'uInk'),
         spec: gl.uniform(prog, 'uSpec'),
         s1: gl.uniform(prog, 'uS1'),
@@ -354,8 +402,8 @@ export function createScene(): Scene {
       setCommonUniforms(gl, u.res, u.time, ctx.size.width, ctx.size.height, t);
 
       // 🔴 매 draw 마다 다시 읽는다 — 캐시하면 테마 전환 뒤 옛 색이 남는다.
+      // 🔴 `uBg` 는 2026-09-01 알파 전환에서 삭제했다 — 배경을 셰이더가 칠하지 않는다.
       const pal = readVizPalette(ctx.canvas);
-      set3(gl, u.bg, pal.bg, pal.bg);
       set3(gl, u.ink, pal.ink, pal.ink);
       set3(gl, u.spec, pal.spec, pal.ink);
       set3(gl, u.s1, pal.series[0], pal.ink);

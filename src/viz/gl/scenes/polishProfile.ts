@@ -78,7 +78,9 @@ uniform float uSpeed;
 uniform float uTimeP;
 uniform float uSlurry;
 uniform sampler2D uPadTex;
-uniform vec3 uBg;    // 페이지 바탕(--bg) — 씬이 전면을 불투명하게 덮을 때의 베이스
+/* 🔴 uBg(페이지 바탕)는 2026-09-01 에 없앴다 — 「씬이 전면을 불투명하게 덮을 때의 베이스」였고,
+   이제 전면을 덮지 않는다. 아래 「배경을 칠하지 않는다」 주석 참조.
+   유니폼 선언과 TS 배선을 **같이** 걷어냈다(한쪽만 남기면 조용히 죽은 배선이 된다). */
 uniform vec3 uInfo;  // 참고선(--viz-info) — 연마 전 초기 표면 점선
 ${NOISE_GLSL}
 ${DRAW_GLSL}
@@ -129,6 +131,37 @@ float surf(float x) {
   return h;
 }
 
+/* ═══ 🔴 **배경을 칠하지 않는다 — 뒤의 실사 장비 사진이 비쳐야 한다.**
+   (2026-09-01 · 근거: DSN 스레드 §S8-3 「계열 II 15칸이 전면을 불투명하게 덮는다」 ·
+    선례 src/viz/gl/scenes/filmGrowth.ts 160~215행 — 2026-08-22 에 같은 결함을 이미 한 번 고쳤다)
+
+   종전에는 vec3 col = uBg 로 화면 전체를 페이지 바탕색으로 채우고 vec4(col, 1.0) 으로 내보내,
+   common.ts 의 clear() 가 투명하게 지워 놓은 것을 **불투명하게 덮어썼다.**
+   실측(2026-09-01 · 320x200 dpr 1 · dark): 빈 자리(알파 8/255 이하) 면적 **0.0 %**.
+
+   🔴 컨텍스트는 premultipliedAlpha: true 다(src/viz/gl/context.ts 121행). over()/plus() 는
+      「색 × 커버리지」로 누적하므로 결과가 **이미 프리멀티플라이드**이며 그대로 내보내면 된다.
+
+   🔴 **무엇을 배경으로 판정했는가:** 연마 패드 **위쪽의 빈 공간**과 패드-웨이퍼 **틈새 바깥**뿐이다.
+   🟢 **커버리지를 준 것:** 웨이퍼 적층(산화막·금속·기판) · 표면선 · 연마 전 초기 표면 점선 ·
+      연마 패드와 홈 · 슬러리 입자 · **슬러리 층 색조**(물리적으로 의미 있는 요소라 지우지 않고 알파를 줬다).
+   ⛔ **에로전은 종전대로 그리지 않는다** — 정본이 두 번 금지했다(models/polishProfile.model.ts 38~41행·101행).
+      이번 작업은 **알파 도입**이지 그리는 대상을 늘리는 일이 아니다. surf() 도 손대지 않았다.
+      **색은 한 성분도 바꾸지 않았다.** ═══ */
+
+/** 불투명 색 c 를 커버리지 k 로 덮어 얹는다(over 합성 · 프리멀티플라이드). */
+void over(inout vec4 dst, vec3 c, float k) {
+  float mk = clamp(k, 0.0, 1.0);
+  dst.rgb = dst.rgb * (1.0 - mk) + c * mk;
+  dst.a = dst.a * (1.0 - mk) + mk;
+}
+/** 빛나는 요소를 세기 k 로 더한다(종전 col += 자리 · filmGrowth 179~180행과 같은 형태). */
+void plus(inout vec4 dst, vec3 c, float k) {
+  float mk = clamp(k, 0.0, 1.0);
+  dst.rgb += c * mk;
+  dst.a = clamp(dst.a + mk, 0.0, 1.0);
+}
+
 void main() {
   vec2 uv = vUv;
   float h = surf(uv.x);
@@ -139,20 +172,21 @@ void main() {
   vec3 substrate = vec3(0.22, 0.24, 0.28);
   vec3 padCol = vec3(0.30, 0.26, 0.34);
 
-  vec3 col = uBg;   // 🔴 전면 베이스는 페이지 바탕 토큰이다(종전 air 리터럴을 대체한다)
+  vec4 dst = vec4(0.0);   // 🔴 배경 없음 — 종전 vec3 col = uBg 자리
 
   // 웨이퍼 적층
   float inWafer = step(uv.y, h);
   float inTrench = bandMask(uv.y, TRENCH_BOT, h);
   vec3 layer = mix(oxide, metalCol, m * inTrench);
-  col = mix(col, layer, inWafer);
-  col = mix(col, substrate, step(uv.y, SUB_TOP));
+  over(dst, layer, inWafer);
+  over(dst, substrate, step(uv.y, SUB_TOP));
 
   // 표면선 + 연마 전 초기 표면(점선)
-  col += vec3(1.0) * lineMask(uv.y - h, 0.0016) * 0.75;
+  plus(dst, vec3(1.0), lineMask(uv.y - h, 0.0016) * 0.75);
   float dash = step(0.5, fract(uv.x * 70.0));
-  // 🔴 가산이 아니라 mix 다 — 라이트 테마에서 참고선 색이 어두워지면 가산으로는 선이 사라진다.
-  col = mix(col, uInfo, clamp(lineMask(uv.y - BASE_TOP, 0.0014) * dash * 0.7, 0.0, 1.0));
+  // 🔴 가산이 아니라 over 다 — 라이트 테마에서 참고선 색이 어두워지면 가산으로는 선이 사라진다.
+  //    (종전 mix(col, uInfo, k) 와 같은 합성이며, 알파만 함께 올린다.)
+  over(dst, uInfo, clamp(lineMask(uv.y - BASE_TOP, 0.0014) * dash * 0.7, 0.0, 1.0));
 
   // 연마 패드 — 표면을 따라 내려앉고, 하중이 클수록 더 눌린다
   float gap = mix(${glslFloat(PAD_GAP_AT_MIN)}, ${glslFloat(PAD_GAP_AT_MAX)}, uPressure);
@@ -163,16 +197,16 @@ void main() {
   // 가로는 화면비로 환산한다(캔버스가 옆으로 길어져도 무늬가 늘어나지 않게).
   vec2 padUv = vec2((uv.x + uTime * (0.05 + 0.45 * uSpeed)) * (uRes.x / max(uRes.y, 1.0)), uv.y);
   vec3 pad = padCol * PAD_PROC_MEAN * albedoDetail(texture(uPadTex, padUv * PAD_TEX_UV).rgb, MEAN_PAD);
-  col = mix(col, pad, inPad);
-  col = mix(col, padCol * 0.5, inPad * grooves * 0.8);
+  over(dst, pad, inPad);
+  over(dst, padCol * 0.5, inPad * grooves * 0.8);
 
   // 슬러리: 패드-웨이퍼 사이 입자
   float slurryBand = bandMask(uv.y, h, padBottom);
   float particles = step(1.0 - 0.35 * uSlurry, hash12(floor(vec2(uv.x * 300.0 + uTime * 30.0 * uSpeed, uv.y * 300.0))));
-  col += vec3(0.85, 0.95, 1.0) * particles * slurryBand * 0.9;
-  col += vec3(0.30, 0.55, 0.70) * slurryBand * uSlurry * 0.25;
+  plus(dst, vec3(0.85, 0.95, 1.0), particles * slurryBand * 0.9);
+  plus(dst, vec3(0.30, 0.55, 0.70), slurryBand * uSlurry * 0.25);
 
-  fragColor = vec4(col, 1.0);
+  fragColor = dst;
 }
 `;
 
@@ -184,7 +218,7 @@ interface Uniforms {
   timeP: WebGLUniformLocation | null;
   slurry: WebGLUniformLocation | null;
   padTex: WebGLUniformLocation | null;
-  bg: WebGLUniformLocation | null;
+  /* 🔴 bg 는 없앴다(2026-09-01) — 셰이더가 배경을 칠하지 않으므로 uBg 를 안 쓴다. */
   info: WebGLUniformLocation | null;
 }
 
@@ -218,7 +252,6 @@ export function createScene(): Scene {
         timeP: gl.uniform(prog, 'uTimeP'),
         slurry: gl.uniform(prog, 'uSlurry'),
         padTex: gl.uniform(prog, 'uPadTex'),
-        bg: gl.uniform(prog, 'uBg'),
         info: gl.uniform(prog, 'uInfo'),
       };
     },
@@ -240,7 +273,6 @@ export function createScene(): Scene {
       if (u.slurry) gl.uniform1f(u.slurry, p.slurry);
       // 🔴 매 draw 마다 다시 읽는다 — 캐시하면 테마 전환 뒤 옛 색이 남는다.
       const pal = readVizPalette(ctx.canvas);
-      set3(gl, u.bg, pal.bg, pal.bg);
       set3(gl, u.info, pal.info, pal.ink);
       if (tex) tex.bind(TEX_PAD, 'slurry-pad');
       if (u.padTex) gl.uniform1i(u.padTex, TEX_PAD);

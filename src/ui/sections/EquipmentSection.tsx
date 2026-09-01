@@ -108,7 +108,31 @@ const EQUIPMENT_LABELS_JA: Readonly<Record<string, Readonly<Record<string, strin
  *              라벨 클릭 설명 패널(`LabelDesc`)은 고지가 아니므로 손대지 않았다.
  * 되살리는 법: 이 상수를 `true` 로 되돌린다. 그 한 줄뿐이다.
  */
-const SHOW_DIAGRAM_NOTICES = false;
+/* 🔵 2026-09-01 — `true` 로 복구. CEO 판단 위임 → 오케스트레이터 지시.
+ *
+ * 왜 되살렸나(2026-09-01 개발팀 실측):
+ *   · `check-assets` 집계 원문 **「A13 제작 고지 96건 — warn 42 · info 54」**.
+ *   · 그 42건의 warn 을 **실제로 열어 읽어 보니** 「제작 크레딧」이 아니라
+ *     **「이 그림은 실물과 이렇게 다르다」는 오개념 차단 문구**였다. 원문 예:
+ *       photo  — 「**이머전은 수조가 아니다.** 웨이퍼는 물에 잠기지 않으며 최종 렌즈면과
+ *                 웨이퍼 사이 **국소 갭**에만 초순수가 있다」
+ *       photo  — 「조명 퓨필은 **고리형 한 가지만 그렸다.** 실제로는 꽉 찬 원·고리·다이폴·
+ *                 쿼드러폴… 도해의 고리는 **여러 형상 중 한 사례**다」
+ *       wafer  — 「도해의 넥 : 바디 = 약 **1 : 6**(가독성을 위해 **과장한 값**) /
+ *                 실제 약 **1 : 50**」
+ *       oxid.  — 「히터 존 5존은 **사례**이며 존 개수 일반화는 **미확인**」
+ *   · **D-008(「틀린 물리를 가르치지 않는 것이 최우선」)에 직접 닿는다.** 꺼 두면 학습자가
+ *     과장된 비율을 실제로 믿고, 애뉼러 퓨필을 유일한 방식으로 배운다.
+ *   · 게이트도 이미 이것을 A13 으로 취급한다 — `scripts/check-assets.mjs:70` 이
+ *     검사 블록 머리에 「🔴 A13 — 장비 단면 「제작 고지」(notes[]) 집계」라 적었고,
+ *     **화면 전용 좌표**(`anchor`·`leaderEnd`·`side` 가 viewBox 안인가)까지 강제한다.
+ *     표시를 지우면 **아무 데도 안 쓰이는 좌표를 CI 가 계속 지키는** 상태가 된다.
+ *
+ * 🔴 README 의 A13·A8 확인 방법은 「근거 출처 대장」(문서 증빙)이라 **수용기준 문언만으로는
+ *    화면 표시를 요구하지 않는다.** 그 사실을 알고도 되살린 것이며, 근거는 위 D-008 이다.
+ *    (판단 경위 전문: `threads/DEV-8대공정-001.md` §Z)
+ * 🔴 로직은 한 줄도 바꾸지 않았다. 이 상수 하나뿐이다. */
+const SHOW_DIAGRAM_NOTICES = true;
 
 /** 렌더용으로 정규화한 고지 — tone 이 확정되고 번호가 붙는다. */
 interface PreparedNote extends EquipmentNote {
@@ -626,100 +650,127 @@ function equipment4dTitle(processId: string, lang: string): string {
 function equipmentBeginnerGuide(processId: string, id: string, lang: string): {
   title: string; pathLabel: string; path: string; whyLabel: string; why: string;
 } {
-  const guides: Record<string, Record<'ko' | 'en' | 'ja', { title: string; path: string; why: string }>> = {
-    'wafer.argon': {
-      ko: { title: '1단계 · 챔버 안을 깨끗하게 유지합니다', path: '위쪽 유입구 → 결정 표면 → 아래쪽 배기구', why: '아르곤이 불순물과 SiO 증기를 밖으로 운반합니다.' },
-      en: { title: 'Step 1 · Keep the chamber clean', path: 'Top inlet → crystal surface → lower exhaust', why: 'Argon carries impurities and SiO vapour out of the chamber.' },
-      ja: { title: '第1段階 · チャンバー内部を清浄に保つ', path: '上部入口 → 結晶表面 → 下部排気口', why: 'アルゴンが不純物とSiO蒸気を外へ運びます。' },
+  /* 🔴 키는 **공정 → 4D 경로**로 중첩한다. `'wafer.argon'` 처럼 점으로 잇지 마라(2026-09-01).
+   *
+   * 여기 들어 있는 것은 애니메이션 경로(`EQUIPMENT_MOTION_ROUTES`)에 붙는 **설명 문장**뿐이다 —
+   * 수치가 없고 `quantity()`·`gradeOf()` 를 타지 않으며 이 화면에는 등급 배지 자체가 없다.
+   * 그런데 종전의 점표기 키 18개는 modelId 와 **모양이 같아서** `check-grades` 의 수집기가
+   * 전부 modelId 로 읽었고(사용 286개 = 원장 268 + 이 18개), G1 이 18건 실패했다.
+   * 「등급 원장에 올려서」 끄는 것은 등급이 없는 것에 등급을 붙이는 반대 방향의 거짓이고,
+   * 「게이트에 예외를 뚫어서」 끄는 것은 A6-b 게이트에 구멍을 내는 일이다.
+   * 그래서 이름 충돌 자체를 없앴다 — 같은 파일의 `EQUIPMENT_LABELS_JA`·`EQUIPMENT_PAIR_FIGURES`
+   * 및 `EQUIPMENT_MOTION_ROUTES` 가 이미 쓰는 「공정으로 한 겹 감싸는」 관례와 같은 모양이다.
+   */
+  const guides: Record<string, Record<string, Record<'ko' | 'en' | 'ja', { title: string; path: string; why: string }>>> = {
+    wafer: {
+      argon: {
+        ko: { title: '1단계 · 챔버 안을 깨끗하게 유지합니다', path: '위쪽 유입구 → 결정 표면 → 아래쪽 배기구', why: '아르곤이 불순물과 SiO 증기를 밖으로 운반합니다.' },
+        en: { title: 'Step 1 · Keep the chamber clean', path: 'Top inlet → crystal surface → lower exhaust', why: 'Argon carries impurities and SiO vapour out of the chamber.' },
+        ja: { title: '第1段階 · チャンバー内部を清浄に保つ', path: '上部入口 → 結晶表面 → 下部排気口', why: 'アルゴンが不純物とSiO蒸気を外へ運びます。' },
+      },
+      pull: {
+        ko: { title: '2단계 · 액체 실리콘을 단결정으로 성장시킵니다', path: '실리콘 융액 → 메니스커스 → 결정 바디 → 시드 척', why: '시드 척이 천천히 올라가면서 원통형 단결정 잉곳이 자랍니다.' },
+        en: { title: 'Step 2 · Grow liquid silicon into a single crystal', path: 'Silicon melt → meniscus → crystal body → seed chuck', why: 'The rising seed chuck grows the cylindrical single-crystal ingot.' },
+        ja: { title: '第2段階 · 液体シリコンを単結晶へ成長させる', path: 'シリコン融液 → メニスカス → 結晶本体 → シードチャック', why: 'シードチャックがゆっくり上昇し、円柱状の単結晶が成長します。' },
+      },
+      thermal: {
+        ko: { title: '3단계 · 실리콘을 녹이고 성장 계면의 온도를 유지합니다', path: '흑연 히터 → 서셉터 → 석영 도가니 → 융액', why: '열이 너무 많거나 적으면 결정 직경과 결함 분포가 흔들립니다.' },
+        en: { title: 'Step 3 · Melt silicon and hold the interface temperature', path: 'Graphite heater → susceptor → quartz crucible → melt', why: 'Too much or too little heat changes crystal diameter and defects.' },
+        ja: { title: '第3段階 · シリコンを溶かし界面温度を保つ', path: '黒鉛ヒーター → サセプタ → 石英るつぼ → 融液', why: '熱量の過不足で結晶径と欠陥分布が変化します。' },
+      },
+      crucible: {
+        ko: { title: '4단계 · 도가니를 돌리고 높이를 맞춥니다', path: '회전·승강축 → 서셉터 → 석영 도가니', why: '융액을 고르게 섞고, 실리콘이 줄어도 액면 높이를 일정하게 유지합니다.' },
+        en: { title: 'Step 4 · Rotate and lift the crucible', path: 'Rotation/lift shaft → susceptor → quartz crucible', why: 'This mixes the melt and keeps its surface height constant as silicon is consumed.' },
+        ja: { title: '第4段階 · るつぼを回転・昇降させる', path: '回転・昇降軸 → サセプタ → 石英るつぼ', why: '融液を均一に混ぜ、消費後も液面高さを一定に保ちます。' },
+      },
     },
-    'wafer.pull': {
-      ko: { title: '2단계 · 액체 실리콘을 단결정으로 성장시킵니다', path: '실리콘 융액 → 메니스커스 → 결정 바디 → 시드 척', why: '시드 척이 천천히 올라가면서 원통형 단결정 잉곳이 자랍니다.' },
-      en: { title: 'Step 2 · Grow liquid silicon into a single crystal', path: 'Silicon melt → meniscus → crystal body → seed chuck', why: 'The rising seed chuck grows the cylindrical single-crystal ingot.' },
-      ja: { title: '第2段階 · 液体シリコンを単結晶へ成長させる', path: 'シリコン融液 → メニスカス → 結晶本体 → シードチャック', why: 'シードチャックがゆっくり上昇し、円柱状の単結晶が成長します。' },
+    oxidation: {
+      oxidant: {
+        ko: { title: '1단계 · 산화제를 웨이퍼 표면까지 보냅니다', path: '가스 공급관 → 주입기 → 웨이퍼 적재부 → 배기구', why: '산화제가 웨이퍼 표면에서 반응해야 균일한 산화막이 성장합니다.' },
+        en: { title: 'Step 1 · Deliver oxidant to the wafer surface', path: 'Gas line → injector → wafer stack → exhaust', why: 'Uniform oxide grows when oxidant reaches and reacts at every wafer surface.' },
+        ja: { title: '第1段階 · 酸化剤をウェーハ表面へ送る', path: 'ガス供給管 → インジェクター → ウェーハスタック → 排気口', why: '酸化剤が各ウェーハ表面で反応すると均一な酸化膜が成長します。' },
+      },
+      thermal: {
+        ko: { title: '2단계 · 노 내부 온도를 고르게 맞춥니다', path: '다중 존 히터 → 온도 센서 → 웨이퍼 영역', why: '온도 차이가 생기면 웨이퍼마다 산화막 두께가 달라집니다.' },
+        en: { title: 'Step 2 · Equalize furnace temperature', path: 'Multi-zone heater → temperature sensors → wafer zone', why: 'Temperature differences create wafer-to-wafer oxide thickness variation.' },
+        ja: { title: '第2段階 · 炉内温度を均一にする', path: '多ゾーンヒーター → 温度センサー → ウェーハ領域', why: '温度差があるとウェーハごとに酸化膜厚が変わります。' },
+      },
     },
-    'wafer.thermal': {
-      ko: { title: '3단계 · 실리콘을 녹이고 성장 계면의 온도를 유지합니다', path: '흑연 히터 → 서셉터 → 석영 도가니 → 융액', why: '열이 너무 많거나 적으면 결정 직경과 결함 분포가 흔들립니다.' },
-      en: { title: 'Step 3 · Melt silicon and hold the interface temperature', path: 'Graphite heater → susceptor → quartz crucible → melt', why: 'Too much or too little heat changes crystal diameter and defects.' },
-      ja: { title: '第3段階 · シリコンを溶かし界面温度を保つ', path: '黒鉛ヒーター → サセプタ → 石英るつぼ → 融液', why: '熱量の過不足で結晶径と欠陥分布が変化します。' },
+    photo: {
+      optical: {
+        ko: { title: '1단계 · 회로 무늬를 빛으로 축소 전사합니다', path: '엑시머 레이저 → 레티클 → 투영 렌즈 → 웨이퍼', why: '레티클의 회로 패턴을 감광막 위에 정확히 인쇄합니다.' },
+        en: { title: 'Step 1 · Project the circuit pattern with light', path: 'Excimer laser → reticle → projection lens → wafer', why: 'The reticle pattern is accurately printed onto photoresist.' },
+        ja: { title: '第1段階 · 回路パターンを光で縮小転写する', path: 'エキシマレーザー → レチクル → 投影レンズ → ウェーハ', why: 'レチクルの回路パターンをレジスト上へ正確に転写します。' },
+      },
+      track: {
+        ko: { title: '2단계 · 감광막을 만들고 현상합니다', path: 'HMDS → 스핀 코팅 → 베이크 → 냉각 → 현상', why: '노광 전후의 감광막 상태를 안정시켜 회로 모양을 남깁니다.' },
+        en: { title: 'Step 2 · Form and develop photoresist', path: 'HMDS → spin coat → bake → chill → develop', why: 'These steps stabilize resist before and after exposure and reveal the pattern.' },
+        ja: { title: '第2段階 · レジストを形成して現像する', path: 'HMDS → スピン塗布 → ベーク → 冷却 → 現像', why: '露光前後のレジストを安定させ回路形状を残します。' },
+      },
     },
-    'wafer.crucible': {
-      ko: { title: '4단계 · 도가니를 돌리고 높이를 맞춥니다', path: '회전·승강축 → 서셉터 → 석영 도가니', why: '융액을 고르게 섞고, 실리콘이 줄어도 액면 높이를 일정하게 유지합니다.' },
-      en: { title: 'Step 4 · Rotate and lift the crucible', path: 'Rotation/lift shaft → susceptor → quartz crucible', why: 'This mixes the melt and keeps its surface height constant as silicon is consumed.' },
-      ja: { title: '第4段階 · るつぼを回転・昇降させる', path: '回転・昇降軸 → サセプタ → 石英るつぼ', why: '融液を均一に混ぜ、消費後も液面高さを一定に保ちます。' },
+    etch: {
+      plasma: {
+        ko: { title: '1단계 · 플라즈마 이온으로 노출된 막을 제거합니다', path: '샤워헤드 → 플라즈마 → 시스 → 웨이퍼', why: '전기장으로 가속된 이온이 원하는 영역을 방향성 있게 깎습니다.' },
+        en: { title: 'Step 1 · Remove exposed film with plasma ions', path: 'Showerhead → plasma → sheath → wafer', why: 'Electric-field-accelerated ions etch selected areas directionally.' },
+        ja: { title: '第1段階 · プラズマイオンで露出膜を除去する', path: 'シャワーヘッド → プラズマ → シース → ウェーハ', why: '電界で加速されたイオンが選択領域を方向性よく削ります。' },
+      },
+      exhaust: {
+        ko: { title: '2단계 · 식각 부산물을 챔버 밖으로 뺍니다', path: '플라즈마 반응부 → 펌프 포트 → 터보 펌프', why: '부산물이 남으면 재부착되어 오염과 식각 불균일을 만듭니다.' },
+        en: { title: 'Step 2 · Remove etch by-products', path: 'Plasma reaction zone → pump port → turbo pump', why: 'Residual products can redeposit and cause contamination or non-uniform etching.' },
+        ja: { title: '第2段階 · エッチング副生成物を排出する', path: 'プラズマ反応部 → ポンプポート → ターボポンプ', why: '副生成物が残ると再付着し、汚染や不均一を生じます。' },
+      },
     },
-    'oxidation.oxidant': {
-      ko: { title: '1단계 · 산화제를 웨이퍼 표면까지 보냅니다', path: '가스 공급관 → 주입기 → 웨이퍼 적재부 → 배기구', why: '산화제가 웨이퍼 표면에서 반응해야 균일한 산화막이 성장합니다.' },
-      en: { title: 'Step 1 · Deliver oxidant to the wafer surface', path: 'Gas line → injector → wafer stack → exhaust', why: 'Uniform oxide grows when oxidant reaches and reacts at every wafer surface.' },
-      ja: { title: '第1段階 · 酸化剤をウェーハ表面へ送る', path: 'ガス供給管 → インジェクター → ウェーハスタック → 排気口', why: '酸化剤が各ウェーハ表面で反応すると均一な酸化膜が成長します。' },
+    deposition: {
+      sputter: {
+        ko: { title: '1단계 · 타깃 원자를 웨이퍼 위에 쌓습니다', path: '스퍼터 타깃 → 플라즈마 → 웨이퍼 받침대', why: '떨어져 나온 금속 원자가 웨이퍼에 도달해 얇은 막을 만듭니다.' },
+        en: { title: 'Step 1 · Deposit target atoms onto the wafer', path: 'Sputter target → plasma → wafer pedestal', why: 'Ejected target atoms reach the wafer and form a thin film.' },
+        ja: { title: '第1段階 · ターゲット原子をウェーハへ堆積する', path: 'スパッタターゲット → プラズマ → ウェーハ台', why: '放出された原子がウェーハへ到達し薄膜を形成します。' },
+      },
+      implant: {
+        ko: { title: '2단계 · 원하는 이온만 골라 웨이퍼에 넣습니다', path: '이온원 → 분석 자석 → 가속관 → 빔 스캐너 → 웨이퍼', why: '불순물 종류와 에너지를 제어해 전기적 특성을 만듭니다.' },
+        en: { title: 'Step 2 · Select and implant the required ions', path: 'Ion source → analyzer magnet → accelerator → scanner → wafer', why: 'Ion species and energy set the wafer electrical properties.' },
+        ja: { title: '第2段階 · 必要なイオンを選別して注入する', path: 'イオン源 → 分析磁石 → 加速管 → スキャナー → ウェーハ', why: 'イオン種とエネルギーを制御して電気特性を作ります。' },
+      },
     },
-    'oxidation.thermal': {
-      ko: { title: '2단계 · 노 내부 온도를 고르게 맞춥니다', path: '다중 존 히터 → 온도 센서 → 웨이퍼 영역', why: '온도 차이가 생기면 웨이퍼마다 산화막 두께가 달라집니다.' },
-      en: { title: 'Step 2 · Equalize furnace temperature', path: 'Multi-zone heater → temperature sensors → wafer zone', why: 'Temperature differences create wafer-to-wafer oxide thickness variation.' },
-      ja: { title: '第2段階 · 炉内温度を均一にする', path: '多ゾーンヒーター → 温度センサー → ウェーハ領域', why: '温度差があるとウェーハごとに酸化膜厚が変わります。' },
+    metal: {
+      plating: {
+        ko: { title: '1단계 · 배선 홈을 구리로 채웁니다', path: '직류 전원 → 구리 양극 → 도금액 → 웨이퍼', why: '구리 이온이 환원되어 비아와 트렌치 안을 채웁니다.' },
+        en: { title: 'Step 1 · Fill interconnect features with copper', path: 'DC supply → copper anode → plating bath → wafer', why: 'Copper ions are reduced to fill vias and trenches.' },
+        ja: { title: '第1段階 · 配線溝を銅で埋める', path: '直流電源 → 銅アノード → めっき液 → ウェーハ', why: '銅イオンが還元されビアとトレンチを埋めます。' },
+      },
+      cmp: {
+        ko: { title: '2단계 · 표면의 여분 구리를 평탄하게 제거합니다', path: '슬러리 암 → 웨이퍼 → 연마 패드 → 컨디셔너', why: '배선 홈 안의 구리만 남기고 다음 층을 만들 평면을 확보합니다.' },
+        en: { title: 'Step 2 · Planarize excess surface copper', path: 'Slurry arm → wafer → polishing pad → conditioner', why: 'Only copper in features remains, producing a flat surface for the next layer.' },
+        ja: { title: '第2段階 · 表面の余分な銅を平坦除去する', path: 'スラリーアーム → ウェーハ → 研磨パッド → コンディショナー', why: '配線溝内の銅だけを残し次層用の平面を作ります。' },
+      },
     },
-    'photo.optical': {
-      ko: { title: '1단계 · 회로 무늬를 빛으로 축소 전사합니다', path: '엑시머 레이저 → 레티클 → 투영 렌즈 → 웨이퍼', why: '레티클의 회로 패턴을 감광막 위에 정확히 인쇄합니다.' },
-      en: { title: 'Step 1 · Project the circuit pattern with light', path: 'Excimer laser → reticle → projection lens → wafer', why: 'The reticle pattern is accurately printed onto photoresist.' },
-      ja: { title: '第1段階 · 回路パターンを光で縮小転写する', path: 'エキシマレーザー → レチクル → 投影レンズ → ウェーハ', why: 'レチクルの回路パターンをレジスト上へ正確に転写します。' },
+    eds: {
+      signal: {
+        ko: { title: '1단계 · 칩에 시험 신호를 보내고 응답을 읽습니다', path: '테스트 헤드 → 포고핀 → 프로브 카드 → 니들 → 웨이퍼', why: '각 칩이 설계대로 전기적으로 동작하는지 판정합니다.' },
+        en: { title: 'Step 1 · Send test signals and read the response', path: 'Test head → pogo pins → probe card → needle → wafer', why: 'This determines whether each die operates electrically as designed.' },
+        ja: { title: '第1段階 · 試験信号を送り応答を読む', path: 'テストヘッド → ポゴピン → プローブカード → ニードル → ウェーハ', why: '各チップが設計どおり電気動作するか判定します。' },
+      },
+      contact: {
+        ko: { title: '2단계 · 프로브 니들이 패드와 안정적으로 접촉합니다', path: '프로브 니들 → 오버드라이브 → 스크럽 마크', why: '표면 산화막을 긁어내 낮은 접촉저항을 확보합니다.' },
+        en: { title: 'Step 2 · Make stable needle-to-pad contact', path: 'Probe needle → overdrive → scrub mark', why: 'Scrubbing breaks surface oxide and lowers contact resistance.' },
+        ja: { title: '第2段階 · ニードルをパッドへ安定接触させる', path: 'プローブニードル → オーバードライブ → スクラブ痕', why: '表面酸化膜を破り接触抵抗を下げます。' },
+      },
     },
-    'photo.track': {
-      ko: { title: '2단계 · 감광막을 만들고 현상합니다', path: 'HMDS → 스핀 코팅 → 베이크 → 냉각 → 현상', why: '노광 전후의 감광막 상태를 안정시켜 회로 모양을 남깁니다.' },
-      en: { title: 'Step 2 · Form and develop photoresist', path: 'HMDS → spin coat → bake → chill → develop', why: 'These steps stabilize resist before and after exposure and reveal the pattern.' },
-      ja: { title: '第2段階 · レジストを形成して現像する', path: 'HMDS → スピン塗布 → ベーク → 冷却 → 現像', why: '露光前後のレジストを安定させ回路形状を残します。' },
-    },
-    'etch.plasma': {
-      ko: { title: '1단계 · 플라즈마 이온으로 노출된 막을 제거합니다', path: '샤워헤드 → 플라즈마 → 시스 → 웨이퍼', why: '전기장으로 가속된 이온이 원하는 영역을 방향성 있게 깎습니다.' },
-      en: { title: 'Step 1 · Remove exposed film with plasma ions', path: 'Showerhead → plasma → sheath → wafer', why: 'Electric-field-accelerated ions etch selected areas directionally.' },
-      ja: { title: '第1段階 · プラズマイオンで露出膜を除去する', path: 'シャワーヘッド → プラズマ → シース → ウェーハ', why: '電界で加速されたイオンが選択領域を方向性よく削ります。' },
-    },
-    'etch.exhaust': {
-      ko: { title: '2단계 · 식각 부산물을 챔버 밖으로 뺍니다', path: '플라즈마 반응부 → 펌프 포트 → 터보 펌프', why: '부산물이 남으면 재부착되어 오염과 식각 불균일을 만듭니다.' },
-      en: { title: 'Step 2 · Remove etch by-products', path: 'Plasma reaction zone → pump port → turbo pump', why: 'Residual products can redeposit and cause contamination or non-uniform etching.' },
-      ja: { title: '第2段階 · エッチング副生成物を排出する', path: 'プラズマ反応部 → ポンプポート → ターボポンプ', why: '副生成物が残ると再付着し、汚染や不均一を生じます。' },
-    },
-    'deposition.sputter': {
-      ko: { title: '1단계 · 타깃 원자를 웨이퍼 위에 쌓습니다', path: '스퍼터 타깃 → 플라즈마 → 웨이퍼 받침대', why: '떨어져 나온 금속 원자가 웨이퍼에 도달해 얇은 막을 만듭니다.' },
-      en: { title: 'Step 1 · Deposit target atoms onto the wafer', path: 'Sputter target → plasma → wafer pedestal', why: 'Ejected target atoms reach the wafer and form a thin film.' },
-      ja: { title: '第1段階 · ターゲット原子をウェーハへ堆積する', path: 'スパッタターゲット → プラズマ → ウェーハ台', why: '放出された原子がウェーハへ到達し薄膜を形成します。' },
-    },
-    'deposition.implant': {
-      ko: { title: '2단계 · 원하는 이온만 골라 웨이퍼에 넣습니다', path: '이온원 → 분석 자석 → 가속관 → 빔 스캐너 → 웨이퍼', why: '불순물 종류와 에너지를 제어해 전기적 특성을 만듭니다.' },
-      en: { title: 'Step 2 · Select and implant the required ions', path: 'Ion source → analyzer magnet → accelerator → scanner → wafer', why: 'Ion species and energy set the wafer electrical properties.' },
-      ja: { title: '第2段階 · 必要なイオンを選別して注入する', path: 'イオン源 → 分析磁石 → 加速管 → スキャナー → ウェーハ', why: 'イオン種とエネルギーを制御して電気特性を作ります。' },
-    },
-    'metal.plating': {
-      ko: { title: '1단계 · 배선 홈을 구리로 채웁니다', path: '직류 전원 → 구리 양극 → 도금액 → 웨이퍼', why: '구리 이온이 환원되어 비아와 트렌치 안을 채웁니다.' },
-      en: { title: 'Step 1 · Fill interconnect features with copper', path: 'DC supply → copper anode → plating bath → wafer', why: 'Copper ions are reduced to fill vias and trenches.' },
-      ja: { title: '第1段階 · 配線溝を銅で埋める', path: '直流電源 → 銅アノード → めっき液 → ウェーハ', why: '銅イオンが還元されビアとトレンチを埋めます。' },
-    },
-    'metal.cmp': {
-      ko: { title: '2단계 · 표면의 여분 구리를 평탄하게 제거합니다', path: '슬러리 암 → 웨이퍼 → 연마 패드 → 컨디셔너', why: '배선 홈 안의 구리만 남기고 다음 층을 만들 평면을 확보합니다.' },
-      en: { title: 'Step 2 · Planarize excess surface copper', path: 'Slurry arm → wafer → polishing pad → conditioner', why: 'Only copper in features remains, producing a flat surface for the next layer.' },
-      ja: { title: '第2段階 · 表面の余分な銅を平坦除去する', path: 'スラリーアーム → ウェーハ → 研磨パッド → コンディショナー', why: '配線溝内の銅だけを残し次層用の平面を作ります。' },
-    },
-    'eds.signal': {
-      ko: { title: '1단계 · 칩에 시험 신호를 보내고 응답을 읽습니다', path: '테스트 헤드 → 포고핀 → 프로브 카드 → 니들 → 웨이퍼', why: '각 칩이 설계대로 전기적으로 동작하는지 판정합니다.' },
-      en: { title: 'Step 1 · Send test signals and read the response', path: 'Test head → pogo pins → probe card → needle → wafer', why: 'This determines whether each die operates electrically as designed.' },
-      ja: { title: '第1段階 · 試験信号を送り応答を読む', path: 'テストヘッド → ポゴピン → プローブカード → ニードル → ウェーハ', why: '各チップが設計どおり電気動作するか判定します。' },
-    },
-    'eds.contact': {
-      ko: { title: '2단계 · 프로브 니들이 패드와 안정적으로 접촉합니다', path: '프로브 니들 → 오버드라이브 → 스크럽 마크', why: '표면 산화막을 긁어내 낮은 접촉저항을 확보합니다.' },
-      en: { title: 'Step 2 · Make stable needle-to-pad contact', path: 'Probe needle → overdrive → scrub mark', why: 'Scrubbing breaks surface oxide and lowers contact resistance.' },
-      ja: { title: '第2段階 · ニードルをパッドへ安定接触させる', path: 'プローブニードル → オーバードライブ → スクラブ痕', why: '表面酸化膜を破り接触抵抗を下げます。' },
-    },
-    'packaging.bond': {
-      ko: { title: '1단계 · 칩 패드와 기판을 와이어로 연결합니다', path: '볼 형성 → 칩 패드 본드 → 와이어 루프 → 스티치 본드', why: '칩의 전기 신호가 패키지 단자로 이동할 길을 만듭니다.' },
-      en: { title: 'Step 1 · Connect die pads to the substrate', path: 'Ball formation → die-pad bond → wire loop → stitch bond', why: 'This creates the electrical path from the die to package terminals.' },
-      ja: { title: '第1段階 · チップパッドと基板をワイヤ接続する', path: 'ボール形成 → パッド接合 → ワイヤループ → ステッチ接合', why: 'チップ信号がパッケージ端子へ進む経路を作ります。' },
-    },
-    'packaging.wire': {
-      ko: { title: '2단계 · 와이어를 공급하며 초음파로 접합합니다', path: '와이어 클램프 → 초음파 변환기 → 캐필러리 → 본드 패드', why: '압력·열·초음파 에너지로 금속 사이의 접합을 만듭니다.' },
-      en: { title: 'Step 2 · Feed wire and bond it ultrasonically', path: 'Wire clamp → ultrasonic transducer → capillary → bond pad', why: 'Pressure, heat and ultrasonic energy create the metal bond.' },
-      ja: { title: '第2段階 · ワイヤを供給し超音波接合する', path: 'ワイヤクランプ → 超音波変換器 → キャピラリ → ボンドパッド', why: '圧力・熱・超音波エネルギーで金属接合を作ります。' },
+    packaging: {
+      bond: {
+        ko: { title: '1단계 · 칩 패드와 기판을 와이어로 연결합니다', path: '볼 형성 → 칩 패드 본드 → 와이어 루프 → 스티치 본드', why: '칩의 전기 신호가 패키지 단자로 이동할 길을 만듭니다.' },
+        en: { title: 'Step 1 · Connect die pads to the substrate', path: 'Ball formation → die-pad bond → wire loop → stitch bond', why: 'This creates the electrical path from the die to package terminals.' },
+        ja: { title: '第1段階 · チップパッドと基板をワイヤ接続する', path: 'ボール形成 → パッド接合 → ワイヤループ → ステッチ接合', why: 'チップ信号がパッケージ端子へ進む経路を作ります。' },
+      },
+      wire: {
+        ko: { title: '2단계 · 와이어를 공급하며 초음파로 접합합니다', path: '와이어 클램프 → 초음파 변환기 → 캐필러리 → 본드 패드', why: '압력·열·초음파 에너지로 금속 사이의 접합을 만듭니다.' },
+        en: { title: 'Step 2 · Feed wire and bond it ultrasonically', path: 'Wire clamp → ultrasonic transducer → capillary → bond pad', why: 'Pressure, heat and ultrasonic energy create the metal bond.' },
+        ja: { title: '第2段階 · ワイヤを供給し超音波接合する', path: 'ワイヤクランプ → 超音波変換器 → キャピラリ → ボンドパッド', why: '圧力・熱・超音波エネルギーで金属接合を作ります。' },
+      },
     },
   };
   const language: 'ko' | 'en' | 'ja' = lang === 'ko' || lang === 'ja' ? lang : 'en';
-  const guide = guides[`${processId}.${id}`]?.[language] ?? guides['wafer.argon']![language];
+  const guide = guides[processId]?.[id]?.[language] ?? guides.wafer!.argon![language];
   return {
     ...guide,
     pathLabel: language === 'ko' ? '보는 순서:' : language === 'ja' ? '見る順序：' : 'Follow:',

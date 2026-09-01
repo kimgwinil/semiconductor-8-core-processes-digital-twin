@@ -66,7 +66,8 @@ function glslFloat(v: number): string {
  *    왼쪽 아래는 4단계 사이클 타임라인 + 재생 헤드다. **글자·숫자는 그리지 않는다**(DOM 라벨 담당).
  */
 export const ALD_CYCLE_FS = `${FRAG_HEAD}
-uniform vec3 uBg;
+/* 🔴 uBg(페이지 바탕)를 더 쓰지 않는다 — 아래 「배경을 칠하지 않는다」 주석 참조(2026-09-01).
+   유니폼 선언과 TS 쪽 배선을 **같이** 걷어냈다(한쪽만 남기면 조용히 죽은 배선이 된다). */
 uniform vec3 uInk;
 uniform vec3 uSpec;
 uniform vec3 uInfo;
@@ -122,6 +123,42 @@ const float TL_Y1 = 0.125;
    그래서 사이클을 올렸는데 막이 얇아지는 구간이 생겼다(D-5b). */
 float aldFilmTop() { return ALD_SUB_TOP + uFilmH; }
 
+/* ═══ 🔴 **배경을 칠하지 않는다 — 뒤의 실사 장비 사진이 비쳐야 한다.**
+   (2026-09-01 · 근거: DSN 스레드 §S8-3 「계열 II 15칸이 전면을 불투명하게 덮는다」 ·
+    선례 src/viz/gl/scenes/filmGrowth.ts 160~215행 — 2026-08-22 에 같은 결함을 이미 한 번 고쳤다)
+
+   종전에는 패널마다 vec3 col = uBg 로 시작해 화면 전체를 페이지 바탕색으로 채우고
+   마지막에 vec4(col, 1.0) 으로 내보냈다. 그래서 common.ts 의 clear() 가 투명하게 지워 놓은 것을
+   셰이더가 **불투명하게 덮어썼다** — 실측(2026-09-01 · 320x200 dpr 1 · dark):
+   빈 자리(알파 8/255 이하) 면적 **0.0 %**, 꽉 찬 자리 **100.0 %**.
+   그 상태에서 CSS opacity 를 낮추면 「겹침」이 아니라 **「사진↔도해 크로스페이드」**가 되어
+   도해도 사진도 제대로 안 보인다. 여기서는 **그린 것에만 커버리지**를 주고 나머지는 알파 0 이다.
+
+   🔴 컨텍스트는 premultipliedAlpha: true 다(src/viz/gl/context.ts 121행). 아래 두 함수는
+      「색 × 커버리지」로 누적하므로 결과가 **이미 프리멀티플라이드**이며 그대로 내보내면 된다.
+
+   🔴 **무엇을 배경으로 판정했는가(넷뿐이다):**
+      ① 패널 바깥 여백(main 의 else 가지) ② 챔버 패널의 기상 공간
+      ③ 계단 그래프 패널의 판때기 ④ 포화 곡선 인셋의 판때기.
+   🟢 **지우지 않은 것:** 전구체 A/B 가스·부산물 점(물리적으로 의미 있는 요소라 알파만 줬다) ·
+      기판 · 층 · 흡착 자리 · 계단/격자/축 · 온도창 막대 · 사이클 타임라인.
+   🔵 판때기(③④)를 없앤 근거: 이미 계열 I 인 차트 씬이 판때기 없이 축·격자를 바로 그린다
+      (probeScrub.ts 225행 vec4 dst = vec4(0.0) · moistureSoak.ts 123행 col/a 누적).
+      저장소 관례를 따랐다. **색은 한 성분도 바꾸지 않았다 — 알파만 도입했다.** ═══ */
+
+/** 불투명 색 c 를 커버리지 k 로 덮어 얹는다(over 합성 · 프리멀티플라이드). */
+void over(inout vec4 dst, vec3 c, float k) {
+  float m = clamp(k, 0.0, 1.0);
+  dst.rgb = dst.rgb * (1.0 - m) + c * m;
+  dst.a = dst.a * (1.0 - m) + m;
+}
+/** 빛나는 요소를 세기 k 로 더한다(종전 col += 자리 · filmGrowth 179~180행과 같은 형태). */
+void plus(inout vec4 dst, vec3 c, float k) {
+  float m = clamp(k, 0.0, 1.0);
+  dst.rgb += c * m;
+  dst.a = clamp(dst.a + m, 0.0, 1.0);
+}
+
 // 기상 분자 점: 셀 해시로 흩뿌리고 시간에 따라 흘린다. density 가 0 이면 사라진다.
 float aldGasDots(vec2 uv, float density, float scale, float drift, float seed) {
   if (density <= 0.001) return 0.0;
@@ -133,8 +170,8 @@ float aldGasDots(vec2 uv, float density, float scale, float drift, float seed) {
   return on * (1.0 - smoothstep(0.12, 0.30, length(f)));
 }
 
-vec3 chamberPanel(vec2 uv) {
-  vec3 col = uBg;
+vec4 chamberPanel(vec2 uv) {
+  vec4 dst = vec4(0.0);   // 🔴 기상 공간은 비운다 — 종전 vec3 col = uBg 자리
   float filmTop = aldFilmTop();
 
   vec3 substrate = mix(vec3(0.19, 0.21, 0.25), vec3(0.28, 0.31, 0.36), fbm(vec2(uv.x * 40.0, uv.y * 40.0)));
@@ -143,26 +180,27 @@ vec3 chamberPanel(vec2 uv) {
   vec3 colB = vec3(0.38, 0.86, 0.66);
 
   // 기상 분자(전구체 A / B / 부산물) — 퍼지 단계에서 밀도가 0 으로 빠진다
+  // 🔴 지우지 않았다. 물리적으로 의미 있는 요소라 **알파만** 줬다(빈 자리로 판정하지 않는다).
   float gasZone = step(filmTop + 0.01, uv.y) * bandMask(uv.x, XA0 - 0.02, XA1 + 0.02);
-  col += colA * aldGasDots(uv, uGasA, 46.0, -0.55, 0.0) * gasZone * 0.95;
-  col += colB * aldGasDots(uv, uGasB, 46.0, -0.55, 17.0) * gasZone * 0.95;
-  col += vec3(0.72, 0.74, 0.80) * aldGasDots(uv, uByproduct, 70.0, 0.9, 41.0) * gasZone * 0.6;
+  plus(dst, colA, aldGasDots(uv, uGasA, 46.0, -0.55, 0.0) * gasZone * 0.95);
+  plus(dst, colB, aldGasDots(uv, uGasB, 46.0, -0.55, 17.0) * gasZone * 0.95);
+  plus(dst, vec3(0.72, 0.74, 0.80), aldGasDots(uv, uByproduct, 70.0, 0.9, 41.0) * gasZone * 0.6);
 
   // 기판
   float inSub = bandMask(uv.y, SUB_BOT, ALD_SUB_TOP) * bandMask(uv.x, XA0 - 0.02, XA1 + 0.02);
-  col = mix(col, substrate, inSub);
+  over(dst, substrate, inSub);
 
   // 사이클마다 한 겹 — 층 경계선이 계단 그래프의 계단 수와 일치한다
   float inFilm = bandMask(uv.y, ALD_SUB_TOP, filmTop) * bandMask(uv.x, XA0 - 0.02, XA1 + 0.02);
   float h = uv.y - ALD_SUB_TOP;
   float li = uLayerH > 1e-5 ? h / uLayerH : 0.0;
   float partial = step(uCycleN, li);                 // 진행 중인 맨 위 층
-  col = mix(col, filmCol * (0.85 + 0.30 * fbm(vec2(uv.x * 60.0, uv.y * 90.0))), inFilm);
-  col = mix(col, colB * 0.75, inFilm * partial * 0.55);
+  over(dst, filmCol * (0.85 + 0.30 * fbm(vec2(uv.x * 60.0, uv.y * 90.0))), inFilm);
+  over(dst, colB * 0.75, inFilm * partial * 0.55);
   float fl = fract(li);
   float lamina = (uLayerH * uRes.y > 3.0) ? lineMask(min(fl, 1.0 - fl), 0.055) : 0.0;
-  col += vec3(0.80, 0.90, 1.00) * lamina * inFilm * 0.55;
-  col += vec3(1.0) * lineMask(uv.y - filmTop, 0.0016) * bandMask(uv.x, XA0 - 0.02, XA1 + 0.02) * 0.6;
+  plus(dst, vec3(0.80, 0.90, 1.00), lamina * inFilm * 0.55);
+  plus(dst, vec3(1.0), lineMask(uv.y - filmTop, 0.0016) * bandMask(uv.x, XA0 - 0.02, XA1 + 0.02) * 0.6);
 
   // 표면 흡착 자리 — 점유율이 uAdsorbed. 포화 상한(uSatCov) 이상은 절대 안 붙는다(자기제한)
   float siteW = (XA1 - XA0) / NSITE;
@@ -173,27 +211,30 @@ vec3 chamberPanel(vec2 uv) {
   float occupied = step(hash11(idx * 1.37 + 3.0), uAdsorbed);
   float inRange = bandMask(uv.x, XA0, XA1);
   float bump = (1.0 - smoothstep(r * 0.72, r, d)) * occupied * inRange;
-  col = mix(col, mix(colA, colB, uReacted), bump);
+  over(dst, mix(colA, colB, uReacted), bump);
 
   // 포화 곡선 인셋: 노출량↑ → 흡착률이 평탄해진다(더 넣어도 안 는다)
   float ix0 = 0.31, ix1 = 0.51, iy0 = 0.76, iy1 = 0.92;
   float inInset = bandMask(uv.x, ix0, ix1) * bandMask(uv.y, iy0, iy1);
   if (inInset > 0.5) {
-    col = uBg;
+    /* 🔴 인셋 안은 챔버 그림을 지운다 — 종전 col = uBg 와 **같은 자리**이며 판때기만 없앴다.
+       (인셋 밖으로 새는 그림이 없어야 곡선이 읽힌다. 지우는 범위는 종전과 한 픽셀도 다르지 않다.) */
+    dst = vec4(0.0);
     float gx = (uv.x - ix0) / (ix1 - ix0);
     float gy = (uv.y - iy0) / (iy1 - iy0);
     float curve = 1.0 - exp(-${glslFloat(SAT_K)} * gx);
-    col = mix(col, uS1, clamp(lineMask(gy - curve, 0.035) * 0.95, 0.0, 1.0));
-    col = mix(col, uInfo, clamp(lineMask(gx - uSaturation, 0.010) * 0.85, 0.0, 1.0));
-    col = mix(col, uSpec, clamp(lineMask(gy - uSatCov, 0.012) * 0.55, 0.0, 1.0));   // 도달한 포화 상한
-    col = mix(col, uInk, clamp((lineMask(gy, 0.012) + lineMask(gx, 0.012)) * 0.6, 0.0, 1.0));
+    over(dst, uS1, clamp(lineMask(gy - curve, 0.035) * 0.95, 0.0, 1.0));
+    over(dst, uInfo, clamp(lineMask(gx - uSaturation, 0.010) * 0.85, 0.0, 1.0));
+    over(dst, uSpec, clamp(lineMask(gy - uSatCov, 0.012) * 0.55, 0.0, 1.0));   // 도달한 포화 상한
+    over(dst, uInk, clamp((lineMask(gy, 0.012) + lineMask(gx, 0.012)) * 0.6, 0.0, 1.0));
   }
-  return col;
+  return dst;
 }
 
 // 계단 그래프: x = 사이클, y = 두께. 계단 모서리가 직선 위에 얹히면 선형이다.
-vec3 stairPanel(vec2 uv) {
-  vec3 col = uBg;
+// 🔴 판때기(종전 vec3 col = uBg)를 걷어냈다 — 격자·축·계단만 그린다(계열 I 차트 씬 관례).
+vec4 stairPanel(vec2 uv) {
+  vec4 dst = vec4(0.0);
   float gx = (uv.x - PX0) / (PX1 - PX0);
   float gy = (uv.y - PY0) / (PY1 - PY0);
   float c = gx * CYCLE_MAX;
@@ -204,7 +245,7 @@ vec3 stairPanel(vec2 uv) {
   float fg = fract(gy * 5.0);
   float gv = lineMask(min(fc, 1.0 - fc), 0.012);
   float gh = lineMask(min(fg, 1.0 - fg), 0.012);
-  col = mix(col, uInfo, clamp((gv + gh), 0.0, 1.0));
+  over(dst, uInfo, clamp((gv + gh), 0.0, 1.0));
 
   // 계단: c 사이클 시점의 두께. 진행 중인 사이클은 부분 높이로 올라간다
   float k = floor(c);
@@ -212,27 +253,29 @@ vec3 stairPanel(vec2 uv) {
   if (c < uCycleN) v = (k + 1.0) * uLayerH / yMax;
   else if (c < uCycleN + 1.0) v = uFilmH / yMax;   // 진행 중인 맨 위 계단 = 실제 막 두께
   float has = step(0.0, v);
-  col = mix(col, uS1, has * step(gy, v) * 0.85);
-  col = mix(col, uS1, clamp(has * lineMask(gy - v, 0.005) * 0.95, 0.0, 1.0));
+  over(dst, uS1, has * step(gy, v) * 0.85);
+  over(dst, uS1, clamp(has * lineMask(gy - v, 0.005) * 0.95, 0.0, 1.0));
 
   // 이상 선형선(원점에서 뻗은 직선, 기울기 = 사이클당 성장) — 계단 위에 겹쳐 그려
   // **계단 모서리가 이 직선 위에 정확히 얹히는 것**을 보게 한다. ALD 선형성의 증거다.
   float lin = c * uLayerH / yMax;
   float dash = step(0.5, fract(gx * 42.0));
-  col = mix(col, uInfo, clamp(lineMask(gy - lin, 0.006) * dash * 1.1, 0.0, 1.0));
+  over(dst, uInfo, clamp(lineMask(gy - lin, 0.006) * dash * 1.1, 0.0, 1.0));
 
   // 현재 두께 수평 점선 — 왼쪽 단면의 막 상단과 같은 값이다
   float cur = uFilmH / yMax;
   float dash2 = step(0.5, fract(gx * 30.0));
-  col = mix(col, uS2, clamp(lineMask(gy - cur, 0.004) * dash2 * 0.65, 0.0, 1.0));
+  over(dst, uS2, clamp(lineMask(gy - cur, 0.004) * dash2 * 0.65, 0.0, 1.0));
 
   // 축
-  col = mix(col, uInk, clamp((lineMask(gy, 0.006) + lineMask(gx, 0.006)) * 0.8, 0.0, 1.0));
-  return col;
+  over(dst, uInk, clamp((lineMask(gy, 0.006) + lineMask(gx, 0.006)) * 0.8, 0.0, 1.0));
+  return dst;
 }
 
 // 온도창 막대: 저온 이탈대 / 창 / 고온 이탈대 3구간 + 현재 위치 마커. 숫자·글자 없음(U-8).
-vec3 tempBar(vec2 uv) {
+// 🔴 이 막대 자체가 **그린 것**이다(배경이 아니다) — 막대 안은 종전대로 불투명(알파 1)이고,
+//    막대 밖은 main 이 알파 0 으로 남긴다.
+vec4 tempBar(vec2 uv) {
   float g = (uv.x - PX0) / (PX1 - PX0);
   // 🔴 전이 구간은 TS 상수에서 그대로 박아 넣는다 — 손으로 적으면 temperatureWindow() 와 조용히 갈린다.
   float win = smoothstep(${glslFloat(TEMP_RAMP_LO[0])}, ${glslFloat(TEMP_RAMP_LO[1])}, g) * (1.0 - smoothstep(${glslFloat(TEMP_RAMP_HI[0])}, ${glslFloat(TEMP_RAMP_HI[1])}, g));
@@ -241,12 +284,14 @@ vec3 tempBar(vec2 uv) {
   vec3 col = mix(bad, good, win);
   float hatch = step(0.5, fract((uv.x * 60.0 + uv.y * 60.0)));
   col = mix(col, col * 0.55, (1.0 - win) * hatch * 0.7);
-  col = mix(col, uInk, clamp(lineMask(g - uTemperature, 0.010) * 0.95, 0.0, 1.0));
-  return col;
+  vec4 dst = vec4(col, 1.0);   // 알파 1 = 프리멀티플라이드 상태에서 rgb 는 그대로다
+  over(dst, uInk, clamp(lineMask(g - uTemperature, 0.010) * 0.95, 0.0, 1.0));
+  return dst;
 }
 
 // 사이클 타임라인: 전구체A · 퍼지 · 전구체B · 퍼지 4구간 + 재생 헤드.
-vec3 timeline(vec2 uv) {
+// 🔴 tempBar 와 같다 — 이 막대 자체가 그린 것이므로 막대 안은 불투명하게 남긴다.
+vec4 timeline(vec2 uv) {
   float g = (uv.x - 0.03) / (0.53 - 0.03);
   float seg = floor(clamp(g, 0.0, 0.9999) * 4.0);
   vec3 colA = uS1;
@@ -257,38 +302,41 @@ vec3 timeline(vec2 uv) {
   float segOn = step(abs(seg - floor(clamp(uPhase, 0.0, 0.9999) * 4.0)), 0.1);   // 'active' 는 GLSL 예약어다
   col *= (0.6 + 0.9 * segOn);
   float fs = fract(g * 4.0);
-  col = mix(col, uInk, clamp(lineMask(min(fs, 1.0 - fs), 0.02), 0.0, 1.0));
-  col = mix(col, uInk, clamp(lineMask(g - uPhase, 0.006) * 0.95, 0.0, 1.0));
-  return col;
+  vec4 dst = vec4(col, 1.0);
+  over(dst, uInk, clamp(lineMask(min(fs, 1.0 - fs), 0.02), 0.0, 1.0));
+  over(dst, uInk, clamp(lineMask(g - uPhase, 0.006) * 0.95, 0.0, 1.0));
+  return dst;
 }
 
 void main() {
   vec2 uv = vUv;
-  vec3 col;
+  vec4 dst;
   if (uv.x > 0.57) {
-    if (uv.y > PY0 - 0.02 && uv.y < PY1 + 0.02 && uv.x > PX0 - 0.02 && uv.x < PX1 + 0.02) col = stairPanel(uv);
-    else if (uv.y > TB_Y0 && uv.y < TB_Y1 && uv.x > PX0 && uv.x < PX1) col = tempBar(uv);
-    else col = uBg;
+    if (uv.y > PY0 - 0.02 && uv.y < PY1 + 0.02 && uv.x > PX0 - 0.02 && uv.x < PX1 + 0.02) dst = stairPanel(uv);
+    else if (uv.y > TB_Y0 && uv.y < TB_Y1 && uv.x > PX0 && uv.x < PX1) dst = tempBar(uv);
+    else dst = vec4(0.0);   // 🔴 패널 바깥 여백 = 배경. 비운다(종전 col = uBg 자리)
   } else {
-    if (uv.y > TL_Y0 && uv.y < TL_Y1 && uv.x > 0.03 && uv.x < 0.53) col = timeline(uv);
-    else col = chamberPanel(uv);
+    if (uv.y > TL_Y0 && uv.y < TL_Y1 && uv.x > 0.03 && uv.x < 0.53) dst = timeline(uv);
+    else dst = chamberPanel(uv);
   }
-  col = mix(col, uInk, clamp(lineMask(uv.x - 0.565, 0.0012) * 0.7, 0.0, 1.0));
+  over(dst, uInk, clamp(lineMask(uv.x - 0.565, 0.0012) * 0.7, 0.0, 1.0));
 
   // 성장률이 무너지면 화면 전체가 식는다. 🔴 uGpc 는 **성장률**이지 온도창 계수가 아니다 —
   // 온도창 이탈은 아래 온도 막대의 마커 위치·색이 말한다(두 개는 별개의 사실이다).
-  col *= 0.55 + 0.45 * clamp(uGpc, 0.0, 1.0);
+  // 🔴 감쇠·비네팅은 **그려진 것에만** 건다(rgb 만 곱한다) — 배경을 어둡게 만들지 않는다.
+  //    프리멀티플라이드에서 rgb 에만 곱해도 rgb <= a 가 유지되므로 합성이 깨지지 않는다.
+  dst.rgb *= 0.55 + 0.45 * clamp(uGpc, 0.0, 1.0);
 
   float vig = smoothstep(1.15, 0.35, length((uv - 0.5) * vec2(uRes.x / max(uRes.y, 1.0), 1.0)));
-  col *= 0.80 + 0.20 * vig;
-  fragColor = vec4(col, 1.0);
+  dst.rgb *= 0.80 + 0.20 * vig;
+  fragColor = dst;
 }
 `;
 
 interface Uniforms {
   res: WebGLUniformLocation | null;
   time: WebGLUniformLocation | null;
-  bg: WebGLUniformLocation | null;
+  /* 🔴 bg 는 없앴다(2026-09-01) — 셰이더가 배경을 칠하지 않으므로 uBg 를 안 쓴다. */
   ink: WebGLUniformLocation | null;
   spec: WebGLUniformLocation | null;
   info: WebGLUniformLocation | null;
@@ -332,7 +380,6 @@ export function createScene(): Scene {
       u = {
         res: gl.uniform(prog, 'uRes'),
         time: gl.uniform(prog, 'uTime'),
-        bg: gl.uniform(prog, 'uBg'),
         ink: gl.uniform(prog, 'uInk'),
         spec: gl.uniform(prog, 'uSpec'),
         info: gl.uniform(prog, 'uInfo'),
@@ -367,7 +414,6 @@ export function createScene(): Scene {
 
       // 🔴 매 draw 마다 다시 읽는다 — 캐시하면 테마 전환 뒤 옛 색이 남는다.
       const pal = readVizPalette(ctx.canvas);
-      set3(gl, u.bg, pal.bg, pal.bg);
       set3(gl, u.ink, pal.ink, pal.ink);
       set3(gl, u.spec, pal.spec, pal.ink);
       set3(gl, u.info, pal.info, pal.ink);

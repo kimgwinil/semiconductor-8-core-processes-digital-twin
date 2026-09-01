@@ -4,7 +4,7 @@
 // check-guard-naming → check-labs → check-grades → check-wiring → check-chart-series → check-fallback-purity →
 // check-passwindow →
 // check-live-judgment → check-constants → check-scene-constants → check-glsl-compile → check-test-formulas →
-// check-i18n → check-questions → check-coverage → check-ledger-parity → check-assets → check-direction → check-a12c →
+// check-i18n → check-questions → check-coverage → check-ledger-parity → check-assets → check-a11 → check-direction → check-a12c →
 // tsc --noEmit → vitest run → check-bundle(dist 있을 때만) →
 // check-overflow(하드 게이트 — playwright-core + 시스템 Chrome) → check-collision(계측 전용) → check-a6b.
 // --skip-build 로 tsc/vitest 를 건너뛴다(스크립트만 빠르게 확인할 때 사용).
@@ -109,6 +109,15 @@ const skipBuild = process.argv.includes('--skip-build');
  *   │                        │              │    「통과」가 아니다). 2 = 원장·문항   │
  *   │                        │              │    파일을 못 읽음.                    │
  *   │ check-assets           │ 0 1          │ CODES.BINARY                        │
+ *   │ check-a11              │ 0 1 2        │ CODES.WITH_ERROR  ← 2 = 계측 실패    │
+ *   │                        │              │ 🔴 2026-09-01 신설. A11(공정-이미지   │
+ *   │                        │              │    정합성) 을 재는 유일한 게이트.     │
+ *   │                        │              │    원장 07 과 출하 자산 트리를 대조.  │
+ *   │                        │              │    1 = 검사 ID 별 기준선 초과(악화) 또는│
+ *   │                        │              │    승격일 경과. 2 = 원장·자산 트리를  │
+ *   │                        │              │    못 읽음 / 원장 서식이 바뀌어 자산  │
+ *   │                        │              │    표를 못 찾음(「재지 못했다」).      │
+ *   │                        │              │    🔴 3·4 는 쓰지 않는다.             │
  *   │ check-direction        │ 0 1 2        │ CODES.WITH_ERROR  ← 2 = 게이트 버그  │
  *   │                        │              │ 🔴 2026-08-22 — V2(A12 커버리지)는    │
  *   │                        │              │    비차단 강등. V1·V3~V5·M1~M5 차단.  │
@@ -339,6 +348,25 @@ step('check-coverage', () => runNode('check-coverage.mjs', CODES.WITH_ERROR));
  *   🔴 2 = 계측 실패(원장·문항 파일 적재 실패)다. 판정 실패가 아니므로 WITH_ERROR 를 넘긴다. */
 step('check-ledger-parity', () => runNode('check-ledger-parity.mjs', CODES.WITH_ERROR));
 step('check-assets', () => runNode('check-assets.mjs'));
+/* 🔴 **A11(공정-이미지 정합성)을 재는 유일한 게이트.** (2026-09-01 신설)
+ *   `check-assets` 바로 뒤에 둔다. 같은 자산을 보되 **묻는 것이 다르다**:
+ *     · check-assets : 「그 파일이 **있고 규격에 맞는가**」(용량·라벨 ≥8·PROVENANCE 항목 존재)
+ *                      — 스스로 머리주석에 **「A4·A8·§14-3·§14-4」** 라 적었고 A11 을 주장하지 않는다.
+ *                        **정합성 원장(`07_정합성원장.md`)을 열지 않는다.**
+ *     · check-a11    : 「그 이미지가 **원장에 등재됐고 · 독립된 사람이 판정했고 · 합격인가**」 ← 여기
+ *   이 축이 비어 있어서 다음 둘이 통째로 사각지대였다:
+ *     ① 원장에 **등재조차 되지 않은** 이미지 30건이 출하 트리에 있는 것
+ *     ② 원장이 **「반려」라 적어 둔** 자산 8건이 그대로 출하 트리에 있는 것
+ *   그리고 원장 §1 이 *"제작자와 검수자가 같으면 CI 실패"* 라 적어 둔 규칙이
+ *   **어디에도 구현돼 있지 않았다**(`check-assets.mjs:28` 의 `hasFilledSection()` 은 공백만 본다).
+ *
+ *   🔴 **도입기에는 기준선 래칫으로 돈다** — 실측치를 기준선으로 박아 **악화만** 막는다.
+ *      기준선 정본은 `check-a11.mjs` 의 `DEFAULT_BASELINE`(도입일 2026-09-01 실측치).
+ *      원장 등재·판정은 **DSN 소관**이며 이 게이트는 세기만 한다.
+ *      🔴 **기준선을 올려 초록으로 만들지 마라**(D-041 — 기준을 결과에 맞춰 옮김).
+ *   🔴 2 = 계측 실패(원장·자산 트리 적재 실패, 원장 서식 변경)다. 판정 실패가 아니므로
+ *      WITH_ERROR 를 넘긴다. */
+step('check-a11', () => runNode('check-a11.mjs', CODES.WITH_ERROR));
 // 🔴 check-direction 은 2 = 「게이트 버그」(활성 공정 해석 실패)를 낸다 — 판정 실패가 아니다.
 step('check-direction', () => runNode('check-direction.mjs', CODES.WITH_ERROR));
 /* 🔴 **A12 판정의 정본 게이트.** (2026-08-22 신설 → 같은 날 차단 게이트로 전환)

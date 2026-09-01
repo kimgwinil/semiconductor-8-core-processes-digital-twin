@@ -41,7 +41,7 @@
        🔴 `common.ts` 의 리터럴 폴백은 **아래 라이트 값과 같은 값**으로 맞춰 둔다. 한쪽만 고치지 마라.
 
        · `--viz-series-N` = **데이터 계열** 팔레트(6색). 빨강은 **일부러 뺐다** — 규격선 전용이다.
-       · `--viz-spec` = 규격선(합격창 경계). PLN `03_실습3단계명세.md` 476행 「수평 빨간 파선」.
+       · `--viz-spec` = 규격선(합격창 경계). PLN `03_실습3단계명세.md` 「규격 하한선(수평 빨간 파선, 상단값의 70 %)」.
        · `--viz-info` = 참고선(`tone: 'info'`). 판정 경계가 아니므로 채도를 죽인 슬레이트.
        대비는 `--bg`(#f7f8fa)·`--surface`(#ffffff) 기준 전부 4.3:1 이상으로 잡았다
        (WCAG 1.4.11 비문자 요소 3:1 을 여유 있게 넘긴다). 종전 폴백 `#2fbf9b` 는 2.18:1 이었다. */
@@ -607,7 +607,7 @@
     .choice__opt:hover { border-color: var(--accent); }
   }
 
-  /* 🔴 고정 조건 카드 — 명세 949행 「화면 우측 조건 카드에 상시 표시」.
+  /* 🔴 고정 조건 카드 — PLN 명세 「고정값(화면 우측 조건 카드에 상시 표시)」.
      조작 패널(우측 열) 안 슬라이더 아래에 앉는다. 고정 조건이 없는 칸에는 이 DOM 이 없다. */
   .fixedCard { margin-block-start: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-2); }
   .fixedCard__head { font-size: 13px; }

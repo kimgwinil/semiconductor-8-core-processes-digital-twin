@@ -57,8 +57,9 @@ const PROFILE_SEGMENTS = 160;
 export const ION_BG_FS = `${FRAG_HEAD}
 uniform float uEnergy;
 uniform sampler2D uSubstrateTex;
-/* 🔴 색은 CSS 토큰(--bg · --ink · --viz-info)에서 읽어 유니폼으로 들어온다 — 라이트/다크를 따라간다. */
-uniform vec3 uBg;
+/* 🔴 색은 CSS 토큰(--ink · --viz-info)에서 읽어 유니폼으로 들어온다 — 라이트/다크를 따라간다.
+   🔴 uBg(페이지 바탕)는 2026-09-01 에 없앴다 — 아래 「배경을 칠하지 않는다」 주석 참조.
+      유니폼 선언과 TS 배선을 **같이** 걷어냈다(한쪽만 남기면 조용히 죽은 배선이 된다). */
 uniform vec3 uInk;
 uniform vec3 uInfo;
 ${NOISE_GLSL}
@@ -92,9 +93,33 @@ const vec3 MEAN_SI = ${texMeanGLSL('silicon-surface')};
    (threads/parts/TEX_SUBSTRATE-정본화.md §5 — 색 조정은 DSN 소관이라 여기서 정하지 않았다). */
 const vec3 ION_SUBSTRATE_COLOR = vec3(0.20, 0.22, 0.275);
 
+/* ═══ 🔴 **배경을 칠하지 않는다 — 뒤의 실사 장비 사진이 비쳐야 한다.**
+   (2026-09-01 · 근거: DSN 스레드 §S8-3 「계열 II 15칸이 전면을 불투명하게 덮는다」 ·
+    선례 src/viz/gl/scenes/filmGrowth.ts 160~215행 — 2026-08-22 에 같은 결함을 이미 한 번 고쳤다)
+
+   종전에는 vec3 col = uBg 로 화면 전체를 페이지 바탕색으로 채우고 vec4(col, 1.0) 으로 내보내,
+   common.ts 의 clear() 가 투명하게 지워 놓은 것을 **불투명하게 덮어썼다.**
+   실측(2026-09-01 · 320x200 dpr 1 · dark): 빈 자리(알파 8/255 이하) 면적 **0.0 %**.
+
+   🔴 컨텍스트는 premultipliedAlpha: true 다(src/viz/gl/context.ts 121행). over() 는
+      「색 × 커버리지」로 누적하므로 결과가 **이미 프리멀티플라이드**이며 그대로 내보내면 된다.
+
+   🔴 **무엇을 배경으로 판정했는가:** 두 패널 **바깥의 진공/여백**뿐이다.
+   🟢 **커버리지를 준 것:** 기판 단면(좌) · 표면선 · 깊이 눈금 · 프로파일 패널의 두 축 · Rp 표시선.
+      이온 점(ION_PARTICLE_FS)과 농도 프로파일 리본(ION_PROFILE_FS)은 **별개 프로그램**이라
+      여기서 손대지 않았다 — 두 프로그램의 블렌딩은 draw() 쪽 주석을 보라.
+      **색은 한 성분도 바꾸지 않았다 — 알파만 도입했다.** ═══ */
+
+/** 불투명 색 c 를 커버리지 k 로 덮어 얹는다(over 합성 · 프리멀티플라이드). */
+void over(inout vec4 dst, vec3 c, float k) {
+  float m = clamp(k, 0.0, 1.0);
+  dst.rgb = dst.rgb * (1.0 - m) + c * m;
+  dst.a = dst.a * (1.0 - m) + m;
+}
+
 void main() {
   vec2 uv = vUv;
-  vec3 col = uBg;
+  vec4 dst = vec4(0.0);   // 🔴 배경 없음 — 종전 vec3 col = uBg 자리
 
   float inLeft = bandMask(uv.x, PANEL_L0, PANEL_L1);
   float inRight = bandMask(uv.x, PANEL_R0, PANEL_R1);
@@ -104,25 +129,25 @@ void main() {
   vec2 tuv = vec2(uv.x * (uRes.x / max(uRes.y, 1.0)), uv.y);
   float sub = step(uv.y, SURFACE_Y) * inLeft * step(SURFACE_Y - DEPTH_SPAN - 0.08, uv.y);
   vec3 subCol = ION_SUBSTRATE_COLOR * albedoDetail(texture(uSubstrateTex, tuv * ION_SUB_TEX_UV).rgb, MEAN_SI);
-  col = mix(col, subCol, sub);
-  col = mix(col, uInk, clamp(lineMask(uv.y - SURFACE_Y, 0.0016) * inLeft * 0.9, 0.0, 1.0));
+  over(dst, subCol, sub);
+  over(dst, uInk, clamp(lineMask(uv.y - SURFACE_Y, 0.0016) * inLeft * 0.9, 0.0, 1.0));
 
   // 깊이 눈금 5등분 (좌·우 패널 공통 스케일)
   float g = fract((SURFACE_Y - uv.y) / (DEPTH_SPAN * 0.2));
   float tick = lineMask(min(g, 1.0 - g), 0.035) * bandMask(uv.y, SURFACE_Y - DEPTH_SPAN, SURFACE_Y);
-  col = mix(col, uInfo, clamp(tick * (inLeft * bandMask(uv.x, PANEL_L0, PANEL_L0 + 0.035) + inRight * 0.35), 0.0, 1.0));
+  over(dst, uInfo, clamp(tick * (inLeft * bandMask(uv.x, PANEL_L0, PANEL_L0 + 0.035) + inRight * 0.35), 0.0, 1.0));
 
   // 우: 프로파일 패널 축
   float axisV = lineMask(uv.x - PANEL_R0, 0.0016) * bandMask(uv.y, SURFACE_Y - DEPTH_SPAN, SURFACE_Y);
   float axisH = lineMask(uv.y - SURFACE_Y, 0.0016) * inRight;
-  col = mix(col, uInk, clamp((axisV + axisH) * 0.9, 0.0, 1.0));
+  over(dst, uInk, clamp((axisV + axisH) * 0.9, 0.0, 1.0));
 
   // Rp(평균 투영 비정) 표시선 — 에너지에 따라 내려간다
   float rp = SURFACE_Y - uEnergy * DEPTH_SPAN * ${glslFloat(RANGE_FRAC)};
   float rpLine = lineMask(uv.y - rp, 0.0012) * step(0.5, fract(uv.x * 90.0));
-  col = mix(col, uInfo, clamp(rpLine * (inLeft + inRight) * 0.55, 0.0, 1.0));
+  over(dst, uInfo, clamp(rpLine * (inLeft + inRight) * 0.55, 0.0, 1.0));
 
-  fragColor = vec4(col, 1.0);
+  fragColor = dst;
 }
 `;
 
@@ -254,7 +279,7 @@ void main() {
  * (배경 FS 와 프로파일 FS 는 별개 프로그램이라 로케이션이 공유되지 않는다.)
  */
 interface ColorUniforms {
-  bgBg: WebGLUniformLocation | null;
+  /* 🔴 bgBg 는 없앴다(2026-09-01) — 배경 FS 가 배경을 칠하지 않으므로 uBg 를 안 쓴다. */
   bgInk: WebGLUniformLocation | null;
   bgInfo: WebGLUniformLocation | null;
   profS1: WebGLUniformLocation | null;
@@ -318,7 +343,6 @@ export function createScene(): Scene {
       partProg = glc.program('ion.particle', ION_PARTICLE_VS, ION_PARTICLE_FS);
       profProg = glc.program('ion.profile', ION_PROFILE_VS, ION_PROFILE_FS);
       cu = {
-        bgBg: glc.uniform(bgProg, 'uBg'),
         bgInk: glc.uniform(bgProg, 'uInk'),
         bgInfo: glc.uniform(bgProg, 'uInfo'),
         profS1: glc.uniform(profProg, 'uS1'),
@@ -369,7 +393,6 @@ export function createScene(): Scene {
       gl.disable(gl.BLEND);
       gl.useProgram(bgProg);
       if (cu) {
-        set3(gl, cu.bgBg, pal.bg, pal.bg);
         set3(gl, cu.bgInk, pal.ink, pal.ink);
         set3(gl, cu.bgInfo, pal.info, pal.ink);
       }
@@ -381,9 +404,17 @@ export function createScene(): Scene {
       if (bgTex) gl.uniform1i(bgTex, TEX_SUBSTRATE);
       ctx.drawFullscreen();
 
-      // 2) 프로파일 곡선(리본)
+      /* 2) 프로파일 곡선(리본)
+         🔴 blendFunc → blendFuncSeparate 로 바꿨다(2026-09-01 · 알파 도입에 딸린 필수 정정).
+            ION_PROFILE_FS 는 **스트레이트 알파**를 내보내는데(vec4(col, 0.95)) 대상 프레임버퍼는
+            **프리멀티플라이드**다(context.ts 121행). 종전 blendFunc(SRC_ALPHA, ONE_MINUS_SRC_ALPHA)
+            는 알파 채널까지 src 알파로 한 번 더 곱해(a' = 0.95*0.95 + 0.05*dst.a) 알파를 낮췄다.
+            배경 FS 가 알파 1 을 깔던 때는 dst.a 가 이미 1 이라 이 오차가 안 보였지만, 배경이
+            비워진 지금은 리본의 알파가 모자라 색이 옅어진다.
+            🔴 **RGB 인자는 종전과 같다 — 화면 색이 바뀌지 않는다.** 알파 인자만 (ONE, 1-SRC_ALPHA)
+            로 고쳐 a' = 0.95 + 0.05*dst.a 가 되게 했다(표준 over 합성). */
       gl.enable(gl.BLEND);
-      gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+      gl.blendFuncSeparate(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA, gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
       gl.useProgram(profProg);
       if (cu) {
         set3(gl, cu.profS1, pal.series[0], pal.ink);
@@ -401,7 +432,10 @@ export function createScene(): Scene {
         gl.bindVertexArray(null);
       }
 
-      // 3) 이온 점 스프라이트(가산 합성 — 겹칠수록 밝다)
+      /* 3) 이온 점 스프라이트(가산 합성 — 겹칠수록 밝다)
+         🔴 여기는 그대로 둔다(2026-09-01 확인). blendFunc(SRC_ALPHA, ONE) 은 RGB·알파에 같은
+            인자를 걸므로 알파도 함께 누적된다 — 즉 프리멀티플라이드 대상에 대해 이미 정합적이고,
+            빈 자리에는 점이 없으니 알파도 0 으로 남는다. 바꾸면 점의 밝기가 달라진다. */
       gl.blendFunc(gl.SRC_ALPHA, gl.ONE);
       gl.useProgram(partProg);
       const uTimeLoc = ctx.uniform(partProg, 'uTime');

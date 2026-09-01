@@ -39,7 +39,7 @@ function ensureStyle(doc:Document):void{
 .scene4d__scan{position:absolute;left:8%;right:8%;top:var(--fy);height:2px;background:linear-gradient(90deg,transparent,var(--hue),#fff,var(--hue),transparent);box-shadow:0 0 13px var(--hue),0 0 32px var(--hue);animation:s4-scan 3.8s ease-in-out infinite}
 .scene4d__particle{position:absolute;left:calc(var(--fx) + var(--dx));top:calc(var(--fy) + var(--dy));width:var(--s);height:var(--s);border-radius:50%;background:#fff;box-shadow:0 0 7px 2px var(--hue);animation:s4-particle var(--dur) linear infinite;animation-delay:var(--delay);opacity:0}
 .scene4d__rail{position:absolute;inset:7%;border:1px solid color-mix(in srgb,var(--hue) 42%,transparent);box-shadow:inset 0 0 18px color-mix(in srgb,var(--hue) 12%,transparent);clip-path:polygon(0 0,14% 0,14% 2px,2px 2px,2px 16%,0 16%,0 0,100% 0,100% 16%,calc(100% - 2px) 16%,calc(100% - 2px) 2px,86% 2px,86% 0,100% 0,100% 100%,86% 100%,86% calc(100% - 2px),calc(100% - 2px) calc(100% - 2px),calc(100% - 2px) 84%,100% 84%,100% 100%,0 100%,0 84%,2px 84%,2px calc(100% - 2px),14% calc(100% - 2px),14% 100%);opacity:.8}
-.sceneBox[data-four-d=true] .sceneBox__canvas{position:relative;z-index:2;opacity:.46!important;background:transparent!important;filter:saturate(1.12) contrast(1.04);mix-blend-mode:normal}
+.sceneBox[data-four-d=true] .sceneBox__canvas{position:relative;z-index:2;opacity:var(--s4-canvas-opacity,.90)!important;background:transparent!important;filter:saturate(1.28) contrast(1.22) drop-shadow(0 0 7px rgba(90,210,255,.22));mix-blend-mode:normal}
 .sceneBox[data-stage=basic] .scene4d__equipment{inset:0;width:100%;height:100%;animation-duration:10s}
 .sceneBox[data-stage=basic] .scene4d__rail{opacity:.35}.sceneBox[data-stage=basic] .scene4d__scan{opacity:.45}
 .sceneBox[data-stage=applied] .scene4d__equipment{inset:0;width:100%;height:100%}
@@ -47,30 +47,50 @@ function ensureStyle(doc:Document):void{
 .sceneBox[data-stage=advanced] .scene4d__equipment{inset:0;width:100%;height:100%;filter:contrast(1.24) saturate(1.22) brightness(.82)}
 .sceneBox[data-stage=advanced] .scene4d__depth{background:repeating-linear-gradient(0deg,rgba(75,210,255,.07) 0 1px,transparent 1px 38px),repeating-linear-gradient(90deg,rgba(75,210,255,.06) 0 1px,transparent 1px 38px),radial-gradient(circle at var(--fx) var(--fy),transparent 0 18%,rgba(2,7,16,.12) 46%,rgba(2,7,16,.68) 100%)}
 .sceneBox[data-stage=advanced] .scene4d__rail{inset:3%;opacity:1}.sceneBox[data-stage=advanced] .scene4d__core{animation-duration:1.55s}
-.sceneBox[data-scene=filmGrowth] .sceneBox__canvas{opacity:.22!important}.sceneBox[data-scene=aldCycle] .sceneBox__canvas{opacity:.20!important}
-.sceneBox[data-scene=filmGrowth][data-stage=basic] .sceneBox__canvas{opacity:.12!important}
-.sceneBox[data-scene=filmGrowth][data-stage=applied] .sceneBox__canvas{opacity:.10!important}
-.sceneBox[data-scene=aldCycle][data-stage=basic] .sceneBox__canvas{opacity:.11!important}.sceneBox[data-scene=aldCycle][data-stage=advanced] .sceneBox__canvas{opacity:.08!important}.sceneBox[data-scene=ionTrajectory][data-stage=advanced] .sceneBox__canvas{opacity:.14!important}
-.sceneBox[data-scene=crystalGrowth] .sceneBox__canvas,.sceneBox[data-scene=aerialImage] .sceneBox__canvas,.sceneBox[data-scene=plasma] .sceneBox__canvas,.sceneBox[data-scene=ionTrajectory] .sceneBox__canvas{opacity:.34!important}
-.sceneBox[data-scene=crystalGrowth][data-stage=basic] .sceneBox__canvas{opacity:.20!important}.sceneBox[data-scene=crystalGrowth][data-stage=applied] .sceneBox__canvas{opacity:.16!important}
-.sceneBox[data-scene=aerialImage][data-stage=basic] .sceneBox__canvas{opacity:.20!important}
-.sceneBox[data-scene=aerialImage][data-stage=applied] .sceneBox__canvas{opacity:.16!important}
-.sceneBox[data-scene=crystalGrowth][data-stage=advanced] .sceneBox__canvas{opacity:.08!important}.sceneBox[data-scene=filmGrowth][data-stage=advanced] .sceneBox__canvas{opacity:.08!important}.sceneBox[data-scene=aerialImage][data-stage=advanced] .sceneBox__canvas{opacity:.14!important}
-.sceneBox[data-scene=plasma][data-stage=advanced] .sceneBox__canvas{opacity:.18!important}
-.sceneBox[data-scene=plasma][data-stage=applied] .sceneBox__canvas{opacity:.24!important}
+.sceneBox[data-scene=crystalGrowth][data-stage=basic]{--s4-canvas-opacity:.82;--s4-photo-brightness:.55}
+.sceneBox[data-scene=crystalGrowth][data-stage=applied]{--s4-canvas-opacity:.85;--s4-photo-brightness:.48}
+.sceneBox[data-scene=crystalGrowth][data-stage=advanced]{--s4-canvas-opacity:.88;--s4-photo-brightness:.42}
+.sceneBox[data-scene=aerialImage][data-stage=basic]{--s4-canvas-opacity:.82;--s4-photo-brightness:.55}
+.sceneBox[data-scene=aerialImage][data-stage=applied]{--s4-canvas-opacity:.85;--s4-photo-brightness:.48}
+.sceneBox[data-scene=aerialImage][data-stage=advanced]{--s4-canvas-opacity:.88;--s4-photo-brightness:.42}
+.sceneBox[data-scene=plasma][data-stage=basic]{--s4-canvas-opacity:.82;--s4-photo-brightness:.55}
+.sceneBox[data-scene=plasma][data-stage=applied]{--s4-canvas-opacity:.85;--s4-photo-brightness:.48}
+.sceneBox[data-scene=plasma][data-stage=advanced]{--s4-canvas-opacity:.88;--s4-photo-brightness:.42}
+.sceneBox[data-scene=ionTrajectory][data-stage=basic]{--s4-canvas-opacity:.82;--s4-photo-brightness:.55}
+.sceneBox[data-scene=ionTrajectory][data-stage=applied]{--s4-canvas-opacity:.85;--s4-photo-brightness:.48}
+.sceneBox[data-scene=ionTrajectory][data-stage=advanced]{--s4-canvas-opacity:.88;--s4-photo-brightness:.42}
+.sceneBox[data-scene=polishProfile][data-stage=basic]{--s4-canvas-opacity:.82;--s4-photo-brightness:.55}
+.sceneBox[data-scene=polishProfile][data-stage=applied]{--s4-canvas-opacity:.85;--s4-photo-brightness:.48}
+.sceneBox[data-scene=polishProfile][data-stage=advanced]{--s4-canvas-opacity:.88;--s4-photo-brightness:.42}
+/* 🔴 2026-09-01 변수 전환에서 **되살린 규칙 2종.** 위 블록을 변수화하며 범위 삭제로 함께 사라졌던 것을
+ * 팀장이 원본 대조로 찾아 복원했다. 둘 다 불투명도가 아니라 **씬 요소별 연출 결정**이라 변수와 무관하다.
+ * (같은 범위에 있던 polishProfile[advanced] .sceneBox__canvas 의 display:block!important 는 복원하지 않았다 —
+ *  .sceneBox__canvas 기본 규칙이 이미 display:block 이고(index.css:508) 이 트리에서 캔버스에
+ *  display:none 을 거는 곳이 0곳임을 확인했다. 방어용 잔재였다.) */
 .sceneBox[data-scene=polishProfile][data-stage=applied] .scene4d__scan{display:none}
-.sceneBox[data-scene=waferMap][data-stage=applied] .sceneBox__canvas{opacity:.16!important}.sceneBox[data-scene=waferMap][data-stage=advanced] .sceneBox__canvas{opacity:.12!important}
-.sceneBox[data-scene=probeScrub][data-stage=basic] .sceneBox__canvas{opacity:.18!important}.sceneBox[data-scene=probeScrub][data-stage=advanced] .sceneBox__canvas{opacity:.16!important}
-.sceneBox[data-scene=probeScrub][data-stage=basic] .scene4d__core{opacity:.28}.sceneBox[data-scene=probeScrub][data-stage=advanced] .scene4d__core{opacity:.22}
-.sceneBox[data-scene=polishProfile] .sceneBox__canvas,.sceneBox[data-scene=probeScrub] .sceneBox__canvas,.sceneBox[data-scene=waferMap] .sceneBox__canvas,.sceneBox[data-scene=packageThermal] .sceneBox__canvas,.sceneBox[data-scene=moistureSoak] .sceneBox__canvas,.sceneBox[data-scene=shearTest] .sceneBox__canvas{opacity:.42!important}
-.sceneBox[data-scene=polishProfile][data-stage=applied] .sceneBox__canvas{opacity:.18!important}
-/* 금속배선·CMP 심화: 캔버스를 display:none 하면 장면의 높이 기준도 사라져
-   절대배치 실사 레이어까지 흰 공백 뒤로 숨는다. 실사 설비·4D CMP 단면을 함께 보이된,
-   배경의 EM 손상 위치가 읽히도록 오버레이만 절제한다. */
-.sceneBox[data-scene=polishProfile][data-stage=advanced] .sceneBox__canvas{display:block!important;opacity:.28!important}
-.sceneBox[data-scene=packageThermal][data-stage=basic] .sceneBox__canvas{opacity:.22!important}
-.sceneBox[data-scene=moistureSoak][data-stage=applied] .sceneBox__canvas{opacity:.18!important}
-.sceneBox[data-scene=shearTest][data-stage=advanced] .sceneBox__canvas{opacity:.20!important}
+.sceneBox[data-scene=probeScrub][data-stage=basic] .scene4d__core{opacity:.28}
+.sceneBox[data-scene=probeScrub][data-stage=advanced] .scene4d__core{opacity:.22}
+.sceneBox[data-scene=aldCycle][data-stage=basic]{--s4-canvas-opacity:.82;--s4-photo-brightness:.55}
+.sceneBox[data-scene=aldCycle][data-stage=applied]{--s4-canvas-opacity:.85;--s4-photo-brightness:.48}
+.sceneBox[data-scene=aldCycle][data-stage=advanced]{--s4-canvas-opacity:.82;--s4-photo-brightness:.42}
+.sceneBox[data-scene=filmGrowth][data-stage=basic]{--s4-canvas-opacity:.90;--s4-photo-brightness:.62}
+.sceneBox[data-scene=filmGrowth][data-stage=applied]{--s4-canvas-opacity:.92;--s4-photo-brightness:.52}
+.sceneBox[data-scene=filmGrowth][data-stage=advanced]{--s4-canvas-opacity:.95;--s4-photo-brightness:.44}
+.sceneBox[data-scene=waferMap][data-stage=basic]{--s4-canvas-opacity:.90;--s4-photo-brightness:.62}
+.sceneBox[data-scene=waferMap][data-stage=applied]{--s4-canvas-opacity:.92;--s4-photo-brightness:.52}
+.sceneBox[data-scene=waferMap][data-stage=advanced]{--s4-canvas-opacity:.95;--s4-photo-brightness:.44}
+.sceneBox[data-scene=packageThermal][data-stage=basic]{--s4-canvas-opacity:.90;--s4-photo-brightness:.62}
+.sceneBox[data-scene=packageThermal][data-stage=applied]{--s4-canvas-opacity:.92;--s4-photo-brightness:.52}
+.sceneBox[data-scene=packageThermal][data-stage=advanced]{--s4-canvas-opacity:.95;--s4-photo-brightness:.44}
+.sceneBox[data-scene=moistureSoak][data-stage=basic]{--s4-canvas-opacity:.90;--s4-photo-brightness:.62}
+.sceneBox[data-scene=moistureSoak][data-stage=applied]{--s4-canvas-opacity:.92;--s4-photo-brightness:.52}
+.sceneBox[data-scene=moistureSoak][data-stage=advanced]{--s4-canvas-opacity:.95;--s4-photo-brightness:.44}
+.sceneBox[data-scene=shearTest][data-stage=basic]{--s4-canvas-opacity:.90;--s4-photo-brightness:.62}
+.sceneBox[data-scene=shearTest][data-stage=applied]{--s4-canvas-opacity:.92;--s4-photo-brightness:.52}
+.sceneBox[data-scene=shearTest][data-stage=advanced]{--s4-canvas-opacity:.95;--s4-photo-brightness:.44}
+.sceneBox[data-scene=probeScrub][data-stage=basic]{--s4-canvas-opacity:.90;--s4-photo-brightness:.62}
+.sceneBox[data-scene=probeScrub][data-stage=applied]{--s4-canvas-opacity:.92;--s4-photo-brightness:.52}
+.sceneBox[data-scene=probeScrub][data-stage=advanced]{--s4-canvas-opacity:.89;--s4-photo-brightness:.44}
 .sceneBox[data-four-d=true] figcaption{position:relative;z-index:4;background:var(--surface,#fff)!important;margin-top:0!important;padding-top:8px!important}
 .sceneBox[data-motion=orbit] .scene4d__scan{animation:s4-orbit 4.2s linear infinite;left:calc(var(--fx) - 12%);right:auto;top:calc(var(--fy) - 12%);width:24%;height:24%;border:2px solid var(--hue);border-radius:50%;background:transparent}
 .sceneBox[data-motion=pulse] .scene4d__scan{animation:s4-pulse 2.5s ease-out infinite;left:calc(var(--fx) - 4%);right:auto;top:calc(var(--fy) - 6%);width:8%;height:12%;border:2px solid var(--hue);border-radius:50%;background:transparent}
@@ -81,9 +101,8 @@ function ensureStyle(doc:Document):void{
 .sceneBox[data-scene=plasma][data-stage=advanced] .scene4d__particle{width:calc(var(--s) + 1px);height:calc(var(--s) + 3px);border-radius:45%;background:#efe4ff;box-shadow:0 0 9px 2px #a76bff}
 .sceneBox[data-scene=waferMap][data-stage=applied] .scene4d__core,.sceneBox[data-scene=waferMap][data-stage=advanced] .scene4d__core{opacity:.22;animation-duration:3.8s}.sceneBox[data-scene=waferMap][data-stage=applied] .scene4d__particle,.sceneBox[data-scene=waferMap][data-stage=advanced] .scene4d__particle{opacity:.35}
 /* 실사 배경은 맥락, 물리 캔버스는 학습 대상이다. 신호가 배경에 묻히지 않게 전 씬의 최소 불투명도를 보장한다. */
-.sceneBox[data-four-d=true] .scene4d__equipment{filter:contrast(1.08) saturate(.82) brightness(.48)!important}
+.sceneBox[data-four-d=true] .scene4d__equipment{filter:contrast(1.08) saturate(.82) brightness(var(--s4-photo-brightness,.55))!important}
 .sceneBox[data-four-d=true] .scene4d__depth{background:radial-gradient(circle at var(--fx) var(--fy),rgba(2,7,16,.12) 0 16%,rgba(2,7,16,.48) 44%,rgba(2,7,16,.82) 100%),linear-gradient(110deg,rgba(255,255,255,.04),transparent 28% 72%,rgba(80,180,255,.06))!important}
-.sceneBox[data-four-d=true] .sceneBox__canvas{opacity:.74!important;filter:saturate(1.28) contrast(1.22) drop-shadow(0 0 7px rgba(90,210,255,.22))!important}
 .sceneBox[data-four-d=true] .sceneBox__titlebar{background:rgba(5,12,24,.92)!important;color:#eef8ff!important;border:1px solid rgba(126,211,255,.28);box-shadow:0 5px 18px rgba(0,0,0,.32)}
 .sceneBox[data-four-d=true][data-backdrop-ready=false] .scene4d,
 .sceneBox[data-four-d=true][data-backdrop-ready=false] .sceneBox__canvas{opacity:0!important}
@@ -108,25 +127,77 @@ function makeParticle(doc:Document,i:number):HTMLSpanElement{
   return dot;
 }
 
+/**
+ * 스타일시트가 겨누는 `.sceneBox` 를 찾는다. **없으면 `null`.**
+ *
+ * 🔴 `canvas.closest()` 를 직접 부르지 않는 이유(2026-09-01 회귀로 실제로 터졌다):
+ *    폴백 2D 테스트 하네스(`tests/unit/viz-fallback-parity.test.ts`)는 진짜 DOM 대신
+ *    `getContext` 만 갖춘 **캔버스 스텁**을 넘긴다. 거기엔 `closest` 가 없어
+ *    `TypeError: canvas.closest is not a function` 으로 **58건이 한꺼번에 깨졌다.**
+ *    이 파일은 브라우저 전용이 아니라 **그 하네스도 통과하는 경로**여야 한다.
+ */
+function sceneBoxOf(canvas:HTMLCanvasElement):HTMLElement|null{
+  return typeof canvas.closest==='function' ? canvas.closest<HTMLElement>('.sceneBox') : null;
+}
+
 /** 장비 사진(깊이)·시간 반응·WebGL 물리층을 동일 랜드마크 좌표로 조립한다. */
 export function applyRealisticBackdrop(canvas:HTMLCanvasElement,sceneId:string,stage?:string):void{
   const p=PROFILES[sceneId],stageKey=(stage??'basic').replace(/^lab-/,'');
   const stageAsset=p?.stageAssets?.[stageKey];
-  const url=p&&(stageAsset?assetUrl(stageAsset):p.asset?assetUrl(p.asset):realisticBackdropUrl(p.processId)); if(!p||!url||!canvas.style)return;
+  const url=p&&(stageAsset?assetUrl(stageAsset):p.asset?assetUrl(p.asset):realisticBackdropUrl(p.processId));
+  if(!p||!url||!canvas.style){
+    /* 🔴 배경이 없는 씬으로 갈아탈 때 표지를 지운다. 표지가 `.sceneBox` 로 올라간 뒤로는
+     * 남은 `data-four-d` 가 `{background:#050914;overflow:hidden}` 를 칸 전체에 걸어
+     * **배경도 없는데 칸이 까매지는** 새 결함이 된다(종전에는 canvasWrap 에만 걸려 눈에 덜 띄었다).
+     * 레이어 자체는 `LabRunner.tsx:716` 의 `useLayoutEffect` 가 이미 지운다. */
+    const stale=sceneBoxOf(canvas);
+    if(stale){delete stale.dataset.fourD; delete stale.dataset.backdropReady; delete stale.dataset.motion; delete stale.dataset.stage; delete stale.dataset.scene;}
+    return;
+  }
   const focus=p.stageFocus?.[stageKey]??p;
-  const host=canvas.parentElement,doc=canvas.ownerDocument; if(!host||!doc?.head)return; ensureStyle(doc);
+  /* 🔴 2026-09-01 결함 수정 — **표지를 붙이는 곳과 레이어가 들어갈 곳은 다른 요소다.**
+   *
+   * 종전에는 `host = canvas.parentElement` 하나로 둘을 겸했다. 그런데 캔버스의 부모는
+   * `.sceneBox__canvasWrap`(`LabRunner.tsx` 의 `<div className="sceneBox__canvasWrap">`)이고,
+   * 이 파일이 주입하는 스타일시트(`ensureStyle`)의 규칙은 **전부 `.sceneBox[data-four-d=true]`** 로
+   * 쓰여 있다(위 34·35·42·74·84~89·99행). `sceneBox__canvasWrap` 은 `sceneBox` 클래스를 갖지
+   * 않으므로(BEM 상 별개 클래스명이다) **그 규칙 전부가 0개 요소에 걸렸다.**
+   *
+   * 결과(2026-09-01 헤드리스 실측 · 조용한 트리 · 29개 캔버스):
+   *   · `document.querySelectorAll('.sceneBox[data-four-d="true"]').length` = **0**
+   *   · 캔버스를 사진 위로 올리는 `{position:relative;z-index:2}` 가 죽어 캔버스는 `position:static`,
+   *     `.scene4d__equipment` 는 `position:absolute` → **positioned 인 사진이 static 인 캔버스 위에 그려졌다.**
+   *   · 사진층 유무 A/B 픽셀 대조에서 **26개 캔버스가 가림도 98.3~100 %**(중앙값 99.56 %).
+   *     즉 학습자가 보는 픽셀의 99 % 가 물리 출력이 아니었다.
+   *   · 예외가 원인을 못박는다 — `.sceneBox--slicing .sceneBox__canvas{position:relative;z-index:1}`
+   *     (`index.css:518`)로 **명시적으로 위로 올려 둔 slicing 칸만** 상대적으로 덜 가려졌다.
+   *
+   * 🔴 선택자를 `.sceneBox__canvasWrap[...]` 로 바꾸는 것은 **오답**이다 — 같은 스타일시트가
+   *    `figcaption`(:74)·`.sceneBox__titlebar`(:87)도 겨누는데 그 둘은 canvasWrap 의 자손이 아니라
+   *    `.sceneBox` 의 자식이다. 그래서 **표지를 `.sceneBox` 로 올리는 쪽**이 원저자 의도에 맞는다.
+   *
+   * 레이어(`.scene4d`)는 **종전대로 canvasWrap 안에** 넣는다 — 배경이 타이틀바까지 덮으면 안 되고,
+   * `.sceneBox__canvasWrap{position:relative}`(`index.css:509`)가 이미 있어 `.scene4d{position:absolute}`
+   * 의 기준 상자가 캔버스 영역으로 정확히 잡힌다. */
+  const wrap=canvas.parentElement,doc=canvas.ownerDocument; if(!wrap||!doc?.head)return; ensureStyle(doc);
+  /** 주입 스타일시트가 실제로 겨누는 요소. 못 찾으면 종전 동작으로 안전 퇴각한다. */
+  const host=sceneBoxOf(canvas)??wrap;
   host.dataset.fourD='true'; host.dataset.motion=p.stageMotion?.[stageKey]??p.motion; host.dataset.stage=stageKey; host.dataset.scene=sceneId;
   host.dataset.backdropReady='false';
   host.style.setProperty('--fx',`${focus.x}%`); host.style.setProperty('--fy',`${focus.y}%`); host.style.setProperty('--hue',p.hue);
-  let layer=host.querySelector<HTMLElement>(':scope > .scene4d');
+  let layer=wrap.querySelector<HTMLElement>(':scope > .scene4d');
   if(!layer){
     layer=doc.createElement('div'); layer.className='scene4d'; layer.setAttribute('aria-hidden','true');
     const img=doc.createElement('img'); img.className='scene4d__equipment'; img.alt=''; img.decoding='async';
     const depth=doc.createElement('span');depth.className='scene4d__depth'; const core=doc.createElement('span');core.className='scene4d__core';
     const scan=doc.createElement('span');scan.className='scene4d__scan'; const rail=doc.createElement('span');rail.className='scene4d__rail';
-    layer.append(img,depth,core,scan,rail,...Array.from({length:18},(_,i)=>makeParticle(doc,i))); host.insertBefore(layer,canvas);
-    host.addEventListener('pointermove',event=>{const box=host.getBoundingClientRect();host.style.setProperty('--px',`${(.5-(event.clientX-box.left)/box.width)*10}px`);host.style.setProperty('--py',`${(.5-(event.clientY-box.top)/box.height)*7}px`)},{passive:true});
-    host.addEventListener('pointerleave',()=>{host.style.setProperty('--px','0px');host.style.setProperty('--py','0px')},{passive:true});
+    /* 레이어는 canvasWrap 안, 캔버스 바로 앞에 둔다(종전과 같은 자리).
+     * 시차(parallax) 기준 상자도 canvasWrap 이어야 손끝 위치와 그림이 맞는다 —
+     * `.sceneBox` 로 올리면 타이틀바·설명 높이까지 분모에 들어가 어긋난다.
+     * `--px`·`--py` 는 상속되므로 wrap 에 얹어도 레이어 자손이 그대로 읽는다. */
+    layer.append(img,depth,core,scan,rail,...Array.from({length:18},(_,i)=>makeParticle(doc,i))); wrap.insertBefore(layer,canvas);
+    wrap.addEventListener('pointermove',event=>{const box=wrap.getBoundingClientRect();wrap.style.setProperty('--px',`${(.5-(event.clientX-box.left)/box.width)*10}px`);wrap.style.setProperty('--py',`${(.5-(event.clientY-box.top)/box.height)*7}px`)},{passive:true});
+    wrap.addEventListener('pointerleave',()=>{wrap.style.setProperty('--px','0px');wrap.style.setProperty('--py','0px')},{passive:true});
   }
   const img=layer.querySelector<HTMLImageElement>('.scene4d__equipment');
   if(img){

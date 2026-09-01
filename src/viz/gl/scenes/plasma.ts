@@ -77,7 +77,6 @@ uniform float uPressure;
 uniform float uBias;
 uniform float uFlow;
 uniform sampler2D uResistTex;
-uniform vec3 uBg;    // 페이지 바탕(--bg) — 씬이 전면을 불투명하게 덮을 때의 베이스
 uniform vec3 uInk;   // 본문·선(--ink) — 챔버 벽 라인
 ${NOISE_GLSL}
 ${DRAW_GLSL}
@@ -132,7 +131,23 @@ void main() {
 
   vec3 wall = vec3(0.09, 0.10, 0.13);
   vec3 metalPart = vec3(0.26, 0.28, 0.33);
-  vec3 col = uBg;   // 🔴 전면 베이스는 페이지 바탕 토큰이다(wall 은 샤워헤드 구멍이 계속 쓴다)
+
+  /* 🔴 **배경을 칠하지 않는다 — 뒤에 실사 장비 사진이 깔린다.**
+     (2026-09-01 · DSN 스레드 §S8-3 · 선례: \`filmGrowth.ts\` 160~215행, 2026-08-22)
+     종전에는 \`vec3 col = uBg;\` 로 **화면 전체**를 페이지 바탕색으로 칠하고 \`vec4(col, 1.0)\` 으로
+     내보냈다. 그래서 도해가 아무것도 그리지 않은 빈 자리까지 불투명해져 사진을 통째로 덮었고,
+     CSS \`opacity\` 로 낮추면 「겹침」이 아니라 **「사진↔도해 크로스페이드」**가 됐다.
+     이제 **그린 곳만 알파를 갖는다** — 챔버 벽·전극·웨이퍼·레지스트·플라즈마 발광·시스 경계·
+     이온 화살표·가스 줄기가 커버리지를 만들고, 그 밖(챔버 밖 여백, 전극 사이 진공 중 발광이
+     닿지 않는 자리)은 alpha 0 으로 남는다. \`uBg\` 유니폼은 쓰는 곳이 없어져 선언째 뺐다.
+     🔴 컨텍스트는 premultipliedAlpha: true (context.ts:121)다. 아래 누적은 전부
+        \`col = mix(col, X, m)\` 인데, col 이 프리멀티플라이드일 때 이 식은
+        \`X*m + col*(1-m)\` 즉 **프리멀티플라이드 source-over 그대로**다. 알파만 짝을 맞춰
+        \`alpha = mix(alpha, 1.0, m)\` 로 같이 올리면 된다 — **색은 한 성분도 바꾸지 않았다.**
+     🔴 발광은 여전히 가산이 아니라 mix 다(아래 「알파 합성이다」 주석 참조) — 그 판단은
+        2026-08-22 라이트 테마 실측에서 나온 것이고 이번 변경과 무관하게 유효하다. */
+  vec3 col = vec3(0.0);   // 색 × 커버리지(프리멀티플라이드) 누적
+  float alpha = 0.0;      // 커버리지 누적
 
   // 챔버 내부(전극 사이)
   float inside = bandMask(uv.y, SUSCEPTOR_Y, SHOWER_Y) * bandMask(uv.x, 0.06, 0.94);
@@ -150,17 +165,24 @@ void main() {
   //    m=1 에서 같은 값이고 그 사이도 base*(1-m) 만큼만 다르다 — 즉 **다크 테마는 사실상 그대로**다.
   //    반면 바탕이 밝아지면(라이트) 가산은 1.0 으로 포화해 **챔버가 통째로 백색이 된다**
   //    (2026-08-22 실측: 라이트 luma 216.5 · 그림이 사라졌다). 그래서 합성만 바꾼다.
-  col = mix(col, plasmaCol * 1.25, clamp(glow, 0.0, 1.0));
+  // 🔴 벌크 발광은 **물리적으로 의미 있는 요소**다 — 배경으로 보지 않고 커버리지를 준다.
+  float glowA = clamp(glow, 0.0, 1.0);
+  col = mix(col, plasmaCol * 1.25, glowA);
+  alpha = mix(alpha, 1.0, glowA);
 
   // 시스 경계선
   float sheathLine = lineMask(uv.y - lowSheath, 0.0016) + lineMask(uv.y - upSheath, 0.0016);
-  col = mix(col, vec3(0.45, 0.85, 1.0), clamp(sheathLine * inside * (0.35 + 0.5 * uPower), 0.0, 1.0));
+  float sheathA = clamp(sheathLine * inside * (0.35 + 0.5 * uPower), 0.0, 1.0);
+  col = mix(col, vec3(0.45, 0.85, 1.0), sheathA);
+  alpha = mix(alpha, 1.0, sheathA);
 
   // 가스 줄기(상부 샤워헤드 → 아래)
   float gx = fract(uv.x * 14.0) - 0.5;
   float gasBand = bandMask(uv.y, upSheath, SHOWER_Y);
   float gas = lineMask(gx, 0.035) * gasBand * uFlow * (0.4 + 0.6 * fract(uTime * 0.6 + uv.x * 3.0));
-  col = mix(col, vec3(0.35, 0.75, 0.70) * 0.5, clamp(gas, 0.0, 1.0));
+  float gasA = clamp(gas, 0.0, 1.0);
+  col = mix(col, vec3(0.35, 0.75, 0.70) * 0.5, gasA);
+  alpha = mix(alpha, 1.0, gasA);
 
   // 이온 플럭스 화살표(하부 시스 → 웨이퍼)
   float cols = 9.0;
@@ -170,17 +192,24 @@ void main() {
   float ay = fract(travel * 1.6 - uTime * speed);
   float within = bandMask(uv.y, WAFER_Y, lowSheath) * bandMask(uv.x, 0.10, 0.90);
   float a = arrow(vec2(ax * 1.6, ay)) * within;
-  col = mix(col, vec3(0.55, 0.95, 1.0) * (0.25 + 0.85 * uBias), clamp(a, 0.0, 1.0));
+  float arrowA = clamp(a, 0.0, 1.0);
+  col = mix(col, vec3(0.55, 0.95, 1.0) * (0.25 + 0.85 * uBias), arrowA);
+  alpha = mix(alpha, 1.0, arrowA);
 
-  // 전극·서셉터·웨이퍼
+  // 전극·서셉터·웨이퍼 — 정지 조형물이다. 여기가 이 씬의 「그린 것」 중 가장 큰 면적이다.
   float shower = bandMask(uv.y, SHOWER_Y, SHOWER_Y + 0.10) * bandMask(uv.x, 0.06, 0.94);
   float holes = lineMask(fract(uv.x * 14.0) - 0.5, 0.06) * shower;
   col = mix(col, metalPart, shower);
-  col = mix(col, wall * 0.6, holes * 0.9);
+  alpha = mix(alpha, 1.0, shower);
+  float holesA = clamp(holes * 0.9, 0.0, 1.0);
+  col = mix(col, wall * 0.6, holesA);
+  alpha = mix(alpha, 1.0, holesA);
   float susc = bandMask(uv.y, 0.10, SUSCEPTOR_Y) * bandMask(uv.x, 0.10, 0.90);
   col = mix(col, metalPart * 0.9, susc);
+  alpha = mix(alpha, 1.0, susc);
   float wafer = bandMask(uv.y, SUSCEPTOR_Y, WAFER_Y) * bandMask(uv.x, 0.14, 0.86);
   col = mix(col, vec3(0.62, 0.66, 0.72), wafer);
+  alpha = mix(alpha, 1.0, wafer);
 
   // 레지스트 마스크 — 웨이퍼 상면의 라인/스페이스. **개구가 이온이 들어가는 자리**이고,
   // 마스크가 남은 자리는 화살표를 가린다(위 화살표를 덮어쓰므로 그 순서가 중요하다).
@@ -190,15 +219,19 @@ void main() {
   float resistLine = step(RESIST_OPEN, abs(fract(uv.x * RESIST_COLS) - 0.5));
   float resist = bandMask(uv.y, WAFER_Y, WAFER_Y + RESIST_H) * bandMask(uv.x, 0.14, 0.86) * resistLine;
   col = mix(col, resistCol, resist);
-  col = mix(col, vec3(0.90, 0.72, 0.95) * 0.45,
-            clamp(lineMask(uv.y - (WAFER_Y + RESIST_H), 0.0014) * resistLine * bandMask(uv.x, 0.14, 0.86), 0.0, 1.0));
+  alpha = mix(alpha, 1.0, resist);
+  float resistTopA = clamp(lineMask(uv.y - (WAFER_Y + RESIST_H), 0.0014) * resistLine * bandMask(uv.x, 0.14, 0.86), 0.0, 1.0);
+  col = mix(col, vec3(0.90, 0.72, 0.95) * 0.45, resistTopA);
+  alpha = mix(alpha, 1.0, resistTopA);
 
   // 챔버 벽 라인
   float wallLine = lineMask(uv.x - 0.06, 0.0018) + lineMask(uv.x - 0.94, 0.0018);
   // 🔴 가산이 아니라 mix 다 — 라이트 테마에서 잉크가 어두워지면 가산 합성으로는 선이 사라진다.
-  col = mix(col, uInk, clamp(wallLine * bandMask(uv.y, 0.08, 0.96), 0.0, 1.0));
+  float wallA = clamp(wallLine * bandMask(uv.y, 0.08, 0.96), 0.0, 1.0);
+  col = mix(col, uInk, wallA);
+  alpha = mix(alpha, 1.0, wallA);
 
-  fragColor = vec4(col, 1.0);
+  fragColor = vec4(col, alpha);
 }
 `;
 
@@ -210,7 +243,6 @@ interface Uniforms {
   bias: WebGLUniformLocation | null;
   flow: WebGLUniformLocation | null;
   resistTex: WebGLUniformLocation | null;
-  bg: WebGLUniformLocation | null;
   ink: WebGLUniformLocation | null;
 }
 
@@ -244,7 +276,6 @@ export function createScene(): Scene {
         bias: gl.uniform(prog, 'uBias'),
         flow: gl.uniform(prog, 'uFlow'),
         resistTex: gl.uniform(prog, 'uResistTex'),
-        bg: gl.uniform(prog, 'uBg'),
         ink: gl.uniform(prog, 'uInk'),
       };
     },
@@ -265,8 +296,8 @@ export function createScene(): Scene {
       if (u.bias) gl.uniform1f(u.bias, p.bias);
       if (u.flow) gl.uniform1f(u.flow, p.flow);
       // 🔴 매 draw 마다 다시 읽는다 — 캐시하면 테마 전환 뒤 옛 색이 남는다.
+      // 🔴 `uBg` 는 2026-09-01 알파 전환에서 삭제했다 — 배경을 셰이더가 칠하지 않는다.
       const pal = readVizPalette(ctx.canvas);
-      set3(gl, u.bg, pal.bg, pal.bg);
       set3(gl, u.ink, pal.ink, pal.ink);
       if (tex) tex.bind(TEX_RESIST, 'photoresist');
       if (u.resistTex) gl.uniform1i(u.resistTex, TEX_RESIST);

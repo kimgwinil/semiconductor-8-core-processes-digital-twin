@@ -16,7 +16,7 @@ import type { CSSProperties } from 'react';
  *    `index.css` 의 라이트 값과 같은 값으로 맞춰 둔다(두 곳이 갈라지면 폴백이 거짓말을 한다).
  *
  * 🔴 **빨강 계열은 데이터 팔레트에 넣지 않는다.** 빨강은 규격선(`TONE_COLORS.spec`) 전용이다 —
- *    PLN `03_실습3단계명세.md` 476행 「규격 하한선(수평 빨간 파선, 상단값의 70 %)」. 데이터에
+ *    PLN `03_실습3단계명세.md` 「규격 하한선(수평 빨간 파선, 상단값의 70 %)」. 데이터에
  *    빨강을 쓰면 아래 `tone` 구분이 다시 무너진다.
  */
 export const SERIES_COLORS: readonly string[] = [

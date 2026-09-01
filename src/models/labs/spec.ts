@@ -188,14 +188,15 @@ export interface LabSceneBinding {
   note?: string;
 }
 
-/* ---------------- 차트 패널 (PLN 03_실습3단계명세.md 426·476·595·809) ---------------- */
+/* ---------------- 차트 패널 (PLN `03_실습3단계명세.md` — P1 웨이퍼 심화 · P3 포토 각 절) ---------------- */
 
 /**
  * 🔴 차트는 「보조 그림」이 아니라 **판정 경로**다.
  *
- * PLN 명세 427행: **「판정은 이 차트에서 한다.」** P1 웨이퍼 심화의 직경 편차 σ_D 는
+ * PLN 명세 **「판정은 이 차트에서 한다.」** P1 웨이퍼 심화의 직경 편차 σ_D 는
  * 허용치가 1 mm 도 안 되어 잉곳 단면 씬에서는 **±0.34 px(서브픽셀)** 로 보이지 않는다.
- * 그래서 오케스트레이터 판정으로 **GL 씬에서 빼고 「확대 차트」로 이관**했다(431·489행에도 박혀 있다).
+ * 그래서 오케스트레이터 판정으로 **GL 씬에서 빼고 「확대 차트」로 이관**했다
+ * (같은 절의 파라미터표·오조작 피드백표에도 같은 취지가 박혀 있다).
  * 차트를 빼면 그 판정이 갈 곳이 없어진다 — 2026-08-20 에 실제로 배럴에서 빠져 있었다.
  *
  * 🔴 계층: 여기는 models 다. `src/viz` 를 import 하지 않는다 —
@@ -213,7 +214,7 @@ export interface LabChartSeries {
   dashed?: boolean;
 }
 
-/** 수평 기준선 — 규격 하한/상한. PLN 476행 「규격 하한선(수평 빨간 파선)」. */
+/** 수평 기준선 — 규격 하한/상한. PLN 명세 「규격 하한선(수평 빨간 파선, 상단값의 70 %)」. */
 export interface LabChartRefLine {
   value: number;
   ko: string;
@@ -231,7 +232,8 @@ export interface LabChartBinding {
   ja?: string;
   /**
    * 🔴 이 차트가 **판정을 보여주는** 출력 id 들. 비어 있지 않으면 화면에
-   *    「판정은 이 차트에서 합니다」를 명시한다(PLN 427). `check-labs` 가 id 실재를 검사한다.
+   *    「판정은 이 차트에서 합니다」를 명시한다 — PLN 명세 「판정은 이 차트에서 한다」.
+   *    `check-labs` 가 id 실재를 검사한다.
    */
   judgesOutputs?: string[];
   /** PLN 이 문구까지 지정한 캡션이 있으면 그대로 옮긴다. */
@@ -240,7 +242,7 @@ export interface LabChartBinding {
   captionJa?: string;
   xKo: string; xEn: string; xJa?: string; xUnit?: string; xUnitEn?: string;
   yKo: string; yEn: string; yJa?: string; yUnit?: string; yUnitEn?: string;
-  /** 🔴 확대 축. PLN 426 「세로축 200 ± 3 mm 만 확대」처럼 **판정이 보이게** 하는 핵심 값. */
+  /** 🔴 확대 축. PLN 명세 「세로축 200 ± 3 mm 만 확대」처럼 **판정이 보이게** 하는 핵심 값. */
   yDomain?: [number, number];
   xDomain?: [number, number];
   refLines?: LabChartRefLine[];

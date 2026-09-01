@@ -2010,7 +2010,7 @@ function drawShearTest(g: CanvasRenderingContext2D, w: number, h: number, p: Sce
     line(g, [[a, t], [a, u]], col, wid, dash);
   };
 
-  /** 45° 해칭 — 간격·굵기는 px(명세 6 px). GL 셰이더의 `hatch45()` 와 같은 방향·간격이다. */
+  /** 45° 해칭 — 간격·굵기는 px 단위(`ST_HATCH_PX` = 6 px). GL 셰이더의 `hatch45()` 와 같은 방향·간격이다. */
   const hatchArea = (px0: number, py0: number, px1: number, py1: number, col: string): void => {
     if (!ok(px0, py0, px1, py1) || px1 <= px0 || py1 <= py0) return;
     const step = ST_HATCH_PX * Math.SQRT2;

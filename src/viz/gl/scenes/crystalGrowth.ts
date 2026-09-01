@@ -29,7 +29,7 @@
  *     — 인상속도를 올려도 파셋이 옅어지거나 사라지지 않는다(옅어지는 것 자체가 「구조 손실」로 읽힌다).
  *     `pullRate` 가 바꾸는 것은 **스크롤 속도뿐**이다(D-10, WB-4).
  *   · **σ_D(직경 편차)** — 200 mm 잉곳에서 ±0.34 px 서브픽셀이라 관찰 불가.
- *     `wafer.diameterZoom` 확대 차트가 판정한다(PLN 427).
+ *     `wafer.diameterZoom` 확대 차트가 판정한다 — PLN 명세 「판정은 이 차트에서 한다」.
  *   · **등온선 온도 숫자 · 회전수 절대치 · G 절대치** — 근거 있는 값이 1,414 °C 하나뿐이고
  *     나머지는 PLN 이 「출처 미확보」로 자인했다. **선만 그리고 숫자를 쓰지 않는다.**
  *   · **챔버 압력의 비단조 반전** — 반전이 일어나는 위치가 미확인이다. 위치를 임의로 박으면
@@ -100,9 +100,9 @@ function glslRgb(c: Rgb): string {
  *    쓸려 나간다. 뷰포트(냉벽)에는 응축 분말층이 두께를 갖고 쌓인다.
  */
 export const CRYSTAL_GROWTH_FS = `${FRAG_HEAD}
-/* 🔴 테마 토큰 — CSS(\`--bg\`·\`--viz-info\`·\`--viz-series-*\`)에서 읽어 매 draw 마다 올린다.
-   재료색([B])은 모델 상수 그대로이고, 여기 유니폼은 **지시선·표식([A])과 베이스 배경**만 담당한다. */
-uniform vec3 uBg;
+/* 🔴 테마 토큰 — CSS(\`--viz-info\`·\`--viz-series-*\`)에서 읽어 매 draw 마다 올린다.
+   재료색([B])은 모델 상수 그대로이고, 여기 유니폼은 **지시선·표식([A])** 만 담당한다.
+   🔴 2026-09-01 \`uBg\` 삭제 — 배경을 셰이더가 칠하지 않게 되면서 쓰는 곳이 사라졌다(main 머리말 참조). */
 uniform vec3 uInfo;
 uniform vec3 uS1;
 uniform vec3 uS2;
@@ -222,9 +222,26 @@ void main() {
   float t = uTime;
   float a = ax(uv.x);
 
-  /* ── 1. 챔버 배경 · 단열재 · 히터 ── */
-  vec3 col = uBg;
-  col = mix(col, C_INSUL, bandMask(a, HEATER_OUTER, INSULATION_OUTER));
+  /* 🔴 **배경을 칠하지 않는다 — 뒤에 실사 장비 사진이 깔린다.**
+     (2026-09-01 · DSN 스레드 §S8-3 · 선례: \`filmGrowth.ts\` 160~215행, 2026-08-22)
+     종전에는 \`vec3 col = uBg;\` 로 **화면 전체**를 페이지 바탕색으로 칠하고 \`vec4(col, 1.0)\` 으로
+     내보냈다. 그래서 핫존이 아무것도 그리지 않은 빈 자리(챔버 밖 여백)까지 불투명해져 사진을
+     덮었고, CSS \`opacity\` 로 낮추면 「겹침」이 아니라 **「사진↔도해 크로스페이드」**가 됐다.
+     🔴 **무엇을 배경으로 봤는가:** \`uBg\` **하나뿐**이다. 단열재·히터·서셉터·도가니·융액·열차폐·
+        잉곳·시드척·뷰포트는 전부 실재 구조물이고, 메니스커스 링·등온선·V–I 경계·회전 화살표·
+        아르곤 유선·SiO 흄·응축 분말은 전부 **물리적으로 의미 있는 표시**다 —
+        하나도 지우지 않고 **알파만 줬다.** 도가니 안쪽 융액 위의 빈 공간과 챔버 바깥만 비운다.
+     🔴 컨텍스트는 premultipliedAlpha: true (context.ts:121)다. 아래 누적은 대부분
+        \`col = mix(col, X, m)\` 인데, col 이 프리멀티플라이드일 때 이 식은 \`X*m + col*(1-m)\`
+        즉 **프리멀티플라이드 source-over 그대로**다. 알파만 짝을 맞춰 \`alpha = mix(alpha, 1.0, m)\`
+        로 올린다. 가산으로 얹는 것(메니스커스·아르곤)만 \`alpha = clamp(alpha + 세기, 0, 1)\` 이다.
+        **색은 한 성분도 바꾸지 않았다.** */
+  /* ── 1. 단열재 · 히터 ── */
+  vec3 col = vec3(0.0);   // 색 × 커버리지(프리멀티플라이드) 누적
+  float alpha = 0.0;      // 커버리지 누적
+  float insul = bandMask(a, HEATER_OUTER, INSULATION_OUTER);
+  col = mix(col, C_INSUL, insul);
+  alpha = mix(alpha, 1.0, insul);
 
   // 좌·우 미앤더 히터 — 세로로 굽이치는 띠. 주황~백열은 여기에만 쓴다.
   float meander = 0.5 + 0.5 * sin(uv.y * HEATER_MEANDER_FREQ);
@@ -233,16 +250,23 @@ void main() {
                   * (0.5 + 0.5 * sin(uv.x * HEATER_MEANDER_FREQ));
   float heater = clamp(heaterSide * meander + heaterBot, 0.0, 1.0);
   col = mix(col, mix(C_HEATER, C_HEATER_HOT, meander), heater);
+  alpha = mix(alpha, 1.0, heater);
 
   /* ── 2. 서셉터 · 도가니 · 융액 ── */
   float inMeltBox = bandMask(uv.y, MELT_BOTTOM, uMeltSurface);
   float susOuter = CRUCIBLE_HALF + SUSCEPTOR_WALL;
-  col = mix(col, C_GRAPHITE, bandMask(a, CRUCIBLE_HALF, susOuter)
-          * bandMask(uv.y, MELT_BOTTOM - SUSCEPTOR_WALL, uMeltSurface + SUSCEPTOR_WALL));
-  col = mix(col, C_GRAPHITE, bandMask(a, 0.0, susOuter)
-          * bandMask(uv.y, MELT_BOTTOM - SUSCEPTOR_WALL, MELT_BOTTOM));
+  float susWall = bandMask(a, CRUCIBLE_HALF, susOuter)
+                * bandMask(uv.y, MELT_BOTTOM - SUSCEPTOR_WALL, uMeltSurface + SUSCEPTOR_WALL);
+  col = mix(col, C_GRAPHITE, susWall);
+  alpha = mix(alpha, 1.0, susWall);
+  float susFloor = bandMask(a, 0.0, susOuter)
+                 * bandMask(uv.y, MELT_BOTTOM - SUSCEPTOR_WALL, MELT_BOTTOM);
+  col = mix(col, C_GRAPHITE, susFloor);
+  alpha = mix(alpha, 1.0, susFloor);
   float crucInner = CRUCIBLE_HALF - CRUCIBLE_WALL;
-  col = mix(col, C_QUARTZ, bandMask(a, crucInner, CRUCIBLE_HALF) * bandMask(uv.y, MELT_BOTTOM, uMeltSurface + CRUCIBLE_WALL));
+  float crucWall = bandMask(a, crucInner, CRUCIBLE_HALF) * bandMask(uv.y, MELT_BOTTOM, uMeltSurface + CRUCIBLE_WALL);
+  col = mix(col, C_QUARTZ, crucWall);
+  alpha = mix(alpha, 1.0, crucWall);
 
   float inMelt = bandMask(a, 0.0, crucInner) * inMeltBox;
   if (inMelt > 0.5) {
@@ -252,6 +276,7 @@ void main() {
     float toSurface = smoothstep(MELT_BOTTOM, uMeltSurface, uv.y);
     vec3 melt = mix(C_MELT, C_MELT_HI, 0.35 * swirl + 0.55 * toSurface * toSurface);
     col = melt;
+    alpha = 1.0;   // 융액은 불투명한 실물이다 — 덮어쓰는 것이 맞다
 
     // 도가니 내벽에서 올라오는 미립 표시 — 개수·속도가 도가니 회전수에 따라 는다.
     float dots = 0.0;
@@ -272,6 +297,7 @@ void main() {
   float inShield = bandMask(uv.y, SHIELD_BOTTOM, SHIELD_TOP)
                  * bandMask(a, sh - 0.020, sh + 0.012);
   col = mix(col, C_SHIELD, inShield);
+  alpha = mix(alpha, 1.0, inShield);
 
   /* ── 4. 잉곳(시드척·넥·숄더·바디) ── */
   float ingotH = ingotHalf(uv.y);
@@ -286,8 +312,11 @@ void main() {
     float rEdge = clamp(a / max(ingotH, 1e-4), 0.0, 1.0);
     crystal *= 1.0 - uStress * rEdge * rEdge;
     col = crystal;
+    alpha = 1.0;   // 잉곳도 불투명한 실물이다
   }
-  col = mix(col, C_CHUCK, bandMask(a, 0.0, CHUCK_HALF) * bandMask(uv.y, CHUCK_BOTTOM, CHUCK_BOTTOM + 0.045));
+  float chuck = bandMask(a, 0.0, CHUCK_HALF) * bandMask(uv.y, CHUCK_BOTTOM, CHUCK_BOTTOM + 0.045);
+  col = mix(col, C_CHUCK, chuck);
+  alpha = mix(alpha, 1.0, chuck);
 
   /* ── 5. 결정 내부 — 등온선 5개 · V–I 경계 세로선 2가닥 ── */
   if (inIngot > 0.5) {
@@ -313,11 +342,17 @@ void main() {
   float mL = length(vec2((uv.x - (AXIS_X - uBodyHalf)) * arf, uv.y - uMeltSurface));
   float mR = length(vec2((uv.x - (AXIS_X + uBodyHalf)) * arf, uv.y - uMeltSurface));
   float men = smoothstep(uMeniscusRadius, 0.0, min(mL, mR));
+  // 🔴 가산으로 얹는다 — 프레임 최고휘도 화소이므로 세기를 그대로 알파에도 더한다.
   col += C_MENISCUS * men * men * 1.25;
+  alpha = clamp(alpha + men * men * 1.25, 0.0, 1.0);
 
   /* ── 7. 회전 원호 화살표 2개 — 부호가 항상 반대다 ── */
-  col = mix(col, uS1, clamp(arcArrow(uv, CRYSTAL_ARC_Y, CRYSTAL_ARC_RADIUS, uCrystalOmega, t) * 0.55, 0.0, 1.0));
-  col = mix(col, uS2, clamp(arcArrow(uv, CRUCIBLE_ARC_Y, CRUCIBLE_ARC_RADIUS, uCrucibleOmega, t) * 0.45, 0.0, 1.0));
+  float arcC = clamp(arcArrow(uv, CRYSTAL_ARC_Y, CRYSTAL_ARC_RADIUS, uCrystalOmega, t) * 0.55, 0.0, 1.0);
+  col = mix(col, uS1, arcC);
+  alpha = mix(alpha, 1.0, arcC);
+  float arcR = clamp(arcArrow(uv, CRUCIBLE_ARC_Y, CRUCIBLE_ARC_RADIUS, uCrucibleOmega, t) * 0.45, 0.0, 1.0);
+  col = mix(col, uS2, arcR);
+  alpha = mix(alpha, 1.0, arcR);
 
   /* ── 8. 아르곤: 상부 유입 → 하부 배기 ── */
   float lane = bandMask(a, SHIELD_OUTER_HALF, HEATER_INNER);
@@ -326,33 +361,39 @@ void main() {
   float argon = lineMask(min(streak, 1.0 - streak), 0.055) * lane
               * (0.35 + 0.65 * fract(uv.y * 3.0 + t * uArgonSpeed));
   col += C_ARGON * argon * 0.30;
+  alpha = clamp(alpha + argon * 0.30, 0.0, 1.0);
 
   /* ── 9. SiO 흄 — 자유표면 위에 뜬 뒤 아르곤을 타고 배기 쪽으로 쓸린다 ── */
   float above = bandMask(uv.y, uMeltSurface, uMeltSurface + FUME_SPAN)
               * bandMask(a, uBodyHalf, CRUCIBLE_HALF);
   float drift = fbm(vec2(uv.x * 6.0 + t * (0.05 + uArgonSpeed), (uv.y - uMeltSurface) * 16.0 - t * 0.25));
   float fade = 1.0 - smoothstep(uMeltSurface, uMeltSurface + FUME_SPAN, uv.y);
-  col = mix(col, C_FUME, above * fade * drift * uFume);
+  float fumeA = clamp(above * fade * drift * uFume, 0.0, 1.0);
+  col = mix(col, C_FUME, fumeA);
+  alpha = mix(alpha, 1.0, fumeA);
 
   /* ── 10. 뷰포트(냉벽) 응축 분말층 — 두께가 지표다 ── */
   float win = bandMask(uv.y, VIEWPORT_Y0, VIEWPORT_Y1);
-  col = mix(col, C_QUARTZ, win * bandMask(uv.x, VIEWPORT_X, VIEWPORT_X + 0.016) * 0.65);
+  float glass = clamp(win * bandMask(uv.x, VIEWPORT_X, VIEWPORT_X + 0.016) * 0.65, 0.0, 1.0);
+  col = mix(col, C_QUARTZ, glass);
+  alpha = mix(alpha, 1.0, glass);
   float powder = win * bandMask(uv.x, VIEWPORT_X - uPowder, VIEWPORT_X)
                * (0.55 + 0.45 * vnoise(vec2(uv.y * 90.0, 3.3)));
-  col = mix(col, C_POWDER, powder * step(0.0005, uPowder));
+  float powderA = clamp(powder * step(0.0005, uPowder), 0.0, 1.0);
+  col = mix(col, C_POWDER, powderA);
+  alpha = mix(alpha, 1.0, powderA);
 
-  /* ── 11. 비네팅 ── */
+  /* ── 11. 비네팅 — 🔴 **그려진 것에만** 건다(배경을 어둡게 만들지 않는다). ── */
   float vig = smoothstep(1.15, 0.35, length((uv - 0.5) * vec2(arf, 1.0)));
   col *= 0.78 + 0.22 * vig;
 
-  fragColor = vec4(col, 1.0);
+  fragColor = vec4(col, alpha);
 }
 `;
 
 interface Uniforms {
   res: WebGLUniformLocation | null;
   time: WebGLUniformLocation | null;
-  bg: WebGLUniformLocation | null;
   info: WebGLUniformLocation | null;
   s1: WebGLUniformLocation | null;
   s2: WebGLUniformLocation | null;
@@ -398,7 +439,6 @@ export function createScene(): Scene {
       u = {
         res: gl.uniform(prog, 'uRes'),
         time: gl.uniform(prog, 'uTime'),
-        bg: gl.uniform(prog, 'uBg'),
         info: gl.uniform(prog, 'uInfo'),
         s1: gl.uniform(prog, 'uS1'),
         s2: gl.uniform(prog, 'uS2'),
@@ -435,8 +475,8 @@ export function createScene(): Scene {
       setCommonUniforms(gl, u.res, u.time, ctx.size.width, ctx.size.height, t);
 
       // 🔴 매 draw 마다 다시 읽는다 — 캐시하면 테마 전환 뒤 옛 색이 남는다.
+      // 🔴 `uBg` 는 2026-09-01 알파 전환에서 삭제했다 — 배경을 셰이더가 칠하지 않는다.
       const pal = readVizPalette(ctx.canvas);
-      set3(gl, u.bg, pal.bg, pal.bg);
       set3(gl, u.info, pal.info, pal.ink);
       set3(gl, u.s1, pal.series[0], pal.ink);
       set3(gl, u.s2, pal.series[1], pal.ink);
